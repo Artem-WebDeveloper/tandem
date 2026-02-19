@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { useAuthStore } from '../core/store/auth.store';
 
 import Login from '../pages/Login/Login';
 import Dashboard from '../pages/Dashboard/Dashboard';
@@ -7,9 +8,8 @@ import Results from '../pages/Results/Results';
 import Practice from '../pages/Practice/Practice';
 import NotFound from '../pages/NotFound/NotFound';
 
-const isAuthorized = true;
-
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const { isAuthorized } = useAuthStore();
   if (!isAuthorized) {
     return <Navigate to="/login" />;
   }

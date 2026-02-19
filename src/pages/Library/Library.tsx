@@ -8,6 +8,7 @@ export default function Library() {
     <>
       <Header />
       <h2 className={styles.title}>Library</h2>
+
       <Footer />
     </>
   );

@@ -2,8 +2,8 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import styles from './Practice.module.scss';
-import Header from '../../core/components/Header/Header';
-import Footer from '../../core/components/Footer/Footer';
+
+import Layout from '../../core/components/Layout/Layout';
 
 const URL_PRACTICE = `/api/.......`; // ПОМЕНЯТЬ НА АКТУАЛЬНЫЙ
 type PracticeData = { type: 'multiple_choice' | 'true_false' }; // ТОЛЬКО ДЛЯ ДЕМОНСТРАЦИИ
@@ -40,10 +40,10 @@ export default function Practice() {
   if (loading) {
     return (
       <>
-        <Header />
-        {/* СДЕЛАТЬ ЛОАДЕР */}
-        <p>Загрузка квиза...</p>
-        <Footer />
+        <Layout>
+          {/* СДЕЛАТЬ ЛОАДЕР */}
+          <p>Загрузка квиза...</p>
+        </Layout>
       </>
     );
   }
@@ -51,9 +51,9 @@ export default function Practice() {
   if (error) {
     return (
       <>
-        <Header />
-        <p>{error}</p>
-        <Footer />
+        <Layout>
+          <p>{error}</p>
+        </Layout>
       </>
     );
   }
@@ -70,10 +70,10 @@ export default function Practice() {
 
   return (
     <>
-      <Header />
-      <h2 className={styles.title}>Practice</h2>
-      {quizComponent}
-      <Footer />
+      <Layout>
+        <h2 className={styles.title}>Practice</h2>
+        {quizComponent}
+      </Layout>
     </>
   );
 }

@@ -1,4 +1,3 @@
-import './App.scss';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthStore } from '../core/store/auth.store';
 
@@ -17,7 +16,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   return children;
 };
 
-function App() {
+export default function RoutesComponent() {
   return (
     <BrowserRouter>
       <Routes>
@@ -69,5 +68,3 @@ function App() {
     </BrowserRouter>
   );
 }
-
-export default App;

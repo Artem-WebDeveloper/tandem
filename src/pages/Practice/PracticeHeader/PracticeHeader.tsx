@@ -1,15 +1,16 @@
-import { grey } from '@mui/material/colors';
-
 import styles from './PracticeHeader.module.scss';
 
-import { mapQuizDifficulty } from '../../utils/mapQuizDifficulty';
-import type { QuizData } from '../../api/fetchQuizById';
-import DifficultyChip from '../DifficultyChip/DifficultyChip';
-import TagChip from '../TagChip/TagChip';
+import { mapQuizDifficulty } from '../../../core/utils/mapQuizDifficulty';
+import type { QuizData } from '../../../core/api/fetchQuizById';
+import DifficultyChip from '../../../core/components/DifficultyChip/DifficultyChip';
+import TagChip from '../../../core/components/TagChip/TagChip';
+import { useTheme } from '@mui/material';
 
 function PracticeHeader({ data }: { data: QuizData }) {
+  const theme = useTheme();
+
   return (
-    <div className={styles.header} style={{ borderColor: grey[500] }}>
+    <div className={styles.header} style={{ borderColor: theme.palette.grey[500] }}>
       <div className={styles.headerLine}>
         <h2>{data.section}</h2>
 
@@ -19,7 +20,7 @@ function PracticeHeader({ data }: { data: QuizData }) {
       </div>
 
       <div className={styles.headerLine}>
-        <p style={{ color: grey[500] }}>{data.type}</p>
+        <p style={{ color: theme.palette.grey[500] }}>{data.type}</p>
 
         <div className={styles.tags}>
           {data.tags.map((tag) => (

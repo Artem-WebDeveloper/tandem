@@ -1,29 +1,32 @@
 import { useEffect, useState, type JSX } from 'react';
 import { useParams } from 'react-router-dom';
-import { Alert, Container } from '@mui/material';
+import { Alert, Container, useTheme } from '@mui/material';
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
-import { grey, red } from '@mui/material/colors';
 
 import styles from './Practice.module.scss';
 
 import { fetchQuizById, type QuizData } from '../../core/api/fetchQuizById';
 import Layout from '../../core/components/Layout/Layout';
-import QuizSkeleton from '../../core/components/QuizSkeleton/QuizSkeleton';
-import PracticeHeader from '../../core/components/PracticeHeader/PracticeHeader';
+import QuizSkeleton from './QuizSkeleton/QuizSkeleton';
+import PracticeHeader from './PracticeHeader/PracticeHeader';
 import LinkButton from '../../core/components/LinkButton.tsx/LinkButton';
 
 export default function Practice() {
+  const theme = useTheme();
   const { id } = useParams<{ id: string }>();
 
   const [quizData, setQuizData] = useState<QuizData | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchPracticeData = async () => {
+      setLoading(true);
+      setError(null);
+
       try {
         if (id === undefined) {
-          throw new Error('No quiz id provided');
+          throw new Error('Отсутствует идентификатор квиза');
         }
 
         const quizData = await fetchQuizById(id);
@@ -57,21 +60,7 @@ export default function Practice() {
     return (
       <Layout>
         <Container maxWidth="md">
-          <Alert severity="error" sx={{ color: red[900], backgroundColor: red[200] }}>
-            {error}
-          </Alert>
-        </Container>
-      </Layout>
-    );
-  }
-
-  if (!quizData) {
-    return (
-      <Layout>
-        <Container maxWidth="md">
-          <Alert severity="error" sx={{ color: red[900], backgroundColor: red[200] }}>
-            Unexpected error
-          </Alert>
+          <Alert severity="error">{error}</Alert>
         </Container>
       </Layout>
     );
@@ -84,20 +73,27 @@ export default function Practice() {
     true_false: <p>Компонент True/False</p>, // пример - <TrueFalseQuiz data={practiceData} />,
   };
 
-  const quizComponent = PRACTICE_COMPONENT[quizData.type] || <p>Неизвестный тип квиза</p>;
+  const quizComponent = (quizData && PRACTICE_COMPONENT[quizData.type]) || (
+    <p>Неизвестный тип квиза</p>
+  );
 
   return (
-    <Layout>
-      <Container maxWidth="md">
-        <LinkButton to="/library">
-          <ArrowBackRoundedIcon sx={{ width: '16px', marginRight: '8px' }} />
-          Back to library
-        </LinkButton>
-        <div className={styles.quizContainer} style={{ backgroundColor: grey[900] }}>
-          <PracticeHeader data={quizData} />
-          {quizComponent}
-        </div>
-      </Container>
-    </Layout>
+    quizData && (
+      <Layout>
+        <Container maxWidth="md">
+          <LinkButton href="/library">
+            <ArrowBackRoundedIcon sx={{ width: '16px', marginRight: '8px' }} />
+            Back to library
+          </LinkButton>
+          <div
+            className={styles.quizContainer}
+            style={{ backgroundColor: theme.palette.grey[900] }}
+          >
+            <PracticeHeader data={quizData} />
+            {quizComponent}
+          </div>
+        </Container>
+      </Layout>
+    )
   );
 }

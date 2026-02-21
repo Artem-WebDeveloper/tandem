@@ -1,34 +1,43 @@
+import { useEffect, useState, type JSX } from 'react';
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { Alert, Container, useTheme } from '@mui/material';
+import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 
 import styles from './Practice.module.scss';
 
+import { fetchQuizById, type QuizData } from '../../core/api/fetchQuizById';
 import Layout from '../../core/components/Layout/Layout';
-
-const URL_PRACTICE = `/api/.......`; // ПОМЕНЯТЬ НА АКТУАЛЬНЫЙ
-type PracticeData = { type: 'multiple_choice' | 'true_false' }; // ТОЛЬКО ДЛЯ ДЕМОНСТРАЦИИ
+import QuizSkeleton from './QuizSkeleton/QuizSkeleton';
+import PracticeHeader from './PracticeHeader/PracticeHeader';
+import LinkButton from '../../core/components/LinkButton.tsx/LinkButton';
 
 export default function Practice() {
+  const theme = useTheme();
   const { id } = useParams<{ id: string }>();
 
-  const [practiceData, setPracticeData] = useState<PracticeData | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [quizData, setQuizData] = useState<QuizData | null>(null);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchPracticeData = async () => {
-      try {
-        const response = await fetch(`${URL_PRACTICE}${id}`);
+      setLoading(true);
+      setError(null);
 
-        if (!response.ok) {
-          throw new Error('Ошибка сети');
+      try {
+        if (id === undefined) {
+          throw new Error('Отсутствует идентификатор квиза');
         }
 
-        const data = await response.json();
-        setPracticeData(data);
-        setLoading(false);
-      } catch {
-        setError('Ошибка загрузки квиза');
+        const quizData = await fetchQuizById(id);
+
+        setQuizData(quizData);
+      } catch (error) {
+        if (error instanceof Error) {
+          setError(error.message);
+        } else {
+          throw error;
+        }
       } finally {
         setLoading(false);
       }
@@ -39,41 +48,52 @@ export default function Practice() {
 
   if (loading) {
     return (
-      <>
-        <Layout>
-          {/* СДЕЛАТЬ ЛОАДЕР */}
-          <p>Загрузка квиза...</p>
-        </Layout>
-      </>
+      <Layout>
+        <Container maxWidth="md">
+          <QuizSkeleton />
+        </Container>
+      </Layout>
     );
   }
 
   if (error) {
     return (
-      <>
-        <Layout>
-          <p>{error}</p>
-        </Layout>
-      </>
+      <Layout>
+        <Container maxWidth="md">
+          <Alert severity="error">{error}</Alert>
+        </Container>
+      </Layout>
     );
   }
 
   // СЮДА ДОБАВЛЯЕМ ВСЕ КОМПОНЕНТЫ РАЗРАБОТАННЫХ КВИЗОВ, имена для демонстрации
-  const PRACTICE_COMPONENT = {
+  const PRACTICE_COMPONENT: Record<string, JSX.Element> = {
+    'Code Completion': <div style={{ height: '50dvh' }}>Code completion component</div>,
     multiple_choice: <p>Компонент Викторина</p>, // пример - <MultipleChoiceQuiz data={practiceData} />,
     true_false: <p>Компонент True/False</p>, // пример - <TrueFalseQuiz data={practiceData} />,
   };
 
-  const quizComponent = (practiceData && PRACTICE_COMPONENT[practiceData.type]) || (
+  const quizComponent = (quizData && PRACTICE_COMPONENT[quizData.type]) || (
     <p>Неизвестный тип квиза</p>
   );
 
   return (
-    <>
+    quizData && (
       <Layout>
-        <h2 className={styles.title}>Practice</h2>
-        {quizComponent}
+        <Container maxWidth="md">
+          <LinkButton href="/library">
+            <ArrowBackRoundedIcon sx={{ width: '16px', marginRight: '8px' }} />
+            Back to library
+          </LinkButton>
+          <div
+            className={styles.quizContainer}
+            style={{ backgroundColor: theme.palette.grey[900] }}
+          >
+            <PracticeHeader data={quizData} />
+            {quizComponent}
+          </div>
+        </Container>
       </Layout>
-    </>
+    )
   );
 }

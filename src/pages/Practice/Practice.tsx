@@ -11,6 +11,7 @@ import QuizSkeleton from './QuizSkeleton/QuizSkeleton';
 import PracticeHeader from './PracticeHeader/PracticeHeader';
 import LinkButton from '../../core/components/LinkButton.tsx/LinkButton';
 import ErrorNotification from '../../core/components/ErrorNotification/ErrorNotification';
+import CodeCompletionWidget from '../../core/feature/CodeCompletionWidget/CodeCompletionWidget';
 
 export default function Practice() {
   const theme = useTheme();
@@ -69,7 +70,7 @@ export default function Practice() {
 
   // СЮДА ДОБАВЛЯЕМ ВСЕ КОМПОНЕНТЫ РАЗРАБОТАННЫХ КВИЗОВ, имена для демонстрации
   const PRACTICE_COMPONENT: Record<string, JSX.Element> = {
-    'Code Completion': <div style={{ height: '50dvh' }}>Code completion component</div>,
+    'Code Completion': <CodeCompletionWidget data={quizData!} />,
     multiple_choice: <p>Компонент Викторина</p>, // пример - <MultipleChoiceQuiz data={practiceData} />,
     true_false: <p>Компонент True/False</p>, // пример - <TrueFalseQuiz data={practiceData} />,
   };

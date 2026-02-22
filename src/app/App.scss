@@ -1,4 +1,66 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
+  width: 100%;
+}
+
+html,
+body {
+  -webkit-tap-highlight-color: transparent;
+  min-height: 100svh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+input:not([type='radio']):not([type='checkbox']) {
+  &:hover,
+  &:focus {
+    appearance: none;
+    -webkit-appearance: none;
+    box-shadow: none;
+    outline: none;
+  }
+}
+
+input:-webkit-autofill {
+  /* Используем box-shadow вместо background-color, чтобы перекрыть автозаполнение */
+  -webkit-box-shadow: 0 0 0 1000px white inset !important;
+  /* Устанавливаем цвет текста, если он меняется */
+  -webkit-text-fill-color: black !important;
+  /* Убираем фон */
+  background-color: transparent !important;
+}
+
+ul {
+  list-style: none;
 }

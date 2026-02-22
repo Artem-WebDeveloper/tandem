@@ -1,4 +1,3 @@
-import './App.scss';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthStore } from '../core/store/auth.store';
 

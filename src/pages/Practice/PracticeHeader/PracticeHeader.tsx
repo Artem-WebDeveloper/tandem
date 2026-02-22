@@ -4,15 +4,15 @@ import { mapQuizDifficulty } from '../../../core/utils/mapQuizDifficulty';
 import type { QuizData } from '../../../core/api/fetchQuizById';
 import DifficultyChip from '../../../core/components/DifficultyChip/DifficultyChip';
 import TagChip from '../../../core/components/TagChip/TagChip';
-import { useTheme } from '@mui/material';
+import { Typography, useTheme } from '@mui/material';
 
 function PracticeHeader({ data }: { data: QuizData }) {
   const theme = useTheme();
 
   return (
-    <div className={styles.header} style={{ borderColor: theme.palette.grey[500] }}>
+    <div className={styles.header} style={{ borderColor: theme.palette.divider }}>
       <div className={styles.headerLine}>
-        <h2>{data.section}</h2>
+        <Typography variant="h2">{data.section}</Typography>
 
         <DifficultyChip difficulty={data.difficulty}>
           {mapQuizDifficulty(data.difficulty)}
@@ -20,7 +20,9 @@ function PracticeHeader({ data }: { data: QuizData }) {
       </div>
 
       <div className={styles.headerLine}>
-        <p style={{ color: theme.palette.grey[500] }}>{data.type}</p>
+        <Typography variant="body2" style={{ color: theme.palette.text.secondary }}>
+          {data.type}
+        </Typography>
 
         <div className={styles.tags}>
           {data.tags.map((tag) => (

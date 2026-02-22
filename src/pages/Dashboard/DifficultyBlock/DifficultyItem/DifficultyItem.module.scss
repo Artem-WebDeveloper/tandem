@@ -1,0 +1,27 @@
+.difficulty_item {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 5px;
+}
+
+.line {
+  height: 15px;
+  width: 100%;
+  background-color: #e2e8f0;
+}
+
+.line_filled {
+  display: block;
+  height: 100%;
+  background-color: lightgreen;
+}
+
+.line_filled.line_filled__medium {
+  background-color: yellow;
+}
+
+.line_filled.line_filled__hard {
+  background-color: red;
+}

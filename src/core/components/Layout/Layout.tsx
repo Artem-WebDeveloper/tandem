@@ -1,3 +1,5 @@
+import styles from './Layout.module.scss';
+
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
@@ -5,7 +7,7 @@ function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Header />
-      <main>{children}</main>
+      <main className={styles.main}>{children}</main>
       <Footer />
     </>
   );

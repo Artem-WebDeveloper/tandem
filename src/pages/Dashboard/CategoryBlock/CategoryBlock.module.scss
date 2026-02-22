@@ -1,0 +1,14 @@
+.wrapper {
+  width: 100%;
+  color: black;
+  padding: 16px;
+  background-color: white;
+  border-radius: 8px;
+}
+
+.category_list {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

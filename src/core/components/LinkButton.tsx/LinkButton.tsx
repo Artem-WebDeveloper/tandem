@@ -11,7 +11,7 @@ function LinkButton({ href, children }: { href: string; children: React.ReactNod
         style={{
           display: 'flex',
           alignItems: 'center',
-          color: theme.palette.grey[500],
+          color: theme.palette.text.secondary,
           textDecoration: 'none',
         }}
       >

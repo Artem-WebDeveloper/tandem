@@ -1,6 +1,6 @@
 import { useEffect, useState, type JSX } from 'react';
 import { useParams } from 'react-router-dom';
-import { Alert, Container, useTheme } from '@mui/material';
+import { Container, useTheme } from '@mui/material';
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 
 import styles from './Practice.module.scss';
@@ -10,6 +10,7 @@ import Layout from '../../core/components/Layout/Layout';
 import QuizSkeleton from './QuizSkeleton/QuizSkeleton';
 import PracticeHeader from './PracticeHeader/PracticeHeader';
 import LinkButton from '../../core/components/LinkButton.tsx/LinkButton';
+import ErrorNotification from '../../core/components/ErrorNotification/ErrorNotification';
 
 export default function Practice() {
   const theme = useTheme();
@@ -60,7 +61,7 @@ export default function Practice() {
     return (
       <Layout>
         <Container maxWidth="md">
-          <Alert severity="error">{error}</Alert>
+          <ErrorNotification message={error} />
         </Container>
       </Layout>
     );
@@ -83,11 +84,11 @@ export default function Practice() {
         <Container maxWidth="md">
           <LinkButton href="/library">
             <ArrowBackRoundedIcon sx={{ width: '16px', marginRight: '8px' }} />
-            Back to library
+            Назад в библиотеку
           </LinkButton>
           <div
             className={styles.quizContainer}
-            style={{ backgroundColor: theme.palette.grey[900] }}
+            style={{ backgroundColor: theme.palette.background.paper, boxShadow: theme.shadows[1] }}
           >
             <PracticeHeader data={quizData} />
             {quizComponent}

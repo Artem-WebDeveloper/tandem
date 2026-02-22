@@ -11,5 +11,17 @@ export function getTheme(mode: PaletteMode) {
   return createTheme({
     palette,
     typography,
+    components: {
+      MuiCssBaseline: {
+        styleOverrides: (theme) => ({
+          body: {
+            backgroundImage: theme.palette.backgroundGradient,
+            backgroundAttachment: 'fixed',
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
+          },
+        }),
+      },
+    },
   });
 }

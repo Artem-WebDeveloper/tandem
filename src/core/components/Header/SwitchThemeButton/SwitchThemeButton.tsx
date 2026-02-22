@@ -1,7 +1,10 @@
 import { useTheme } from '@mui/material';
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
-import { useThemeStore } from '../../store/theme.store';
+
+import styles from './SwitchThemeButton.module.scss';
+
+import { useThemeStore } from '../../../store/theme.store';
 
 function SwitchThemeButton() {
   const switchMode = useThemeStore((state) => state.switchMode);
@@ -9,17 +12,7 @@ function SwitchThemeButton() {
   const theme = useTheme();
 
   return (
-    <button
-      onClick={switchMode}
-      style={{
-        backgroundColor: 'transparent',
-        padding: '3px',
-        borderRadius: '50%',
-        border: 'none',
-        width: '30px',
-        height: '30px',
-      }}
-    >
+    <button onClick={switchMode} className={styles.button}>
       {mode === 'light' ? (
         <LightModeRoundedIcon sx={{ color: theme.palette.primary.main }} />
       ) : (

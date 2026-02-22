@@ -1,8 +1,9 @@
 import './App.scss';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { useMemo } from 'react';
 import { useAuthStore } from '../core/store/auth.store';
 import { useThemeStore } from '../core/store/theme.store';
-import { useMemo } from 'react';
 import { getTheme } from '../core/theme/getTheme';
 
 import Login from '../pages/Login/Login';
@@ -11,7 +12,6 @@ import Library from '../pages/Library/Library';
 import Results from '../pages/Results/Results';
 import Practice from '../pages/Practice/Practice';
 import NotFound from '../pages/NotFound/NotFound';
-import { CssBaseline, ThemeProvider } from '@mui/material';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthorized } = useAuthStore();
@@ -28,7 +28,6 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-
       <BrowserRouter>
         <Routes>
           <Route path="login" element={<Login />} />

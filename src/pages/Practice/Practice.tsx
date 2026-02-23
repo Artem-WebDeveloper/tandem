@@ -82,7 +82,7 @@ export default function Practice() {
   return (
     quizData && (
       <Layout>
-        <Container maxWidth="md">
+        <Container maxWidth="md" disableGutters={true}>
           <LinkButton href="/library">
             <ArrowBackRoundedIcon sx={{ width: '16px', marginRight: '8px' }} />
             Назад в библиотеку

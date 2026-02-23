@@ -6,14 +6,10 @@
   font-size: 14px;
 }
 
-.questionNumber {
-  font-weight: bold;
-}
-
 .progressBar {
   margin-bottom: 48px;
 
-  @media (max-width: 767px) {
+  @media (max-width: 768px) {
     margin-bottom: 24px;
   }
 }

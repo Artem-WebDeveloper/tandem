@@ -1,4 +1,4 @@
-import { LinearProgress, useTheme } from '@mui/material';
+import { LinearProgress, Typography, useTheme } from '@mui/material';
 
 import styles from './QuizProgressBar.module.scss';
 
@@ -15,20 +15,22 @@ function QuizProgressBar({
   return (
     <div>
       <div className={styles.progressInfo}>
-        <p className={styles.questionNumber}>
+        <Typography variant="body2" sx={{ color: theme.palette.text.secondary, fontWeight: 700 }}>
           Вопрос {currentQuestionNumber} из {questionsCount}
-        </p>
-        <p>{normalizedProgress.toFixed(0)}%</p>
+        </Typography>
+        <Typography variant="body2" sx={{ color: theme.palette.textLight }}>
+          {normalizedProgress.toFixed(0)}%
+        </Typography>
       </div>
       <div className={styles.progressBar}>
         <LinearProgress
           sx={{
-            backgroundColor: theme.palette.grey[500],
+            backgroundColor: theme.palette.divider,
             height: '8px',
             borderRadius: '4px',
             '& .MuiLinearProgress-bar': {
               borderRadius: '4px',
-              backgroundColor: theme.palette.grey[800],
+              backgroundColor: theme.palette.primary.main,
             },
           }}
           variant="determinate"

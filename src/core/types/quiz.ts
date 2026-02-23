@@ -59,5 +59,8 @@ export interface TaskSubmitResponse {
   taskId: string;
   totalQuestions: number;
   correctAnswers: number;
+  percentage: number; // add for dashboard
+  score: number; // Calc logic in backend
   questionResults: QuestionResult[];
+  passed?: boolean; // was discussed at the meetup
 }

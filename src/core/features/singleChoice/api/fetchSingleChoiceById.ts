@@ -13,6 +13,6 @@ export function fetchSingleChoiceById(id: string): Promise<SingleChoiceTaskRespo
       } else {
         reject(new Error(`Single Choice quiz with id "${id}" not found`));
       }
-    }, 1000);
+    }, 2000);
   });
 }

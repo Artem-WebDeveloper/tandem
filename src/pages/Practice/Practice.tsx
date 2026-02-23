@@ -12,6 +12,9 @@ import PracticeHeader from './PracticeHeader/PracticeHeader';
 import LinkButton from '../../core/components/LinkButton.tsx/LinkButton';
 import ErrorNotification from '../../core/components/ErrorNotification/ErrorNotification';
 
+import SingleChoiceQuiz from '../../core/features/singleChoice/SingleChoiceQuiz';
+import type { SingleChoiceTaskResponse } from '../../core/features/singleChoice/types';
+
 export default function Practice() {
   const theme = useTheme();
   const { id } = useParams<{ id: string }>();
@@ -72,29 +75,29 @@ export default function Practice() {
     'Code Completion': <div style={{ height: '50dvh' }}>Code completion component</div>,
     multiple_choice: <p>Компонент Викторина</p>, // пример - <MultipleChoiceQuiz data={practiceData} />,
     true_false: <p>Компонент True/False</p>, // пример - <TrueFalseQuiz data={practiceData} />,
+    single_choice: <SingleChoiceQuiz data={quizData as SingleChoiceTaskResponse} />,
   };
 
   const quizComponent = (quizData && PRACTICE_COMPONENT[quizData.type]) || (
     <p>Неизвестный тип квиза</p>
   );
 
+  if (!quizData) {
+    return null;
+  }
+
   return (
-    quizData && (
-      <Layout>
-        <Container maxWidth="md">
-          <LinkButton href="/library">
-            <ArrowBackRoundedIcon sx={{ width: '16px', marginRight: '8px' }} />
-            Назад в библиотеку
-          </LinkButton>
-          <div
-            className={styles.quizContainer}
-            style={{ backgroundColor: theme.palette.background.paper, boxShadow: theme.shadows[1] }}
-          >
-            <PracticeHeader data={quizData} />
-            {quizComponent}
-          </div>
-        </Container>
-      </Layout>
-    )
+    <Layout>
+      <Container maxWidth="md">
+        <LinkButton href="/library">
+          <ArrowBackRoundedIcon sx={{ width: '16px', marginRight: '8px' }} />
+          Back to library
+        </LinkButton>
+        <div className={styles.quizContainer} style={{ backgroundColor: theme.palette.grey[900] }}>
+          <PracticeHeader data={quizData} />
+          {quizComponent}
+        </div>
+      </Container>
+    </Layout>
   );
 }

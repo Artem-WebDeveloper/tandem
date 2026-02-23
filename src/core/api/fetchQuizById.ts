@@ -1,4 +1,6 @@
 import { MOCK_CODE_COMPLETION_DATA } from '../mock/codeCompletionData';
+import { fetchSingleChoiceById } from '../features/singleChoice/api/fetchSingleChoiceById';
+import type { SingleChoiceTaskResponse } from '../features/singleChoice/types';
 
 type QuizInfo = {
   id: string;
@@ -21,13 +23,15 @@ export type CodeCompletionQuizData = {
 } & QuizInfo;
 
 // Add more types here with | (like CodeCompletionQuizData | ChooseOneQuizData)
-export type QuizData = CodeCompletionQuizData;
+export type QuizData = CodeCompletionQuizData | SingleChoiceTaskResponse;
 
 export function fetchQuizById(id: string): Promise<QuizData> {
   // Define quiz type by part of id before '-'
   const quizType = id.split('-')[0];
 
   switch (quizType) {
+    case 'sc':
+      return fetchSingleChoiceById(id);
     case 'cc':
       // Returning Mock data until backend is set up
       return new Promise((resolve, reject) => {

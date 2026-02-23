@@ -8,6 +8,8 @@ export const MOCK_SINGLE_CHOICE_DATA: SingleChoiceTaskResponse[] = [
     id: 'sc-001',
     type: TaskType.SingleChoice,
     title: 'JavaScript: Типы данных',
+    section: 'Core JS',
+    tags: ['types', 'typeof'],
     difficulty: Difficulty.Easy,
     questions: [
       {
@@ -46,6 +48,8 @@ export const MOCK_SINGLE_CHOICE_DATA: SingleChoiceTaskResponse[] = [
     id: 'sc-002',
     type: TaskType.SingleChoice,
     title: 'JavaScript: Массивы',
+    section: 'Core JS',
+    tags: ['arrays', 'array-methods'],
     difficulty: Difficulty.Medium,
     questions: [
       {
@@ -74,6 +78,8 @@ export const MOCK_SINGLE_CHOICE_DATA: SingleChoiceTaskResponse[] = [
     id: 'sc-003',
     type: TaskType.SingleChoice,
     title: 'TypeScript: Основы',
+    section: 'TypeScript',
+    tags: ['typescript', 'types', 'interfaces'],
     difficulty: Difficulty.Hard,
     questions: [
       {

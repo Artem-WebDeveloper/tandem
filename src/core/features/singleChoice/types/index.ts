@@ -19,6 +19,8 @@ export interface SingleChoiceQuestion {
 export interface SingleChoiceTaskResponse extends BaseTask {
   type: typeof TaskType.SingleChoice; // = 'single_choice'
   title: string;
+  section: string;
+  tags: string[];
   description?: string;
   questions: SingleChoiceQuestion[];
 }

@@ -10,7 +10,8 @@ function QuizProgressBar({
   questionsCount: number;
 }) {
   const theme = useTheme();
-  const normalizedProgress = (currentQuestionNumber / questionsCount) * 100;
+  const normalizedProgress =
+    questionsCount === 0 ? 0 : (currentQuestionNumber / questionsCount) * 100;
 
   return (
     <div>

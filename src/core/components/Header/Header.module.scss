@@ -5,7 +5,7 @@
 .header {
   min-height: 64px;
   background-color: var(--content-background);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 
   &Inner {
     min-height: inherit;
@@ -15,6 +15,7 @@
 
     display: flex;
     align-items: center;
+    justify-content: space-between;
   }
 
   &Left {
@@ -35,12 +36,10 @@
   font-weight: 700;
   font-size: 20px;
   line-height: 160%;
-  color: #0f172a;
 }
 
 .descrip {
   user-select: none;
   font-size: 12px;
   line-height: 166%;
-  color: #64748b;
 }

@@ -33,10 +33,9 @@ function App() {
 
           <Route
             index
-            path="/"
             element={
               <ProtectedRoute>
-                <Library />
+                <Navigate replace to="/library" />
               </ProtectedRoute>
             }
           />

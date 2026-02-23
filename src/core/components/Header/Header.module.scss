@@ -1,11 +1,9 @@
-.title {
-  font-size: 20px;
-}
-
 .header {
   min-height: 64px;
   background-color: var(--content-background);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+
+  font-size: 14px;
 
   &Inner {
     min-height: inherit;
@@ -22,6 +20,15 @@
     display: flex;
     gap: 12px;
     align-items: center;
+  }
+
+  &Right {
+    display: flex;
+    align-items: center;
+
+    > *:last-child {
+      margin-left: 30px;
+    }
   }
 }
 
@@ -42,4 +49,12 @@
   user-select: none;
   font-size: 12px;
   line-height: 166%;
+}
+
+.userName {
+  font-size: 14px;
+  line-height: 143%;
+  padding-left: 16px;
+  margin-left: 16px;
+  margin-right: 8px;
 }

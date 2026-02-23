@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { useTheme } from '@mui/material';
+import { Button, useTheme } from '@mui/material';
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 
 import styles from './Header.module.scss';
 import logo from '../../assets/logo.svg';
@@ -22,8 +23,20 @@ export default function Header() {
             </p>
           </div>
         </div>
-        <Navigation />
-        <SwitchThemeButton />
+        <div className={styles.headerRight}>
+          <Navigation />
+          <p
+            className={styles.userName}
+            style={{
+              color: theme.palette.textLight,
+              borderLeft: `1px solid ${theme.palette.primaryDisabled}`,
+            }}
+          >
+            UserName123
+          </p>
+          <Button startIcon={<LogoutRoundedIcon sx={{ width: '16px' }} />}>Выход</Button>
+          <SwitchThemeButton />
+        </div>
       </div>
     </header>
   );

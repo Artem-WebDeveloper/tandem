@@ -13,10 +13,12 @@
 
   .singleChoice__title {
     font-size: 2.5rem;
+    color: #fff;
   }
 
   .singleChoice__question {
     font-size: 1.5rem;
+    color: #fff;
   }
 
   .singleChoice__list {
@@ -37,6 +39,7 @@
       text-align: center;
       border-radius: 0.5rem;
       transition: all 0.5s ease;
+      color: #fff;
     }
 
     .singleChoice__item_selected {

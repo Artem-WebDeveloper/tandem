@@ -12,7 +12,7 @@ function CodeCompletionWidget({ data }: { data: CodeCompletionQuizData }) {
 
       <CodeCompletionQuizBody questions={data.questions} />
 
-      <CodeCompletionNavigation questionsCount={questionsCount} />
+      <CodeCompletionNavigation questions={data.questions} />
     </div>
   );
 }

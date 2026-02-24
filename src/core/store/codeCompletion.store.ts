@@ -1,11 +1,16 @@
 import { create } from 'zustand';
 
+export type CodeCompletionAnswer = {
+  questionId: string;
+  payload: string;
+};
+
 type CodeCompletionState = {
   currentQuestionNumber: number;
   increaseQuestionNumber: () => void;
   decreaseQuestionNumber: () => void;
-  answers: string[];
-  setAnswer: (answer: string) => void;
+  answers: CodeCompletionAnswer[];
+  setAnswer: (questionId: string, answer: string) => void;
 };
 
 export const useCodeCompletionStore = create<CodeCompletionState>()((set, get) => ({
@@ -13,10 +18,21 @@ export const useCodeCompletionStore = create<CodeCompletionState>()((set, get) =
   answers: [],
   increaseQuestionNumber: () => set({ currentQuestionNumber: get().currentQuestionNumber + 1 }),
   decreaseQuestionNumber: () => set({ currentQuestionNumber: get().currentQuestionNumber - 1 }),
-  setAnswer: (answer) => {
+  setAnswer: (questionId, answer) => {
     const newAnswers = [...get().answers];
 
-    newAnswers[get().currentQuestionNumber] = answer;
+    let currentAnswer = newAnswers.find((answer) => answer.questionId === questionId);
+
+    if (currentAnswer === undefined) {
+      currentAnswer = {
+        questionId,
+        payload: '',
+      };
+
+      newAnswers.push(currentAnswer);
+    }
+
+    currentAnswer.payload = answer;
 
     set({ answers: newAnswers });
   },

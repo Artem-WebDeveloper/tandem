@@ -3,32 +3,39 @@ import { useEffect, useRef } from 'react';
 import { useCodeCompletionStore } from '../../../../store/codeCompletion.store';
 
 import styles from './CodeCompletionAnswerInput.module.scss';
+import type { CodeCompletionQuestion } from '../../../../api/fetchQuizById';
 
 const MIN_SYMBOLS_IN_INPUT = 3;
 
 function CodeCompletionAnswerInput({
-  currentAnswer,
-  currentQuestionNumber,
+  currentQuestion,
 }: {
-  currentAnswer: string | undefined;
-  currentQuestionNumber: number;
+  currentQuestion: CodeCompletionQuestion;
 }) {
   const theme = useTheme();
+
   const setAnswer = useCodeCompletionStore((state) => state.setAnswer);
+  const answers = useCodeCompletionStore((state) => state.answers);
+  const currentAnswer = answers.find((answer) => answer.questionId === currentQuestion.id);
+
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     inputRef.current?.focus();
-  }, [currentQuestionNumber]);
+  }, [currentQuestion]);
+
+  function handleInput(event: React.ChangeEvent<HTMLInputElement, HTMLInputElement>) {
+    setAnswer(currentQuestion.id, event.target.value);
+  }
 
   return (
     <input
       ref={inputRef}
       type="text"
-      value={currentAnswer ?? ''}
-      onChange={(event) => setAnswer(event.target.value)}
+      value={currentAnswer?.payload ?? ''}
+      onChange={handleInput}
       style={{
-        width: `${Math.max(currentAnswer?.length ?? 0, MIN_SYMBOLS_IN_INPUT)}ch`,
+        width: `${Math.max(currentAnswer?.payload.length ?? 0, MIN_SYMBOLS_IN_INPUT)}ch`,
         borderColor: theme.palette.textUltralight,
         color: theme.palette.text.primary,
       }}

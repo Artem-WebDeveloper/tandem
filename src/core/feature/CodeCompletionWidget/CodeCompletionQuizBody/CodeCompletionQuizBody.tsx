@@ -9,8 +9,6 @@ import styles from './CodeCompletionQuizBody.module.scss';
 function CodeCompletionQuizBody({ questions }: { questions: CodeCompletionQuestion[] }) {
   const theme = useTheme();
   const currentQuestionNumber = useCodeCompletionStore((state) => state.currentQuestionNumber);
-  const answers = useCodeCompletionStore((state) => state.answers);
-  const currentAnswer = answers[currentQuestionNumber];
 
   const { code, hint, blanks } = questions[currentQuestionNumber];
   const codeParts = code.split(blanks);
@@ -28,10 +26,7 @@ function CodeCompletionQuizBody({ questions }: { questions: CodeCompletionQuesti
       >
         {`> ${codeParts[0]}`}
 
-        <CodeCompletionAnswerInput
-          currentAnswer={currentAnswer}
-          currentQuestionNumber={currentQuestionNumber}
-        />
+        <CodeCompletionAnswerInput currentQuestion={questions[currentQuestionNumber]} />
 
         {codeParts[1]}
       </pre>

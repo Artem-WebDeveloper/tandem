@@ -11,12 +11,15 @@ import logo from '../../assets/logo.svg';
 import Navigation from './Navigation/Navigation';
 
 export default function Header() {
+  const MEDIA_QUERY_CONDITION_DESKTOP = '(min-width:1024.1px)'; // для решения проблемы пограничного пикселя
+  const CLOSE_SIDE_NAV_MS = 200;
+
   const { user, logout } = useAuthStore();
   const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
+  const isDesktop = useMediaQuery(MEDIA_QUERY_CONDITION_DESKTOP);
+
   const [openSideNav, setOpenSideNav] = useState<boolean>(false);
   const isOpenSideNav = openSideNav && !isDesktop;
-  const CLOSE_NAV_MS = 200;
 
   const handleCloseSideNav = () => {
     setOpenSideNav(false);
@@ -57,7 +60,7 @@ export default function Header() {
             </>
           )}
 
-          {isDesktop || (
+          {!isDesktop && (
             <Button onClick={() => setOpenSideNav(true)}>
               <MenuIcon />
             </Button>
@@ -66,7 +69,7 @@ export default function Header() {
           <Drawer
             anchor="right"
             open={isOpenSideNav}
-            transitionDuration={isDesktop ? 0 : CLOSE_NAV_MS}
+            transitionDuration={isDesktop ? 0 : CLOSE_SIDE_NAV_MS}
             onClose={handleCloseSideNav}
           >
             <Box sx={{ minWidth: 250, boxSizing: 'border-box' }}>

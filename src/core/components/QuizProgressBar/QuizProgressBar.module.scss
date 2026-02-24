@@ -1,0 +1,15 @@
+.progressInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.progressBar {
+  margin-bottom: 48px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 24px;
+  }
+}

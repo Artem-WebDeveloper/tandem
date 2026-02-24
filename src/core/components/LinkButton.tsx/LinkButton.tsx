@@ -5,7 +5,7 @@ function LinkButton({ href, children }: { href: string; children: React.ReactNod
   const theme = useTheme();
 
   return (
-    <Button sx={{ textTransform: 'none' }}>
+    <Button tabIndex={-1} sx={{ textTransform: 'none' }}>
       <Link
         to={href}
         style={{
@@ -13,6 +13,7 @@ function LinkButton({ href, children }: { href: string; children: React.ReactNod
           alignItems: 'center',
           color: theme.palette.text.secondary,
           textDecoration: 'none',
+          outline: 'none',
         }}
       >
         {children}

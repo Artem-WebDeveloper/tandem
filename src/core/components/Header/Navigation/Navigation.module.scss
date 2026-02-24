@@ -1,12 +1,9 @@
 .navList {
   display: flex;
   gap: 12px;
-}
 
-.navLink {
-  display: flex;
-  align-items: center;
-  padding: 5px 12px;
-  font-size: inherit;
-  border-radius: 8px;
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    gap: 0;
+  }
 }

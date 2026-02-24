@@ -6,7 +6,7 @@ import LeaderboardRoundedIcon from '@mui/icons-material/LeaderboardRounded';
 import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
 
 import styles from './Navigation.module.scss';
-export default function Navigation() {
+export default function Navigation({ onCloseSideNav }: { onCloseSideNav: () => void }) {
   const theme = useTheme();
 
   const buttonStyle = {
@@ -19,6 +19,15 @@ export default function Navigation() {
       backgroundColor: theme.palette.primary.main,
       color: theme.palette.background.paper,
     },
+
+    '@media (max-width: 1024px)': {
+      width: '100%',
+      borderRadius: '0',
+      padding: '8px 15px',
+      textAlign: 'left',
+      display: 'flex',
+      justifyContent: 'start',
+    },
   };
 
   return (
@@ -30,6 +39,7 @@ export default function Navigation() {
             to="/dashboard"
             startIcon={<LeaderboardRoundedIcon sx={{ width: '16px' }} />}
             sx={buttonStyle}
+            onClick={onCloseSideNav}
           >
             Dashboard
           </Button>
@@ -40,6 +50,8 @@ export default function Navigation() {
             to="/library"
             startIcon={<LocalLibraryIcon sx={{ width: '16px' }} />}
             sx={buttonStyle}
+            onClick={onCloseSideNav}
+            className={styles.navLink}
           >
             Library
           </Button>

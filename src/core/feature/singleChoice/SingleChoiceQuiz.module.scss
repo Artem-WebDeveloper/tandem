@@ -1,0 +1,78 @@
+.singleChoice {
+  margin-top: 2rem;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeIn 2s ease forwards;
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .singleChoice__title {
+    font-size: 2.5rem;
+    color: #fff;
+  }
+
+  .singleChoice__question {
+    font-size: 1.5rem;
+    color: #fff;
+  }
+
+  .singleChoice__list {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    width: 100%;
+
+    .singleChoice__item {
+      margin-left: 2rem;
+      display: inline-block;
+      min-width: 10rem;
+      font-size: 1.2rem;
+      cursor: pointer;
+      text-align: center;
+      border-radius: 0.5rem;
+      transition: all 0.5s ease;
+      color: #fff;
+    }
+
+    .singleChoice__item_selected {
+      background-color: chocolate;
+      font-size: 1.4rem;
+      text-transform: uppercase;
+    }
+  }
+
+  .singleChoice__btnWrapper {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 3rem;
+
+    .singleChoice__btn {
+      width: 10rem;
+      height: 3rem;
+      font-size: 1.4rem;
+      text-transform: uppercase;
+      text-align: center;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.5s ease;
+    }
+
+    .singleChoice__btn:hover {
+      background-color: chocolate;
+    }
+
+    .singleChoice__btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.4;
+      background-color: grey;
+    }
+  }
+}

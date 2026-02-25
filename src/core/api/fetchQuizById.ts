@@ -1,31 +1,13 @@
 import { MOCK_CODE_COMPLETION_DATA } from '../mock/codeCompletionData';
-import { fetchSingleChoiceById } from '../feature/singleChoice/api/fetchSingleChoiceById';
-import type { SingleChoiceTaskResponse } from '../feature/singleChoice/types';
+import { fetchSingleChoiceById } from './singleChoiceApi/fetchSingleChoiceById';
 
-type QuizInfo = {
-  id: string;
-  section: string;
-  type: string;
-  difficulty: number;
-  tags: string[];
-  version: number;
-};
+import type { SingleChoiceTaskResponse } from '../feature/SingleChoiceWidget/types';
+import type { CodeCompletionTask } from '../feature/CodeCompletionWidget/types';
 
-export type CodeCompletionQuestion = {
-  id: string;
-  code: string;
-  blanks: string;
-  hint: string;
-};
+// Add more types here
+export type QuizTask = SingleChoiceTaskResponse | CodeCompletionTask;
 
-export type CodeCompletionQuizData = {
-  questions: CodeCompletionQuestion[];
-} & QuizInfo;
-
-// Add more types here with | (like CodeCompletionQuizData | ChooseOneQuizData)
-export type QuizData = CodeCompletionQuizData | SingleChoiceTaskResponse;
-
-export function fetchQuizById(id: string): Promise<QuizData> {
+export function fetchQuizById(id: string): Promise<QuizTask> {
   // Define quiz type by part of id before '-'
   const quizType = id.split('-')[0];
 

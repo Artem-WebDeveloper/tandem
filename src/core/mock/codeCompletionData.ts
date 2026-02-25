@@ -1,11 +1,12 @@
-import type { CodeCompletionQuizData } from '../api/fetchQuizById';
+import { Difficulty, TaskType } from '../types/quiz';
+import type { CodeCompletionTask } from '../feature/CodeCompletionWidget/types';
 
-export const MOCK_CODE_COMPLETION_DATA: CodeCompletionQuizData[] = [
+export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
   {
     id: 'cc-001',
+    type: TaskType.CodeCompletion,
+    difficulty: Difficulty.Easy,
     section: 'Core JS',
-    type: 'Code Completion',
-    difficulty: 1,
     tags: ['array-methods', 'promises', 'objects', 'functions', 'strings'],
     version: 1,
     questions: [
@@ -43,9 +44,9 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionQuizData[] = [
   },
   {
     id: 'cc-002',
+    type: TaskType.CodeCompletion,
+    difficulty: Difficulty.Medium,
     section: 'Core JS',
-    type: 'Code Completion',
-    difficulty: 2,
     tags: ['objects'],
     version: 1,
     questions: [
@@ -83,9 +84,9 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionQuizData[] = [
   },
   {
     id: 'cc-003',
+    type: TaskType.CodeCompletion,
+    difficulty: Difficulty.Medium,
     section: 'Core JS',
-    type: 'Code Completion',
-    difficulty: 2,
     tags: ['functions'],
     version: 1,
     questions: [
@@ -123,9 +124,9 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionQuizData[] = [
   },
   {
     id: 'cc-004',
+    type: TaskType.CodeCompletion,
+    difficulty: Difficulty.Hard,
     section: 'Core JS',
-    type: 'Code Completion',
-    difficulty: 3,
     tags: ['promises'],
     version: 1,
     questions: [
@@ -163,9 +164,9 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionQuizData[] = [
   },
   {
     id: 'cc-005',
+    type: TaskType.CodeCompletion,
+    difficulty: Difficulty.Easy,
     section: 'Core JS',
-    type: 'Code Completion',
-    difficulty: 1,
     tags: ['strings'],
     version: 1,
     questions: [

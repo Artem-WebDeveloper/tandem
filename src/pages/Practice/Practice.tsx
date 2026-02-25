@@ -1,4 +1,4 @@
-import { useEffect, useState, type JSX } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, useTheme } from '@mui/material';
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
@@ -12,6 +12,9 @@ import PracticeHeader from './PracticeHeader/PracticeHeader';
 import LinkButton from '../../core/components/LinkButton.tsx/LinkButton';
 import ErrorNotification from '../../core/components/ErrorNotification/ErrorNotification';
 import CodeCompletionWidget from '../../core/feature/CodeCompletionWidget/CodeCompletionWidget';
+
+import SingleChoiceQuiz from '../../core/feature/singleChoice/SingleChoiceQuiz';
+import type { SingleChoiceTaskResponse } from '../../core/feature/singleChoice/types';
 
 export default function Practice() {
   const theme = useTheme();
@@ -48,6 +51,21 @@ export default function Practice() {
     fetchPracticeData();
   }, [id]);
 
+  const renderQuiz = () => {
+    if (!quizData) return null;
+
+    switch (quizData.type) {
+      case 'Code Completion':
+        return <CodeCompletionWidget data={quizData} />;
+
+      case 'single_choice':
+        return <SingleChoiceQuiz data={quizData as SingleChoiceTaskResponse} />;
+
+      default:
+        return <p>Неизвестный тип квиза</p>;
+    }
+  };
+
   if (loading) {
     return (
       <Layout>
@@ -68,17 +86,6 @@ export default function Practice() {
     );
   }
 
-  // СЮДА ДОБАВЛЯЕМ ВСЕ КОМПОНЕНТЫ РАЗРАБОТАННЫХ КВИЗОВ, имена для демонстрации
-  const PRACTICE_COMPONENT: Record<string, JSX.Element> = {
-    'Code Completion': <CodeCompletionWidget data={quizData!} />,
-    multiple_choice: <p>Компонент Викторина</p>, // пример - <MultipleChoiceQuiz data={practiceData} />,
-    true_false: <p>Компонент True/False</p>, // пример - <TrueFalseQuiz data={practiceData} />,
-  };
-
-  const quizComponent = (quizData && PRACTICE_COMPONENT[quizData.type]) || (
-    <p>Неизвестный тип квиза</p>
-  );
-
   return (
     quizData && (
       <Layout>
@@ -92,7 +99,7 @@ export default function Practice() {
             style={{ backgroundColor: theme.palette.background.paper, boxShadow: theme.shadows[1] }}
           >
             <PracticeHeader data={quizData} />
-            {quizComponent}
+            {renderQuiz()}
           </div>
         </Container>
       </Layout>

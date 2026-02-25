@@ -1,4 +1,3 @@
-import './App.scss';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { useMemo } from 'react';
@@ -34,10 +33,9 @@ function App() {
 
           <Route
             index
-            path="/"
             element={
               <ProtectedRoute>
-                <Library />
+                <Navigate replace to="/library" />
               </ProtectedRoute>
             }
           />

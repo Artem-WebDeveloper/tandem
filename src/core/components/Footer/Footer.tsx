@@ -1,9 +1,31 @@
+import { Link, useTheme } from '@mui/material';
 import styles from './Footer.module.scss';
 
 export default function Footer() {
+  const theme = useTheme();
+  const year = new Date().getFullYear();
   return (
     <footer className={styles.footer}>
-      <h2 className={styles.title}>Footer</h2>
+      <span>{year}</span>
+      <span className={styles.copyright} style={{ color: theme.palette.textLight }}>
+        &copy; developed by RainbowUnicorn
+      </span>
+
+      <Link
+        href="https://rs.school/"
+        color="inherit"
+        underline="none"
+        target="_blank"
+        rel="noopener noreferrer"
+        sx={{
+          transition: 'color 0.3s ease',
+          '&:hover': {
+            color: theme.palette.textLight,
+          },
+        }}
+      >
+        RS School
+      </Link>
     </footer>
   );
 }

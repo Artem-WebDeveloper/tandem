@@ -1,3 +1,87 @@
+.header {
+  min-height: 64px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+
+  &Inner {
+    min-height: inherit;
+    max-width: 1440px;
+    padding: 0 20px;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &Left {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  &Right {
+    display: flex;
+    align-items: center;
+
+    > *:last-child {
+      margin-left: 50px;
+
+      @media (max-width: 768px) {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  display: block;
+
+  @media (max-width: 768px) {
+    width: 35px;
+    height: 35px;
+  }
+}
+
 .title {
+  user-select: none;
+  font-weight: 700;
   font-size: 20px;
+  line-height: 160%;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
+}
+
+.descrip {
+  user-select: none;
+  font-size: 12px;
+  line-height: 166%;
+
+  @media (max-width: 768px) {
+    font-size: 10px;
+  }
+}
+
+.userName {
+  font-size: 14px;
+  line-height: 143%;
+  padding-left: 16px;
+  margin-left: 16px;
+  margin-right: 8px;
+}
+
+.sideNavHeader {
+  padding: 10px 5px;
+  gap: 5px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  > *:last-child {
+    margin-left: auto;
+  }
 }

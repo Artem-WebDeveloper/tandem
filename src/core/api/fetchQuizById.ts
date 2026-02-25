@@ -1,6 +1,6 @@
 import { MOCK_CODE_COMPLETION_DATA } from '../mock/codeCompletionData';
-import { fetchSingleChoiceById } from '../features/singleChoice/api/fetchSingleChoiceById';
-import type { SingleChoiceTaskResponse } from '../features/singleChoice/types';
+import { fetchSingleChoiceById } from '../feature/singleChoice/api/fetchSingleChoiceById';
+import type { SingleChoiceTaskResponse } from '../feature/singleChoice/types';
 
 type QuizInfo = {
   id: string;

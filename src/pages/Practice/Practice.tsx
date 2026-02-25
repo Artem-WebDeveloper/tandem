@@ -13,8 +13,8 @@ import LinkButton from '../../core/components/LinkButton.tsx/LinkButton';
 import ErrorNotification from '../../core/components/ErrorNotification/ErrorNotification';
 import CodeCompletionWidget from '../../core/feature/CodeCompletionWidget/CodeCompletionWidget';
 
-import SingleChoiceQuiz from '../../core/features/singleChoice/SingleChoiceQuiz';
-import type { SingleChoiceTaskResponse } from '../../core/features/singleChoice/types';
+import SingleChoiceQuiz from '../../core/feature/singleChoice/SingleChoiceQuiz';
+import type { SingleChoiceTaskResponse } from '../../core/feature/singleChoice/types';
 
 export default function Practice() {
   const theme = useTheme();

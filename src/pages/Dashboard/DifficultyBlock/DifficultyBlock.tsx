@@ -1,6 +1,6 @@
 import styles from './DifficultyBlock.module.scss';
 
-import { quizData, type QuizDifficulty } from '../../../core/mock/dashboard';
+import { quizData, type QuizDifficulty } from '@/core/mock/dashboard';
 import DifficultyItem from './DifficultyItem/DifficultyItem';
 
 export type DifficultyCategory = {

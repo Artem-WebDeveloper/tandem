@@ -1,5 +1,5 @@
-import { useCodeCompletionStore } from '../../../store/codeCompletion.store';
-import QuizNavigation from '../../../components/QuizNavigation/QuizNavigation';
+import { useCodeCompletionStore } from '@/core/store/codeCompletion.store';
+import QuizNavigation from '@/core/components/QuizNavigation/QuizNavigation';
 import type { CodeCompletionQuestion } from '../types';
 
 function CodeCompletionNavigation({ questions }: { questions: CodeCompletionQuestion[] }) {

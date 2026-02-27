@@ -4,7 +4,7 @@ import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
 
 import styles from './SwitchThemeButton.module.scss';
 
-import { useThemeStore } from '../../../store/theme.store';
+import { useThemeStore } from '@/core/store/theme.store';
 
 function SwitchThemeButton() {
   const switchMode = useThemeStore((state) => state.switchMode);

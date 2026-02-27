@@ -1,6 +1,6 @@
 import { Typography, useTheme } from '@mui/material';
 import type { CodeCompletionQuestion } from '../types';
-import { useCodeCompletionStore } from '../../../store/codeCompletion.store';
+import { useCodeCompletionStore } from '@/core/store/codeCompletion.store';
 import TipsAndUpdatesTwoToneIcon from '@mui/icons-material/TipsAndUpdatesTwoTone';
 import CodeCompletionAnswerInput from './CodeCompletionAnswerInput/CodeCompletionAnswerInput';
 

@@ -1,4 +1,4 @@
-import { type BaseTask, TaskType } from '../../../types/quiz';
+import { type BaseTask, TaskType } from '@/core/types/quiz';
 
 export interface CodeCompletionQuestion {
   id: string;

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import type { SingleChoiceTaskResponse } from './types';
-import type { UserAnswer } from '../../../core/types/quiz';
+import type { UserAnswer } from '@/core/types/quiz';
 
 import styles from './SingleChoiceQuiz.module.scss';
 

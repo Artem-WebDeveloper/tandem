@@ -29,16 +29,6 @@ export interface BaseTask {
 }
 
 // -----------------------------------------------------------------------------
-// TaskFetchResponse — a union of all possible server responses
-// expands when a new quiz is added
-
-import type { SingleChoiceTaskResponse } from '../feature/SingleChoiceWidget/types';
-import type { CodeCompletionTask } from '../feature/CodeCompletionWidget/types';
-
-export type TaskFetchResponse = SingleChoiceTaskResponse | CodeCompletionTask;
-// | TrueFalseTask
-
-// -----------------------------------------------------------------------------
 // Submitting answers to the server is the same for all quizzes
 
 export interface UserAnswer {

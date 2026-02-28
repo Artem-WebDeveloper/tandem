@@ -1,0 +1,12 @@
+.dropzone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 8px;
+  width: 248px;
+  min-height: 64px;
+  background-color: #eee;
+}

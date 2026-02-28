@@ -15,6 +15,7 @@ import ErrorNotification from '../../core/components/ErrorNotification/ErrorNoti
 import CodeCompletionWidget from '../../core/feature/CodeCompletionWidget/CodeCompletionWidget';
 
 import SingleChoiceQuiz from '../../core/feature/SingleChoiceWidget/SingleChoiceQuiz';
+import AsyncSorterWidget from '@/core/feature/AsyncSorterWidget/AsyncSorterWidget';
 
 export default function Practice() {
   const theme = useTheme();
@@ -61,6 +62,9 @@ export default function Practice() {
       case TaskType.SingleChoice:
         return <SingleChoiceQuiz data={quizData} />;
 
+      case TaskType.AsyncSorter:
+        return <AsyncSorterWidget data={quizData} />;
+
       default:
         return <p>Неизвестный тип квиза</p>;
     }
@@ -69,7 +73,7 @@ export default function Practice() {
   if (loading) {
     return (
       <Layout>
-        <Container maxWidth="md">
+        <Container maxWidth="md" disableGutters={true}>
           <QuizSkeleton />
         </Container>
       </Layout>
@@ -79,7 +83,7 @@ export default function Practice() {
   if (error) {
     return (
       <Layout>
-        <Container maxWidth="md">
+        <Container maxWidth="md" disableGutters={true}>
           <ErrorNotification message={error} />
         </Container>
       </Layout>

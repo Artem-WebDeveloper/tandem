@@ -1,6 +1,6 @@
 // Custom Types - for Single Choice
 
-import { type BaseTask, TaskType } from '../../../types/quiz';
+import { type BaseTask, TaskType } from '@/core/types/quiz';
 
 // One answer option
 export interface SingleChoiceOption {

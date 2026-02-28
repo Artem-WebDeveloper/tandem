@@ -1,7 +1,7 @@
 // API — Single Choice
 
-import type { SingleChoiceTaskResponse } from '../types';
-import { MOCK_SINGLE_CHOICE_DATA } from '../mock/mockData';
+import type { SingleChoiceTaskResponse } from '../../feature/SingleChoiceWidget/types';
+import { MOCK_SINGLE_CHOICE_DATA } from '../../mock/singleChoiceData';
 
 export function fetchSingleChoiceById(id: string): Promise<SingleChoiceTaskResponse> {
   return new Promise((resolve, reject) => {

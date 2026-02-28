@@ -1,4 +1,4 @@
-import { quizData, type QuizTheme } from '../../../core/mock/dashboard';
+import { quizData, type QuizTheme } from '@/core/mock/dashboard';
 import styles from './CategoryBlock.module.scss';
 import CategoryItem from './CategoryItem/CategoryItem';
 

@@ -1,4 +1,4 @@
-import { quizData } from '../../../core/mock/dashboard';
+import { quizData } from '@/core/mock/dashboard';
 import styles from './CommonStatiscticBlock.module.scss';
 import Tile from './Tile/Tile';
 

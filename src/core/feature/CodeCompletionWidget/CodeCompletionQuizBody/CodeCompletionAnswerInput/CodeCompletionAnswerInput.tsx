@@ -1,9 +1,9 @@
 import { useTheme } from '@mui/material';
 import { useEffect, useRef } from 'react';
-import { useCodeCompletionStore } from '../../../../store/codeCompletion.store';
+import { useCodeCompletionStore } from '@/core/store/codeCompletion.store';
 
 import styles from './CodeCompletionAnswerInput.module.scss';
-import type { CodeCompletionQuestion } from '../../../../api/fetchQuizById';
+import type { CodeCompletionQuestion } from '../../types';
 
 const MIN_SYMBOLS_IN_INPUT = 3;
 

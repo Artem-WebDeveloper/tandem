@@ -1,7 +1,7 @@
 // MOCK DATA - Single Choice
 
-import { Difficulty, TaskType } from '../../../types/quiz';
-import type { SingleChoiceTaskResponse } from '../types';
+import { Difficulty, TaskType } from '../types/quiz';
+import type { SingleChoiceTaskResponse } from '../feature/SingleChoiceWidget/types';
 
 export const MOCK_SINGLE_CHOICE_DATA: SingleChoiceTaskResponse[] = [
   // HTML EASY - 25 questions

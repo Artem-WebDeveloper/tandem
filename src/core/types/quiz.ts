@@ -13,10 +13,12 @@ export type Difficulty = (typeof Difficulty)[keyof typeof Difficulty];
 // Task types - add here when a new quiz appears
 export const TaskType = {
   SingleChoice: 'single_choice',
+  CodeCompletion: 'code_completion',
   //TrueFalse:      'true_false',
 
   //CodeCompletion: 'Code Completion', Gleb's code type of quiz
 } as const;
+
 export type TaskType = (typeof TaskType)[keyof typeof TaskType];
 
 // A universal set of fields for any quiz to render in practice.tsx
@@ -25,13 +27,6 @@ export interface BaseTask {
   type: TaskType;
   difficulty: Difficulty;
 }
-
-// -----------------------------------------------------------------------------
-// TaskFetchResponse — a union of all possible server responses
-// expands when a new quiz is added
-export type TaskFetchResponse =
-  import('../../core/features/singleChoice/types').SingleChoiceTaskResponse;
-// | YourNewTaskResponse
 
 // -----------------------------------------------------------------------------
 // Submitting answers to the server is the same for all quizzes

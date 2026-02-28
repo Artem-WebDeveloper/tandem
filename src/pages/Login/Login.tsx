@@ -6,6 +6,7 @@ import { isAxiosError } from 'axios';
 import { useAuthStore } from '../../core/store/auth.store';
 import { loginApi } from '../../core/api/auth';
 import styles from './Login.module.scss';
+import logo from '../../core/assets/logo.svg';
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -42,8 +43,18 @@ export default function Login() {
 
   return (
     <Box className={styles.container}>
-      <Paper elevation={3} className={styles.formCard}>
-        <Typography variant="h4" component="h1" gutterBottom align="center">
+      <Box className={styles.header}>
+        <img src={logo} alt="Logo" className={styles.logo} />
+        <Typography variant="h4" component="h1" className={styles.mainTitle}>
+          RS School Trainer
+        </Typography>
+        <Typography variant="body2" className={styles.subtitle}>
+          Тренажер по программированию для студентов
+        </Typography>
+      </Box>
+
+      <Paper elevation={0} className={styles.formCard}>
+        <Typography variant="h6" component="h2" className={styles.formTitle}>
           Вход в систему
         </Typography>
 

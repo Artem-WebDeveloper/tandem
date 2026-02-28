@@ -1,9 +1,94 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Box, Button, TextField, Typography, Paper, CircularProgress, Alert } from '@mui/material';
+import { isAxiosError } from 'axios';
+
+import { useAuthStore } from '../../core/store/auth.store';
+import { loginApi } from '../../core/api/auth';
 import styles from './Login.module.scss';
 
 export default function Login() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const login = useAuthStore((state) => state.login);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: React.SubmitEvent) => {
+    e.preventDefault();
+
+    setError(null);
+    setIsLoading(true);
+
+    try {
+      const { access, refresh } = await loginApi(username, password);
+
+      login(access, refresh);
+      navigate('/library', { replace: true });
+    } catch (err) {
+      if (isAxiosError(err)) {
+        const errorMessage =
+          err.response?.data?.detail || 'Ошибка авторизации. Проверьте имя пользователя и пароль.';
+        setError(errorMessage);
+      } else {
+        setError('Unexpected error');
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
-    <>
-      <h2 className={styles.title}>Login</h2>
-    </>
+    <Box className={styles.container}>
+      <Paper elevation={3} className={styles.formCard}>
+        <Typography variant="h4" component="h1" gutterBottom align="center">
+          Вход в систему
+        </Typography>
+
+        {error && (
+          <Alert severity="error" sx={{ mb: 2 }}>
+            {error}
+          </Alert>
+        )}
+
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <TextField
+            label="Имя пользователя"
+            type="text"
+            variant="outlined"
+            fullWidth
+            required
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            disabled={isLoading}
+          />
+
+          <TextField
+            label="Пароль"
+            type="password"
+            variant="outlined"
+            fullWidth
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            disabled={isLoading}
+          />
+
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            size="large"
+            fullWidth
+            disabled={isLoading}
+            className={styles.submitBtn}
+          >
+            {isLoading ? <CircularProgress size={24} color="inherit" /> : 'Войти'}
+          </Button>
+        </form>
+      </Paper>
+    </Box>
   );
 }

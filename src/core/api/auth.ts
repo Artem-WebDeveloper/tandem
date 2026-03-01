@@ -15,3 +15,10 @@ export const loginApi = async (username: string, password: string): Promise<Logi
 
   return response.data;
 };
+
+export const registerApi = async (username: string, password: string): Promise<void> => {
+  await axios.post(`${API_URL}/users/register/`, {
+    username,
+    password,
+  });
+};

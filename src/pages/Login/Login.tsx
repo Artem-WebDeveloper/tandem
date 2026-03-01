@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Box,
@@ -16,6 +16,7 @@ import { useAuthStore } from '../../core/store/auth.store';
 import { loginApi } from '../../core/api/auth';
 import styles from './Login.module.scss';
 import logo from '../../core/assets/logo.svg';
+import RegisterDialog from './RegisterDialog/RegisterDialog';
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -23,9 +24,22 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const [successMsg, setSuccessMsg] = useState<string | null>(null);
+
   const login = useAuthStore((state) => state.login);
   const navigate = useNavigate();
   const theme = useTheme();
+
+  useEffect(() => {
+    if (error || successMsg) {
+      const timer = setTimeout(() => {
+        setError(null);
+        setSuccessMsg(null);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [error, successMsg]);
 
   const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
@@ -49,6 +63,13 @@ export default function Login() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleRegisterSuccess = (newUsername: string) => {
+    setIsRegisterOpen(false);
+    setSuccessMsg('Регистрация прошла успешно! Теперь вы можете войти.');
+    setUsername(newUsername);
+    setPassword('');
   };
 
   const containerStyle = {
@@ -81,6 +102,16 @@ export default function Login() {
     },
   };
 
+  const textButtonStyle = {
+    textTransform: 'none',
+    color: theme.palette.text.secondary,
+    marginTop: '0.5rem',
+    '&:hover': {
+      backgroundColor: 'transparent',
+      color: theme.palette.primary.main,
+    },
+  };
+
   return (
     <Box className={styles.container} sx={containerStyle}>
       <Box className={styles.header}>
@@ -101,6 +132,12 @@ export default function Login() {
         {error && (
           <Alert severity="error" sx={{ mb: 2 }}>
             {error}
+          </Alert>
+        )}
+
+        {successMsg && (
+          <Alert severity="success" sx={{ mb: 2 }}>
+            {successMsg}
           </Alert>
         )}
 
@@ -137,8 +174,23 @@ export default function Login() {
           >
             {isLoading ? <CircularProgress size={24} color="inherit" /> : 'Войти'}
           </Button>
+
+          <Button
+            variant="text"
+            fullWidth
+            onClick={() => setIsRegisterOpen(true)}
+            sx={textButtonStyle}
+          >
+            Нет аккаунта? Зарегистрируйтесь
+          </Button>
         </form>
       </Paper>
+
+      <RegisterDialog
+        open={isRegisterOpen}
+        onClose={() => setIsRegisterOpen(false)}
+        onSuccess={handleRegisterSuccess}
+      />
     </Box>
   );
 }

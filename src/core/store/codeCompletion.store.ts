@@ -19,21 +19,31 @@ export const useCodeCompletionStore = create<CodeCompletionState>()((set, get) =
   increaseQuestionNumber: () => set({ currentQuestionNumber: get().currentQuestionNumber + 1 }),
   decreaseQuestionNumber: () => set({ currentQuestionNumber: get().currentQuestionNumber - 1 }),
   setAnswer: (questionId, answer) => {
-    const newAnswers = [...get().answers];
+    set((state) => {
+      const index = state.answers.findIndex((a) => a.questionId === questionId);
 
-    let currentAnswer = newAnswers.find((answer) => answer.questionId === questionId);
+      if (index === -1) {
+        return {
+          answers: [
+            ...state.answers,
+            {
+              questionId,
+              payload: answer,
+            },
+          ],
+        };
+      }
 
-    if (currentAnswer === undefined) {
-      currentAnswer = {
-        questionId,
-        payload: '',
+      return {
+        answers: state.answers.map((a, i) =>
+          i === index
+            ? {
+                ...a,
+                payload: answer,
+              }
+            : a,
+        ),
       };
-
-      newAnswers.push(currentAnswer);
-    }
-
-    currentAnswer.payload = answer;
-
-    set({ answers: newAnswers });
+    });
   },
 }));

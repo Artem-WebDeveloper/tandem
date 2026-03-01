@@ -1,0 +1,31 @@
+.dialogPaper {
+  border-radius: 12px;
+  padding: 1rem;
+  width: 100%;
+  max-width: 450px !important;
+  background-image: none;
+}
+
+.formTitle {
+  font-weight: 700 !important;
+  padding: 0 0 1.5rem 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 2px 0;
+}
+
+.submitBtn {
+  height: 48px;
+  margin-top: 0.5rem;
+  text-transform: none;
+  font-weight: 400;
+}
+
+.textBtn {
+  margin-top: 0.5rem;
+  text-transform: none;
+}

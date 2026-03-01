@@ -1,4 +1,6 @@
-export const MOCK_CODE_COMPLETION_DATA = [
+import type { CodeCompletionTask } from '../feature/CodeCompletionWidget/types';
+
+export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
   {
     id: 'cc-001',
     type: 'code_completion',

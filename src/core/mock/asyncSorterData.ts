@@ -1,4 +1,6 @@
-export const MOCK_ASYNC_SORTER_DATA = [
+import type { AsyncSorterTask } from '../feature/AsyncSorterWidget/types';
+
+export const MOCK_ASYNC_SORTER_DATA: AsyncSorterTask[] = [
   {
     id: 'as-001',
     type: 'async_sorter',

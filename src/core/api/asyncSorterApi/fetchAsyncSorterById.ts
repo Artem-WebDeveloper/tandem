@@ -1,5 +1,3 @@
-// API — Single Choice
-
 import type { AsyncSorterTask } from '../../feature/AsyncSorterWidget/types';
 import { MOCK_ASYNC_SORTER_DATA } from '../../mock/asyncSorterData';
 

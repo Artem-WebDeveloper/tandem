@@ -1,0 +1,99 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 48px;
+  position: relative;
+}
+
+.corner {
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  will-change: transform;
+}
+
+@keyframes left-top-float {
+  0% {
+    transform: translate(0px, 0px);
+  }
+  50% {
+    transform: translate(4px, 4px);
+  }
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
+
+.cornerLeftTop {
+  border: 2px solid;
+  border-bottom: transparent;
+  border-right: transparent;
+  top: 0;
+  left: 0;
+  animation: left-top-float 3s ease infinite;
+}
+
+@keyframes right-top-float {
+  0% {
+    transform: translate(0px, 0px);
+  }
+  50% {
+    transform: translate(-4px, 4px);
+  }
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
+
+.cornerRightTop {
+  border: 2px solid;
+  border-bottom: transparent;
+  border-left: transparent;
+  top: 0;
+  right: 0;
+  animation: right-top-float 3s ease infinite;
+}
+
+@keyframes right-bottom-float {
+  0% {
+    transform: translate(0px, 0px);
+  }
+  50% {
+    transform: translate(-4px, -4px);
+  }
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
+
+.cornerRightBottom {
+  border: 2px solid;
+  border-top: transparent;
+  border-left: transparent;
+  bottom: 0;
+  right: 0;
+  animation: right-bottom-float 3s ease infinite;
+}
+
+@keyframes left-bottom-float {
+  0% {
+    transform: translate(0px, 0px);
+  }
+  50% {
+    transform: translate(4px, -4px);
+  }
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
+
+.cornerLeftBottom {
+  border: 2px solid;
+  border-top: transparent;
+  border-right: transparent;
+  bottom: 0;
+  left: 0;
+  animation: left-bottom-float 3s ease infinite;
+}

@@ -1,15 +1,74 @@
 .card {
   width: 100%;
-  height: 190px;
+  height: 210px;
   padding: 14px;
   display: flex;
   flex-direction: column;
 
   border-radius: 8px;
+  gap: 6px;
+
+  > *:last-child {
+    margin-top: auto;
+  }
 
   &Heading {
     display: flex;
-    gap: 10px;
+    gap: 7px;
     align-items: center;
+    // margin-bottom: 5px;
+  }
+
+  &Body {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+
+    display: flex;
+    flex-direction: column;
+    padding: 5px 0;
+    padding-right: 4px;
+    gap: 5px;
+    scrollbar-width: auto;
+
+    &::-webkit-scrollbar {
+      width: 3px;
+
+      display: block;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+      background-color: rgba(226, 232, 240, 0.4);
+      border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(203, 213, 225, 0.8);
+      border-radius: 3px;
+    }
+  }
+
+  &Info {
+    > *:last-child {
+      margin-left: auto;
+    }
+  }
+
+  &Tags {
+    // margin-top: auto;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-self: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    height: auto;
+  }
+
+  &Footer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
 }

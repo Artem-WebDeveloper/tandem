@@ -22,18 +22,15 @@
 
 .mainTitle {
   font-weight: 700 !important;
-  margin-bottom: 0.5rem !important;
+  margin-bottom: 0.5rem;
 }
 
 .formCard {
-  padding: 2rem;
+  padding: 2.5rem 2rem;
   width: 100%;
-  max-width: 400px;
-  border-radius: 12px;
+  max-width: 440px;
+  border-radius: 8px;
   margin: 0 1rem;
-
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
-  border: 1px solid var(--mui-palette-divider);
 }
 
 .formTitle {
@@ -48,9 +45,9 @@
 }
 
 .submitBtn {
-  height: 48px;
+  height: 44px;
   margin-top: 0.5rem;
-  text-transform: none !important;
-  font-weight: 600 !important;
-  background-color: #0f172a !important;
+  text-transform: none;
+  font-weight: 500;
+  border-radius: 6px;
 }

@@ -1,6 +1,15 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Button, TextField, Typography, Paper, CircularProgress, Alert } from '@mui/material';
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  Paper,
+  CircularProgress,
+  Alert,
+  useTheme,
+} from '@mui/material';
 import { isAxiosError } from 'axios';
 
 import { useAuthStore } from '../../core/store/auth.store';
@@ -16,6 +25,7 @@ export default function Login() {
 
   const login = useAuthStore((state) => state.login);
   const navigate = useNavigate();
+  const theme = useTheme();
 
   const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
@@ -41,20 +51,50 @@ export default function Login() {
     }
   };
 
+  const containerStyle = {
+    backgroundColor: theme.palette.background.default,
+  };
+
+  const mainTitleStyle = {
+    color: theme.palette.text.primary,
+  };
+
+  const subtitleStyle = {
+    color: theme.palette.text.secondary,
+  };
+
+  const cardStyle = {
+    backgroundColor: theme.palette.background.paper,
+    boxShadow:
+      theme.palette.mode === 'light'
+        ? '0 10px 30px rgba(0, 0, 0, 0.05)'
+        : '0 10px 30px rgba(0, 0, 0, 0.2)',
+    border: `1px solid ${theme.palette.divider}`,
+  };
+
+  const buttonStyle = {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.background.paper,
+    '&:hover': {
+      backgroundColor: theme.palette.primary.main,
+      opacity: 0.9,
+    },
+  };
+
   return (
-    <Box className={styles.container}>
+    <Box className={styles.container} sx={containerStyle}>
       <Box className={styles.header}>
         <img src={logo} alt="Logo" className={styles.logo} />
-        <Typography variant="h4" component="h1" className={styles.mainTitle}>
+        <Typography variant="h4" component="h1" className={styles.mainTitle} sx={mainTitleStyle}>
           RS School Trainer
         </Typography>
-        <Typography variant="body2" className={styles.subtitle}>
+        <Typography variant="body2" className={styles.subtitle} sx={subtitleStyle}>
           Тренажер по программированию для студентов
         </Typography>
       </Box>
 
-      <Paper elevation={0} className={styles.formCard}>
-        <Typography variant="h6" component="h2" className={styles.formTitle}>
+      <Paper elevation={0} className={styles.formCard} sx={cardStyle}>
+        <Typography variant="h6" component="h2" className={styles.formTitle} sx={mainTitleStyle}>
           Вход в систему
         </Typography>
 
@@ -90,11 +130,10 @@ export default function Login() {
           <Button
             type="submit"
             variant="contained"
-            color="primary"
-            size="large"
             fullWidth
             disabled={isLoading}
             className={styles.submitBtn}
+            sx={buttonStyle}
           >
             {isLoading ? <CircularProgress size={24} color="inherit" /> : 'Войти'}
           </Button>

@@ -12,17 +12,11 @@ import { IconButton } from '@mui/material';
 
 import styles from './CardQuiz.module.scss';
 import type { libraryQuiz } from '../types';
+import { difficultyLabels, quizTypeConfig, sectionConfig } from '@/core/configs/library.config';
 import DifficultyChip from '@/core/components/DifficultyChip/DifficultyChip';
-
-const difficultyLabels = {
-  1: 'Easy',
-  2: 'Middle',
-  3: 'Hard',
-} as const;
 
 export default function CardQuiz({ quizData }: { quizData: libraryQuiz }) {
   const theme = useTheme();
-
   const [isLike, setIsLike] = useState<boolean>(false);
 
   const {
@@ -35,26 +29,46 @@ export default function CardQuiz({ quizData }: { quizData: libraryQuiz }) {
     difficulty,
     tags,
     section,
+    type,
+    isComplete,
   } = quizData;
+
+  const themeQuiz = sectionConfig[section];
+  const accentColorThemeLabel = themeQuiz?.color ?? theme.palette.primary.main;
+  const bgColorThemeLabel = themeQuiz?.bgLight ?? theme.palette.background.paper;
+  const typeQuizLabel = quizTypeConfig[type];
 
   return (
     <li
-      style={{ backgroundColor: theme.palette.background.paper, boxShadow: theme.shadows[1] }}
+      style={{
+        backgroundColor: theme.palette.background.paper,
+        boxShadow: theme.shadows[1],
+      }}
       className={styles.card}
     >
       <header className={styles.cardHeading}>
-        {completeProcentage === 0 ? (
-          <PanoramaFishEyeIcon sx={{ color: theme.palette.textUltralight }} />
-        ) : (
+        {isComplete ? (
           <CheckCircleOutlineIcon sx={{ color: theme.palette.success.main }} />
+        ) : (
+          <PanoramaFishEyeIcon sx={{ color: theme.palette.textUltralight }} />
         )}
-        <h3>
-          {section}: {title}
-        </h3>
+        <h3 className={styles.cardTitle}>{title}</h3>
 
-        <IconButton
+        <Chip
+          label={themeQuiz?.label ?? section}
           size="small"
-          sx={{ marginLeft: 'auto' }}
+          sx={{
+            backgroundColor: bgColorThemeLabel,
+            color: accentColorThemeLabel,
+            fontWeight: 700,
+            fontSize: '11px',
+            height: '20px',
+            marginLeft: 'auto',
+          }}
+        />
+        <IconButton
+          className={styles.cardTheme}
+          size="small"
           onClick={() => setIsLike((like) => !like)}
         >
           {isLike ? (
@@ -96,6 +110,18 @@ export default function CardQuiz({ quizData }: { quizData: libraryQuiz }) {
         </section>
 
         <section className={styles.cardTags}>
+          {typeQuizLabel && (
+            <Chip
+              label={typeQuizLabel}
+              variant="outlined"
+              size="small"
+              sx={{
+                borderColor: theme.palette.info.light,
+                fontWeight: 500,
+              }}
+            />
+          )}
+
           {tags.map((tag) => (
             <Chip
               label={tag}

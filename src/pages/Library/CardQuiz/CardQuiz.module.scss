@@ -1,11 +1,13 @@
 .card {
+  position: relative;
   width: 100%;
-  height: 210px;
-  padding: 14px;
+  height: 220px;
+  padding: 10px 14px;
   display: flex;
   flex-direction: column;
 
   border-radius: 8px;
+
   gap: 6px;
 
   > *:last-child {
@@ -16,7 +18,13 @@
     display: flex;
     gap: 7px;
     align-items: center;
-    // margin-bottom: 5px;
+  }
+
+  &Title {
+    font-size: 18px;
+    @media (max-width: 360px) {
+      font-size: 17px;
+    }
   }
 
   &Body {
@@ -26,14 +34,12 @@
 
     display: flex;
     flex-direction: column;
-    padding: 5px 0;
     padding-right: 4px;
-    gap: 5px;
+    gap: 3px;
     scrollbar-width: auto;
 
     &::-webkit-scrollbar {
       width: 3px;
-
       display: block;
     }
 
@@ -56,12 +62,9 @@
   }
 
   &Tags {
-    // margin-top: auto;
     display: flex;
-    flex: 1;
-    align-items: center;
-    justify-self: center;
-    gap: 8px;
+    margin-top: 7px;
+    gap: 6px;
     flex-wrap: wrap;
     height: auto;
   }

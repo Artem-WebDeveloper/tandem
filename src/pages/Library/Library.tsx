@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
+
 import styles from './Library.module.scss';
-import Layout from '../../core/components/Layout/Layout';
-import CardQuiz from './CardQuiz/CardQuiz';
-import { libraryData } from '@/core/mock/library';
 import type { libraryQuiz } from './types';
 import { fetchAllQuizzes } from '@/core/api/fetchAllQuizzes';
 import ErrorNotification from '@/core/components/ErrorNotification/ErrorNotification';
+import Layout from '../../core/components/Layout/Layout';
+import CardQuiz from './CardQuiz/CardQuiz';
+import CardSkeleton from './CardSkeleton/CardSkeleton';
+
+const CARDS_PER_PAGE = 6;
 
 export default function Library() {
   const [quizzesData, setQuizzesData] = useState<libraryQuiz[] | null>(null);
@@ -39,12 +42,18 @@ export default function Library() {
       <Layout>
         <h2 className={styles.title}>Library</h2>
 
-        {loading && <p>Loading</p>}
+        {loading && (
+          <ul className={styles.cards}>
+            {Array.from({ length: CARDS_PER_PAGE }).map((_, i) => (
+              <CardSkeleton key={i} />
+            ))}
+          </ul>
+        )}
         {error && <ErrorNotification message={error} />}
 
         {quizzesData && (
           <ul className={styles.cards}>
-            {libraryData.map((quizData) => {
+            {quizzesData.map((quizData) => {
               return <CardQuiz quizData={quizData} key={quizData.id} />;
             })}
           </ul>

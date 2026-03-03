@@ -2,6 +2,12 @@
   font-size: 20px;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
 .cards {
   width: 100%;
   padding: 20px 0;
@@ -15,5 +21,11 @@
 
   @media (max-width: 360px) {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  &Pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: auto;
   }
 }

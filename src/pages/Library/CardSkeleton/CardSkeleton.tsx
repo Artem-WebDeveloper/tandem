@@ -14,16 +14,17 @@ export default function CardSkeleton() {
       <header className={styles.cardHeading}>
         <Skeleton variant="text" width="100%" height={40} />
       </header>
-      <main className={styles.cardBody}>
-        <section className={styles.cardDescription}></section>
-        <Skeleton
-          animation="wave"
-          variant="rounded"
-          width="100%"
-          height={12}
-          sx={{ marginBottom: '7px' }}
-        />
-        <Skeleton animation="wave" variant="rounded" width="90%" height={12} />
+      <main>
+        <section className={styles.cardDescription}>
+          <Skeleton
+            animation="wave"
+            variant="rounded"
+            width="100%"
+            height={12}
+            sx={{ marginBottom: '7px' }}
+          />
+          <Skeleton animation="wave" variant="rounded" width="90%" height={12} />
+        </section>
         <section
           className={styles.cardInfo}
           style={{ display: 'flex', alignItems: 'center', gap: '10px' }}

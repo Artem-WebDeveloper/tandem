@@ -3,6 +3,7 @@ import { TaskType } from '../types/quiz';
 const TASK_TYPE_LABELS: Record<TaskType, string> = {
   [TaskType.SingleChoice]: 'Single Choice',
   [TaskType.CodeCompletion]: 'Code Completion',
+  [TaskType.AsyncSorter]: 'Async Sorter',
 };
 
 export function getTaskTypeLabel(type: TaskType): string {

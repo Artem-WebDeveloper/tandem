@@ -14,3 +14,27 @@ export function fetchAllQuizzes(): Promise<LibraryQuiz[]> {
     }, 1000);
   });
 }
+
+// После согласования с бэком
+/* 
+const SERVER_API = 'https://';
+export const updateQuizFavoriteStatus = async (quizId: string, isFavorite: boolean) => {
+  try {
+    const response = await fetch(`/${SERVER_API}/quiz/${quizId}/favorite`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ isFavorite }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Ошибка при обновлении лайка');
+    }
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+ */

@@ -16,7 +16,7 @@ export const libraryData: LibraryQuiz[] = [
     isFavorite: false,
   },
   {
-    id: 'sc-001',
+    id: 'cc-002',
     type: 'single_choice',
     difficulty: 2,
     title: 'Основы React компонентов',
@@ -30,7 +30,7 @@ export const libraryData: LibraryQuiz[] = [
     isFavorite: true,
   },
   {
-    id: 'sc-002',
+    id: 'as-001',
     type: 'single_choice',
     difficulty: 3,
     title: 'Продвинутые концепции TS',
@@ -45,7 +45,7 @@ export const libraryData: LibraryQuiz[] = [
     isFavorite: false,
   },
   {
-    id: 'cc-002',
+    id: 'as-002',
     type: 'code_completion',
     difficulty: 2,
     title: 'React Hooks: useEffect',
@@ -64,7 +64,7 @@ export const libraryData: LibraryQuiz[] = [
     questionsQuantity: 6,
     completeProcentage: 100,
     isComplete: true,
-    isFavorite: false,
+    isFavorite: true,
   },
   {
     id: 'tf-001',
@@ -82,7 +82,7 @@ export const libraryData: LibraryQuiz[] = [
   },
 
   {
-    id: 'sc-003',
+    id: 'sc-html-easy',
     type: 'single_choice',
     difficulty: 2,
     title: 'HTML & CSS Flexbox',
@@ -96,7 +96,7 @@ export const libraryData: LibraryQuiz[] = [
     isFavorite: false,
   },
   {
-    id: 'async-001',
+    id: 'as-003',
     type: 'async_sorter',
     difficulty: 3,
     title: 'Async/Await',

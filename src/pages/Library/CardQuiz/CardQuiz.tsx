@@ -17,7 +17,7 @@ import DifficultyChip from '@/core/components/DifficultyChip/DifficultyChip';
 
 export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
   const theme = useTheme();
-  const [isLike, setIsLike] = useState<boolean>(false);
+  const [isLike, setIsLike] = useState<boolean>(quizData.isFavorite);
 
   const {
     title,
@@ -37,6 +37,20 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
   const accentColorThemeLabel = themeQuiz?.color ?? theme.palette.primary.main;
   const bgColorThemeLabel = themeQuiz?.bgLight ?? theme.palette.background.paper;
   const typeQuizLabel = quizTypeConfig[type];
+
+  const handleLikeToggle = () => {
+    setIsLike((prev) => !prev);
+    // updateLikeStatus(id, !isFavorite); // позже, после обсуждения с бэком
+  };
+
+  // TODO после согласования с бэком
+  /* const updateLikeStatus = async (id: string, newStatus: boolean) => {
+    try {
+      await updateQuizFavoriteStatus(id, newStatus);
+    } catch (error) {
+      console.error('Ошибка при обновлении лайка', error);
+    }
+  }; */
 
   return (
     <li
@@ -66,11 +80,7 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
             marginLeft: 'auto',
           }}
         />
-        <IconButton
-          className={styles.cardTheme}
-          size="small"
-          onClick={() => setIsLike((like) => !like)}
-        >
+        <IconButton className={styles.cardTheme} size="small" onClick={handleLikeToggle}>
           {isLike ? (
             <FavoriteRoundedIcon fontSize="small" sx={{ color: '#D13B3B' }} />
           ) : (

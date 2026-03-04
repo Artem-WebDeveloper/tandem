@@ -11,11 +11,11 @@ import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded';
 import { IconButton } from '@mui/material';
 
 import styles from './CardQuiz.module.scss';
-import type { libraryQuiz } from '../types';
+import type { LibraryQuiz } from '../types';
 import { difficultyLabels, quizTypeConfig, sectionConfig } from '@/core/configs/library.config';
 import DifficultyChip from '@/core/components/DifficultyChip/DifficultyChip';
 
-export default function CardQuiz({ quizData }: { quizData: libraryQuiz }) {
+export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
   const theme = useTheme();
   const [isLike, setIsLike] = useState<boolean>(false);
 

@@ -1,6 +1,6 @@
-import type { BaseTask, TaskTheme } from '@/core/types/quiz';
+import type { BaseTask, Difficulty, TaskTheme, TaskType } from '@/core/types/quiz';
 
-export interface libraryQuiz extends BaseTask {
+export interface LibraryQuiz extends BaseTask {
   title: string;
   section: TaskTheme;
   tags: string[];
@@ -11,3 +11,9 @@ export interface libraryQuiz extends BaseTask {
   isComplete: boolean;
   isFavorite: boolean;
 }
+
+export type LibraryFilters = {
+  section: TaskTheme | 'all';
+  type: TaskType | 'all';
+  difficulty: Difficulty | 'all';
+};

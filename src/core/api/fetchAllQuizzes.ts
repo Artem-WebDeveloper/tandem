@@ -1,7 +1,7 @@
-import type { libraryQuiz } from '@/pages/Library/types';
+import type { LibraryQuiz } from '@/pages/Library/types';
 import { libraryData } from '../mock/library';
 
-export function fetchAllQuizzes(): Promise<libraryQuiz[]> {
+export function fetchAllQuizzes(): Promise<LibraryQuiz[]> {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       const data = libraryData;
@@ -11,6 +11,6 @@ export function fetchAllQuizzes(): Promise<libraryQuiz[]> {
       } else {
         reject(new Error(`Не удалось загрузить тренажеры, проверьте соединение с интернетом`));
       }
-    }, 2000);
+    }, 1000);
   });
 }

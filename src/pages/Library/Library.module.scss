@@ -1,11 +1,13 @@
 .title {
   font-size: 20px;
+  margin-bottom: 20px;
 }
 
 .container {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  padding: 0;
 }
 
 .cards {
@@ -28,4 +30,10 @@
     justify-content: center;
     margin-top: auto;
   }
+}
+
+.errorContainer {
+  margin-top: 50px;
+  align-self: center;
+  justify-self: center;
 }

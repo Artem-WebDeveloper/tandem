@@ -1,21 +1,27 @@
 import { useEffect, useState } from 'react';
+import { Pagination, Typography } from '@mui/material';
 
 import styles from './Library.module.scss';
-import type { libraryQuiz } from './types';
+import type { LibraryFilters, LibraryQuiz } from './types';
 import { fetchAllQuizzes } from '@/core/api/fetchAllQuizzes';
 import ErrorNotification from '@/core/components/ErrorNotification/ErrorNotification';
 import Layout from '../../core/components/Layout/Layout';
+import Filters from './Filters/Filters';
 import CardQuiz from './CardQuiz/CardQuiz';
 import CardSkeleton from './CardSkeleton/CardSkeleton';
-import { Pagination } from '@mui/material';
 
 const CARDS_PER_PAGE = 6;
 
 export default function Library() {
-  const [quizzesData, setQuizzesData] = useState<libraryQuiz[] | null>(null);
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [quizzesData, setQuizzesData] = useState<LibraryQuiz[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [filters, setFilters] = useState<LibraryFilters>({
+    section: 'all',
+    type: 'all',
+    difficulty: 'all',
+  });
 
   const totalPages = quizzesData ? Math.ceil(quizzesData.length / CARDS_PER_PAGE) : 1; // позже данное значение будет получено с сервера
 
@@ -27,13 +33,18 @@ export default function Library() {
     setCurrentPage(value);
   };
 
+  const handleFiltersChange = (newFilters: LibraryFilters) => setFilters(newFilters);
+
   useEffect(() => {
     const fetchLibraryData = async () => {
       try {
+        setQuizzesData(null);
         setLoading(true);
         setError(null);
 
         const data = await fetchAllQuizzes();
+        // const data = await fetchAllQuizzes(filters, currentPage); В будущем передавать на бэк фильтры и страницу
+
         setQuizzesData(data);
       } catch (error) {
         if (error instanceof Error) {
@@ -47,13 +58,23 @@ export default function Library() {
     };
 
     fetchLibraryData();
-  }, []);
+  }, [filters]);
 
   return (
     <>
       <Layout>
         <h2 className={styles.title}>Library</h2>
-        {/* <div className={styles.container}> */}
+
+        {!error && <Typography sx={{ mb: 1 }}>Выберите тест для практики</Typography>}
+
+        {!error && (
+          <Filters
+            allQuizzes={quizzesData?.length ?? null}
+            onFiltersChange={handleFiltersChange}
+            loading={loading}
+          />
+        )}
+
         {loading && (
           <ul className={styles.cards}>
             {Array.from({ length: CARDS_PER_PAGE }).map((_, i) => (
@@ -61,7 +82,12 @@ export default function Library() {
             ))}
           </ul>
         )}
-        {error && <ErrorNotification message={error} />}
+
+        {error && (
+          <div className={styles.errorContainer}>
+            <ErrorNotification message={error} />
+          </div>
+        )}
 
         {quizzesData && (
           <>
@@ -89,7 +115,6 @@ export default function Library() {
             )}
           </>
         )}
-        {/* </div> */}
       </Layout>
     </>
   );

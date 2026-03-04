@@ -1,6 +1,6 @@
-import type { libraryQuiz } from '@/pages/Library/types';
+import type { LibraryQuiz } from '@/pages/Library/types';
 
-export const libraryData: libraryQuiz[] = [
+export const libraryData: LibraryQuiz[] = [
   {
     id: 'cc-001',
     type: 'code_completion',

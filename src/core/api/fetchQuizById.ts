@@ -1,6 +1,7 @@
 import { fetchSingleChoiceById } from './singleChoiceApi/fetchSingleChoiceById';
 import { fetchCodeCompletionById } from './codeCompletionApi/fetchCodeCompletionById';
 import { fetchAsyncSorterById } from './asyncSorterApi/fetchAsyncSorterById';
+import { fetchCodeOrderingById } from './codeOrderingApi/fetchCodeOrderingById';
 
 import type { SingleChoiceTaskResponse } from '../feature/SingleChoiceWidget/types';
 import type { CodeCompletionTask } from '../feature/CodeCompletionWidget/types';
@@ -20,6 +21,8 @@ export function fetchQuizById(id: string): Promise<QuizTask> {
       return fetchCodeCompletionById(id);
     case 'as':
       return fetchAsyncSorterById(id);
+    case 'co':
+      return fetchCodeOrderingById(id);
     default:
       throw new Error('Неизвестный тип квиза');
   }

@@ -15,6 +15,7 @@ export const TaskType = {
   SingleChoice: 'single_choice',
   CodeCompletion: 'code_completion',
   AsyncSorter: 'async_sorter',
+  CodeOrdering: 'code_ordering',
   //TrueFalse:      'true_false',
 
   //CodeCompletion: 'Code Completion', Gleb's code type of quiz

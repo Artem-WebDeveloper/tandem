@@ -1,0 +1,111 @@
+import type { CodeOrderingTaskResponse } from '../feature/CodeOrderingWidget/types';
+
+export const MOCK_CODE_COMPLETION_DATA: CodeOrderingTaskResponse[] = [
+  {
+    id: 'co-001',
+    type: 'code_ordering',
+    title: 'Code Ordering Title 1',
+    difficulty: 1,
+    section: 'Core JS',
+    tags: ['array-methods', 'promises', 'objects', 'functions', 'strings'],
+    questions: [
+      {
+        id: '1',
+        text: 'Создайте функцию debounce',
+        codeLines: [
+          { id: 'line-1', code: 'function debounce(func, delay) {', correctPosition: 0, indent: 0 },
+          { id: 'line-2', code: 'let timeoutId;', correctPosition: 1, indent: 1 },
+          { id: 'line-3', code: 'return function(...args) {', correctPosition: 2, indent: 1 },
+          { id: 'line-4', code: 'clearTimeout(timeoutId);', correctPosition: 3, indent: 2 },
+          { id: 'line-5', code: 'timeoutId = setTimeout(() => {', correctPosition: 4, indent: 2 },
+          { id: 'line-6', code: 'func.apply(this, args);', correctPosition: 5, indent: 3 },
+          { id: 'line-7', code: '}, delay);', correctPosition: 6, indent: 2 },
+          { id: 'line-8', code: '};', correctPosition: 7, indent: 1 },
+          { id: 'line-9', code: '}', correctPosition: 8, indent: 0 },
+        ],
+      },
+      {
+        id: '2',
+        text: 'Создайте счётчик с замыканием',
+        codeLines: [
+          { id: 'line-1', code: 'function createCounter() {', correctPosition: 0, indent: 0 },
+          { id: 'line-2', code: 'let count = 0;', correctPosition: 1, indent: 1 },
+          { id: 'line-3', code: 'return function() {', correctPosition: 2, indent: 1 },
+          { id: 'line-4', code: 'count++;', correctPosition: 3, indent: 2 },
+          { id: 'line-5', code: 'return count;', correctPosition: 4, indent: 2 },
+          { id: 'line-6', code: '};', correctPosition: 5, indent: 1 },
+          { id: 'line-7', code: '}', correctPosition: 6, indent: 0 },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'co-002',
+    type: 'code_ordering',
+    title: 'Code Ordering Title 2',
+    difficulty: 2,
+    section: 'Core JS',
+    tags: ['objects'],
+    questions: [
+      {
+        id: '1',
+        text: 'Расставьте строки кода для асинхронной функции с обработкой ошибок',
+        codeLines: [
+          { id: 'line-1', code: 'async function loadData() {', correctPosition: 0, indent: 0 },
+          { id: 'line-2', code: 'try {', correctPosition: 1, indent: 1 },
+          {
+            id: 'line-3',
+            code: "const response = await fetch('/api/data');",
+            correctPosition: 2,
+            indent: 2,
+          },
+          {
+            id: 'line-4',
+            code: 'const data = await response.json();',
+            correctPosition: 3,
+            indent: 2,
+          },
+          { id: 'line-5', code: 'return data;', correctPosition: 4, indent: 2 },
+          { id: 'line-6', code: '} catch (error) {', correctPosition: 5, indent: 1 },
+          {
+            id: 'line-7',
+            code: "console.error('Failed to load:', error);",
+            correctPosition: 6,
+            indent: 2,
+          },
+          { id: 'line-8', code: 'throw error;', correctPosition: 7, indent: 2 },
+          { id: 'line-9', code: '}', correctPosition: 8, indent: 1 },
+          { id: 'line-10', code: '}', correctPosition: 9, indent: 0 },
+        ],
+      },
+      {
+        id: '2',
+        text: 'Расставьте строки кода для кэширования результатов функции',
+        codeLines: [
+          { id: 'line-1', code: 'function memoize(fn) {', correctPosition: 0, indent: 0 },
+          { id: 'line-2', code: 'const cache = {};', correctPosition: 1, indent: 1 },
+          { id: 'line-3', code: 'return function(...args) {', correctPosition: 2, indent: 1 },
+          {
+            id: 'line-4',
+            code: 'const key = JSON.stringify(args);',
+            correctPosition: 3,
+            indent: 2,
+          },
+          { id: 'line-5', code: 'if (key in cache) {', correctPosition: 4, indent: 2 },
+          { id: 'line-6', code: 'return cache[key];', correctPosition: 5, indent: 3 },
+          { id: 'line-7', code: '}', correctPosition: 6, indent: 2 },
+          {
+            id: 'line-8',
+            code: 'const result = fn.apply(this, args);',
+            correctPosition: 7,
+            indent: 2,
+          },
+          { id: 'line-9', code: 'cache[key] = result;', correctPosition: 8, indent: 2 },
+          { id: 'line-10', code: 'return result;', correctPosition: 9, indent: 2 },
+          { id: 'line-11', code: '};', correctPosition: 10, indent: 1 },
+          { id: 'line-12', code: '}', correctPosition: 11, indent: 0 },
+        ],
+      },
+    ],
+  },
+];

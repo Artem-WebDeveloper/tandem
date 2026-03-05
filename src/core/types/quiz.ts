@@ -2,6 +2,9 @@
 
 //----------------------------------
 
+// Task themes - add here when a new Theme appears
+export type TaskTheme = 'Core-js' | 'TypeScript' | 'React' | 'HTML' | 'Algorithms';
+
 // Difficulty levels
 export const Difficulty = {
   Easy: 1,
@@ -15,7 +18,7 @@ export const TaskType = {
   SingleChoice: 'single_choice',
   CodeCompletion: 'code_completion',
   AsyncSorter: 'async_sorter',
-  //TrueFalse:      'true_false',
+  TrueFalse: 'true_false',
 
   //CodeCompletion: 'Code Completion', Gleb's code type of quiz
 } as const;

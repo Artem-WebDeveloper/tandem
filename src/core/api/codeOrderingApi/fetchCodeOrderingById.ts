@@ -1,12 +1,12 @@
 // API — Code Ordering
 
 import type { CodeOrderingTaskResponse } from '../../feature/CodeOrderingWidget/types';
-import { MOCK_SINGLE_CHOICE_DATA } from '../../mock/singleChoiceData';
+import { MOCK_CODE_ORDERING_DATA } from '../../mock/codeOrderingData';
 
 export function fetchCodeOrderingById(id: string): Promise<CodeOrderingTaskResponse> {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      const data = MOCK_SINGLE_CHOICE_DATA.find((quiz) => quiz.id === id);
+      const data = MOCK_CODE_ORDERING_DATA.find((quiz) => quiz.id === id);
 
       if (data !== undefined) {
         resolve(data);

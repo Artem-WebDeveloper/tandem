@@ -61,61 +61,59 @@ export default function Library() {
   }, [filters]);
 
   return (
-    <>
-      <Layout>
-        <h2 className={styles.title}>Library</h2>
+    <Layout>
+      <h2 className={styles.title}>Library</h2>
 
-        {!error && <Typography sx={{ mb: 1 }}>Выберите тест для практики</Typography>}
+      {!error && <Typography sx={{ mb: 1 }}>Выберите тест для практики</Typography>}
 
-        {!error && (
-          <Filters
-            allQuizzes={quizzesData?.length ?? null}
-            onFiltersChange={handleFiltersChange}
-            loading={loading}
-          />
-        )}
+      {!error && (
+        <Filters
+          allQuizzes={quizzesData?.length ?? null}
+          onFiltersChange={handleFiltersChange}
+          loading={loading}
+        />
+      )}
 
-        {loading && (
+      {loading && (
+        <ul className={styles.cards}>
+          {Array.from({ length: CARDS_PER_PAGE }).map((_, i) => (
+            <CardSkeleton key={i} />
+          ))}
+        </ul>
+      )}
+
+      {error && (
+        <div className={styles.errorContainer}>
+          <ErrorNotification message={error} />
+        </div>
+      )}
+
+      {quizzesData && (
+        <>
           <ul className={styles.cards}>
-            {Array.from({ length: CARDS_PER_PAGE }).map((_, i) => (
-              <CardSkeleton key={i} />
-            ))}
+            {currentPageQuizzes.map((quizData) => {
+              return <CardQuiz quizData={quizData} key={quizData.id} />;
+            })}
           </ul>
-        )}
 
-        {error && (
-          <div className={styles.errorContainer}>
-            <ErrorNotification message={error} />
-          </div>
-        )}
-
-        {quizzesData && (
-          <>
-            <ul className={styles.cards}>
-              {currentPageQuizzes.map((quizData) => {
-                return <CardQuiz quizData={quizData} key={quizData.id} />;
-              })}
-            </ul>
-
-            {quizzesData.length > CARDS_PER_PAGE && (
-              <Pagination
-                className={styles.cardsPagination}
-                count={totalPages}
-                page={currentPage}
-                siblingCount={1}
-                onChange={handleChangePage}
-                sx={{
-                  '@media (max-width: 360px)': {
-                    '& .MuiPaginationItem-root': {
-                      fontSize: '13px',
-                    },
+          {quizzesData.length > CARDS_PER_PAGE && (
+            <Pagination
+              className={styles.cardsPagination}
+              count={totalPages}
+              page={currentPage}
+              siblingCount={1}
+              onChange={handleChangePage}
+              sx={{
+                '@media (max-width: 360px)': {
+                  '& .MuiPaginationItem-root': {
+                    fontSize: '13px',
                   },
-                }}
-              />
-            )}
-          </>
-        )}
-      </Layout>
-    </>
+                },
+              }}
+            />
+          )}
+        </>
+      )}
+    </Layout>
   );
 }

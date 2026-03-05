@@ -67,8 +67,10 @@ export default function Filters({
             }}
           >
             <MenuItem value="all">Все категории</MenuItem>
-            {categories.map((category) => (
-              <MenuItem value={category}>{category}</MenuItem>
+            {categories.map((category, i) => (
+              <MenuItem key={i} value={category}>
+                {category}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>
@@ -90,8 +92,10 @@ export default function Filters({
             }}
           >
             <MenuItem value="all">Все типы</MenuItem>
-            {types.map((type) => (
-              <MenuItem value={type}>{quizTypeConfig[type]}</MenuItem>
+            {types.map((type, i) => (
+              <MenuItem key={i} value={type}>
+                {quizTypeConfig[type]}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>
@@ -113,8 +117,10 @@ export default function Filters({
             }}
           >
             <MenuItem value="all">Все уровни</MenuItem>
-            {difficulties.map((difficulty) => (
-              <MenuItem value={difficulty}>{difficultyLabels[difficulty]}</MenuItem>
+            {difficulties.map((difficulty, i) => (
+              <MenuItem key={i} value={difficulty}>
+                {difficultyLabels[difficulty]}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>

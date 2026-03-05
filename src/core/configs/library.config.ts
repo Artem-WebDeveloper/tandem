@@ -1,6 +1,6 @@
 export const difficultyLabels = {
   1: 'Easy',
-  2: 'Middle',
+  2: 'Medium',
   3: 'Hard',
 } as const;
 

@@ -22,6 +22,8 @@ type FiltersProps = {
 export default function Filters({ allQuizzes, filterValues, onSetFilters, loading }: FiltersProps) {
   const theme = useTheme();
 
+  const { section, type, difficulty } = filterValues;
+
   const types = [...Object.keys(quizTypeConfig)] as TaskType[];
   const difficulties = Object.keys(difficultyLabels).map(Number) as Difficulty[];
   const categories = [...Object.keys(sectionConfig)] as TaskTheme[];
@@ -51,7 +53,7 @@ export default function Filters({ allQuizzes, filterValues, onSetFilters, loadin
           <Select
             sx={{ fontSize: '15px' }}
             labelId="label-category"
-            value={filterValues.section}
+            value={section}
             label="Категория"
             disabled={loading}
             onChange={(event) => {
@@ -75,7 +77,7 @@ export default function Filters({ allQuizzes, filterValues, onSetFilters, loadin
           <Select
             sx={{ fontSize: '15px' }}
             labelId="label-type"
-            value={filterValues.type}
+            value={type}
             label="Тип теста"
             disabled={loading}
             onChange={(event) => {
@@ -99,7 +101,7 @@ export default function Filters({ allQuizzes, filterValues, onSetFilters, loadin
           <Select
             sx={{ fontSize: '15px' }}
             labelId="label-difficulty"
-            value={filterValues.difficulty}
+            value={difficulty}
             label="Сложность"
             disabled={loading}
             onChange={(event) => {

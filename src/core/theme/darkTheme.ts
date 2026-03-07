@@ -7,6 +7,10 @@ export const darkThemeOptions: PaletteOptions = {
     main: '#cccccc',
   },
 
+  secondary: {
+    main: 'rgb(142, 142, 142)',
+  },
+
   primaryDisabled: '#323C4A',
 
   error: {

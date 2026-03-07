@@ -1,19 +1,19 @@
 import { create } from 'zustand';
 
-export type CodeCompletionAnswer = {
+export type AsyncSorterAnswer = {
   questionId: string;
-  payload: string;
+  payload: string[];
 };
 
-type CodeCompletionState = {
+type AsyncSorterState = {
   currentQuestionNumber: number;
   increaseQuestionNumber: () => void;
   decreaseQuestionNumber: () => void;
-  answers: CodeCompletionAnswer[];
-  setAnswer: (questionId: string, answer: string) => void;
+  answers: AsyncSorterAnswer[];
+  setAnswer: (questionId: string, answer: string[]) => void;
 };
 
-export const useCodeCompletionStore = create<CodeCompletionState>()((set, get) => ({
+export const useAsyncSorterStore = create<AsyncSorterState>()((set, get) => ({
   currentQuestionNumber: 0,
   answers: [],
   increaseQuestionNumber: () => set({ currentQuestionNumber: get().currentQuestionNumber + 1 }),
@@ -28,7 +28,7 @@ export const useCodeCompletionStore = create<CodeCompletionState>()((set, get) =
             ...state.answers,
             {
               questionId,
-              payload: answer,
+              payload: [...answer],
             },
           ],
         };
@@ -39,7 +39,7 @@ export const useCodeCompletionStore = create<CodeCompletionState>()((set, get) =
           i === index
             ? {
                 ...a,
-                payload: answer,
+                payload: [...answer],
               }
             : a,
         ),

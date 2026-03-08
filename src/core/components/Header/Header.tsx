@@ -10,6 +10,8 @@ import { useAuthStore } from '../../store/auth.store';
 import logo from '../../assets/logo.svg';
 import Navigation from './Navigation/Navigation';
 
+import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher';
+
 export default function Header() {
   const MEDIA_QUERY_CONDITION_DESKTOP = '(min-width:1024.1px)'; // для решения проблемы пограничного пикселя
   const CLOSE_SIDE_NAV_MS = 200;
@@ -53,10 +55,11 @@ export default function Header() {
               >
                 {user?.name || 'User'}
               </p>
+              <SwitchThemeButton />
+              <LanguageSwitcher />
               <Button startIcon={<LogoutRoundedIcon sx={{ width: '16px' }} />} onClick={logout}>
                 Выход
               </Button>
-              <SwitchThemeButton />
             </>
           )}
 
@@ -79,6 +82,7 @@ export default function Header() {
                 </Button>
                 <p style={{ color: theme.palette.textLight }}>{user?.name || 'User'}</p>
                 <SwitchThemeButton />
+                <LanguageSwitcher />
               </header>
 
               <Divider sx={{ borderColor: theme.palette.textUltralight }} />

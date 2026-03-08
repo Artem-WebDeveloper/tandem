@@ -52,6 +52,7 @@ export default function RegisterDialog({ open, onClose, onSuccess }: RegisterMod
         const errorMessage =
           err.response?.data?.username?.[0] ||
           err.response?.data?.detail ||
+          err.response?.data?.password?.[1] ||
           'Ошибка регистрации. Возможно, пользователь уже существует.';
         setError(errorMessage);
       } else {

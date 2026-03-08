@@ -116,16 +116,16 @@ export default function Login() {
     <Box className={styles.container} sx={containerStyle}>
       <Box className={styles.header}>
         <img src={logo} alt="Logo" className={styles.logo} />
-        <Typography variant="h4" component="h1" className={styles.mainTitle} sx={mainTitleStyle}>
+        <Typography variant="h1" component="h1" className={styles.mainTitle} sx={mainTitleStyle}>
           RS School Trainer
         </Typography>
-        <Typography variant="body2" className={styles.subtitle} sx={subtitleStyle}>
+        <Typography variant="body1" className={styles.subtitle} sx={subtitleStyle}>
           Тренажер по программированию для студентов
         </Typography>
       </Box>
 
       <Paper elevation={0} className={styles.formCard} sx={cardStyle}>
-        <Typography variant="h6" component="h2" className={styles.formTitle} sx={mainTitleStyle}>
+        <Typography variant="h3" component="h3" className={styles.formTitle} sx={mainTitleStyle}>
           Вход в систему
         </Typography>
 

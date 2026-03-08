@@ -85,7 +85,7 @@ export default function RegisterDialog({ open, onClose, onSuccess }: RegisterMod
   };
 
   const dialogPaperStyle = {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.background.default,
     border: `1px solid ${theme.palette.divider}`,
   };
 
@@ -124,7 +124,6 @@ export default function RegisterDialog({ open, onClose, onSuccess }: RegisterMod
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             disabled={isLoading}
-            size="small"
             sx={{ mt: 0.5 }}
           />
 
@@ -137,7 +136,6 @@ export default function RegisterDialog({ open, onClose, onSuccess }: RegisterMod
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             disabled={isLoading}
-            size="small"
           />
 
           <Button

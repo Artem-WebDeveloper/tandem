@@ -32,13 +32,16 @@ export default function SingleChoiceQuiz({ data }: SingleChoiceQuizProps) {
   const goNext = () => {
     if (selectedOptionId === null) return;
 
-    setUserAnswers([
-      ...userAnswers,
-      {
+    setUserAnswers((prev) => {
+      const updated = [...prev];
+
+      updated[currentIndex] = {
         questionId: currentQuestion.id,
         payload: selectedOptionId,
-      },
-    ]);
+      };
+
+      return updated;
+    });
 
     if (!isLastQuestion) {
       setCurrentIndex((prev) => prev + 1);

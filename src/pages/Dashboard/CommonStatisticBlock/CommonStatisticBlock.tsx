@@ -1,8 +1,10 @@
 import { quizData } from '@/core/mock/dashboard';
 import styles from './CommonStatiscticBlock.module.scss';
 import Tile from './Tile/Tile';
+import { useTranslation } from 'react-i18next';
 
 export default function CommonStatisticBlock() {
+  const { t } = useTranslation('dashboard');
   const finishedTests = quizData.reduce((count, item) => {
     return (count += item.totalCompletions);
   }, 0);
@@ -14,21 +16,25 @@ export default function CommonStatisticBlock() {
   const remainTests = testsCount - completedTests;
   return (
     <div className={styles.wrapper}>
-      <Tile title="Доступно тестов" count={testsCount} description="Всего доступно для обучения" />
       <Tile
-        title="Завершено тестов"
+        title={t('dashboard.statistics.availableTask.title')}
+        count={testsCount}
+        description={t('dashboard.statistics.availableTask.description')}
+      />
+      <Tile
+        title={t('dashboard.statistics.completedTask.title')}
         count={completedTests}
-        description="Количество завершенных тестов"
+        description={t('dashboard.statistics.completedTask.description')}
       />
       <Tile
-        title="Осталось завершить"
+        title={t('dashboard.statistics.remainingTest.title')}
         count={remainTests}
-        description="Количество тестов, которые еще не завершены"
+        description={t('dashboard.statistics.remainingTest.description')}
       />
       <Tile
-        title="Всего попыток"
+        title={t('dashboard.statistics.totalAttempts.title')}
         count={finishedTests}
-        description="Количество попыток в процессе обучения"
+        description={t('dashboard.statistics.totalAttempts.description')}
       />
     </div>
   );

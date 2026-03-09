@@ -5,6 +5,8 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 // Импорт переводов
 import commonEN from './locales/en/common.json';
 import commonRU from './locales/ru/common.json';
+import dashboardEN from './locales/en/dashboard.json';
+import dashboardRU from './locales/ru/dashboard.json';
 
 i18n
   .use(LanguageDetector) // автоопределения языка браузера
@@ -13,9 +15,11 @@ i18n
     resources: {
       en: {
         common: commonEN,
+        dashboard: dashboardEN,
       },
       ru: {
         common: commonRU,
+        dashboard: dashboardRU,
       },
     },
 

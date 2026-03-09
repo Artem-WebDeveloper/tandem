@@ -3,6 +3,8 @@ import styles from './DifficultyBlock.module.scss';
 import { quizData, type QuizDifficulty } from '@/core/mock/dashboard';
 import DifficultyItem from './DifficultyItem/DifficultyItem';
 
+import { useTranslation } from 'react-i18next';
+
 export type DifficultyCategory = {
   difficulty: QuizDifficulty;
   tests: number;
@@ -10,6 +12,7 @@ export type DifficultyCategory = {
 };
 
 export default function DifficultyBlock() {
+  const { t } = useTranslation('dashboard');
   const difficultyObject = quizData.reduce(
     (acc, item) => {
       const difficulty = item.difficulty;
@@ -27,7 +30,7 @@ export default function DifficultyBlock() {
 
   return (
     <div className={styles.wrapper}>
-      <h3>Прогресс по сложности</h3>
+      <h3>{t('dashboard.difficulty.title')}</h3>
       <ul className={styles.difficulty_list}>
         {difficultyData.map((item, index) => (
           <DifficultyItem key={index} item={item} />

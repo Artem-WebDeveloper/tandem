@@ -3,13 +3,15 @@ import Layout from '../../core/components/Layout/Layout';
 import CommonStatisticBlock from './CommonStatisticBlock/CommonStatisticBlock';
 import CategoryBlock from './CategoryBlock/CategoryBlock';
 import DifficultyBlock from './DifficultyBlock/DifficultyBlock';
+import { useTranslation } from 'react-i18next';
 
 export default function Dashboard() {
+  const { t } = useTranslation('dashboard');
   return (
     <>
       <Layout>
-        <h1 className={styles.title}>Dashboard</h1>
-        <p>Ваша статистика и прогресс обучения</p>
+        <h1 className={styles.title}>{t('dashboard.title')}</h1>
+        <p>{t('dashboard.description')}</p>
         <div className={styles.wrapper}>
           <CommonStatisticBlock />
           <CategoryBlock />

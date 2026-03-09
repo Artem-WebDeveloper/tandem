@@ -1,10 +1,12 @@
 import { quizData, type QuizTheme } from '@/core/mock/dashboard';
 import styles from './CategoryBlock.module.scss';
 import CategoryItem from './CategoryItem/CategoryItem';
+import { useTranslation } from 'react-i18next';
 
 export type ThemeCategory = { theme: QuizTheme; tests: number; completedTestsCount: number };
 
 export default function CategoryBlock() {
+  const { t } = useTranslation('dashboard');
   const categoryObject = quizData.reduce(
     (acc, item) => {
       const theme = item.theme;
@@ -22,8 +24,8 @@ export default function CategoryBlock() {
 
   return (
     <div className={styles.wrapper}>
-      <h3>Прогресс по категориям</h3>
-      <p>Ваша успеваемость в разных разделах</p>
+      <h3>{t('dashboard.categories.title')}</h3>
+      <p>{t('dashboard.categories.description')}</p>
       <ul className={styles.category_list}>
         {categoryData.map((item, index) => (
           <CategoryItem key={index} item={item} />

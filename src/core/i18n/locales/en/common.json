@@ -2,8 +2,8 @@
   "test": "This is a test",
 
   "header": {
-    "title": "RS School Trainer",
-    "description": "Programming simulator",
+    "title": "RS School",
+    "description": "Programming trainer",
     "dashboard": "Dashboard",
     "library": "Library",
     "logout": "Logout"

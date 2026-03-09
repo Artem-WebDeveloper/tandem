@@ -5,9 +5,13 @@ import { useTheme } from '@mui/material';
 import LeaderboardRoundedIcon from '@mui/icons-material/LeaderboardRounded';
 import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
 
+import { useTranslation } from 'react-i18next';
+
 import styles from './Navigation.module.scss';
 export default function Navigation({ onCloseSideNav }: { onCloseSideNav: () => void }) {
   const theme = useTheme();
+
+  const { t } = useTranslation('common');
 
   const buttonStyle = {
     textTransform: 'none',
@@ -41,7 +45,7 @@ export default function Navigation({ onCloseSideNav }: { onCloseSideNav: () => v
             sx={buttonStyle}
             onClick={onCloseSideNav}
           >
-            Dashboard
+            {t('header.dashboard')}
           </Button>
         </li>
         <li>
@@ -53,7 +57,7 @@ export default function Navigation({ onCloseSideNav }: { onCloseSideNav: () => v
             onClick={onCloseSideNav}
             className={styles.navLink}
           >
-            Library
+            {t('header.library')}
           </Button>
         </li>
       </ul>

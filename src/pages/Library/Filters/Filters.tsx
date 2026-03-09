@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   useTheme,
   Select,
@@ -13,20 +12,17 @@ import type { LibraryFilters } from '../types';
 import type { Difficulty, TaskTheme, TaskType } from '@/core/types/quiz';
 import { difficultyLabels, quizTypeConfig, sectionConfig } from '@/core/configs/library.config';
 
-export default function Filters({
-  allQuizzes,
-  onFiltersChange,
-  loading,
-}: {
+type FiltersProps = {
   allQuizzes: number | null;
-  onFiltersChange: (filters: LibraryFilters) => void;
+  filterValues: LibraryFilters;
+  onSetFilters: (filters: LibraryFilters) => void;
   loading: boolean;
-}) {
+};
+
+export default function Filters({ allQuizzes, filterValues, onSetFilters, loading }: FiltersProps) {
   const theme = useTheme();
 
-  const [section, setSection] = useState<TaskTheme | 'all'>('all');
-  const [type, setType] = useState<TaskType | 'all'>('all');
-  const [difficulty, setDifficulty] = useState<Difficulty | 'all'>('all');
+  const { section, type, difficulty } = filterValues;
 
   const types = [...Object.keys(quizTypeConfig)] as TaskType[];
   const difficulties = Object.keys(difficultyLabels).map(Number) as Difficulty[];
@@ -62,8 +58,7 @@ export default function Filters({
             disabled={loading}
             onChange={(event) => {
               const newSection = event.target.value;
-              setSection(newSection);
-              onFiltersChange({ section: newSection, type, difficulty });
+              onSetFilters({ ...filterValues, section: newSection });
             }}
           >
             <MenuItem value="all">Все категории</MenuItem>
@@ -87,8 +82,7 @@ export default function Filters({
             disabled={loading}
             onChange={(event) => {
               const newType = event.target.value;
-              setType(newType);
-              onFiltersChange({ type: newType, section, difficulty });
+              onSetFilters({ ...filterValues, type: newType });
             }}
           >
             <MenuItem value="all">Все типы</MenuItem>
@@ -112,8 +106,7 @@ export default function Filters({
             disabled={loading}
             onChange={(event) => {
               const newDifficulty = event.target.value;
-              setDifficulty(newDifficulty);
-              onFiltersChange({ difficulty: newDifficulty, type, section });
+              onSetFilters({ ...filterValues, difficulty: newDifficulty });
             }}
           >
             <MenuItem value="all">Все уровни</MenuItem>

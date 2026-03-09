@@ -11,8 +11,10 @@ import logo from '../../assets/logo.svg';
 import Navigation from './Navigation/Navigation';
 
 import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher';
+import { useTranslation } from 'react-i18next';
 
 export default function Header() {
+  const { t } = useTranslation('common');
   const MEDIA_QUERY_CONDITION_DESKTOP = '(min-width:1024.1px)'; // для решения проблемы пограничного пикселя
   const CLOSE_SIDE_NAV_MS = 200;
 
@@ -35,9 +37,9 @@ export default function Header() {
             <img src={logo} className={styles.logo} alt="Logo" />
           </Link>
           <div>
-            <h1 className={styles.title}>RS School Trainer</h1>
+            <h1 className={styles.title}>{t(`header.title`)}</h1>
             <p className={styles.descrip} style={{ color: theme.palette.textLight }}>
-              Тренажер по программированию
+              {t('header.description')}
             </p>
           </div>
         </div>
@@ -58,7 +60,7 @@ export default function Header() {
               <SwitchThemeButton />
               <LanguageSwitcher />
               <Button startIcon={<LogoutRoundedIcon sx={{ width: '16px' }} />} onClick={logout}>
-                Выход
+                {t('header.logout')}
               </Button>
             </>
           )}

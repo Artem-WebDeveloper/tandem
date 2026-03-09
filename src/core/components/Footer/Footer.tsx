@@ -10,10 +10,8 @@ export default function Footer() {
     <footer className={styles.footer}>
       <span>{year}</span>
 
-      <span>{t('test')}</span>
-
       <span className={styles.copyright} style={{ color: theme.palette.textLight }}>
-        &copy; developed by RainbowUnicorn
+        &copy; {t('footer.copyright')}RainbowUnicorn
       </span>
 
       <Link

@@ -1,3 +1,14 @@
 {
-  "test": "This is a test"
+  "test": "This is a test",
+
+  "header": {
+    "title": "RS School Trainer",
+    "description": "Programming simulator",
+    "dashboard": "Dashboard",
+    "library": "Library",
+    "logout": "Logout"
+  },
+  "footer": {
+    "copyright": "developed by "
+  }
 }

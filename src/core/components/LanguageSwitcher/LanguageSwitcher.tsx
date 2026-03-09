@@ -2,15 +2,17 @@ import { Button, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 const LANGUAGES = {
-  ru: { label: '', flag: 'Ru' },
-  en: { label: '', flag: 'En' },
+  ru: { flag: 'Ru' },
+  en: { flag: 'En' },
 };
 
 export default function LanguageSwitcher() {
   const { i18n } = useTranslation();
   const theme = useTheme();
 
-  const currentLang = i18n.language as 'ru' | 'en';
+  const langCode = i18n.language.split('-')[0] as 'ru' | 'en';
+  const currentLang = LANGUAGES[langCode] ? langCode : 'en';
+  const lang = LANGUAGES[currentLang];
 
   const toggleLanguage = () => {
     const newLang = currentLang === 'ru' ? 'en' : 'ru';
@@ -37,7 +39,7 @@ export default function LanguageSwitcher() {
         },
       }}
     >
-      {LANGUAGES[currentLang].flag} {LANGUAGES[currentLang].label}
+      {lang.flag}
     </Button>
   );
 }

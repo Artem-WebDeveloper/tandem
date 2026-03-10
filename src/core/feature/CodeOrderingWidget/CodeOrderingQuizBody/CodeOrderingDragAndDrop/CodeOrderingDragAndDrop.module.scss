@@ -1,0 +1,47 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.item {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  min-height: 40px;
+  border-radius: 8px;
+  user-select: none;
+  cursor: grab;
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid;
+  overflow-wrap: break-word;
+
+  @media (max-width: 500px) {
+    font-size: 14px;
+  }
+}
+
+.dragIcon {
+  width: 80px;
+  margin: 0 16px 0 8px;
+  opacity: 0.3;
+
+  @media (max-width: 500px) {
+    margin: 0 4px;
+  }
+}
+
+.indent {
+  flex-grow: 0;
+  flex-shrink: 0;
+  white-space: pre-wrap;
+}
+
+code {
+  white-space: pre-wrap !important;
+}

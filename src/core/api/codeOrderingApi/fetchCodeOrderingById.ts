@@ -1,9 +1,9 @@
 // API — Code Ordering
 
-import type { CodeOrderingTaskResponse } from '../../feature/CodeOrderingWidget/types';
+import type { CodeOrderingTask } from '../../feature/CodeOrderingWidget/types';
 import { MOCK_CODE_ORDERING_DATA } from '../../mock/codeOrderingData';
 
-export function fetchCodeOrderingById(id: string): Promise<CodeOrderingTaskResponse> {
+export function fetchCodeOrderingById(id: string): Promise<CodeOrderingTask> {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       const data = MOCK_CODE_ORDERING_DATA.find((quiz) => quiz.id === id);

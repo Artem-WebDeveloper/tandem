@@ -1,13 +1,13 @@
 import { type BaseTask, TaskType } from '@/core/types/quiz';
 
 // Task text with multiple code lines
-export interface CodeOrderingTask {
-  id: string; // task ID
-  text: string; // task text
-  codeLines: CodeLines[];
+export interface CodeOrderingQuestion {
+  id: string;
+  text: string;
+  codeLines: CodeLine[];
 }
 
-export type CodeLines = {
+export type CodeLine = {
   id: string;
   code: string;
   correctPosition: number;
@@ -15,11 +15,11 @@ export type CodeLines = {
 };
 
 // Server response
-export interface CodeOrderingTaskResponse extends BaseTask {
-  type: typeof TaskType.CodeOrdering; // = 'code_ordering'
+export interface CodeOrderingTask extends BaseTask {
+  type: typeof TaskType.CodeOrdering;
   title: string;
   section: string;
   tags: string[];
   description?: string;
-  questions: CodeOrderingTask[];
+  questions: CodeOrderingQuestion[];
 }

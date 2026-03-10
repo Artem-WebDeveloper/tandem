@@ -6,14 +6,14 @@ import { fetchCodeOrderingById } from './codeOrderingApi/fetchCodeOrderingById';
 import type { SingleChoiceTaskResponse } from '../feature/SingleChoiceWidget/types';
 import type { CodeCompletionTask } from '../feature/CodeCompletionWidget/types';
 import type { AsyncSorterTask } from '../feature/AsyncSorterWidget/types';
-import type { CodeOrderingTaskResponse } from '../feature/CodeOrderingWidget/types';
+import type { CodeOrderingTask } from '../feature/CodeOrderingWidget/types';
 
 // Add more types here
 export type QuizTask =
   | SingleChoiceTaskResponse
   | CodeCompletionTask
   | AsyncSorterTask
-  | CodeOrderingTaskResponse;
+  | CodeOrderingTask;
 
 export function fetchQuizById(id: string): Promise<QuizTask> {
   // Define quiz type by part of id before '-'

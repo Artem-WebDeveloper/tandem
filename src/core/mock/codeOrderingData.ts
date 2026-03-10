@@ -1,6 +1,6 @@
-import type { CodeOrderingTaskResponse } from '../feature/CodeOrderingWidget/types';
+import type { CodeOrderingTask } from '../feature/CodeOrderingWidget/types';
 
-export const MOCK_CODE_ORDERING_DATA: CodeOrderingTaskResponse[] = [
+export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
   {
     id: 'co-001',
     type: 'code_ordering',

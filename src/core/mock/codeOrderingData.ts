@@ -1,6 +1,7 @@
 import type { CodeOrderingTask } from '../feature/CodeOrderingWidget/types';
 
 export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
+  // easy
   {
     id: 'co-001',
     type: 'code_ordering',
@@ -37,8 +38,62 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           { id: 'line-7', code: '}', correctPosition: 6, indent: 0 },
         ],
       },
+      {
+        id: '3',
+        text: 'Расставьте строки кода для простого каррирования функции с двумя параметрами',
+        codeLines: [
+          { id: 'line-1', code: 'function curry(fn) {', correctPosition: 0, indent: 0 },
+          { id: 'line-2', code: 'return function(a) {', correctPosition: 1, indent: 1 },
+          { id: 'line-3', code: 'return function(b) {', correctPosition: 2, indent: 2 },
+          { id: 'line-4', code: 'return fn(a, b);', correctPosition: 3, indent: 3 },
+          { id: 'line-5', code: '};', correctPosition: 4, indent: 2 },
+          { id: 'line-6', code: '};', correctPosition: 5, indent: 1 },
+          { id: 'line-7', code: '}', correctPosition: 6, indent: 0 },
+        ],
+      },
+      {
+        id: '4',
+        text: 'Расставьте строки кода для функции проверки палиндрома',
+        codeLines: [
+          { id: 'line-1', code: 'function isPalindrome(str) {', correctPosition: 0, indent: 0 },
+          {
+            id: 'line-2',
+            code: 'const normalized = str.toLowerCase();',
+            correctPosition: 1,
+            indent: 1,
+          },
+          {
+            id: 'line-3',
+            code: "const reversed = normalized.split('').reverse().join('');",
+            correctPosition: 2,
+            indent: 1,
+          },
+          { id: 'line-4', code: 'return normalized === reversed;', correctPosition: 3, indent: 1 },
+          { id: 'line-5', code: '}', correctPosition: 4, indent: 0 },
+        ],
+      },
+      {
+        id: '5',
+        text: 'Расставьте строки кода для функции суммирования массива',
+        codeLines: [
+          { id: 'line-1', code: 'function sumArray(arr) {', correctPosition: 0, indent: 0 },
+          { id: 'line-2', code: 'let sum = 0;', correctPosition: 1, indent: 1 },
+          {
+            id: 'line-3',
+            code: 'for (let i = 0; i < arr.length; i++) {',
+            correctPosition: 2,
+            indent: 1,
+          },
+          { id: 'line-4', code: 'sum += arr[i];', correctPosition: 3, indent: 2 },
+          { id: 'line-5', code: '}', correctPosition: 4, indent: 1 },
+          { id: 'line-6', code: 'return sum;', correctPosition: 5, indent: 1 },
+          { id: 'line-7', code: '}', correctPosition: 6, indent: 0 },
+        ],
+      },
     ],
   },
+
+  // medium
   {
     id: 'co-002',
     type: 'code_ordering',
@@ -49,7 +104,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
     questions: [
       {
         id: '1',
-        text: 'Расставьте строки кода для асинхронной функции с обработкой ошибок',
+        text: 'Соберите async-функцию с try/catch',
         codeLines: [
           { id: 'line-1', code: 'async function loadData() {', correctPosition: 0, indent: 0 },
           { id: 'line-2', code: 'try {', correctPosition: 1, indent: 1 },
@@ -104,6 +159,205 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           { id: 'line-10', code: 'return result;', correctPosition: 9, indent: 2 },
           { id: 'line-11', code: '};', correctPosition: 10, indent: 1 },
           { id: 'line-12', code: '}', correctPosition: 11, indent: 0 },
+        ],
+      },
+      {
+        id: '3',
+        text: 'Соберите цепочку fetch-запросов с обработкой ошибки',
+        codeLines: [
+          { id: 'line-1', code: 'function fetchUserData(id) {', correctPosition: 0, indent: 0 },
+          { id: 'line-2', code: 'return fetch(`/api/user/${id}`)', correctPosition: 1, indent: 1 },
+          {
+            id: 'line-3',
+            code: '.then(response => response.json())',
+            correctPosition: 2,
+            indent: 2,
+          },
+          {
+            id: 'line-4',
+            code: '.then(user => fetch(`/api/posts/${user.id}`))',
+            correctPosition: 3,
+            indent: 2,
+          },
+          {
+            id: 'line-5',
+            code: '.then(response => response.json())',
+            correctPosition: 4,
+            indent: 2,
+          },
+          { id: 'line-6', code: '.catch(error => {', correctPosition: 5, indent: 2 },
+          { id: 'line-7', code: 'console.error(error);', correctPosition: 6, indent: 3 },
+          { id: 'line-8', code: '});', correctPosition: 7, indent: 2 },
+          { id: 'line-9', code: '}', correctPosition: 8, indent: 0 },
+        ],
+      },
+      {
+        id: '4',
+        text: 'Расставьте строки для функции delayCall, которая откладывает вызов функции',
+        codeLines: [
+          { id: 'line-1', code: 'function delayCall(fn, ms) {', correctPosition: 0, indent: 0 },
+          { id: 'line-2', code: 'return function(...args) {', correctPosition: 1, indent: 1 },
+          { id: 'line-3', code: 'setTimeout(() => {', correctPosition: 2, indent: 2 },
+          { id: 'line-4', code: 'fn.apply(this, args);', correctPosition: 3, indent: 3 },
+          { id: 'line-5', code: '}, ms);', correctPosition: 4, indent: 2 },
+          { id: 'line-6', code: '};', correctPosition: 5, indent: 1 },
+          { id: 'line-7', code: '}', correctPosition: 6, indent: 0 },
+        ],
+      },
+      {
+        id: '5',
+        text: 'Соберите функцию groupBy для массива объектов',
+        codeLines: [
+          { id: 'line-1', code: 'function groupBy(items, key) {', correctPosition: 0, indent: 0 },
+          {
+            id: 'line-2',
+            code: 'return items.reduce((acc, item) => {',
+            correctPosition: 1,
+            indent: 1,
+          },
+          { id: 'line-3', code: 'const group = item[key];', correctPosition: 2, indent: 2 },
+          { id: 'line-4', code: 'if (!acc[group]) {', correctPosition: 3, indent: 2 },
+          { id: 'line-5', code: 'acc[group] = [];', correctPosition: 4, indent: 3 },
+          { id: 'line-6', code: '}', correctPosition: 5, indent: 2 },
+          { id: 'line-7', code: 'acc[group].push(item);', correctPosition: 6, indent: 2 },
+          { id: 'line-8', code: 'return acc;', correctPosition: 7, indent: 2 },
+          { id: 'line-9', code: '}, {});', correctPosition: 8, indent: 1 },
+          { id: 'line-10', code: '}', correctPosition: 9, indent: 0 },
+        ],
+      },
+    ],
+  },
+
+  // hard
+  {
+    id: 'co-003',
+    type: 'code_ordering',
+    title: 'Code Ordering Title 3',
+    difficulty: 3,
+    section: 'Core JS',
+    tags: ['objects'],
+    questions: [
+      {
+        id: '1',
+        text: 'Расставьте строки кода для рекурсивного клонирования объектов',
+        codeLines: [
+          { id: 'line-1', code: 'function deepClone(obj) {', correctPosition: 0, indent: 0 },
+          {
+            id: 'line-2',
+            code: "if (obj === null || typeof obj !== 'object') {",
+            correctPosition: 1,
+            indent: 1,
+          },
+          { id: 'line-3', code: 'return obj;', correctPosition: 2, indent: 2 },
+          { id: 'line-4', code: '}', correctPosition: 3, indent: 1 },
+          {
+            id: 'line-5',
+            code: 'const clone = Array.isArray(obj) ? [] : {};',
+            correctPosition: 4,
+            indent: 1,
+          },
+          { id: 'line-6', code: 'for (let key in obj) {', correctPosition: 5, indent: 1 },
+          { id: 'line-7', code: 'if (obj.hasOwnProperty(key)) {', correctPosition: 6, indent: 2 },
+          {
+            id: 'line-8',
+            code: 'clone[key] = deepClone(obj[key]);',
+            correctPosition: 7,
+            indent: 3,
+          },
+          { id: 'line-9', code: '}', correctPosition: 8, indent: 2 },
+          { id: 'line-10', code: '}', correctPosition: 9, indent: 1 },
+          { id: 'line-11', code: 'return clone;', correctPosition: 10, indent: 1 },
+          { id: 'line-12', code: '}', correctPosition: 11, indent: 0 },
+        ],
+      },
+      {
+        id: '2',
+        text: 'Расставьте строки кода для собственной реализации метода reduce',
+        codeLines: [
+          {
+            id: 'line-1',
+            code: 'Array.prototype.myReduce = function(callback, initial) {',
+            correctPosition: 0,
+            indent: 0,
+          },
+          { id: 'line-2', code: 'let accumulator = initial;', correctPosition: 1, indent: 1 },
+          {
+            id: 'line-3',
+            code: 'for (let i = 0; i < this.length; i++) {',
+            correctPosition: 2,
+            indent: 1,
+          },
+          {
+            id: 'line-4',
+            code: 'accumulator = callback(accumulator, this[i], i, this);',
+            correctPosition: 3,
+            indent: 2,
+          },
+          { id: 'line-5', code: '}', correctPosition: 4, indent: 1 },
+          { id: 'line-6', code: 'return accumulator;', correctPosition: 5, indent: 1 },
+          { id: 'line-7', code: '};', correctPosition: 6, indent: 0 },
+        ],
+      },
+      {
+        id: '3',
+        text: 'Расставьте строки кода для функции flatten массива',
+        codeLines: [
+          { id: 'line-1', code: 'function flatten(arr) {', correctPosition: 0, indent: 0 },
+          {
+            id: 'line-2',
+            code: 'return arr.reduce((acc, item) => {',
+            correctPosition: 1,
+            indent: 1,
+          },
+          { id: 'line-3', code: 'if (Array.isArray(item)) {', correctPosition: 2, indent: 2 },
+          {
+            id: 'line-4',
+            code: 'return acc.concat(flatten(item));',
+            correctPosition: 3,
+            indent: 3,
+          },
+          { id: 'line-5', code: '}', correctPosition: 4, indent: 2 },
+          { id: 'line-6', code: 'return acc.concat(item);', correctPosition: 5, indent: 2 },
+          { id: 'line-7', code: '}, []);', correctPosition: 6, indent: 1 },
+          { id: 'line-8', code: '}', correctPosition: 7, indent: 0 },
+        ],
+      },
+      {
+        id: '4',
+        text: 'Расставьте строки кода для реализации once',
+        codeLines: [
+          { id: 'line-1', code: 'function once(fn) {', correctPosition: 0, indent: 0 },
+          { id: 'line-2', code: 'let called = false;', correctPosition: 1, indent: 1 },
+          { id: 'line-3', code: 'let result;', correctPosition: 2, indent: 1 },
+          { id: 'line-4', code: 'return function(...args) {', correctPosition: 3, indent: 1 },
+          { id: 'line-5', code: 'if (!called) {', correctPosition: 4, indent: 2 },
+          { id: 'line-6', code: 'called = true;', correctPosition: 5, indent: 3 },
+          { id: 'line-7', code: 'result = fn.apply(this, args);', correctPosition: 6, indent: 3 },
+          { id: 'line-8', code: '}', correctPosition: 7, indent: 2 },
+          { id: 'line-9', code: 'return result;', correctPosition: 8, indent: 2 },
+          { id: 'line-10', code: '};', correctPosition: 9, indent: 1 },
+          { id: 'line-11', code: '}', correctPosition: 10, indent: 0 },
+        ],
+      },
+      {
+        id: '5',
+        text: 'Расставьте строки кода для функции группировки массива по ключу',
+        codeLines: [
+          { id: 'line-1', code: 'function groupBy(arr, key) {', correctPosition: 0, indent: 0 },
+          {
+            id: 'line-2',
+            code: 'return arr.reduce((acc, item) => {',
+            correctPosition: 1,
+            indent: 1,
+          },
+          { id: 'line-3', code: 'const group = item[key];', correctPosition: 2, indent: 2 },
+          { id: 'line-4', code: 'if (!acc[group]) {', correctPosition: 3, indent: 2 },
+          { id: 'line-5', code: 'acc[group] = [];', correctPosition: 4, indent: 3 },
+          { id: 'line-6', code: '}', correctPosition: 5, indent: 2 },
+          { id: 'line-7', code: 'acc[group].push(item);', correctPosition: 6, indent: 2 },
+          { id: 'line-8', code: 'return acc;', correctPosition: 7, indent: 2 },
+          { id: 'line-9', code: '}, {});', correctPosition: 8, indent: 1 },
+          { id: 'line-10', code: '}', correctPosition: 9, indent: 0 },
         ],
       },
     ],

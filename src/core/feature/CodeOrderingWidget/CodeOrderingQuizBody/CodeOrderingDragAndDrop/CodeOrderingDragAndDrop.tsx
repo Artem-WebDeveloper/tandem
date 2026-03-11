@@ -88,8 +88,7 @@ function CodeLine({ codeLine, index }: { codeLine: CodeLine; index: number }) {
         backgroundColor: theme.palette.background.default,
         color: theme.palette.text.primary,
         boxShadow: isDragging ? theme.shadows[8] : '',
-        fontWeight: 400,
-        fontFamily: 'monospace',
+
         borderColor: theme.palette.divider,
       }}
     >

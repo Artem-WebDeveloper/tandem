@@ -15,6 +15,8 @@ import type { UserAnswer } from '@/core/types/quiz';
 import QuizProgressBar from '@/core/components/QuizProgressBar/QuizProgressBar';
 import QuizNavigation from '@/core/components/QuizNavigation/QuizNavigation';
 
+import styles from './singleChoiceQuiz.module.scss';
+
 interface SingleChoiceQuizProps {
   data: SingleChoiceTaskResponse;
 }
@@ -23,10 +25,17 @@ export default function SingleChoiceQuiz({ data }: SingleChoiceQuizProps) {
   const theme = useTheme();
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
   const [userAnswers, setUserAnswers] = useState<UserAnswer[]>([]);
 
   const currentQuestion = data.questions[currentIndex];
+
+  const currentAnswer = userAnswers[currentIndex];
+  const selectedOptionId = currentAnswer ? String(currentAnswer.payload) : null;
+
+  if (!currentQuestion) {
+    return <p>В этом тесте пока нет вопросов.</p>;
+  }
+
   const isLastQuestion = currentIndex === data.questions.length - 1;
 
   const goNext = () => {
@@ -34,18 +43,15 @@ export default function SingleChoiceQuiz({ data }: SingleChoiceQuizProps) {
 
     setUserAnswers((prev) => {
       const updated = [...prev];
-
       updated[currentIndex] = {
         questionId: currentQuestion.id,
         payload: selectedOptionId,
       };
-
       return updated;
     });
 
     if (!isLastQuestion) {
       setCurrentIndex((prev) => prev + 1);
-      setSelectedOptionId(null);
     } else {
       console.log('Answers:', userAnswers);
     }
@@ -54,9 +60,6 @@ export default function SingleChoiceQuiz({ data }: SingleChoiceQuizProps) {
   const goBack = () => {
     if (currentIndex > 0) {
       setCurrentIndex((prev) => prev - 1);
-      // restore preview answer
-      const prevAnswer = userAnswers[currentIndex - 1];
-      setSelectedOptionId(prevAnswer ? String(prevAnswer.payload) : null);
     }
   };
 
@@ -75,6 +78,17 @@ export default function SingleChoiceQuiz({ data }: SingleChoiceQuizProps) {
     // send to backend
   };
 
+  const handleOptionChange = (optionId: string) => {
+    setUserAnswers((prev) => {
+      const updated = [...prev];
+      updated[currentIndex] = {
+        questionId: currentQuestion.id,
+        payload: optionId,
+      };
+      return updated;
+    });
+  };
+
   return (
     <div>
       <QuizProgressBar
@@ -85,7 +99,8 @@ export default function SingleChoiceQuiz({ data }: SingleChoiceQuizProps) {
       <Typography
         variant="h3"
         sx={{
-          mb: 3,
+          mt: -3,
+          mb: 2,
           fontSize: { xs: '1rem', sm: '1.25rem' },
         }}
       >
@@ -95,22 +110,20 @@ export default function SingleChoiceQuiz({ data }: SingleChoiceQuizProps) {
       <FormControl component="fieldset" sx={{ width: '100%' }}>
         <RadioGroup
           value={selectedOptionId ?? ''}
-          onChange={(e) => setSelectedOptionId(e.target.value)}
+          onChange={(e) => handleOptionChange(e.target.value)}
         >
           {currentQuestion.options.map((option) => {
             const isSelected = selectedOptionId === option.id;
 
             return (
               <FormControlLabel
+                className={styles.option}
                 key={option.id}
                 value={option.id}
                 control={
                   <Radio
                     sx={{
                       color: theme.palette.text.primary,
-                      '&.Mui-checked': {
-                        color: '#ffffff',
-                      },
                     }}
                   />
                 }
@@ -119,33 +132,18 @@ export default function SingleChoiceQuiz({ data }: SingleChoiceQuizProps) {
                     sx={{
                       fontSize: { xs: '0.9rem', sm: '1rem' },
                       fontWeight: 500,
-                      color: isSelected ? '#ffffff' : theme.palette.text.primary,
                     }}
                   >
                     {option.text}
                   </Typography>
                 }
                 sx={{
-                  width: '100%',
-                  margin: '10px 0',
-                  padding: '10px 15px',
-                  borderRadius: '10px',
-                  cursor: 'pointer',
-
                   border: `1px solid ${theme.palette.divider}`,
-
-                  backgroundColor: isSelected
-                    ? theme.palette.secondary.main
-                    : theme.palette.background.paper,
-
                   transform: isSelected ? 'scale(1.005)' : 'scale(1)',
                   transition: 'all 0.3s ease',
 
                   '&:hover': {
-                    backgroundColor: isSelected
-                      ? theme.palette.secondary.main
-                      : theme.palette.backgroundAccent,
-
+                    backgroundColor: theme.palette.backgroundAccent,
                     borderColor: theme.palette.info.main,
                   },
                 }}

@@ -12,10 +12,11 @@ import QuizSkeleton from './QuizSkeleton/QuizSkeleton';
 import PracticeHeader from './PracticeHeader/PracticeHeader';
 import LinkButton from '../../core/components/LinkButton.tsx/LinkButton';
 import ErrorNotification from '../../core/components/ErrorNotification/ErrorNotification';
-import CodeCompletionWidget from '../../core/feature/CodeCompletionWidget/CodeCompletionWidget';
 
+import CodeCompletionWidget from '../../core/feature/CodeCompletionWidget/CodeCompletionWidget';
 import SingleChoiceQuiz from '../../core/feature/SingleChoiceWidget/SingleChoiceQuiz';
 import AsyncSorterWidget from '@/core/feature/AsyncSorterWidget/AsyncSorterWidget';
+import TrueFalseWidget from '@/core/feature/TrueFalseWidget/TrueFalseWidget';
 
 export default function Practice() {
   const theme = useTheme();
@@ -64,6 +65,9 @@ export default function Practice() {
 
       case TaskType.AsyncSorter:
         return <AsyncSorterWidget data={quizData} />;
+
+      case TaskType.TrueFalse:
+        return <TrueFalseWidget data={quizData} />;
 
       default:
         return <p>Неизвестный тип квиза</p>;

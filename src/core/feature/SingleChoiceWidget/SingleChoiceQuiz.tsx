@@ -29,54 +29,12 @@ export default function SingleChoiceQuiz({ data }: SingleChoiceQuizProps) {
 
   const currentQuestion = data.questions[currentIndex];
 
-  const currentAnswer = userAnswers[currentIndex];
-  const selectedOptionId = currentAnswer ? String(currentAnswer.payload) : null;
-
   if (!currentQuestion) {
     return <p>В этом тесте пока нет вопросов.</p>;
   }
 
-  const isLastQuestion = currentIndex === data.questions.length - 1;
-
-  const goNext = () => {
-    if (selectedOptionId === null) return;
-
-    setUserAnswers((prev) => {
-      const updated = [...prev];
-      updated[currentIndex] = {
-        questionId: currentQuestion.id,
-        payload: selectedOptionId,
-      };
-      return updated;
-    });
-
-    if (!isLastQuestion) {
-      setCurrentIndex((prev) => prev + 1);
-    } else {
-      console.log('Answers:', userAnswers);
-    }
-  };
-
-  const goBack = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex((prev) => prev - 1);
-    }
-  };
-
-  const handleSubmit = () => {
-    if (selectedOptionId === null) return;
-
-    const finalAnswers = [
-      ...userAnswers,
-      {
-        questionId: currentQuestion.id,
-        payload: selectedOptionId,
-      },
-    ];
-
-    console.log('Submit answers:', finalAnswers);
-    // send to backend
-  };
+  const currentAnswer = userAnswers[currentIndex];
+  const selectedOptionId = currentAnswer ? String(currentAnswer.payload) : null;
 
   const handleOptionChange = (optionId: string) => {
     setUserAnswers((prev) => {
@@ -87,6 +45,18 @@ export default function SingleChoiceQuiz({ data }: SingleChoiceQuizProps) {
       };
       return updated;
     });
+  };
+
+  const goNext = () => {
+    setCurrentIndex((prev) => prev + 1);
+  };
+
+  const goBack = () => {
+    setCurrentIndex((prev) => prev - 1);
+  };
+
+  const handleSubmit = () => {
+    console.log('Submit answers:', userAnswers);
   };
 
   return (

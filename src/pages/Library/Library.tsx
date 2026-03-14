@@ -33,7 +33,10 @@ export default function Library() {
     setCurrentPage(value);
   };
 
-  const handleFiltersChange = (newFilters: LibraryFilters) => setFilters(newFilters);
+  const handleFiltersChange = (newFilters: LibraryFilters) => {
+    setFilters(newFilters);
+    setCurrentPage(1);
+  };
 
   useEffect(() => {
     const fetchLibraryData = async () => {
@@ -69,7 +72,8 @@ export default function Library() {
       {!error && (
         <Filters
           allQuizzes={quizzesData?.length ?? null}
-          onFiltersChange={handleFiltersChange}
+          filterValues={filters}
+          onSetFilters={handleFiltersChange}
           loading={loading}
         />
       )}

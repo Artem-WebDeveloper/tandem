@@ -51,3 +51,21 @@
   font-weight: 500;
   border-radius: 6px;
 }
+
+input:-webkit-autofill {
+  background-color: transparent !important;
+  color: inherit !important;
+  box-shadow: none !important;
+}
+
+input:-moz-autofill {
+  background-color: transparent !important;
+  color: inherit !important;
+  box-shadow: none !important;
+}
+
+input:-ms-autofill {
+  background-color: transparent !important;
+  color: inherit !important;
+  box-shadow: none !important;
+}

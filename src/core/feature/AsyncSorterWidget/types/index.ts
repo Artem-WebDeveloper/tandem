@@ -10,6 +10,5 @@ export interface AsyncSorterTask extends BaseTask {
   type: typeof TaskType.AsyncSorter;
   section: string;
   tags: string[];
-  version: number;
   questions: AsyncSorterQuestion[];
 }

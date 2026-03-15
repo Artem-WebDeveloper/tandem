@@ -5,8 +5,8 @@ import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 
 import styles from './Practice.module.scss';
 
-import { fetchQuizById, type QuizTask } from '../../core/api/fetchQuizById';
-import { TaskType } from '../../core/types/quiz';
+import { fetchQuizById } from '../../core/api/fetchQuizById';
+import { TaskType, type QuizTask } from '../../core/types/quiz';
 import Layout from '../../core/components/Layout/Layout';
 import QuizSkeleton from './QuizSkeleton/QuizSkeleton';
 import PracticeHeader from './PracticeHeader/PracticeHeader';

@@ -43,10 +43,6 @@ export interface BaseTask {
     ru: string;
     en: string;
   };
-  description: {
-    ru: string;
-    en: string;
-  };
 }
 
 // -----------------------------------------------------------------------------

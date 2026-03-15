@@ -11,10 +11,6 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
       ru: 'Методы массивов',
       en: 'Array Methods',
     },
-    description: {
-      ru: 'Базовые методы массивов JavaScript для фильтрации, поиска и преобразования элементов',
-      en: 'Basic JavaScript array methods for filtering, searching, and transforming elements',
-    },
     tags: ['array-methods'],
     questions: [
       {
@@ -74,10 +70,6 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
     title: {
       ru: 'Объекты JavaScript',
       en: 'JavaScript Objects',
-    },
-    description: {
-      ru: 'Основные методы работы с объектами и их свойствами в JavaScript',
-      en: 'Essential JavaScript object utilities for working with keys, values, and cloning',
     },
     tags: ['objects'],
     questions: [
@@ -139,10 +131,6 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
       ru: 'Функции JavaScript',
       en: 'JavaScript Functions',
     },
-    description: {
-      ru: 'Методы вызова функций и базовые концепции функций в JavaScript',
-      en: 'Function invocation methods and core functional programming concepts in JavaScript',
-    },
     tags: ['functions'],
     questions: [
       {
@@ -202,10 +190,6 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
     title: {
       ru: 'Промисы и асинхронность',
       en: 'Promises and Async JavaScript',
-    },
-    description: {
-      ru: 'Работа с промисами, обработка результатов и управление асинхронным кодом',
-      en: 'Working with promises, handling results, and controlling asynchronous JavaScript code',
     },
     tags: ['promises', 'async'],
     questions: [
@@ -267,10 +251,6 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
       ru: 'Основы HTML',
       en: 'HTML Basics',
     },
-    description: {
-      ru: 'Базовые HTML теги и атрибуты для создания структуры веб-страницы',
-      en: 'Basic HTML tags and attributes used to build web page structure',
-    },
     tags: ['html-elements'],
     questions: [
       {
@@ -330,10 +310,6 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
     title: {
       ru: 'HTML формы и атрибуты',
       en: 'HTML Forms and Attributes',
-    },
-    description: {
-      ru: 'Работа с HTML формами, атрибутами полей ввода и кнопками отправки',
-      en: 'Working with HTML forms, input attributes, and form submission controls',
     },
     tags: ['forms', 'attributes'],
     questions: [
@@ -404,10 +380,6 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
       ru: 'Семантический HTML и доступность',
       en: 'Semantic HTML and Accessibility',
     },
-    description: {
-      ru: 'Семантические элементы HTML и атрибуты для улучшения доступности страниц',
-      en: 'Semantic HTML elements and accessibility attributes for better structured pages',
-    },
     tags: ['semantic', 'accessibility'],
     questions: [
       {
@@ -477,10 +449,6 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
       ru: 'Основы React и JSX',
       en: 'React Basics and JSX',
     },
-    description: {
-      ru: 'Основы JSX, рендеринг элементов и обработка событий в React',
-      en: 'Basic JSX syntax, rendering elements, and handling events in React',
-    },
     tags: ['jsx', 'components'],
     questions: [
       {
@@ -541,10 +509,6 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
       ru: 'React Hooks',
       en: 'React Hooks',
     },
-    description: {
-      ru: 'Работа со state, эффектами и ссылками с использованием React hooks',
-      en: 'Managing state, effects, and references using React hooks',
-    },
     tags: ['hooks', 'state'],
     questions: [
       {
@@ -604,10 +568,6 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
     title: {
       ru: 'Продвинутые возможности React',
       en: 'Advanced React Concepts',
-    },
-    description: {
-      ru: 'Контекст, оптимизация рендера и управление сложным состоянием компонентов',
-      en: 'Context API, rendering optimization, and complex state management in React',
     },
     tags: ['context', 'performance', 'hooks'],
     questions: [

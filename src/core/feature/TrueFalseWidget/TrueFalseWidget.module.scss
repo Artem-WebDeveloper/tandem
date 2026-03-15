@@ -1,3 +1,16 @@
 .container {
-  background: #4444;
+  width: 100%;
+}
+
+.answers {
+  display: flex;
+  min-height: 200px;
+  gap: 20px;
+
+  &Btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
 }

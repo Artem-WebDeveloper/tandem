@@ -18,9 +18,7 @@ export interface SingleChoiceQuestion {
 // Server response when loading a Single Choice task
 export interface SingleChoiceTaskResponse extends BaseTask {
   type: typeof TaskType.SingleChoice; // = 'single_choice'
-  title: string;
   section: string;
   tags: string[];
-  description?: string;
   questions: SingleChoiceQuestion[];
 }

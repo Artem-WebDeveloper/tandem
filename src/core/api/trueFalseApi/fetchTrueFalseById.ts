@@ -11,6 +11,6 @@ export function fetchTrueFalseById(id: string): Promise<TrueFalseTask> {
       } else {
         reject(new Error(`Квиз типа 'True False' с id "${id}" не найден`));
       }
-    }, 2000);
+    }, 0);
   });
 }

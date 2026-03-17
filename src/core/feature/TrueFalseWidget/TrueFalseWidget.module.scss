@@ -1,17 +1,22 @@
 .container {
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
 }
 
 .answers {
+  margin-top: 16px;
+  margin-bottom: 12px;
   display: flex;
   min-height: 170px;
   gap: 20px;
 
   @media (max-width: 768px) {
     flex-direction: column;
+  }
+
+  .explanation {
+    display: flex;
+    gap: 40px;
+    align-items: center;
   }
 
   &Btn {

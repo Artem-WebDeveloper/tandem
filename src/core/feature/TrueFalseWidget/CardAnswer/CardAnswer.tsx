@@ -1,34 +1,38 @@
-import { useState } from 'react';
-
 import { Box, Fade, Typography, useTheme } from '@mui/material';
 import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded';
 import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
 import HighlightOffRoundedIcon from '@mui/icons-material/HighlightOffRounded';
-// import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded';
 import ThumbDownRoundedIcon from '@mui/icons-material/ThumbDownRounded';
 
 import styles from './CardAnswer.module.scss';
 
-function CardAnswer({
-  cardTrue,
-  correctStatement,
-}: {
-  cardTrue: boolean;
+type CardAnswerProps = {
+  selectedAnswer: boolean | null;
+  answered: boolean;
+  cardType: boolean;
   correctStatement: boolean;
-}) {
-  const theme = useTheme();
-  const [flipped, setFlipped] = useState(false);
+  onSelectedAnswered: (isAnswered: boolean) => void;
+};
 
-  const isRightAnswer = correctStatement === cardTrue;
+function CardAnswer({
+  selectedAnswer,
+  answered,
+  onSelectedAnswered,
+  cardType,
+  correctStatement,
+}: CardAnswerProps) {
+  const theme = useTheme();
+
+  const isCardSelected = selectedAnswer === cardType; // если выбранный ответ соответствует типу карточки, значит выбрана именно эта карточка, ее переворачиваем
+  const isRightAnswer = correctStatement === cardType;
 
   return (
     <Box
-      className={`${styles.card} ${flipped ? styles.flipped : ''}`}
-      onClick={() => setFlipped(true)}
+      className={`${styles.card} ${isCardSelected ? styles.flipped : ''}`}
+      onClick={() => selectedAnswer === null && onSelectedAnswered(cardType)}
       sx={{
-        transform: flipped
-          ? 'perspective(1300px) rotateY(180deg)'
-          : 'perspective(1300px) rotateY(0deg)',
+        opacity: answered && !isCardSelected ? 0.65 : 1,
+        pointerEvents: answered ? 'none' : 'auto',
       }}
     >
       {/* Front */}
@@ -38,7 +42,7 @@ function CardAnswer({
           borderColor: theme.palette.textUltralight,
         }}
       >
-        {cardTrue ? (
+        {cardType ? (
           <CheckCircleOutlineRoundedIcon
             fontSize="large"
             sx={{ color: theme.palette.text.disabled }}
@@ -47,7 +51,7 @@ function CardAnswer({
           <HighlightOffRoundedIcon fontSize="large" sx={{ color: theme.palette.text.disabled }} />
         )}
         <Typography fontSize="large" color={theme.palette.textLight}>
-          {cardTrue ? 'True' : 'False'}
+          {cardType ? 'True' : 'False'}
         </Typography>
       </Box>
 
@@ -55,21 +59,15 @@ function CardAnswer({
       <Box
         className={`${styles.cardBack} ${isRightAnswer ? styles.cardBackRight : styles.cardBackWrong}`}
       >
-        {isRightAnswer ? (
-          <>
-            <Fade timeout={1800} in={flipped}>
-              <VerifiedRoundedIcon fontSize="large" />
-            </Fade>
-            <Typography fontSize="large">Верно!</Typography>
-          </>
-        ) : (
-          <>
-            <Fade timeout={1800} in={flipped}>
-              <ThumbDownRoundedIcon fontSize="large" />
-            </Fade>
-            <Typography fontSize="large">Неверно!</Typography>
-          </>
-        )}
+        <p className={styles.cardBackType}>{cardType ? 'true' : 'false'}</p>
+        <Fade timeout={1800} in={answered}>
+          {isRightAnswer ? (
+            <VerifiedRoundedIcon fontSize="large" />
+          ) : (
+            <ThumbDownRoundedIcon fontSize="large" />
+          )}
+        </Fade>
+        <Typography fontSize="large"> {isRightAnswer ? 'Верно!' : 'Неверно!'}</Typography>
       </Box>
     </Box>
   );

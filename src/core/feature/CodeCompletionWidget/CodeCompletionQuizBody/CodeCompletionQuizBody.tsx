@@ -3,12 +3,17 @@ import type { CodeCompletionQuestion } from '../types';
 import { useCodeCompletionStore } from '@/core/store/codeCompletion.store';
 import TipsAndUpdatesTwoToneIcon from '@mui/icons-material/TipsAndUpdatesTwoTone';
 import CodeCompletionAnswerInput from './CodeCompletionAnswerInput/CodeCompletionAnswerInput';
+import ErrorNotification from '@/core/components/ErrorNotification/ErrorNotification';
+import { LOCALE } from '@/core/configs/locale.config';
 
 import styles from './CodeCompletionQuizBody.module.scss';
 
 function CodeCompletionQuizBody({ questions }: { questions: CodeCompletionQuestion[] }) {
   const theme = useTheme();
   const currentQuestionNumber = useCodeCompletionStore((state) => state.currentQuestionNumber);
+
+  if (!questions.length)
+    return <ErrorNotification message="Не удалось получить вопросы для квиза" />;
 
   const { code, hint, blanks } = questions[currentQuestionNumber];
   const codeParts = code.split(blanks);
@@ -32,7 +37,7 @@ function CodeCompletionQuizBody({ questions }: { questions: CodeCompletionQuesti
       </pre>
       <div className={styles.tip}>
         <TipsAndUpdatesTwoToneIcon />
-        <p>{hint}</p>
+        <p>{hint[LOCALE]}</p>
       </div>
     </div>
   );

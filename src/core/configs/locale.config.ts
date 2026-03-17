@@ -1,1 +1,1 @@
-export const locale = 'ru';
+export const LOCALE = 'ru';

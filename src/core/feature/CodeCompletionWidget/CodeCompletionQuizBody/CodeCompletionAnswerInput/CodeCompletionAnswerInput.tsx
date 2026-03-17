@@ -26,7 +26,7 @@ function CodeCompletionAnswerInput({
 
   function handleInput(event: React.ChangeEvent<HTMLInputElement, HTMLInputElement>) {
     const rawAnswer = event.target.value;
-    const answer = rawAnswer.trim().match(/\w+/i)?.at(0) || '';
+    const answer = rawAnswer.match(/\w+/i)?.at(0) || '';
 
     setAnswer(currentQuestion.id, answer);
   }

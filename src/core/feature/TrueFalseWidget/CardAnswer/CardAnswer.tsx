@@ -9,7 +9,6 @@ import styles from './CardAnswer.module.scss';
 
 type CardAnswerProps = {
   selectedAnswer: boolean | null;
-  answered: boolean;
   cardType: boolean;
   correctStatement: boolean;
   isTimeout: boolean;
@@ -18,7 +17,6 @@ type CardAnswerProps = {
 
 function CardAnswer({
   selectedAnswer,
-  answered,
   onSelectedAnswered,
   cardType,
   correctStatement,
@@ -26,8 +24,21 @@ function CardAnswer({
 }: CardAnswerProps) {
   const theme = useTheme();
 
+  const answered = selectedAnswer !== null;
   const isCardSelected = selectedAnswer === cardType; // если выбранный ответ соответствует типу карточки, значит выбрана именно эта карточка, ее переворачиваем
   const isRightAnswer = correctStatement === cardType;
+
+  const frontIcon = cardType ? (
+    <CheckCircleOutlineRoundedIcon fontSize="large" sx={{ color: theme.palette.text.disabled }} />
+  ) : (
+    <HighlightOffRoundedIcon fontSize="large" sx={{ color: theme.palette.text.disabled }} />
+  );
+
+  const backIcon = isRightAnswer ? (
+    <VerifiedRoundedIcon fontSize="large" />
+  ) : (
+    <ThumbDownRoundedIcon fontSize="large" />
+  );
 
   return (
     <Box
@@ -39,20 +50,8 @@ function CardAnswer({
       }}
     >
       {/* Front */}
-      <Box
-        className={styles.cardFront}
-        sx={{
-          borderColor: theme.palette.textUltralight,
-        }}
-      >
-        {cardType ? (
-          <CheckCircleOutlineRoundedIcon
-            fontSize="large"
-            sx={{ color: theme.palette.text.disabled }}
-          />
-        ) : (
-          <HighlightOffRoundedIcon fontSize="large" sx={{ color: theme.palette.text.disabled }} />
-        )}
+      <Box className={styles.cardFront} sx={{ borderColor: theme.palette.textUltralight }}>
+        {frontIcon}
         <Typography fontSize="large" color={theme.palette.textLight}>
           {cardType ? 'True' : 'False'}
         </Typography>
@@ -62,26 +61,22 @@ function CardAnswer({
       <Box
         className={`${styles.cardBack} ${isRightAnswer ? styles.cardBackRight : styles.cardBackWrong}`}
       >
-        {isTimeout ? (
+        {isTimeout && isCardSelected ? (
           <Box textAlign="center">
             <Typography sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <span>Время вышло</span>
               <HourglassBottomTwoToneIcon />
             </Typography>
-            <Typography sx={{ mb: 1.8 }}> Вам засчитан неверный ответ!</Typography>
-            <p>
-              Утверждение - <span>{correctStatement ? 'TRUE' : 'FALSE'}</span>
-            </p>
+            <Typography sx={{ mb: 1.8 }}>Вам засчитан неверный ответ!</Typography>
+            <Typography fontWeight={600}>
+              Утверждение - {correctStatement ? 'TRUE' : 'FALSE'}
+            </Typography>
           </Box>
         ) : (
           <>
             <p className={styles.cardBackType}>{cardType ? 'true' : 'false'}</p>
             <Fade timeout={1800} in={answered}>
-              {isRightAnswer ? (
-                <VerifiedRoundedIcon fontSize="large" />
-              ) : (
-                <ThumbDownRoundedIcon fontSize="large" />
-              )}
+              {backIcon}
             </Fade>
             <Typography fontSize="large"> {isRightAnswer ? 'Верно!' : 'Неверно!'}</Typography>
           </>

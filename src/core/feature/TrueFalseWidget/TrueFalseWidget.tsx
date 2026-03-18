@@ -26,22 +26,32 @@ function TrueFalseWidget({ data }: { data: TrueFalseTask }) {
   const { correct, explanation } = questions[currentIndex];
 
   const answered = selectedAnswer !== null;
-  const isAlreadyAnswered = answers[currentIndex] !== undefined;
+  const isSavedAnswer = answers[currentIndex] !== undefined;
   const questionSecondsLimit = difficultySecondsConfig[difficulty] || 10;
   const isTimeout = answers[currentIndex]?.isTimeout ?? false;
 
-  function handleAnswer(selected: boolean) {
-    setSelectedAnswered(selected);
+  function saveAnswer(selectedAnswer: boolean, isTimeout = false) {
     setAnswers((prev) => {
       const updated = [...prev];
       updated[currentIndex] = {
         questionId: questions[currentIndex].id,
-        payload: selected,
+        payload: selectedAnswer,
+        isTimeout,
         // isCorrect: selected === questions[currentIndex].correct, Можно легко и на фронте считать
       };
       return updated;
     });
   }
+
+  function handleAnswer(selected: boolean) {
+    setSelectedAnswered(selected);
+    saveAnswer(selected);
+  }
+
+  const handleTimeout = () => {
+    setSelectedAnswered(!correct);
+    saveAnswer(!correct, true);
+  };
 
   const goNext = () => {
     const next = currentIndex + 1;
@@ -50,23 +60,10 @@ function TrueFalseWidget({ data }: { data: TrueFalseTask }) {
   };
 
   const goBack = () => {
+    if (currentIndex === 0) return;
     const prev = currentIndex - 1;
     setCurrentIndex(prev);
     setSelectedAnswered(answers[prev].payload);
-  };
-
-  const handleTimeout = () => {
-    setSelectedAnswered(!correct);
-
-    setAnswers((prev) => {
-      const updated = [...prev];
-      updated[currentIndex] = {
-        questionId: questions[currentIndex].id,
-        payload: !correct,
-        isTimeout: true,
-      };
-      return updated;
-    });
   };
 
   return (
@@ -74,7 +71,7 @@ function TrueFalseWidget({ data }: { data: TrueFalseTask }) {
       <QuizProgressBar currentQuestionNumber={currentIndex + 1} questionsCount={questions.length} />
 
       <Box key={currentIndex} className={styles.main}>
-        {!isAlreadyAnswered && (
+        {!isSavedAnswer && (
           <Timer duration={questionSecondsLimit} onExpire={handleTimeout} key={currentIndex} />
         )}
 
@@ -85,7 +82,6 @@ function TrueFalseWidget({ data }: { data: TrueFalseTask }) {
         <section className={styles.answers}>
           <CardAnswer
             selectedAnswer={selectedAnswer}
-            answered={answered}
             onSelectedAnswered={handleAnswer}
             cardType={true}
             correctStatement={correct}
@@ -93,7 +89,6 @@ function TrueFalseWidget({ data }: { data: TrueFalseTask }) {
           />
           <CardAnswer
             selectedAnswer={selectedAnswer}
-            answered={answered}
             onSelectedAnswered={handleAnswer}
             cardType={false}
             correctStatement={correct}

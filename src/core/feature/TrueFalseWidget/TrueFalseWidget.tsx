@@ -21,7 +21,6 @@ function TrueFalseWidget({ data }: { data: TrueFalseTask }) {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [selectedAnswer, setSelectedAnswered] = useState<boolean | null>(null);
   const [answers, setAnswers] = useState<Answer[]>([]);
-  const [slideIn, setSlideIn] = useState<boolean>(true);
 
   const { questions, difficulty } = data;
   const { correct, explanation } = questions[currentIndex];
@@ -48,16 +47,12 @@ function TrueFalseWidget({ data }: { data: TrueFalseTask }) {
     const next = currentIndex + 1;
     setCurrentIndex(next);
     setSelectedAnswered(answers[next]?.payload ?? null);
-
-    setSlideIn(false);
   };
 
   const goBack = () => {
     const prev = currentIndex - 1;
     setCurrentIndex(prev);
     setSelectedAnswered(answers[prev].payload);
-
-    setSlideIn(false);
   };
 
   const handleTimeout = () => {
@@ -78,46 +73,44 @@ function TrueFalseWidget({ data }: { data: TrueFalseTask }) {
     <div className={styles.container}>
       <QuizProgressBar currentQuestionNumber={currentIndex + 1} questionsCount={questions.length} />
 
-      <Fade in={slideIn} timeout={100} onExited={() => setSlideIn(true)}>
-        <Box className={styles.main}>
-          {!isAlreadyAnswered && (
-            <Timer duration={questionSecondsLimit} onExpire={handleTimeout} key={currentIndex} />
-          )}
+      <Box key={currentIndex} className={styles.main}>
+        {!isAlreadyAnswered && (
+          <Timer duration={questionSecondsLimit} onExpire={handleTimeout} key={currentIndex} />
+        )}
 
-          <Typography variant="h3" fontSize={18}>
-            {questions[currentIndex].statement}
-          </Typography>
+        <Typography variant="h3" fontSize={18}>
+          {questions[currentIndex].statement}
+        </Typography>
 
-          <section className={styles.answers}>
-            <CardAnswer
-              selectedAnswer={selectedAnswer}
-              answered={answered}
-              onSelectedAnswered={handleAnswer}
-              cardType={true}
-              correctStatement={correct}
-              isTimeout={isTimeout}
-            />
-            <CardAnswer
-              selectedAnswer={selectedAnswer}
-              answered={answered}
-              onSelectedAnswered={handleAnswer}
-              cardType={false}
-              correctStatement={correct}
-              isTimeout={isTimeout}
-            />
-          </section>
+        <section className={styles.answers}>
+          <CardAnswer
+            selectedAnswer={selectedAnswer}
+            answered={answered}
+            onSelectedAnswered={handleAnswer}
+            cardType={true}
+            correctStatement={correct}
+            isTimeout={isTimeout}
+          />
+          <CardAnswer
+            selectedAnswer={selectedAnswer}
+            answered={answered}
+            onSelectedAnswered={handleAnswer}
+            cardType={false}
+            correctStatement={correct}
+            isTimeout={isTimeout}
+          />
+        </section>
 
-          <Collapse in={answered} timeout={300}>
-            <Box sx={{ pb: 1 }}>
-              <Fade in={answered} timeout={500} style={{ transitionDelay: '400ms' }}>
-                <Typography>
-                  <TipsAndUpdatesTwoToneIcon sx={{ translate: '0 3px' }} /> {explanation}
-                </Typography>
-              </Fade>
-            </Box>
-          </Collapse>
-        </Box>
-      </Fade>
+        <Collapse in={answered} timeout={300}>
+          <Box sx={{ pb: 1 }}>
+            <Fade in={answered} timeout={500} style={{ transitionDelay: '400ms' }}>
+              <Typography>
+                <TipsAndUpdatesTwoToneIcon sx={{ translate: '0 3px' }} /> {explanation}
+              </Typography>
+            </Fade>
+          </Box>
+        </Collapse>
+      </Box>
 
       <QuizNavigation
         currentQuestionNumber={currentIndex}

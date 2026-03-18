@@ -3,7 +3,7 @@ import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded';
 import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
 import HighlightOffRoundedIcon from '@mui/icons-material/HighlightOffRounded';
 import ThumbDownRoundedIcon from '@mui/icons-material/ThumbDownRounded';
-import HourglassTopRoundedIcon from '@mui/icons-material/HourglassTopRounded';
+import HourglassBottomTwoToneIcon from '@mui/icons-material/HourglassBottomTwoTone';
 
 import styles from './CardAnswer.module.scss';
 
@@ -64,13 +64,13 @@ function CardAnswer({
       >
         {isTimeout ? (
           <Box textAlign="center">
-            <Typography sx={{ display: 'flex', justifyContent: 'center' }}>
-              <span>Время вышло!</span>
-              <HourglassTopRoundedIcon />
+            <Typography sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <span>Время вышло</span>
+              <HourglassBottomTwoToneIcon />
             </Typography>
             <Typography sx={{ mb: 1.8 }}> Вам засчитан неверный ответ!</Typography>
             <p>
-              Удтверждение - <span>{correctStatement ? 'TRUE' : 'FALSE'}</span>
+              Утверждение - <span>{correctStatement ? 'TRUE' : 'FALSE'}</span>
             </p>
           </Box>
         ) : (

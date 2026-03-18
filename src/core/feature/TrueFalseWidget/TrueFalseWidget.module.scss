@@ -2,6 +2,14 @@
   width: 100%;
 }
 
+.main {
+  position: relative;
+  padding-top: 10px;
+  @media (max-width: 768px) {
+    padding-top: 30px;
+  }
+}
+
 .answers {
   margin-top: 16px;
   margin-bottom: 12px;

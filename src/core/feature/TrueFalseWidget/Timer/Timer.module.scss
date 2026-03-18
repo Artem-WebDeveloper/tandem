@@ -1,0 +1,25 @@
+.timer {
+  position: absolute;
+  top: -40px;
+  right: 6px;
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    top: -20px;
+  }
+}
+
+.value {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 600;
+  transition: color 0.3s ease;
+  // rotate обратно чтобы цифра стояла прямо
+  // (svg повёрнут на -90deg)
+}

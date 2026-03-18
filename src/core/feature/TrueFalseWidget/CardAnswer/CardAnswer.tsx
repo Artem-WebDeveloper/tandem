@@ -3,6 +3,7 @@ import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded';
 import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
 import HighlightOffRoundedIcon from '@mui/icons-material/HighlightOffRounded';
 import ThumbDownRoundedIcon from '@mui/icons-material/ThumbDownRounded';
+import HourglassTopRoundedIcon from '@mui/icons-material/HourglassTopRounded';
 
 import styles from './CardAnswer.module.scss';
 
@@ -11,6 +12,7 @@ type CardAnswerProps = {
   answered: boolean;
   cardType: boolean;
   correctStatement: boolean;
+  isTimeout: boolean;
   onSelectedAnswered: (isAnswered: boolean) => void;
 };
 
@@ -20,6 +22,7 @@ function CardAnswer({
   onSelectedAnswered,
   cardType,
   correctStatement,
+  isTimeout,
 }: CardAnswerProps) {
   const theme = useTheme();
 
@@ -59,15 +62,30 @@ function CardAnswer({
       <Box
         className={`${styles.cardBack} ${isRightAnswer ? styles.cardBackRight : styles.cardBackWrong}`}
       >
-        <p className={styles.cardBackType}>{cardType ? 'true' : 'false'}</p>
-        <Fade timeout={1800} in={answered}>
-          {isRightAnswer ? (
-            <VerifiedRoundedIcon fontSize="large" />
-          ) : (
-            <ThumbDownRoundedIcon fontSize="large" />
-          )}
-        </Fade>
-        <Typography fontSize="large"> {isRightAnswer ? 'Верно!' : 'Неверно!'}</Typography>
+        {isTimeout ? (
+          <Box textAlign="center">
+            <Typography sx={{ display: 'flex', justifyContent: 'center' }}>
+              <span>Время вышло!</span>
+              <HourglassTopRoundedIcon />
+            </Typography>
+            <Typography sx={{ mb: 1.8 }}> Вам засчитан неверный ответ!</Typography>
+            <p>
+              Удтверждение - <span>{correctStatement ? 'TRUE' : 'FALSE'}</span>
+            </p>
+          </Box>
+        ) : (
+          <>
+            <p className={styles.cardBackType}>{cardType ? 'true' : 'false'}</p>
+            <Fade timeout={1800} in={answered}>
+              {isRightAnswer ? (
+                <VerifiedRoundedIcon fontSize="large" />
+              ) : (
+                <ThumbDownRoundedIcon fontSize="large" />
+              )}
+            </Fade>
+            <Typography fontSize="large"> {isRightAnswer ? 'Верно!' : 'Неверно!'}</Typography>
+          </>
+        )}
       </Box>
     </Box>
   );

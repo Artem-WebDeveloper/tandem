@@ -1,25 +1,43 @@
-import type { ThemeCategory } from '../CategoryBlock';
 import styles from './CategoryItem.module.scss';
+import { Chip, LinearProgress, Typography, useTheme } from '@mui/material';
+import type { ThemeCategory } from '../CategoryBlock';
 
 export default function CategoryItem({ item }: { item: ThemeCategory }) {
+  const theme = useTheme();
   const percentage = (item.completedTestsCount / item.tests) * 100;
 
   return (
     <li className={styles.category_item}>
       <div className={styles.title}>
-        <p>{item.theme}</p>
-        <p>
-          {item.tests}/{item.completedTestsCount}
-        </p>
+        <div className={styles.count}>
+          <Typography variant="body1">{item.theme}</Typography>
+          <Chip
+            variant="outlined"
+            label={`${item.completedTestsCount}/${item.tests}`}
+            size="small"
+            color={`${percentage === 100 ? 'success' : 'default'}`}
+          />
+        </div>
+
+        <Typography variant="body2" sx={{ color: theme.palette.text.secondary }}>
+          {Math.ceil(percentage)}%
+        </Typography>
       </div>
-      <div className={styles.line}>
-        <span
-          className={styles.line_filled}
-          style={{
-            width: `${percentage}%`,
-          }}
-        ></span>
-      </div>
+
+      <LinearProgress
+        sx={{
+          backgroundColor: theme.palette.divider,
+          height: '8px',
+          borderRadius: '8px',
+          '& .MuiLinearProgress-bar': {
+            borderRadius: '8px',
+            backgroundImage: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+            backgroundColor: theme.palette.secondary.main,
+          },
+        }}
+        variant="determinate"
+        value={percentage}
+      />
     </li>
   );
 }

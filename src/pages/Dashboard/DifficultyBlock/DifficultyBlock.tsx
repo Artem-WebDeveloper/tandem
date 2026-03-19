@@ -1,36 +1,16 @@
 import styles from './DifficultyBlock.module.scss';
-
-import { quizData, type QuizDifficulty } from '@/core/mock/dashboard';
+import { Typography } from '@mui/material';
+import { DIFFICULTY_DATA } from '@/core/mock/dashboard';
 import DifficultyItem from './DifficultyItem/DifficultyItem';
-
 import { useTranslation } from 'react-i18next';
-
-export type DifficultyCategory = {
-  difficulty: QuizDifficulty;
-  tests: number;
-  completedTestsCount: number;
-};
 
 export default function DifficultyBlock() {
   const { t } = useTranslation('dashboard');
-  const difficultyObject = quizData.reduce(
-    (acc, item) => {
-      const difficulty = item.difficulty;
-      if (!acc[difficulty]) {
-        acc[difficulty] = { difficulty, tests: 0, completedTestsCount: 0 };
-      }
-      acc[difficulty].tests += 1;
-      acc[difficulty].completedTestsCount += item.correctCompletions !== 0 ? 1 : 0;
-      return acc;
-    },
-    {} as Record<string, DifficultyCategory>,
-  );
-
-  const difficultyData = Object.values(difficultyObject);
+  const difficultyData = DIFFICULTY_DATA;
 
   return (
     <div className={styles.wrapper}>
-      <h3>{t('dashboard.difficulty.title')}</h3>
+      <Typography variant="h3">{t('dashboard.difficulty.title')}</Typography>
       <ul className={styles.difficulty_list}>
         {difficultyData.map((item, index) => (
           <DifficultyItem key={index} item={item} />

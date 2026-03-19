@@ -1,31 +1,26 @@
-import { quizData, type QuizTheme } from '@/core/mock/dashboard';
 import styles from './CategoryBlock.module.scss';
+import { CATEGORY_DATA } from '@/core/mock/dashboard';
 import CategoryItem from './CategoryItem/CategoryItem';
 import { useTranslation } from 'react-i18next';
-
-export type ThemeCategory = { theme: QuizTheme; tests: number; completedTestsCount: number };
+import { Typography, useTheme } from '@mui/material';
 
 export default function CategoryBlock() {
   const { t } = useTranslation('dashboard');
-  const categoryObject = quizData.reduce(
-    (acc, item) => {
-      const theme = item.theme;
-      if (!acc[theme]) {
-        acc[theme] = { theme, tests: 0, completedTestsCount: 0 };
-      }
-      acc[theme].tests += 1;
-      acc[theme].completedTestsCount += item.correctCompletions !== 0 ? 1 : 0;
-      return acc;
-    },
-    {} as Record<string, ThemeCategory>,
-  );
-
-  const categoryData = Object.values(categoryObject);
+  const theme = useTheme();
+  const categoryData = CATEGORY_DATA;
 
   return (
-    <div className={styles.wrapper}>
-      <h3>{t('dashboard.categories.title')}</h3>
-      <p>{t('dashboard.categories.description')}</p>
+    <div
+      className={styles.wrapper}
+      style={{ backgroundColor: theme.palette.background.paper, boxShadow: theme.shadows[1] }}
+    >
+      <div className={styles.header}>
+        <Typography variant="h3">{t('dashboard.categories.title')}</Typography>
+        <Typography variant="body2" sx={{ color: theme.palette.textLight }}>
+          {t('dashboard.categories.description')}
+        </Typography>
+      </div>
+
       <ul className={styles.category_list}>
         {categoryData.map((item, index) => (
           <CategoryItem key={index} item={item} />

@@ -4,6 +4,7 @@ import clsx from 'clsx';
 
 export default function DifficultyItem({ item }: { item: DifficultyCategory }) {
   const percentage = (item.completedTestsCount / item.tests) * 100;
+
   return (
     <li className={styles.difficulty_item}>
       <div className={styles.line}>

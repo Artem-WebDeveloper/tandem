@@ -4,14 +4,23 @@ import CommonStatisticBlock from './CommonStatisticBlock/CommonStatisticBlock';
 import CategoryBlock from './CategoryBlock/CategoryBlock';
 import DifficultyBlock from './DifficultyBlock/DifficultyBlock';
 import { useTranslation } from 'react-i18next';
+import { Typography, useTheme } from '@mui/material';
 
 export default function Dashboard() {
   const { t } = useTranslation('dashboard');
+  const theme = useTheme();
+
   return (
     <>
       <Layout>
-        <h1 className={styles.title}>{t('dashboard.title')}</h1>
-        <p>{t('dashboard.description')}</p>
+        <Typography variant="h1" className={styles.title}>
+          {t('dashboard.title')}
+        </Typography>
+
+        <Typography variant="body1" sx={{ color: theme.palette.text.secondary }}>
+          {t('dashboard.description')}
+        </Typography>
+
         <div className={styles.wrapper}>
           <CommonStatisticBlock />
           <CategoryBlock />

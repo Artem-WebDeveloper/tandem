@@ -1,9 +1,12 @@
 .wrapper {
   width: 100%;
-  color: black;
   padding: 16px;
-  background-color: white;
+  padding-bottom: 24px;
   border-radius: 8px;
+}
+
+.header {
+  margin-bottom: 24px;
 }
 
 .category_list {

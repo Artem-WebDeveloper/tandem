@@ -1,16 +1,20 @@
-import type { BaseTask, TaskTheme, TaskType } from '@/core/types/quiz';
+import type { BaseTask, TaskType } from '@/core/types/quiz';
 
 export interface TrueFalseQuestion {
   id: string;
-  statement: string;
-  explanation: string;
+  statement: {
+    ru: string;
+    en: string;
+  };
+  explanation: {
+    ru: string;
+    en: string;
+  };
   correct: boolean;
 }
 
 export interface TrueFalseTask extends BaseTask {
   type: typeof TaskType.TrueFalse;
-  section: TaskTheme;
-  title: string;
   tags: string[];
   questions: TrueFalseQuestion[];
 }

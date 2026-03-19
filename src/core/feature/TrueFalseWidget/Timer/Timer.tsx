@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import clsx from 'clsx';
 import styles from './Timer.module.scss';
 import { circleFilledColor } from '@/core/configs/trueFalseWidget.config';
 
@@ -8,9 +9,10 @@ const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 type TimerProps = {
   duration: number;
   onExpire?: () => void;
+  className?: string;
 };
 
-function Timer({ duration, onExpire }: TimerProps) {
+function Timer({ duration, onExpire, className }: TimerProps) {
   const [progress, setProgress] = useState(1); // 1.0 → 0.0
   const startTimeRef = useRef<number>(0);
 
@@ -41,7 +43,7 @@ function Timer({ duration, onExpire }: TimerProps) {
   }, [duration, onExpire]);
 
   return (
-    <div className={styles.timer}>
+    <div className={clsx(styles.timer, className)}>
       <svg width="56" height="56" viewBox="0 0 56 56" style={{ transform: 'rotate(-90deg)' }}>
         <circle
           cx="28"

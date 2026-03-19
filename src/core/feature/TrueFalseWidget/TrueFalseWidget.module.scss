@@ -4,9 +4,19 @@
 
 .main {
   position: relative;
-  padding-top: 10px;
+  padding-top: 25px;
+
   @media (max-width: 768px) {
-    padding-top: 30px;
+    padding-top: 33px;
+  }
+
+  &Timer {
+    position: absolute;
+    top: -28px;
+
+    @media (max-width: 768px) {
+      top: -20px;
+    }
   }
 
   animation: fadeIn 0.7s ease;

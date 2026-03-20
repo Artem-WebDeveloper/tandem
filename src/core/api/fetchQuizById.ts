@@ -3,6 +3,7 @@ import { fetchAsyncSorterById } from './asyncSorterApi/fetchAsyncSorterById';
 import { fetchCodeCompletionById } from './codeCompletionApi/fetchCodeCompletionById';
 import { fetchSingleChoiceById } from './singleChoiceApi/fetchSingleChoiceById';
 import { AppError, AppErrorCode } from '@/core/errors/errors';
+import { fetchTrueFalseById } from './trueFalseApi/fetchTrueFalseById';
 
 export async function fetchQuizById(id: string): Promise<QuizTask> {
   if (import.meta.env.VITE_API_MODE === 'api') {
@@ -23,6 +24,8 @@ export async function fetchQuizById(id: string): Promise<QuizTask> {
         return fetchCodeCompletionById(id);
       case 'as':
         return fetchAsyncSorterById(id);
+      case 'tf':
+        return fetchTrueFalseById(id);
       default:
         throw new AppError(AppErrorCode.UNKNOWN_QUIZ_TYPE);
     }

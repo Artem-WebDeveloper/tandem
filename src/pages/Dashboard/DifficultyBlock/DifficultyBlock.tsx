@@ -28,7 +28,11 @@ export default function DifficultyBlock() {
       const data: DifficultyStatistic[] = await fetchDifficultyStatistic();
       setDifficultyStatistic(data);
     } catch (error) {
-      if (error instanceof Error) setError(error.message);
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        throw error;
+      }
     } finally {
       setIsLoading(false);
     }

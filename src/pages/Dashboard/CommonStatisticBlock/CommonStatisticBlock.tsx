@@ -33,7 +33,11 @@ export default function CommonStatisticBlock() {
       const data: CommonStatistic = await fetchCommonStatistic();
       setCommonStatistic(data);
     } catch (error) {
-      if (error instanceof Error) setError(error.message);
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        throw error;
+      }
     } finally {
       setIsLoading(false);
     }

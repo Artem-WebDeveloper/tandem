@@ -1,13 +1,18 @@
 import type { SingleChoiceTaskResponse } from '../feature/SingleChoiceWidget/types';
 import type { CodeCompletionTask } from '../feature/CodeCompletionWidget/types';
 import type { AsyncSorterTask } from '../feature/AsyncSorterWidget/types';
+import type { TrueFalseTask } from '../feature/TrueFalseWidget/types';
 
 // Universal types
 
 //----------------------------------
 
 // Types of Quizzes
-export type QuizTask = SingleChoiceTaskResponse | CodeCompletionTask | AsyncSorterTask;
+export type QuizTask =
+  | SingleChoiceTaskResponse
+  | CodeCompletionTask
+  | AsyncSorterTask
+  | TrueFalseTask;
 
 // Task themes - add here when a new Theme appears
 export type TaskTheme = 'Core-js' | 'TypeScript' | 'React' | 'HTML' | 'Algorithms';

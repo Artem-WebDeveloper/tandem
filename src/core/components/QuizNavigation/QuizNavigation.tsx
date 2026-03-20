@@ -10,6 +10,7 @@ function QuizNavigation({
   questionsCount,
   isAnswerGiven,
   onAnswersSubmit,
+  isBackAllowed = true,
 }: {
   currentQuestionNumber: number;
   increaseQuestionNumber: () => void;
@@ -17,6 +18,7 @@ function QuizNavigation({
   questionsCount: number;
   isAnswerGiven: boolean;
   onAnswersSubmit: () => void;
+  isBackAllowed?: boolean;
 }) {
   const isFirstQuestion = currentQuestionNumber <= 0;
   const isLastQuestion = currentQuestionNumber >= questionsCount - 1;
@@ -35,7 +37,7 @@ function QuizNavigation({
 
   return (
     <div className={styles.navigation}>
-      <Button variant="outlined" onClick={handleBack} disabled={isFirstQuestion}>
+      <Button variant="outlined" onClick={handleBack} disabled={isFirstQuestion || !isBackAllowed}>
         Назад
       </Button>
 

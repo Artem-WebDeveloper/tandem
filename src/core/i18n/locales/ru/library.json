@@ -1,0 +1,30 @@
+{
+  "title": "Библиотека",
+  "description": "Выберите тест для практики",
+  "filters": {
+    "title": "Фильтрация",
+    "found": "Найдено тестов: ",
+    "notFound": "Ничего не найдено",
+    "categories": "Категории",
+    "allCategories": "Всё категории",
+    "testType": "Тип теста",
+    "allTypes": "Все типы",
+    "quizType": {
+      "quiz": "Квиз",
+      "insertingCode": "Вставка кода",
+      "sorting": "Сортировка",
+      "trueFalse": "True / False"
+    },
+    "difficulty": "Сложность",
+    "allLevels": "Все уровни"
+  },
+  "cards": {
+    "countOfQuestions": "вопросов",
+    "min": "мин",
+    "quizState": {
+      "notStarted": "Не начат",
+      "completed": "Завершено"
+    },
+    "startTest": "Начать тест"
+  }
+}

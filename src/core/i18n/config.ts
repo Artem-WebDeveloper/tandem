@@ -7,6 +7,8 @@ import commonEN from './locales/en/common.json';
 import commonRU from './locales/ru/common.json';
 import dashboardEN from './locales/en/dashboard.json';
 import dashboardRU from './locales/ru/dashboard.json';
+import libraryEN from './locales/en/library.json';
+import libraryRU from './locales/ru/library.json';
 
 i18n
   .use(LanguageDetector) // автоопределения языка браузера
@@ -16,10 +18,12 @@ i18n
       en: {
         common: commonEN,
         dashboard: dashboardEN,
+        library: libraryEN,
       },
       ru: {
         common: commonRU,
         dashboard: dashboardRU,
+        library: libraryRU,
       },
     },
 

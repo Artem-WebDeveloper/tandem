@@ -1,3 +1,5 @@
+import { TaskType } from '../types/quiz';
+
 export const difficultyLabels = {
   1: 'Easy',
   2: 'Medium',
@@ -32,9 +34,11 @@ export const sectionConfig = {
   },
 } as const;
 
-export const quizTypeConfig = {
-  single_choice: 'Квиз',
-  code_completion: 'Вставка кода',
-  async_sorter: 'Сортировка',
-  true_false: 'True / False',
-} as const;
+type TaskTypeKey = (typeof TaskType)[keyof typeof TaskType];
+
+export const getQuizTypeConfig = (t: (key: string) => string): Record<TaskTypeKey, string> => ({
+  [TaskType.SingleChoice]: t('filters.quizType.quiz'),
+  [TaskType.CodeCompletion]: t('filters.quizType.insertingCode'),
+  [TaskType.AsyncSorter]: t('filters.quizType.sorting'),
+  [TaskType.TrueFalse]: t('filters.quizType.trueFalse'),
+});

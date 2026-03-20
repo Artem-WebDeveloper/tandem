@@ -10,9 +10,13 @@ import Filters from './Filters/Filters';
 import CardQuiz from './CardQuiz/CardQuiz';
 import CardSkeleton from './CardSkeleton/CardSkeleton';
 
+import { useTranslation } from 'react-i18next';
+
 const CARDS_PER_PAGE = 6;
 
 export default function Library() {
+  const { t } = useTranslation('library');
+
   const [quizzesData, setQuizzesData] = useState<LibraryQuiz[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -65,9 +69,9 @@ export default function Library() {
 
   return (
     <Layout>
-      <h2 className={styles.title}>Library</h2>
+      <h2 className={styles.title}>{t('title')}</h2>
 
-      {!error && <Typography sx={{ mb: 1 }}>Выберите тест для практики</Typography>}
+      {!error && <Typography sx={{ mb: 1 }}>{t('description')}</Typography>}
 
       {!error && (
         <Filters

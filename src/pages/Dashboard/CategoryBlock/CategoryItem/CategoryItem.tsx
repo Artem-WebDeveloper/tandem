@@ -1,9 +1,9 @@
 import styles from './CategoryItem.module.scss';
 import { Box, Chip, LinearProgress, Typography, useTheme } from '@mui/material';
-import type { ThemeCategory } from '../../types';
+import type { CategoryStatistic } from '../../types';
 import { Link } from 'react-router-dom';
 
-export default function CategoryItem({ item }: { item: ThemeCategory }) {
+export default function CategoryItem({ item }: { item: CategoryStatistic }) {
   const theme = useTheme();
   const percentage = (item.completedTestsCount / item.tests) * 100;
 

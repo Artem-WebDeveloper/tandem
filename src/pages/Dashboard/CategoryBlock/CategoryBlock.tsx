@@ -1,13 +1,40 @@
 import styles from './CategoryBlock.module.scss';
-import { CATEGORY_DATA } from '@/core/mock/dashboard';
+import { useEffect, useState } from 'react';
+import { Typography, useTheme } from '@mui/material';
+import type { CategoryStatistic } from '../types';
+import { fetchCategoryStatistic } from '@/core/api/dashboardApi/fetchCategoryStatistic';
 import CategoryItem from './CategoryItem/CategoryItem';
 import { useTranslation } from 'react-i18next';
-import { Typography, useTheme } from '@mui/material';
+import DashboardError from '../DashboardError/DashboardError';
+import CategorySkeleton from './CategorySkeleton/CategorySkeleton';
 
 export default function CategoryBlock() {
   const { t } = useTranslation('dashboard');
   const theme = useTheme();
-  const categoryData = CATEGORY_DATA;
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<null | string>(null);
+  const [categoryStatistic, setCategoryStatistic] = useState<CategoryStatistic[]>([]);
+
+  useEffect(() => {
+    getCategoryStatistic();
+  }, []);
+
+  async function getCategoryStatistic() {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const data: CategoryStatistic[] = await fetchCategoryStatistic();
+      setCategoryStatistic(data);
+    } catch (error) {
+      if (error instanceof Error) setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  if (error) return <DashboardError message={error} onRetry={getCategoryStatistic} />;
 
   return (
     <div
@@ -21,11 +48,15 @@ export default function CategoryBlock() {
         </Typography>
       </div>
 
-      <ul className={styles.category_list}>
-        {categoryData.map((item, index) => (
-          <CategoryItem key={index} item={item} />
-        ))}
-      </ul>
+      {isLoading ? (
+        <CategorySkeleton />
+      ) : (
+        <ul className={styles.category_list}>
+          {categoryStatistic.map((item, index) => (
+            <CategoryItem key={index} item={item} />
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

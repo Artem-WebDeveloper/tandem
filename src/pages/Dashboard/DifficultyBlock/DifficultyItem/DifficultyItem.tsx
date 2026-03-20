@@ -1,12 +1,12 @@
 import styles from './DifficultyItem.module.scss';
 import { Liquid } from '@ant-design/plots';
 import { useTheme } from '@mui/material';
-import type { DifficultyCategory } from '../../types';
+import type { DifficultyStatistic } from '../../types';
 import { useThemeStore } from '@/core/store/theme.store';
 import { Difficulty } from '@/core/types/quiz';
 import DifficultyChip from '@/core/components/DifficultyChip/DifficultyChip';
 
-export default function DifficultyItem({ item }: { item: DifficultyCategory }) {
+export default function DifficultyItem({ item }: { item: DifficultyStatistic }) {
   const mode = useThemeStore((state) => state.mode);
 
   const theme = useTheme();

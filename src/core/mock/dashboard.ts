@@ -1,13 +1,17 @@
-import type { DifficultyCategory, ThemeCategory } from '@/pages/Dashboard/types';
+import type {
+  CommonStatistic,
+  DifficultyStatistic,
+  CategoryStatistic,
+} from '@/pages/Dashboard/types';
 
-export const COMMON_DATA = {
+export const COMMON_DATA: CommonStatistic = {
   testsCount: 30,
   totalAttempts: 116,
   completedTests: 24,
   remainTests: 6,
 };
 
-export const CATEGORY_DATA: ThemeCategory[] = [
+export const CATEGORY_DATA: CategoryStatistic[] = [
   {
     theme: 'Algorithms',
     tests: 13,
@@ -35,7 +39,7 @@ export const CATEGORY_DATA: ThemeCategory[] = [
   },
 ];
 
-export const DIFFICULTY_DATA: DifficultyCategory[] = [
+export const DIFFICULTY_DATA: DifficultyStatistic[] = [
   {
     difficulty: 'Easy',
     tests: 23,

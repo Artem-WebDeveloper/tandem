@@ -11,30 +11,28 @@ export default function Dashboard() {
   const theme = useTheme();
 
   return (
-    <>
-      <Layout>
-        <Typography
-          variant="h1"
-          sx={(theme) => ({ [theme.breakpoints.down('sm')]: { fontSize: '2.5rem' } })}
-        >
-          {t('dashboard.title')}
-        </Typography>
+    <Layout>
+      <Typography
+        variant="h1"
+        sx={(theme) => ({ [theme.breakpoints.down('sm')]: { fontSize: '2.5rem' } })}
+      >
+        {t('dashboard.title')}
+      </Typography>
 
-        <Typography variant="body1" sx={{ color: theme.palette.text.secondary }}>
-          {t('dashboard.description')}
-        </Typography>
+      <Typography variant="body1" sx={{ color: theme.palette.text.secondary }}>
+        {t('dashboard.description')}
+      </Typography>
 
-        <div className={styles.wrapper}>
-          <CommonStatisticBlock />
-          <CategoryBlock />
-          <div className={styles.static_bottom}>
-            <DifficultyBlock />
-            <div>
-              Какая-то статистика/какие-то данные, может быть сделать диаграмму по типу тестов
-            </div>
+      <div className={styles.wrapper}>
+        <CommonStatisticBlock />
+        <CategoryBlock />
+        <div className={styles.static_bottom}>
+          <DifficultyBlock />
+          <div>
+            Какая-то статистика/какие-то данные, может быть сделать диаграмму по типу тестов
           </div>
         </div>
-      </Layout>
-    </>
+      </div>
+    </Layout>
   );
 }

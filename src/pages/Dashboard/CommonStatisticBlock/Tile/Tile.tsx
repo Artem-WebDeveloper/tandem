@@ -1,19 +1,16 @@
-import { Typography, useTheme } from '@mui/material';
+import { Skeleton, Typography, useTheme } from '@mui/material';
 import styles from './Tile.module.scss';
 
-export default function Tile({
-  title,
-  count,
-  icon,
-  color,
-  description,
-}: {
+type TileProps = {
   title: string;
-  count: number;
+  count: number | null;
   icon: React.ReactNode;
   color: 'success' | 'error' | 'warning' | 'info';
   description: string;
-}) {
+  isLoading: boolean;
+};
+
+export default function Tile({ title, count, icon, color, description, isLoading }: TileProps) {
   const theme = useTheme();
 
   return (
@@ -32,7 +29,11 @@ export default function Tile({
         {icon}
       </div>
 
-      <h3 className={styles.value}>{count}</h3>
+      {isLoading || count === null ? (
+        <Skeleton variant="rounded" sx={{ width: '84px', height: '42px' }} />
+      ) : (
+        <h3 className={styles.value}>{count}</h3>
+      )}
 
       <p className={styles.description} style={{ color: theme.palette.textLight }}>
         {description}

@@ -5,6 +5,7 @@ import type { DifficultyStatistic } from '../../types';
 import { useThemeStore } from '@/core/store/theme.store';
 import { Difficulty } from '@/core/types/quiz';
 import DifficultyChip from '@/core/components/DifficultyChip/DifficultyChip';
+import { Link } from 'react-router-dom';
 
 export default function DifficultyItem({ item }: { item: DifficultyStatistic }) {
   const mode = useThemeStore((state) => state.mode);
@@ -37,9 +38,19 @@ export default function DifficultyItem({ item }: { item: DifficultyStatistic }) 
   };
 
   return (
-    <li className={styles.difficulty_item} title={item.difficulty}>
-      <DifficultyChip difficulty={Difficulty[item.difficulty]}>{item.difficulty}</DifficultyChip>
-      <Liquid {...config} className={styles.chart} />
+    <li title={item.difficulty}>
+      <Link
+        to={`/library?difficulty=${Difficulty[item.difficulty]}`}
+        className={styles.difficulty_item}
+      >
+        <DifficultyChip difficulty={Difficulty[item.difficulty]}>{item.difficulty}</DifficultyChip>
+
+        <Liquid {...config} className={styles.chart} />
+
+        <p style={{ color: theme.palette.text.secondary, fontSize: '14px' }}>
+          Выполнено {item.completedTestsCount}/{item.tests}
+        </p>
+      </Link>
     </li>
   );
 }

@@ -5,6 +5,13 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  transition: transform 0.3s ease;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: translateY(-5px);
+    }
+  }
 }
 
 .header {

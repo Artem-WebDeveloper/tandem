@@ -8,18 +8,18 @@ export default function CategoryItem({ item }: { item: CategoryStatistic }) {
   const percentage = (item.completedTestsCount / item.tests) * 100;
 
   return (
-    <Link to={`/library?section=${item.theme}`}>
-      <Box
-        component={'li'}
-        className={styles.category_item}
-        sx={{
-          '@media (hover: hover) and (pointer: fine)': {
-            '&:hover': {
-              borderColor: theme.palette.info.main,
-            },
+    <Box
+      component={'li'}
+      className={styles.category_item}
+      sx={{
+        '@media (hover: hover) and (pointer: fine)': {
+          '&:hover': {
+            borderColor: theme.palette.textLight,
           },
-        }}
-      >
+        },
+      }}
+    >
+      <Link to={`/library?section=${item.theme}`} className={styles.category_link}>
         <div className={styles.title}>
           <div className={styles.count}>
             <Typography variant="body1">{item.theme}</Typography>
@@ -50,7 +50,7 @@ export default function CategoryItem({ item }: { item: CategoryStatistic }) {
           variant="determinate"
           value={percentage}
         />
-      </Box>
-    </Link>
+      </Link>
+    </Box>
   );
 }

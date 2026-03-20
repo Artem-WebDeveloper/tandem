@@ -7,13 +7,46 @@ import Tile from './Tile/Tile';
 import { useTranslation } from 'react-i18next';
 import { COMMON_DATA } from '@/core/mock/dashboard';
 
+const TILES_DATA: {
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  color: 'success' | 'warning' | 'error' | 'info';
+  count: number;
+  // fetchData: () => Promise<number>;
+}[] = [
+  {
+    title: 'Доступно тестов',
+    description: 'Всего доступно для обучения',
+    icon: <StarIcon color="warning" />,
+    color: 'warning',
+    count: COMMON_DATA.testsCount,
+  },
+  {
+    title: 'Завершено тестов',
+    description: 'Количество завершенных тестов',
+    icon: <SportsScoreIcon color="success" />,
+    color: 'success',
+    count: COMMON_DATA.completedTests,
+  },
+  {
+    title: 'Осталось завершить',
+    description: 'Количество тестов, которые еще не завершены',
+    icon: <ScheduleIcon color="info" />,
+    color: 'info',
+    count: COMMON_DATA.remainTests,
+  },
+  {
+    title: 'Всего попыток',
+    description: 'Количество попыток в процессе обучения',
+    icon: <ReplayIcon color="error" />,
+    color: 'error',
+    count: COMMON_DATA.totalAttempts,
+  },
+];
+
 export default function CommonStatisticBlock() {
   const { t } = useTranslation('dashboard');
-  const testsCount = COMMON_DATA.testsCount;
-  const completedTests = COMMON_DATA.completedTests;
-  const remainTests = testsCount - completedTests;
-  const totalAttempts = COMMON_DATA.totalAttempts;
-
   return (
     <div className={styles.wrapper}>
       <Tile

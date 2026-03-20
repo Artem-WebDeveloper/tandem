@@ -27,7 +27,7 @@ export const lightThemeOptions: PaletteOptions = {
 
   warning: {
     light: '#FEF9C3',
-    main: '#FEF08A',
+    main: '#DFD05D',
     dark: '#854D0E',
   },
 

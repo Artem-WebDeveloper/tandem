@@ -17,7 +17,7 @@ export default function Tile({
   const theme = useTheme();
 
   return (
-    <div
+    <li
       className={styles.tile}
       style={{
         backgroundColor: theme.palette.background.paper,
@@ -37,6 +37,6 @@ export default function Tile({
       <p className={styles.description} style={{ color: theme.palette.textLight }}>
         {description}
       </p>
-    </div>
+    </li>
   );
 }

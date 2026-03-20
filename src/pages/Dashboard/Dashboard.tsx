@@ -13,7 +13,10 @@ export default function Dashboard() {
   return (
     <>
       <Layout>
-        <Typography variant="h1" className={styles.title}>
+        <Typography
+          variant="h1"
+          sx={(theme) => ({ [theme.breakpoints.down('sm')]: { fontSize: '2.5rem' } })}
+        >
           {t('dashboard.title')}
         </Typography>
 

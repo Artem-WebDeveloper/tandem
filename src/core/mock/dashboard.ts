@@ -1,14 +1,11 @@
-import type { TaskTheme } from '../types/quiz';
-
-export type QuizDifficulty = 'Easy' | 'Medium' | 'Hard';
+import type { DifficultyCategory, ThemeCategory } from '@/pages/Dashboard/types';
 
 export const COMMON_DATA = {
   testsCount: 30,
   totalAttempts: 116,
   completedTests: 24,
+  remainTests: 6,
 };
-
-export type ThemeCategory = { theme: TaskTheme; tests: number; completedTestsCount: number };
 
 export const CATEGORY_DATA: ThemeCategory[] = [
   {
@@ -37,12 +34,6 @@ export const CATEGORY_DATA: ThemeCategory[] = [
     completedTestsCount: 6,
   },
 ];
-
-export type DifficultyCategory = {
-  difficulty: QuizDifficulty;
-  tests: number;
-  completedTestsCount: number;
-};
 
 export const DIFFICULTY_DATA: DifficultyCategory[] = [
   {

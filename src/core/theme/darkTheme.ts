@@ -20,7 +20,7 @@ export const darkThemeOptions: PaletteOptions = {
   },
 
   success: {
-    light: '#84CA9A',
+    light: '#A3F4BC',
     main: '#1CCF5E',
     dark: '#166534',
   },

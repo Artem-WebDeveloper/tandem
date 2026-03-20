@@ -119,6 +119,7 @@ function TrueFalseWidget({ data }: { data: TrueFalseTask }) {
         decreaseQuestionNumber={goBack}
         questionsCount={questions.length}
         isAnswerGiven={answered}
+        isBackAllowed={isSavedAnswer}
         onAnswersSubmit={() => {
           // убираю поле timeout, бэку не пригодится, ответ засчитывается неверным в payload
           const payload = answers.map((answer) => ({

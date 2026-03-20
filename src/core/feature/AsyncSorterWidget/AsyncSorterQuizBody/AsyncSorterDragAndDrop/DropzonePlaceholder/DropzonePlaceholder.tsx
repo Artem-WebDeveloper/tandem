@@ -1,14 +1,16 @@
 import { useTheme } from '@mui/material';
 import styles from './DropzonePlaceholder.module.scss';
 
-const PLACEHOLDER_TEXT = 'Ответ';
+import { useTranslation } from 'react-i18next';
 
 function DropzonePlaceholder() {
   const theme = useTheme();
 
+  const { t } = useTranslation('practice');
+
   return (
     <div className={styles.container}>
-      {PLACEHOLDER_TEXT}
+      {t('asyncSorter.placeholder')}
       <div
         className={`${styles.corner} ${styles.cornerLeftTop}`}
         style={{ borderColor: theme.palette.text.primary }}

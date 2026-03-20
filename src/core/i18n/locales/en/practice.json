@@ -1,0 +1,26 @@
+{
+  "progressBar": {
+    "question": "Question",
+    "of": "of"
+  },
+  "navigation": {
+    "back": "Back",
+    "next": "Next Question",
+    "submit": "Submit"
+  },
+  "codeCompletion": {
+    "instruction": "Fill in the blank based on the hint"
+  },
+  "asyncSorter": {
+    "instruction": "Arrange the numbers in the order they appear in the console",
+    "allPlaced": "All numbers are placed",
+    "placeholder": "Answer"
+  },
+  "errors": {
+    "quizNotFound": "Quiz with id {{id}} not found",
+    "unknownQuizType": "Unknown quiz type",
+    "fetchFailed": "Failed to fetch data",
+    "missingQuizId": "Quiz ID is missing"
+  },
+  "backToLibrary": "Back to Library"
+}

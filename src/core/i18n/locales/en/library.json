@@ -26,5 +26,8 @@
       "completed": "Completed"
     },
     "startTest": "Start test"
+  },
+  "errors": {
+    "fetchFailed": "Failed to load {{resource}}, please check your internet connection."
   }
 }

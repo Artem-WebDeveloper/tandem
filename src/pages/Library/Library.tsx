@@ -9,6 +9,7 @@ import Layout from '../../core/components/Layout/Layout';
 import Filters from './Filters/Filters';
 import CardQuiz from './CardQuiz/CardQuiz';
 import CardSkeleton from './CardSkeleton/CardSkeleton';
+import { AppError, AppErrorCode } from '@/core/errors/errors';
 
 import { useTranslation } from 'react-i18next';
 
@@ -19,7 +20,7 @@ export default function Library() {
 
   const [quizzesData, setQuizzesData] = useState<LibraryQuiz[] | null>(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<AppError | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [filters, setFilters] = useState<LibraryFilters>({
     section: 'all',
@@ -54,10 +55,10 @@ export default function Library() {
 
         setQuizzesData(data);
       } catch (error) {
-        if (error instanceof Error) {
-          setError(error.message);
+        if (error instanceof AppError) {
+          setError(error);
         } else {
-          throw error;
+          setError(new AppError(AppErrorCode.FETCH_FAILED, { resource: 'Library quizzes' }));
         }
       } finally {
         setLoading(false);
@@ -92,7 +93,7 @@ export default function Library() {
 
       {error && (
         <div className={styles.errorContainer}>
-          <ErrorNotification message={error} />
+          <ErrorNotification message={t(`errors.${error.code}`, error.params)} />
         </div>
       )}
 

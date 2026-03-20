@@ -11,6 +11,8 @@ import libraryEN from './locales/en/library.json';
 import libraryRU from './locales/ru/library.json';
 import loginEN from './locales/en/login.json';
 import loginRU from './locales/ru/login.json';
+import practiceEN from './locales/en/practice.json';
+import practiceRU from './locales/ru/practice.json';
 
 i18n
   .use(LanguageDetector) // автоопределения языка браузера
@@ -22,12 +24,14 @@ i18n
         dashboard: dashboardEN,
         library: libraryEN,
         login: loginEN,
+        practice: practiceEN,
       },
       ru: {
         common: commonRU,
         dashboard: dashboardRU,
         library: libraryRU,
         login: loginRU,
+        practice: practiceRU,
       },
     },
 

@@ -1,11 +1,12 @@
 import type { BaseTask, Difficulty, TaskTheme, TaskType } from '@/core/types/quiz';
 
 export interface LibraryQuiz extends BaseTask {
-  title: string;
   section: TaskTheme;
   tags: string[];
-  description?: string;
-  time: number;
+  description?: {
+    ru: string;
+    en: string;
+  };
   questionsQuantity: number;
   completeProcentage: number;
   isComplete: boolean;

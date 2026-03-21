@@ -16,6 +16,7 @@ import { difficultyLabels, getQuizTypeConfig, sectionConfig } from '@/core/confi
 import DifficultyChip from '@/core/components/DifficultyChip/DifficultyChip';
 
 import { useTranslation } from 'react-i18next';
+import { LOCALE } from '@/core/configs/locale.config';
 
 export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
   const theme = useTheme();
@@ -31,7 +32,7 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
     id,
     description,
     questionsQuantity,
-    time,
+    time_limit: time,
     difficulty,
     tags,
     section,
@@ -73,7 +74,7 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
         ) : (
           <PanoramaFishEyeIcon sx={{ color: theme.palette.textUltralight }} />
         )}
-        <h3 className={styles.cardTitle}>{title}</h3>
+        <h3 className={styles.cardTitle}>{title[LOCALE]}</h3>
 
         <Chip
           label={themeQuiz?.label ?? section}
@@ -98,7 +99,7 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
       <main className={styles.cardBody}>
         <section className={styles.cardDescription}>
           <Typography variant="body2" sx={{ minHeight: '20px', color: theme.palette.textLight }}>
-            {description}
+            {description?.[LOCALE] || ''}
           </Typography>
         </section>
 

@@ -1,3 +1,4 @@
+import { toggleLocale } from '@/core/configs/locale.config';
 import { Button, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
@@ -17,6 +18,7 @@ export default function LanguageSwitcher() {
   const toggleLanguage = () => {
     const newLang = currentLang === 'ru' ? 'en' : 'ru';
     i18n.changeLanguage(newLang);
+    toggleLocale();
   };
 
   return (

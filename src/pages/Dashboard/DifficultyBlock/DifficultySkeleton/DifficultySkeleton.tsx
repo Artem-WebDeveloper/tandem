@@ -8,7 +8,7 @@ function DifficultySkeleton() {
       style={{
         display: 'flex',
         flexWrap: 'wrap',
-        gap: '48px',
+        gap: '64px',
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: '10px',
@@ -21,6 +21,7 @@ function DifficultySkeleton() {
         >
           <Skeleton variant="rounded" sx={{ width: '70px' }} />
           <Skeleton variant="circular" sx={{ width: '130px', height: '130px' }} />
+          <Skeleton variant="rounded" sx={{ width: '100px' }} />
         </div>
       ))}
     </div>

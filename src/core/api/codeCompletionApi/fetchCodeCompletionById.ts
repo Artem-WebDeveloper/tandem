@@ -1,5 +1,6 @@
 import type { CodeCompletionTask } from '@/core/feature/CodeCompletionWidget/types';
 import { MOCK_CODE_COMPLETION_DATA } from '@/core/mock/codeCompletionData';
+import { AppError, AppErrorCode } from '@/core/errors/errors';
 
 export function fetchCodeCompletionById(id: string): Promise<CodeCompletionTask> {
   return new Promise<CodeCompletionTask>((resolve, reject) => {
@@ -9,7 +10,7 @@ export function fetchCodeCompletionById(id: string): Promise<CodeCompletionTask>
       if (data !== undefined) {
         resolve(data);
       } else {
-        reject(new Error(`Квиз типа 'Code Completion' с id "${id}" не найден`));
+        reject(new AppError(AppErrorCode.QUIZ_NOT_FOUND, { id }));
       }
     }, 2000);
   });

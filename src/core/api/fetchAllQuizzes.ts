@@ -1,5 +1,6 @@
 import type { LibraryQuiz } from '@/pages/Library/types';
 import { libraryData } from '../mock/library';
+import { AppError, AppErrorCode } from '@/core/errors/errors';
 
 export function fetchAllQuizzes(): Promise<LibraryQuiz[]> {
   return new Promise((resolve, reject) => {
@@ -9,14 +10,14 @@ export function fetchAllQuizzes(): Promise<LibraryQuiz[]> {
       if (data !== undefined) {
         resolve(data);
       } else {
-        reject(new Error(`Не удалось загрузить тренажеры, проверьте соединение с интернетом`));
+        reject(new AppError(AppErrorCode.FETCH_FAILED, { resource: 'Library quizzes' }));
       }
     }, 1000);
   });
 }
 
 // После согласования с бэком
-/* 
+/*
 const SERVER_API = 'https://';
 export const updateQuizFavoriteStatus = async (quizId: string, isFavorite: boolean) => {
   try {

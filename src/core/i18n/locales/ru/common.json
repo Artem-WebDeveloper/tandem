@@ -1,0 +1,13 @@
+{
+  "test": "Это тест",
+  "header": {
+    "title": "RS School",
+    "description": "Тренажер по программированию",
+    "dashboard": "Статистика",
+    "library": "Библиотека",
+    "logout": "Выход"
+  },
+  "footer": {
+    "copyright": "разбаботано "
+  }
+}

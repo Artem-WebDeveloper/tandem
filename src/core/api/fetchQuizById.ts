@@ -2,6 +2,7 @@ import type { QuizTask } from '../types/quiz';
 import { fetchAsyncSorterById } from './asyncSorterApi/fetchAsyncSorterById';
 import { fetchCodeCompletionById } from './codeCompletionApi/fetchCodeCompletionById';
 import { fetchSingleChoiceById } from './singleChoiceApi/fetchSingleChoiceById';
+import { AppError, AppErrorCode } from '@/core/errors/errors';
 import { fetchTrueFalseById } from './trueFalseApi/fetchTrueFalseById';
 
 export async function fetchQuizById(id: string): Promise<QuizTask> {
@@ -26,7 +27,7 @@ export async function fetchQuizById(id: string): Promise<QuizTask> {
       case 'tf':
         return fetchTrueFalseById(id);
       default:
-        throw new Error('Неизвестный тип квиза');
+        throw new AppError(AppErrorCode.UNKNOWN_QUIZ_TYPE);
     }
   }
 }

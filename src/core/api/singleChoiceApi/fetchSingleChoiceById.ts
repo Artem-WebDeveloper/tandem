@@ -2,6 +2,7 @@
 
 import type { SingleChoiceTaskResponse } from '../../feature/SingleChoiceWidget/types';
 import { MOCK_SINGLE_CHOICE_DATA } from '../../mock/singleChoiceData';
+import { AppError, AppErrorCode } from '@/core/errors/errors';
 
 export function fetchSingleChoiceById(id: string): Promise<SingleChoiceTaskResponse> {
   return new Promise((resolve, reject) => {
@@ -11,7 +12,7 @@ export function fetchSingleChoiceById(id: string): Promise<SingleChoiceTaskRespo
       if (data !== undefined) {
         resolve(data);
       } else {
-        reject(new Error(`Single Choice quiz with id "${id}" not found`));
+        reject(new AppError(AppErrorCode.QUIZ_NOT_FOUND, { id }));
       }
     }, 2000);
   });

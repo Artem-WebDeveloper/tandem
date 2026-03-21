@@ -10,16 +10,20 @@ import { useAsyncSorterStore } from '@/core/store/asyncSorter.store';
 import type { AsyncSorterQuestion } from '../types';
 import AsyncSorterDragAndDrop from './AsyncSorterDragAndDrop/AsyncSorterDragAndDrop';
 
+import { useTranslation } from 'react-i18next';
+
 function AsyncSorterQuizBody({ questions }: { questions: AsyncSorterQuestion[] }) {
   const appMode = useThemeStore((state) => state.mode);
   const theme = useTheme();
+
+  const { t } = useTranslation('practice');
 
   const currentQuestionNumber = useAsyncSorterStore((state) => state.currentQuestionNumber);
   const { id, code, blocks } = questions[currentQuestionNumber];
 
   return (
     <div className={styles.quizBody}>
-      <Typography variant="h3">Расставьте цифры в порядке их вывода на консоль</Typography>
+      <Typography variant="h3">{t('asyncSorter.instruction')}</Typography>
 
       <SyntaxHighlighter
         language="javascript"

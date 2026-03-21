@@ -54,7 +54,7 @@ export default function Login() {
     try {
       const { access, refresh } = await loginApi(username, password);
 
-      login(access, refresh);
+      login(access, refresh, { name: username });
       navigate('/library', { replace: true });
     } catch (err) {
       if (isAxiosError(err)) {

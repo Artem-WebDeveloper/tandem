@@ -1,19 +1,20 @@
 import styles from './DifficultyBlock.module.scss';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Typography, useTheme } from '@mui/material';
 import type { DifficultyStatistic } from '../types';
 import { fetchDifficultyStatistic } from '@/core/api/dashboardApi/fetchDifficultyStatistic';
+import { AppError } from '@/core/errors/errors';
 import DifficultyItem from './DifficultyItem/DifficultyItem';
-import { useTranslation } from 'react-i18next';
-import DashboardError from '../DashboardError/DashboardError';
 import DifficultySkeleton from './DifficultySkeleton/DifficultySkeleton';
+import DashboardError from '../DashboardError/DashboardError';
 
 export default function DifficultyBlock() {
   const { t } = useTranslation('dashboard');
   const theme = useTheme();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<null | string>(null);
+  const [error, setError] = useState<null | AppError>(null);
   const [difficultyStatistic, setDifficultyStatistic] = useState<DifficultyStatistic[]>([]);
 
   useEffect(() => {
@@ -28,8 +29,8 @@ export default function DifficultyBlock() {
       const data: DifficultyStatistic[] = await fetchDifficultyStatistic();
       setDifficultyStatistic(data);
     } catch (error) {
-      if (error instanceof Error) {
-        setError(error.message);
+      if (error instanceof AppError) {
+        setError(error);
       } else {
         throw error;
       }
@@ -38,7 +39,13 @@ export default function DifficultyBlock() {
     }
   }
 
-  if (error) return <DashboardError message={error} onRetry={getCategoryStatistic} />;
+  if (error)
+    return (
+      <DashboardError
+        message={t(`dashboard.error.${error.code}`, error.params)}
+        onRetry={getCategoryStatistic}
+      />
+    );
 
   return (
     <div

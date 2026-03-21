@@ -6,8 +6,10 @@ import { useThemeStore } from '@/core/store/theme.store';
 import { Difficulty } from '@/core/types/quiz';
 import DifficultyChip from '@/core/components/DifficultyChip/DifficultyChip';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export default function DifficultyItem({ item }: { item: DifficultyStatistic }) {
+  const { t } = useTranslation('dashboard');
   const mode = useThemeStore((state) => state.mode);
 
   const theme = useTheme();
@@ -48,7 +50,7 @@ export default function DifficultyItem({ item }: { item: DifficultyStatistic }) 
         <Liquid {...config} className={styles.chart} />
 
         <p style={{ color: theme.palette.text.secondary, fontSize: '14px' }}>
-          Выполнено {item.completedTestsCount}/{item.tests}
+          {t('dashboard.difficulty.completed')} {item.completedTestsCount}/{item.tests}
         </p>
       </Link>
     </li>

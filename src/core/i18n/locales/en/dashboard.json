@@ -2,6 +2,10 @@
   "dashboard": {
     "title": "Your training",
     "description": "Statistics and learning progress",
+    "error": {
+      "button": "Try again",
+      "fetchFailed": "Failed to load {{resource}}. Check your internet connection."
+    },
     "statistics": {
       "availableTask": {
         "title": "Available tasks",
@@ -26,7 +30,8 @@
       "description": "Your performance in different sections"
     },
     "difficulty": {
-      "title": "Progress by difficulty"
+      "title": "Progress by difficulty",
+      "completed": "Completed"
     }
   }
 }

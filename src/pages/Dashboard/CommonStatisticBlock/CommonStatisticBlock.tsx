@@ -1,19 +1,20 @@
 import styles from './CommonStatisticBlock.module.scss';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import StarIcon from '@mui/icons-material/Star';
 import SportsScoreIcon from '@mui/icons-material/SportsScore';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import ReplayIcon from '@mui/icons-material/Replay';
 import Tile from './Tile/Tile';
-import { useTranslation } from 'react-i18next';
 import type { CommonStatistic } from '../types';
 import { fetchCommonStatistic } from '@/core/api/dashboardApi/fetchCommonStatistic';
+import { AppError } from '@/core/errors/errors';
 import DashboardError from '../DashboardError/DashboardError';
 
 export default function CommonStatisticBlock() {
   const { t } = useTranslation('dashboard');
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<null | string>(null);
+  const [error, setError] = useState<null | AppError>(null);
   const [commonStatistic, setCommonStatistic] = useState<CommonStatistic>({
     testsCount: null,
     totalAttempts: null,
@@ -33,8 +34,8 @@ export default function CommonStatisticBlock() {
       const data: CommonStatistic = await fetchCommonStatistic();
       setCommonStatistic(data);
     } catch (error) {
-      if (error instanceof Error) {
-        setError(error.message);
+      if (error instanceof AppError) {
+        setError(error);
       } else {
         throw error;
       }
@@ -43,7 +44,13 @@ export default function CommonStatisticBlock() {
     }
   }
 
-  if (error) return <DashboardError message={error} onRetry={getCommonStatistics} />;
+  if (error)
+    return (
+      <DashboardError
+        message={t(`dashboard.error.${error.code}`, error.params)}
+        onRetry={getCommonStatistics}
+      />
+    );
 
   return (
     <div className={styles.wrapper}>

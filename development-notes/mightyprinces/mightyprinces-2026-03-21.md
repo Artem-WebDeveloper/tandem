@@ -1,0 +1,1 @@
+Доработала drag and drop

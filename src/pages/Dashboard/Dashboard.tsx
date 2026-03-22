@@ -12,12 +12,7 @@ export default function Dashboard() {
 
   return (
     <Layout>
-      <Typography
-        variant="h1"
-        sx={(theme) => ({ [theme.breakpoints.down('sm')]: { fontSize: '2.5rem' } })}
-      >
-        {t('dashboard.title')}
-      </Typography>
+      <Typography variant="h1">{t('dashboard.title')}</Typography>
 
       <Typography variant="body1" sx={{ color: theme.palette.text.secondary }}>
         {t('dashboard.description')}

@@ -39,7 +39,7 @@ export default function Header() {
             <img src={logo} className={styles.logo} alt="Logo" />
           </Link>
           <div>
-            <h1 className={styles.title}>{t(`header.title`)}</h1>
+            <div className={styles.title}>{t(`header.title`)}</div>
             <p className={styles.descrip} style={{ color: theme.palette.textLight }}>
               {t('header.description')}
             </p>

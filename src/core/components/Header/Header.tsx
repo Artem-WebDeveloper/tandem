@@ -18,7 +18,9 @@ export default function Header() {
   const MEDIA_QUERY_CONDITION_DESKTOP = '(min-width:1024.1px)'; // для решения проблемы пограничного пикселя
   const CLOSE_SIDE_NAV_MS = 200;
 
-  const { user, logout } = useAuthStore();
+  const user = useAuthStore((state) => state.user);
+  const logout = useAuthStore((state) => state.logout);
+
   const theme = useTheme();
   const isDesktop = useMediaQuery(MEDIA_QUERY_CONDITION_DESKTOP);
 
@@ -79,7 +81,7 @@ export default function Header() {
           >
             <Box sx={{ minWidth: 250, boxSizing: 'border-box' }}>
               <header className={styles.sideNavHeader}>
-                <Button size="small" onClick={logout}>
+                <Button size="small" onClick={logout} sx={{ minWidth: '45px' }}>
                   <LogoutRoundedIcon sx={{ width: '22px' }} />
                 </Button>
                 <p style={{ color: theme.palette.textLight }}>{user?.name || 'User'}</p>

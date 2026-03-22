@@ -18,7 +18,7 @@ export default function LanguageSwitcher() {
   const toggleLanguage = () => {
     const newLang = currentLang === 'ru' ? 'en' : 'ru';
     i18n.changeLanguage(newLang);
-    toggleLocale();
+    toggleLocale(newLang);
   };
 
   return (

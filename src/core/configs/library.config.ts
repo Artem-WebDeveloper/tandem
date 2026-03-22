@@ -7,7 +7,7 @@ export const difficultyLabels = {
 } as const;
 
 export const sectionConfig = {
-  'Core-js': {
+  'Core JS': {
     color: '#F0B429',
     bgLight: 'rgba(240, 180, 41, 0.15)',
     label: 'JS',

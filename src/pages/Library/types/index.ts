@@ -8,7 +8,7 @@ export interface LibraryQuiz extends BaseTask {
     en: string;
   };
   questionsQuantity: number;
-  completeProcentage: number;
+  completePercentage: number;
   isComplete: boolean;
   isFavorite: boolean;
 }
@@ -18,3 +18,10 @@ export type LibraryFilters = {
   type: TaskType | 'all';
   difficulty: Difficulty | 'all';
 };
+
+export interface LibraryResponse {
+  count: number;
+  previous: string | null;
+  next: string | null;
+  results: LibraryQuiz[];
+}

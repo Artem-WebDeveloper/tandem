@@ -15,7 +15,7 @@ export type QuizTask =
   | TrueFalseTask;
 
 // Task themes - add here when a new Theme appears
-export type TaskTheme = 'Core-js' | 'TypeScript' | 'React' | 'HTML' | 'Algorithms';
+export type TaskTheme = 'Core JS' | 'TypeScript' | 'React' | 'HTML' | 'Algorithms';
 
 // Difficulty levels
 export const Difficulty = {

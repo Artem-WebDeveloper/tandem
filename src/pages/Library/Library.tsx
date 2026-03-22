@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Pagination, Typography } from '@mui/material';
 
 import styles from './Library.module.scss';
@@ -13,34 +14,34 @@ import { AppError, AppErrorCode } from '@/core/errors/errors';
 
 import { useTranslation } from 'react-i18next';
 
-const CARDS_PER_PAGE = 6;
+const SKELETON_COUNT = 6;
 
 export default function Library() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const { t } = useTranslation('library');
 
   const [quizzesData, setQuizzesData] = useState<LibraryQuiz[] | null>(null);
+  const [countAllQuizzes, setCountAllQuizzes] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<AppError | null>(null);
-  const [currentPage, setCurrentPage] = useState<number>(1);
   const [filters, setFilters] = useState<LibraryFilters>({
     section: 'all',
     type: 'all',
     difficulty: 'all',
   });
 
-  const totalPages = quizzesData ? Math.ceil(quizzesData.length / CARDS_PER_PAGE) : 1; // позже данное значение будет получено с сервера
+  const currentPage = Number(searchParams.get('page')) || 1;
 
-  const currentPageQuizzes = quizzesData
-    ? quizzesData.slice((currentPage - 1) * CARDS_PER_PAGE, currentPage * CARDS_PER_PAGE)
-    : [];
+  const totalPages =
+    countAllQuizzes && quizzesData?.length ? Math.ceil(countAllQuizzes / quizzesData.length) : 1;
 
   const handleChangePage = (_: React.ChangeEvent<unknown>, value: number) => {
-    setCurrentPage(value);
+    setSearchParams({ ...Object.fromEntries(searchParams), page: String(value) });
   };
 
   const handleFiltersChange = (newFilters: LibraryFilters) => {
     setFilters(newFilters);
-    setCurrentPage(1);
+    setSearchParams({ ...Object.fromEntries(searchParams), page: '1' });
   };
 
   useEffect(() => {
@@ -49,11 +50,12 @@ export default function Library() {
         setQuizzesData(null);
         setLoading(true);
         setError(null);
+        setCountAllQuizzes(null);
 
-        const data = await fetchAllQuizzes();
-        // const data = await fetchAllQuizzes(filters, currentPage); В будущем передавать на бэк фильтры и страницу
+        const data = await fetchAllQuizzes(currentPage);
 
-        setQuizzesData(data);
+        setQuizzesData(data.results);
+        setCountAllQuizzes(data.count);
       } catch (error) {
         if (error instanceof AppError) {
           setError(error);
@@ -66,7 +68,7 @@ export default function Library() {
     };
 
     fetchLibraryData();
-  }, [filters]);
+  }, [filters, currentPage]);
 
   return (
     <Layout>
@@ -76,7 +78,7 @@ export default function Library() {
 
       {!error && (
         <Filters
-          allQuizzes={quizzesData?.length ?? null}
+          allQuizzes={countAllQuizzes}
           filterValues={filters}
           onSetFilters={handleFiltersChange}
           loading={loading}
@@ -85,7 +87,7 @@ export default function Library() {
 
       {loading && (
         <ul className={styles.cards}>
-          {Array.from({ length: CARDS_PER_PAGE }).map((_, i) => (
+          {Array.from({ length: SKELETON_COUNT }).map((_, i) => (
             <CardSkeleton key={i} />
           ))}
         </ul>
@@ -100,12 +102,12 @@ export default function Library() {
       {quizzesData && (
         <>
           <ul className={styles.cards}>
-            {currentPageQuizzes.map((quizData) => {
+            {quizzesData.map((quizData) => {
               return <CardQuiz quizData={quizData} key={quizData.id} />;
             })}
           </ul>
 
-          {quizzesData.length > CARDS_PER_PAGE && (
+          {totalPages > 1 && (
             <Pagination
               className={styles.cardsPagination}
               count={totalPages}

@@ -28,7 +28,7 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
 
   const {
     title,
-    completeProcentage,
+    completePercentage,
     id,
     description,
     questionsQuantity,
@@ -41,8 +41,8 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
   } = quizData;
 
   const themeQuiz = sectionConfig[section];
-  const accentColorThemeLabel = themeQuiz?.color ?? theme.palette.primary.main;
-  const bgColorThemeLabel = themeQuiz?.bgLight ?? theme.palette.background.paper;
+  const accentColorThemeLabel = themeQuiz?.color ?? theme.palette.text.primary;
+  const bgColorThemeLabel = themeQuiz?.bgLight ?? theme.palette.textUltralight;
   const typeQuizLabel = quizTypeConfig[type];
 
   const handleLikeToggle = () => {
@@ -180,8 +180,8 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
             lineHeight: '1.4',
           }}
         >
-          {completeProcentage
-            ? `${t('cards.quizState.completed')} ${completeProcentage}%`
+          {completePercentage
+            ? `${t('cards.quizState.completed')} ${completePercentage}%`
             : `${t('cards.quizState.notStarted')}`}
         </Typography>
         <Button

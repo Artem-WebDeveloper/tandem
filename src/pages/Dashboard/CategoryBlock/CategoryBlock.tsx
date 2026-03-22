@@ -63,8 +63,8 @@ export default function CategoryBlock() {
         <CategorySkeleton />
       ) : (
         <ul className={styles.category_list}>
-          {categoryStatistic.map((item, index) => (
-            <CategoryItem key={index} item={item} />
+          {categoryStatistic.map((item) => (
+            <CategoryItem key={item.theme} item={item} />
           ))}
         </ul>
       )}

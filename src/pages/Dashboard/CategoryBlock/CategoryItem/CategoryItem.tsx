@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 export default function CategoryItem({ item }: { item: CategoryStatistic }) {
   const theme = useTheme();
-  const percentage = (item.completedTestsCount / item.tests) * 100;
+  const percentage = item.tests > 0 ? (item.completedTestsCount / item.tests) * 100 : 0;
 
   return (
     <Box

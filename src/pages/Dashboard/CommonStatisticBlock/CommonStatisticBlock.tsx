@@ -53,7 +53,7 @@ export default function CommonStatisticBlock() {
     );
 
   return (
-    <div className={styles.wrapper}>
+    <ul className={styles.wrapper}>
       <Tile
         title={t('dashboard.statistics.availableTask.title')}
         icon={<StarIcon color="warning" />}
@@ -89,6 +89,6 @@ export default function CommonStatisticBlock() {
         count={commonStatistic.totalAttempts}
         isLoading={isLoading}
       />
-    </div>
+    </ul>
   );
 }

@@ -29,6 +29,8 @@
     "startTest": "Start test"
   },
   "errors": {
-    "fetchFailed": "Failed to load {{resource}}, please check your internet connection."
+    "fetchFailed": "Failed to load {{resource}}, please check your internet connection.",
+    "unauthorized": "You should log in",
+    "notFound": "Resource not found"
   }
 }

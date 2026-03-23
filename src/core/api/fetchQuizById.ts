@@ -5,15 +5,12 @@ import { fetchSingleChoiceById } from './singleChoiceApi/fetchSingleChoiceById';
 import { AppError, AppErrorCode } from '@/core/errors/errors';
 import { fetchTrueFalseById } from './trueFalseApi/fetchTrueFalseById';
 
+import axiosInstance from './config/axiosInstance';
+
 export async function fetchQuizById(id: string): Promise<QuizTask> {
   if (import.meta.env.VITE_API_MODE === 'api') {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/quizzes/${id}/`);
-
-    if (!res.ok) throw new Error('Could not fetch quiz data');
-
-    const data: QuizTask = await res.json();
-
-    return data;
+    const res = await axiosInstance.get<QuizTask>(`/quizzes/${id}/`);
+    return res.data;
   } else {
     const quizType = id.split('-')[0];
 

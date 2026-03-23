@@ -2,7 +2,8 @@ import type { LibraryFilters, LibraryResponse } from '@/pages/Library/types';
 import { libraryData } from '../mock/library';
 import { AppError, AppErrorCode } from '@/core/errors/errors';
 
-const API_URL = import.meta.env.VITE_API_URL;
+import axiosInstance from './config/axiosInstance';
+
 const IS_API_MODE = import.meta.env.VITE_API_MODE === 'api';
 
 export async function fetchAllQuizzes(
@@ -19,12 +20,8 @@ export async function fetchAllQuizzes(
   if (section !== 'all') params.set('section', section);
 
   if (IS_API_MODE) {
-    const res = await fetch(`${API_URL}/quizzes/?${params.toString()}`);
-
-    if (!res.ok) throw new AppError(AppErrorCode.FETCH_FAILED, { resource: 'Library quizzes' });
-
-    const data = await res.json();
-    return data;
+    const res = await axiosInstance.get<LibraryResponse>(`/quizzes/?${params.toString()}`);
+    return res.data;
   } else {
     return new Promise((resolve, reject) => {
       setTimeout(() => {

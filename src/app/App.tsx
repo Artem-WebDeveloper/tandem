@@ -13,9 +13,17 @@ import Practice from '../pages/Practice/Practice';
 import NotFound from '../pages/NotFound/NotFound';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const { isAuthorized } = useAuthStore();
+  const isAuthorized = useAuthStore((state) => state.isAuthorized);
   if (!isAuthorized) {
     return <Navigate to="/login" />;
+  }
+  return children;
+};
+
+const PublicOnlyRoute = ({ children }: { children: React.ReactNode }) => {
+  const isAuthorized = useAuthStore((state) => state.isAuthorized);
+  if (isAuthorized) {
+    return <Navigate to="/library" replace />;
   }
   return children;
 };
@@ -29,7 +37,14 @@ function App() {
       <CssBaseline />
       <BrowserRouter>
         <Routes>
-          <Route path="login" element={<Login />} />
+          <Route
+            path="login"
+            element={
+              <PublicOnlyRoute>
+                <Login />
+              </PublicOnlyRoute>
+            }
+          />
 
           <Route
             index

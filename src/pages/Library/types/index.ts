@@ -14,7 +14,7 @@ export interface LibraryQuiz extends BaseTask {
 }
 
 export type LibraryFilters = {
-  section: TaskTheme | 'all';
+  section: TaskTheme | 'all' | 'Favorites';
   quiz_type: TaskType | 'all';
   difficulty: Difficulty | 'all';
 };

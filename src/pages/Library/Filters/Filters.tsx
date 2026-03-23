@@ -74,6 +74,7 @@ export default function Filters({ allQuizzes, filterValues, onSetFilters, loadin
                 {category}
               </MenuItem>
             ))}
+            <MenuItem value="Favorites">{t('filters.favorites')}</MenuItem>
           </Select>
         </FormControl>
 

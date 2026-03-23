@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Pagination, Typography } from '@mui/material';
+import { Pagination, Typography, useTheme } from '@mui/material';
 
 import styles from './Library.module.scss';
 import type { LibraryFilters, LibraryQuiz } from './types';
@@ -18,6 +18,7 @@ import type { Difficulty, TaskTheme, TaskType } from '@/core/types/quiz';
 const SKELETON_COUNT = 6;
 
 export default function Library() {
+  const theme = useTheme();
   const { t } = useTranslation('library');
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -87,9 +88,15 @@ export default function Library() {
 
   return (
     <Layout>
-      <h2 className={styles.title}>{t('title')}</h2>
+      <Typography variant="h1" className={styles.title}>
+        {t('title')}
+      </Typography>
 
-      {!error && <Typography sx={{ mb: 1 }}>{t('description')}</Typography>}
+      {!error && (
+        <Typography variant="body1" sx={{ mb: 3, color: theme.palette.text.secondary }}>
+          {t('description')}
+        </Typography>
+      )}
 
       {!error && (
         <Filters

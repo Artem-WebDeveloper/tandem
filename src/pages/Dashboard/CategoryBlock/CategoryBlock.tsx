@@ -1,36 +1,73 @@
-import { quizData, type QuizTheme } from '@/core/mock/dashboard';
 import styles from './CategoryBlock.module.scss';
-import CategoryItem from './CategoryItem/CategoryItem';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
-export type ThemeCategory = { theme: QuizTheme; tests: number; completedTestsCount: number };
+import { Typography, useTheme } from '@mui/material';
+import { fetchCategoryStatistic } from '@/core/api/dashboardApi/fetchCategoryStatistic';
+import { AppError } from '@/core/errors/errors';
+import type { CategoryStatistic } from '../types';
+import CategoryItem from './CategoryItem/CategoryItem';
+import CategorySkeleton from './CategorySkeleton/CategorySkeleton';
+import DashboardError from '../DashboardError/DashboardError';
 
 export default function CategoryBlock() {
   const { t } = useTranslation('dashboard');
-  const categoryObject = quizData.reduce(
-    (acc, item) => {
-      const theme = item.theme;
-      if (!acc[theme]) {
-        acc[theme] = { theme, tests: 0, completedTestsCount: 0 };
-      }
-      acc[theme].tests += 1;
-      acc[theme].completedTestsCount += item.correctCompletions !== 0 ? 1 : 0;
-      return acc;
-    },
-    {} as Record<string, ThemeCategory>,
-  );
+  const theme = useTheme();
 
-  const categoryData = Object.values(categoryObject);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<null | AppError>(null);
+  const [categoryStatistic, setCategoryStatistic] = useState<CategoryStatistic[]>([]);
+
+  useEffect(() => {
+    getCategoryStatistic();
+  }, []);
+
+  async function getCategoryStatistic() {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const data: CategoryStatistic[] = await fetchCategoryStatistic();
+      setCategoryStatistic(data);
+    } catch (error) {
+      if (error instanceof AppError) {
+        setError(error);
+      } else {
+        throw error;
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  if (error)
+    return (
+      <DashboardError
+        message={t(`dashboard.error.${error.code}`, error.params)}
+        onRetry={getCategoryStatistic}
+      />
+    );
 
   return (
-    <div className={styles.wrapper}>
-      <h3>{t('dashboard.categories.title')}</h3>
-      <p>{t('dashboard.categories.description')}</p>
-      <ul className={styles.category_list}>
-        {categoryData.map((item, index) => (
-          <CategoryItem key={index} item={item} />
-        ))}
-      </ul>
+    <div
+      className={styles.wrapper}
+      style={{ backgroundColor: theme.palette.background.paper, boxShadow: theme.shadows[1] }}
+    >
+      <div className={styles.header}>
+        <Typography variant="h3">{t('dashboard.categories.title')}</Typography>
+        <Typography variant="body2" sx={{ color: theme.palette.textLight }}>
+          {t('dashboard.categories.description')}
+        </Typography>
+      </div>
+
+      {isLoading ? (
+        <CategorySkeleton />
+      ) : (
+        <ul className={styles.category_list}>
+          {categoryStatistic.map((item) => (
+            <CategoryItem key={item.theme} item={item} />
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

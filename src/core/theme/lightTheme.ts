@@ -7,6 +7,10 @@ export const lightThemeOptions: PaletteOptions = {
     main: '#0F172A',
   },
 
+  secondary: {
+    main: '#FACC15',
+  },
+
   primaryDisabled: '#E2E8F0',
 
   error: {
@@ -23,7 +27,7 @@ export const lightThemeOptions: PaletteOptions = {
 
   warning: {
     light: '#FEF9C3',
-    main: '#FEF08A',
+    main: '#DFD05D',
     dark: '#854D0E',
   },
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Pagination, Typography } from '@mui/material';
 
@@ -13,35 +13,47 @@ import CardSkeleton from './CardSkeleton/CardSkeleton';
 import { AppError, AppErrorCode } from '@/core/errors/errors';
 
 import { useTranslation } from 'react-i18next';
+import type { Difficulty, TaskTheme, TaskType } from '@/core/types/quiz';
 
 const SKELETON_COUNT = 6;
 
 export default function Library() {
-  const [searchParams, setSearchParams] = useSearchParams();
   const { t } = useTranslation('library');
 
+  const [searchParams, setSearchParams] = useSearchParams();
   const [quizzesData, setQuizzesData] = useState<LibraryQuiz[] | null>(null);
   const [countAllQuizzes, setCountAllQuizzes] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<AppError | null>(null);
-  const [filters, setFilters] = useState<LibraryFilters>({
-    section: 'all',
-    type: 'all',
-    difficulty: 'all',
-  });
+  const [pageSize, setPageSize] = useState<number | null>(null);
 
   const currentPage = Number(searchParams.get('page')) || 1;
+  const filtersUrl = useMemo<LibraryFilters>(
+    () => ({
+      section: (searchParams.get('section') as TaskTheme) || 'all',
+      quiz_type: (searchParams.get('quiz_type') as TaskType) || 'all',
+      difficulty: searchParams.get('difficulty')
+        ? (Number(searchParams.get('difficulty')) as Difficulty)
+        : 'all',
+    }),
+    [searchParams],
+  );
 
-  const totalPages =
-    countAllQuizzes && quizzesData?.length ? Math.ceil(countAllQuizzes / quizzesData.length) : 1;
+  const totalPages = countAllQuizzes && pageSize ? Math.ceil(countAllQuizzes / pageSize) : 1;
 
   const handleChangePage = (_: React.ChangeEvent<unknown>, value: number) => {
     setSearchParams({ ...Object.fromEntries(searchParams), page: String(value) });
   };
 
   const handleFiltersChange = (newFilters: LibraryFilters) => {
-    setFilters(newFilters);
-    setSearchParams({ ...Object.fromEntries(searchParams), page: '1' });
+    setPageSize(null);
+    const params: Record<string, string> = { page: '1' };
+
+    if (newFilters.section !== 'all') params.section = newFilters.section;
+    if (newFilters.quiz_type !== 'all') params.quiz_type = newFilters.quiz_type;
+    if (newFilters.difficulty !== 'all') params.difficulty = String(newFilters.difficulty);
+
+    setSearchParams(params);
   };
 
   useEffect(() => {
@@ -52,10 +64,13 @@ export default function Library() {
         setError(null);
         setCountAllQuizzes(null);
 
-        const data = await fetchAllQuizzes(currentPage);
+        const data = await fetchAllQuizzes(currentPage, filtersUrl);
 
         setQuizzesData(data.results);
         setCountAllQuizzes(data.count);
+        if (currentPage === 1) {
+          setPageSize(data.results.length);
+        }
       } catch (error) {
         if (error instanceof AppError) {
           setError(error);
@@ -68,7 +83,7 @@ export default function Library() {
     };
 
     fetchLibraryData();
-  }, [filters, currentPage]);
+  }, [currentPage, filtersUrl]);
 
   return (
     <Layout>
@@ -79,7 +94,7 @@ export default function Library() {
       {!error && (
         <Filters
           allQuizzes={countAllQuizzes}
-          filterValues={filters}
+          filterValues={filtersUrl}
           onSetFilters={handleFiltersChange}
           loading={loading}
         />

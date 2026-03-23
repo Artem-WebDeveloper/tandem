@@ -104,42 +104,44 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
         </section>
 
         <section className={styles.cardInfo} style={{ display: 'flex', gap: '10px' }}>
-          <Typography
-            variant="caption"
-            sx={{
-              display: 'flex',
-              alignItems: 'end',
-              fontSize: '13px',
-              '@media (max-width: 360px)': {
-                fontSize: '12px',
-                alignItems: 'center',
-              },
-            }}
-          >
-            <DescriptionOutlinedIcon
-              sx={{ width: 18, marginRight: 0.2, color: theme.palette.textLight }}
-            />
-            {questionsQuantity} {t('cards.countOfQuestions')}
-          </Typography>
-
-          <Typography
-            variant="caption"
-            sx={{
-              display: 'flex',
-              alignItems: 'end',
-              fontSize: '13px',
-              '@media (max-width: 360px)': {
-                fontSize: '12px',
-                alignItems: 'center',
-              },
-            }}
-          >
-            <AccessTimeRoundedIcon
-              sx={{ width: 18, marginRight: 0.2, color: theme.palette.textLight }}
-            />
-            {time} {t('cards.min')}
-          </Typography>
-
+          {questionsQuantity && (
+            <Typography
+              variant="caption"
+              sx={{
+                display: 'flex',
+                alignItems: 'end',
+                fontSize: '13px',
+                '@media (max-width: 360px)': {
+                  fontSize: '12px',
+                  alignItems: 'center',
+                },
+              }}
+            >
+              <DescriptionOutlinedIcon
+                sx={{ width: 18, marginRight: 0.2, color: theme.palette.textLight }}
+              />
+              {questionsQuantity} {t('cards.countOfQuestions')}
+            </Typography>
+          )}
+          {time && (
+            <Typography
+              variant="caption"
+              sx={{
+                display: 'flex',
+                alignItems: 'end',
+                fontSize: '13px',
+                '@media (max-width: 360px)': {
+                  fontSize: '12px',
+                  alignItems: 'center',
+                },
+              }}
+            >
+              <AccessTimeRoundedIcon
+                sx={{ width: 18, marginRight: 0.2, color: theme.palette.textLight }}
+              />
+              {time} {t('cards.min')}
+            </Typography>
+          )}
           <DifficultyChip difficulty={difficulty}>{difficultyLabels[difficulty]}</DifficultyChip>
         </section>
 

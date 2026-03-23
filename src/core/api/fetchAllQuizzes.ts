@@ -1,16 +1,25 @@
-import type { LibraryResponse } from '@/pages/Library/types';
+import type { LibraryFilters, LibraryResponse } from '@/pages/Library/types';
 import { libraryData } from '../mock/library';
 import { AppError, AppErrorCode } from '@/core/errors/errors';
 
 const API_URL = import.meta.env.VITE_API_URL;
 const IS_API_MODE = import.meta.env.VITE_API_MODE === 'api';
 
-export async function fetchAllQuizzes(page?: number): Promise<LibraryResponse> {
-  let url = `${API_URL}/quizzes/`;
-  if (page) url += `?page=${page}`;
-  console.log(url);
+export async function fetchAllQuizzes(
+  page: number,
+  filters: LibraryFilters,
+): Promise<LibraryResponse> {
+  const params = new URLSearchParams();
+
+  const { difficulty, quiz_type, section } = filters;
+
+  params.set('page', String(page));
+  if (difficulty !== 'all') params.set('difficulty', String(difficulty));
+  if (quiz_type !== 'all') params.set('quiz_type', quiz_type);
+  if (section !== 'all') params.set('section', section);
+
   if (IS_API_MODE) {
-    const res = await fetch(url);
+    const res = await fetch(`${API_URL}/quizzes/?${params.toString()}`);
 
     if (!res.ok) throw new AppError(AppErrorCode.FETCH_FAILED, { resource: 'Library quizzes' });
 

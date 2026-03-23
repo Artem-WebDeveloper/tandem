@@ -27,7 +27,7 @@ export default function Filters({ allQuizzes, filterValues, onSetFilters, loadin
   const { t } = useTranslation('library');
   const quizTypeConfig = getQuizTypeConfig(t);
 
-  const { section, type, difficulty } = filterValues;
+  const { section, quiz_type, difficulty } = filterValues;
 
   const types = [...Object.keys(quizTypeConfig)] as TaskType[];
   const difficulties = Object.keys(difficultyLabels).map(Number) as Difficulty[];
@@ -84,12 +84,12 @@ export default function Filters({ allQuizzes, filterValues, onSetFilters, loadin
           <Select
             sx={{ fontSize: '15px' }}
             labelId="label-type"
-            value={type}
+            value={quiz_type}
             label={t('filters.testType')}
             disabled={loading}
             onChange={(event) => {
               const newType = event.target.value;
-              onSetFilters({ ...filterValues, type: newType });
+              onSetFilters({ ...filterValues, quiz_type: newType });
             }}
           >
             <MenuItem value="all">{t('filters.allTypes')}</MenuItem>

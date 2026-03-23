@@ -1,13 +1,14 @@
 .wrapper {
   width: 100%;
-  color: black;
   padding: 16px;
-  background-color: white;
   border-radius: 8px;
 }
 
 .difficulty_list {
   margin-top: 10px;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
+  gap: 32px;
 }

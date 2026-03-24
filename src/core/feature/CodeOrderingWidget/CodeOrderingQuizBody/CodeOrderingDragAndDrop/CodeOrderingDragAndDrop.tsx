@@ -18,15 +18,15 @@ export default function CodeOrderingDragAndDrop({
   const answers = useCodeOrderingStore((state) => state.answers);
 
   // получаем ответ на отрисовываемый вопрос, если он был сохранен в стор
-  const answer = answers.find((answer) => answer.questionId === currentQuestionId)?.payload;
+  const savedLinesIds = answers.find((answer) => answer.questionId === currentQuestionId)?.payload;
 
   // получаем массив линий в нужном для отрисовки порядке
   const orderedLines = useMemo(() => {
     // если есть сохраненный ответ - пересортировываем линии с сервера так,
     // как их расставил пользователь в сохраненном ответе
-    if (answer) {
+    if (savedLinesIds) {
       // console.log(`Saved answer is ${answer}`)
-      return answer.map((lineId) =>
+      return savedLinesIds.map((lineId) =>
         codeLines.find((codeLine) => codeLine.id === lineId),
       ) as CodeLineData[];
     }
@@ -40,7 +40,7 @@ export default function CodeOrderingDragAndDrop({
     // eslint-disable-next-line react-hooks/purity
     shuffledLines.sort(() => (Math.random() > 0.5 ? 1 : -1));
     return shuffledLines;
-  }, [codeLines, answer]);
+  }, [codeLines, savedLinesIds]);
 
   const [lineIds, setLineIds] = useState(orderedLines.map((line) => line.id));
 

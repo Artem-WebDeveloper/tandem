@@ -1,0 +1,26 @@
+{
+  "progressBar": {
+    "question": "Вопрос",
+    "of": "из"
+  },
+  "navigation": {
+    "back": "Назад",
+    "next": "Следующий вопрос",
+    "submit": "Завершить"
+  },
+  "codeCompletion": {
+    "instruction": "Заполните пропуск, опираясь на подсказку"
+  },
+  "asyncSorter": {
+    "instruction": "Расставьте цифры в порядке их вывода на консоль",
+    "allPlaced": "Все цифры расставлены",
+    "placeholder": "Ответ"
+  },
+  "errors": {
+    "quizNotFound": "Квиз с id {{id}} не найден",
+    "unknownQuizType": "Неизвестный тип квиза",
+    "fetchFailed": "Не удалось получить данные",
+    "missingQuizId": "Идентификатор квиза отсутствует"
+  },
+  "backToLibrary": "Назад в библиотеку"
+}

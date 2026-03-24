@@ -14,6 +14,8 @@ import { isAxiosError } from 'axios';
 import { registerApi } from '../../../core/api/auth';
 import styles from './RegisterDialog.module.scss';
 
+import { useTranslation } from 'react-i18next';
+
 interface RegisterModalProps {
   open: boolean;
   onClose: () => void;
@@ -27,6 +29,8 @@ export default function RegisterDialog({ open, onClose, onSuccess }: RegisterMod
   const [error, setError] = useState<string | null>(null);
 
   const theme = useTheme();
+
+  const { t } = useTranslation('login');
 
   useEffect(() => {
     if (error) {
@@ -53,10 +57,10 @@ export default function RegisterDialog({ open, onClose, onSuccess }: RegisterMod
           err.response?.data?.username?.[0] ||
           err.response?.data?.detail ||
           err.response?.data?.password?.[1] ||
-          'Ошибка регистрации. Возможно, пользователь уже существует.';
+          `${t('registerPage.messages.error')}`;
         setError(errorMessage);
       } else {
-        setError('Непредвиденная ошибка');
+        setError(`${t('registerPage.messages.unexpectedError')}`);
       }
     } finally {
       setIsLoading(false);
@@ -104,7 +108,7 @@ export default function RegisterDialog({ open, onClose, onSuccess }: RegisterMod
       }}
     >
       <DialogTitle sx={formTitleStyle} className={styles.formTitle}>
-        Регистрация
+        {t('registerPage.title')}
       </DialogTitle>
 
       <DialogContent sx={{ padding: 0 }}>
@@ -116,7 +120,7 @@ export default function RegisterDialog({ open, onClose, onSuccess }: RegisterMod
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <TextField
-            label="Придумайте логин"
+            label={t('registerPage.userName')}
             type="text"
             variant="outlined"
             fullWidth
@@ -128,7 +132,7 @@ export default function RegisterDialog({ open, onClose, onSuccess }: RegisterMod
           />
 
           <TextField
-            label="Придумайте пароль"
+            label={t('registerPage.password')}
             type="password"
             variant="outlined"
             fullWidth
@@ -146,7 +150,11 @@ export default function RegisterDialog({ open, onClose, onSuccess }: RegisterMod
             sx={buttonStyle}
             className={styles.submitBtn}
           >
-            {isLoading ? <CircularProgress size={24} color="inherit" /> : 'Зарегистрироваться'}
+            {isLoading ? (
+              <CircularProgress size={24} color="inherit" />
+            ) : (
+              `${t('registerPage.btn.register')}`
+            )}
           </Button>
 
           <Button
@@ -157,7 +165,7 @@ export default function RegisterDialog({ open, onClose, onSuccess }: RegisterMod
             sx={textButtonStyle}
             className={styles.textBtn}
           >
-            Отмена
+            {t('registerPage.btn.cancel')}
           </Button>
         </form>
       </DialogContent>

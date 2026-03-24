@@ -18,7 +18,11 @@ import styles from './Login.module.scss';
 import logo from '../../core/assets/logo.svg';
 import RegisterDialog from './RegisterDialog/RegisterDialog';
 
+import { useTranslation } from 'react-i18next';
+
 export default function Login() {
+  const { t } = useTranslation('login');
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -50,12 +54,11 @@ export default function Login() {
     try {
       const { access, refresh } = await loginApi(username, password);
 
-      login(access, refresh);
+      login(access, refresh, { name: username });
       navigate('/library', { replace: true });
     } catch (err) {
       if (isAxiosError(err)) {
-        const errorMessage =
-          err.response?.data?.detail || 'Ошибка авторизации. Проверьте имя пользователя и пароль.';
+        const errorMessage = err.response?.data?.detail || `${t('loginPage.messages.error')}`;
         setError(errorMessage);
       } else {
         setError('Unexpected error');
@@ -67,7 +70,7 @@ export default function Login() {
 
   const handleRegisterSuccess = (newUsername: string) => {
     setIsRegisterOpen(false);
-    setSuccessMsg('Регистрация прошла успешно! Теперь вы можете войти.');
+    setSuccessMsg(`${t('loginPage.messages.success')}`);
     setUsername(newUsername);
     setPassword('');
   };
@@ -117,16 +120,16 @@ export default function Login() {
       <Box className={styles.header}>
         <img src={logo} alt="Logo" className={styles.logo} />
         <Typography variant="h1" component="h1" className={styles.mainTitle} sx={mainTitleStyle}>
-          RS School Trainer
+          {t('loginPage.title')}
         </Typography>
         <Typography variant="body1" className={styles.subtitle} sx={subtitleStyle}>
-          Тренажер по программированию для студентов
+          {t('loginPage.description')}
         </Typography>
       </Box>
 
       <Paper elevation={0} className={styles.formCard} sx={cardStyle}>
         <Typography variant="h3" component="h3" className={styles.formTitle} sx={mainTitleStyle}>
-          Вход в систему
+          {t('loginPage.forms.title')}
         </Typography>
 
         {error && (
@@ -143,7 +146,7 @@ export default function Login() {
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <TextField
-            label="Имя пользователя"
+            label={t('loginPage.forms.userName')}
             type="text"
             variant="outlined"
             fullWidth
@@ -154,7 +157,7 @@ export default function Login() {
           />
 
           <TextField
-            label="Пароль"
+            label={t('loginPage.forms.password')}
             type="password"
             variant="outlined"
             fullWidth
@@ -172,7 +175,11 @@ export default function Login() {
             className={styles.submitBtn}
             sx={buttonStyle}
           >
-            {isLoading ? <CircularProgress size={24} color="inherit" /> : 'Войти'}
+            {isLoading ? (
+              <CircularProgress size={24} color="inherit" />
+            ) : (
+              `${t('loginPage.forms.submitBtn')}`
+            )}
           </Button>
 
           <Button
@@ -181,7 +188,7 @@ export default function Login() {
             onClick={() => setIsRegisterOpen(true)}
             sx={textButtonStyle}
           >
-            Нет аккаунта? Зарегистрируйтесь
+            {t('loginPage.forms.register')}
           </Button>
         </form>
       </Paper>

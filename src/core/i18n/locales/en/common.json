@@ -1,0 +1,14 @@
+{
+  "test": "This is a test",
+
+  "header": {
+    "title": "RS School",
+    "description": "Programming trainer",
+    "dashboard": "Dashboard",
+    "library": "Library",
+    "logout": "Logout"
+  },
+  "footer": {
+    "copyright": "developed by "
+  }
+}

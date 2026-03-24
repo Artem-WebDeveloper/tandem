@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Pagination, Typography } from '@mui/material';
+import { Pagination, Typography, useTheme } from '@mui/material';
 
 import styles from './Library.module.scss';
 import type { LibraryFilters, LibraryQuiz } from './types';
@@ -9,13 +9,19 @@ import Layout from '../../core/components/Layout/Layout';
 import Filters from './Filters/Filters';
 import CardQuiz from './CardQuiz/CardQuiz';
 import CardSkeleton from './CardSkeleton/CardSkeleton';
+import { AppError, AppErrorCode } from '@/core/errors/errors';
+
+import { useTranslation } from 'react-i18next';
 
 const CARDS_PER_PAGE = 6;
 
 export default function Library() {
+  const theme = useTheme();
+  const { t } = useTranslation('library');
+
   const [quizzesData, setQuizzesData] = useState<LibraryQuiz[] | null>(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<AppError | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [filters, setFilters] = useState<LibraryFilters>({
     section: 'all',
@@ -50,10 +56,10 @@ export default function Library() {
 
         setQuizzesData(data);
       } catch (error) {
-        if (error instanceof Error) {
-          setError(error.message);
+        if (error instanceof AppError) {
+          setError(error);
         } else {
-          throw error;
+          setError(new AppError(AppErrorCode.FETCH_FAILED, { resource: 'Library quizzes' }));
         }
       } finally {
         setLoading(false);
@@ -65,9 +71,15 @@ export default function Library() {
 
   return (
     <Layout>
-      <h2 className={styles.title}>Library</h2>
+      <Typography variant="h1" className={styles.title}>
+        {t('title')}
+      </Typography>
 
-      {!error && <Typography sx={{ mb: 1 }}>Выберите тест для практики</Typography>}
+      {!error && (
+        <Typography variant="body1" sx={{ mb: 3, color: theme.palette.text.secondary }}>
+          {t('description')}
+        </Typography>
+      )}
 
       {!error && (
         <Filters
@@ -88,7 +100,7 @@ export default function Library() {
 
       {error && (
         <div className={styles.errorContainer}>
-          <ErrorNotification message={error} />
+          <ErrorNotification message={t(`errors.${error.code}`, error.params)} />
         </div>
       )}
 

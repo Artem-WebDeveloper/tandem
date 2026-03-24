@@ -10,7 +10,9 @@ import {
 import styles from './Filters.module.scss';
 import type { LibraryFilters } from '../types';
 import type { Difficulty, TaskTheme, TaskType } from '@/core/types/quiz';
-import { difficultyLabels, quizTypeConfig, sectionConfig } from '@/core/configs/library.config';
+import { difficultyLabels, getQuizTypeConfig, sectionConfig } from '@/core/configs/library.config';
+
+import { useTranslation } from 'react-i18next';
 
 type FiltersProps = {
   allQuizzes: number | null;
@@ -21,6 +23,9 @@ type FiltersProps = {
 
 export default function Filters({ allQuizzes, filterValues, onSetFilters, loading }: FiltersProps) {
   const theme = useTheme();
+
+  const { t } = useTranslation('library');
+  const quizTypeConfig = getQuizTypeConfig(t);
 
   const { section, type, difficulty } = filterValues;
 
@@ -36,10 +41,12 @@ export default function Filters({ allQuizzes, filterValues, onSetFilters, loadin
       }}
     >
       <div className={styles.filtersInfo}>
-        <h3>Фильтрация</h3>
+        <h3>{t('filters.title')}</h3>
         {allQuizzes !== null ? (
           <Typography variant="body2">
-            {allQuizzes === 0 ? 'Ничего не найдено' : `Найдено тестов: ${allQuizzes}`}{' '}
+            {allQuizzes === 0
+              ? `${t('filters.notFound')}`
+              : `${t('filters.found')} ${allQuizzes}`}{' '}
           </Typography>
         ) : (
           <Skeleton animation="wave" variant="text" width={130} height={20} />
@@ -48,20 +55,20 @@ export default function Filters({ allQuizzes, filterValues, onSetFilters, loadin
       <div className={styles.filtersForms}>
         <FormControl size="small" sx={{ flex: 1, minWidth: 165 }}>
           <InputLabel id="label-category" sx={{ left: '-2px' }}>
-            Категория
+            {t('filters.categories')}
           </InputLabel>
           <Select
             sx={{ fontSize: '15px' }}
             labelId="label-category"
             value={section}
-            label="Категория"
+            label={t('filters.categories')}
             disabled={loading}
             onChange={(event) => {
               const newSection = event.target.value;
               onSetFilters({ ...filterValues, section: newSection });
             }}
           >
-            <MenuItem value="all">Все категории</MenuItem>
+            <MenuItem value="all">{t('filters.allCategories')}</MenuItem>
             {categories.map((category, i) => (
               <MenuItem key={i} value={category}>
                 {category}
@@ -72,20 +79,20 @@ export default function Filters({ allQuizzes, filterValues, onSetFilters, loadin
 
         <FormControl size="small" sx={{ flex: 1, minWidth: 165 }}>
           <InputLabel id="label-type" sx={{ left: '-2px' }}>
-            Тип теста
+            {t('filters.testType')}
           </InputLabel>
           <Select
             sx={{ fontSize: '15px' }}
             labelId="label-type"
             value={type}
-            label="Тип теста"
+            label={t('filters.testType')}
             disabled={loading}
             onChange={(event) => {
               const newType = event.target.value;
               onSetFilters({ ...filterValues, type: newType });
             }}
           >
-            <MenuItem value="all">Все типы</MenuItem>
+            <MenuItem value="all">{t('filters.allTypes')}</MenuItem>
             {types.map((type, i) => (
               <MenuItem key={i} value={type}>
                 {quizTypeConfig[type]}
@@ -96,20 +103,20 @@ export default function Filters({ allQuizzes, filterValues, onSetFilters, loadin
 
         <FormControl size="small" sx={{ flex: 1, minWidth: 165 }}>
           <InputLabel id="label-difficulty" sx={{ left: '-2px' }}>
-            Сложность
+            {t('filters.difficulty')}
           </InputLabel>
           <Select
             sx={{ fontSize: '15px' }}
             labelId="label-difficulty"
             value={difficulty}
-            label="Сложность"
+            label={t('filters.difficulty')}
             disabled={loading}
             onChange={(event) => {
               const newDifficulty = event.target.value;
               onSetFilters({ ...filterValues, difficulty: newDifficulty });
             }}
           >
-            <MenuItem value="all">Все уровни</MenuItem>
+            <MenuItem value="all">{t('filters.allLevels')}</MenuItem>
             {difficulties.map((difficulty, i) => (
               <MenuItem key={i} value={difficulty}>
                 {difficultyLabels[difficulty]}

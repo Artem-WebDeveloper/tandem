@@ -10,9 +10,11 @@ import Dropzone from './Dropzone/Dropzone';
 import Item from './Item/Item';
 import DropzonePlaceholder from './DropzonePlaceholder/DropzonePlaceholder';
 
+import { useTranslation } from 'react-i18next';
+
 type OnDragEnd = React.ComponentProps<typeof DragDropProvider>['onDragEnd'];
 
-const EMPTY_SOURCE_BLOCK_MESSAGE = 'Все цифры расставлены';
+// const EMPTY_SOURCE_BLOCK_MESSAGE = 'Все цифры расставлены'; // {t('asyncSorter.allPlaced')}
 
 function AsyncSorterDragAndDrop({
   blocks,
@@ -21,6 +23,7 @@ function AsyncSorterDragAndDrop({
   blocks: string[];
   currentQuestionId: string;
 }) {
+  const { t } = useTranslation('practice');
   const setAnswer = useAsyncSorterStore((state) => state.setAnswer);
   const answers = useAsyncSorterStore((state) => state.answers);
   const currentAnswer = answers.find((answer) => answer.questionId === currentQuestionId);
@@ -61,7 +64,7 @@ function AsyncSorterDragAndDrop({
         <Dropzone id="source" key="source">
           {items.source.length > 0
             ? items.source.map((id, index) => <Item id={id} key={id} index={index} line="source" />)
-            : EMPTY_SOURCE_BLOCK_MESSAGE}
+            : `${t('asyncSorter.allPlaced')}`}
         </Dropzone>
       </DragDropProvider>
     </div>

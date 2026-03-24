@@ -16,6 +16,7 @@ import QuizProgressBar from '@/core/components/QuizProgressBar/QuizProgressBar';
 import QuizNavigation from '@/core/components/QuizNavigation/QuizNavigation';
 
 import styles from './singleChoiceQuiz.module.scss';
+import { useTranslation } from 'react-i18next';
 
 interface SingleChoiceQuizProps {
   data: SingleChoiceTaskResponse;
@@ -24,13 +25,15 @@ interface SingleChoiceQuizProps {
 export default function SingleChoiceQuiz({ data }: SingleChoiceQuizProps) {
   const theme = useTheme();
 
+  const { t } = useTranslation('practice');
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState<UserAnswer[]>([]);
 
   const currentQuestion = data.questions[currentIndex];
 
   if (!currentQuestion) {
-    return <p>В этом тесте пока нет вопросов.</p>;
+    return <p>{t(`errors.noQuestionInTest`)}</p>;
   }
 
   const currentAnswer = userAnswers[currentIndex];

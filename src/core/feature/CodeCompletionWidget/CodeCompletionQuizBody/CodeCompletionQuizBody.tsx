@@ -3,19 +3,26 @@ import type { CodeCompletionQuestion } from '../types';
 import { useCodeCompletionStore } from '@/core/store/codeCompletion.store';
 import TipsAndUpdatesTwoToneIcon from '@mui/icons-material/TipsAndUpdatesTwoTone';
 import CodeCompletionAnswerInput from './CodeCompletionAnswerInput/CodeCompletionAnswerInput';
+import ErrorNotification from '@/core/components/ErrorNotification/ErrorNotification';
+import { LOCALE } from '@/core/configs/locale.config';
 
 import styles from './CodeCompletionQuizBody.module.scss';
 
+import { useTranslation } from 'react-i18next';
+
 function CodeCompletionQuizBody({ questions }: { questions: CodeCompletionQuestion[] }) {
   const theme = useTheme();
+  const { t } = useTranslation('practice');
   const currentQuestionNumber = useCodeCompletionStore((state) => state.currentQuestionNumber);
+
+  if (!questions.length) return <ErrorNotification message={t('errors.missingQuestionForQuiz')} />;
 
   const { code, hint, blanks } = questions[currentQuestionNumber];
   const codeParts = code.split(blanks);
 
   return (
     <div className={styles.quizBody}>
-      <Typography variant="h3">Заполните пропуск, опираясь на подсказку</Typography>
+      <Typography variant="h3">{t('codeCompletion.instruction')}</Typography>
       <pre
         className={styles.code}
         style={{
@@ -32,7 +39,7 @@ function CodeCompletionQuizBody({ questions }: { questions: CodeCompletionQuesti
       </pre>
       <div className={styles.tip}>
         <TipsAndUpdatesTwoToneIcon />
-        <p>{hint}</p>
+        <p>{hint[LOCALE]}</p>
       </div>
     </div>
   );

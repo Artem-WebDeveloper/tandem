@@ -1,0 +1,124 @@
+.card {
+  flex: 1;
+  min-height: 120px;
+  user-select: none;
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  // transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    transform 0.5s cubic-bezier(0.34, 1.4, 0.64, 1),
+    opacity 0.2s ease;
+
+  &.flipped {
+    transform: perspective(1300px) rotateY(180deg);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:not(.flipped):hover {
+      & .cardFront {
+        border-color: #64748b;
+        transform: translateY(-2px);
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        background-color: rgba(100, 116, 139, 0.07);
+        transition:
+          transform 0.2s,
+          border-color 0.1s,
+          background-color 0.2s;
+      }
+    }
+  }
+  &:not(.flipped):active {
+    & .cardFront {
+      scale: 0.98;
+      transition: scale 0.1s;
+    }
+  }
+
+  &Front,
+  &Back {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    border: 1.5px solid;
+    border-radius: 10px;
+  }
+
+  &Front {
+    transition:
+      transform 0.2s,
+      border-color 0.1s,
+      scale 0.1s;
+  }
+
+  &Back {
+    transform: rotateY(180deg);
+    font-weight: 700;
+
+    &Right {
+      border-color: #16a34a;
+      color: #16a34a;
+      background-color: rgba(22, 163, 74, 0.2);
+      // box-shadow: 0 0 10px rgba(22, 163, 74, 0.6);
+      animation: rightShadowIn 0.6s both;
+      animation-delay: 1s;
+    }
+    &Wrong {
+      border-color: #d13b3b;
+      color: #d13b3b;
+      background-color: rgba(209, 59, 59, 0.2);
+      // box-shadow: 0 0 10px rgba(209, 59, 59, 0.6);
+      animation: wrongShadowIn 0.6s both;
+      animation-delay: 1s;
+    }
+
+    &Type {
+      position: absolute;
+      top: 8px;
+      left: 4px;
+      text-transform: uppercase;
+      font-weight: 500;
+
+      padding: 0 10px;
+    }
+
+    &Text {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+  }
+}
+
+@keyframes wrongShadowIn {
+  from {
+    // filter: drop-shadow(0 0 10px rgba(209, 59, 59, 0));
+    box-shadow: none;
+  }
+  to {
+    // filter: drop-shadow(0 0 10px rgba(209, 59, 59, 0.3));
+    box-shadow: 0 0 10px rgba(209, 59, 59, 0.45);
+  }
+}
+
+@keyframes rightShadowIn {
+  from {
+    // filter: drop-shadow(0 0 10px rgba(22, 163, 74, 0));
+    box-shadow: none;
+  }
+  to {
+    // filter: drop-shadow(0 0 10px rgba(22, 163, 74, 0.3));
+    box-shadow: 0 0 10px rgba(22, 163, 74, 0.45);
+  }
+}
+
+.disabled {
+  opacity: 0.1;
+}

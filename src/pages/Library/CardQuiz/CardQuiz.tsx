@@ -12,11 +12,17 @@ import { IconButton } from '@mui/material';
 
 import styles from './CardQuiz.module.scss';
 import type { LibraryQuiz } from '../types';
-import { difficultyLabels, quizTypeConfig, sectionConfig } from '@/core/configs/library.config';
+import { difficultyLabels, getQuizTypeConfig, sectionConfig } from '@/core/configs/library.config';
 import DifficultyChip from '@/core/components/DifficultyChip/DifficultyChip';
+
+import { useTranslation } from 'react-i18next';
 
 export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
   const theme = useTheme();
+
+  const { t } = useTranslation('library');
+  const quizTypeConfig = getQuizTypeConfig(t);
+
   const [isLike, setIsLike] = useState<boolean>(quizData.isFavorite);
 
   const {
@@ -112,7 +118,7 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
             <DescriptionOutlinedIcon
               sx={{ width: 18, marginRight: 0.2, color: theme.palette.textLight }}
             />
-            {questionsQuantity} вопросов
+            {questionsQuantity} {t('cards.countOfQuestions')}
           </Typography>
 
           <Typography
@@ -130,7 +136,7 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
             <AccessTimeRoundedIcon
               sx={{ width: 18, marginRight: 0.2, color: theme.palette.textLight }}
             />
-            {time} мин
+            {time} {t('cards.min')}
           </Typography>
 
           <DifficultyChip difficulty={difficulty}>{difficultyLabels[difficulty]}</DifficultyChip>
@@ -173,7 +179,9 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
             lineHeight: '1.4',
           }}
         >
-          {completeProcentage ? `Завершено ${completeProcentage}%` : 'Не начат'}
+          {completeProcentage
+            ? `${t('cards.quizState.completed')} ${completeProcentage}%`
+            : `${t('cards.quizState.notStarted')}`}
         </Typography>
         <Button
           component={Link}
@@ -181,7 +189,7 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
           variant="contained"
           sx={{ width: '70%', ml: 'auto' }}
         >
-          Начать тест
+          {t('cards.startTest')}
         </Button>
       </footer>
     </li>

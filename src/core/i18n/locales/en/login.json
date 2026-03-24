@@ -1,0 +1,30 @@
+{
+  "loginPage": {
+    "title": "RS School Trainer",
+    "description": "Programming simulator for students",
+    "forms": {
+      "title": "Log in to the system",
+      "userName": "User name",
+      "password": "Password",
+      "submitBtn": "Login",
+      "register": "Don't have an account? Sign up."
+    },
+    "messages": {
+      "error": "Authorization error. Check your username and password.",
+      "success": "Registration was successful! You can now log in."
+    }
+  },
+  "registerPage": {
+    "title": "Registration",
+    "userName": "Create a login",
+    "password": "Create a password",
+    "btn": {
+      "register": "Register",
+      "cancel": "Cancel"
+    },
+    "messages": {
+      "error": "Registration error. The user may already exist.",
+      "unexpectedError": "Unexpected error"
+    }
+  }
+}

@@ -1,38 +1,68 @@
 import styles from './DifficultyBlock.module.scss';
-
-import { quizData, type QuizDifficulty } from '@/core/mock/dashboard';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Typography, useTheme } from '@mui/material';
+import type { DifficultyStatistic } from '../types';
+import { fetchDifficultyStatistic } from '@/core/api/dashboardApi/fetchDifficultyStatistic';
+import { AppError } from '@/core/errors/errors';
 import DifficultyItem from './DifficultyItem/DifficultyItem';
-
-export type DifficultyCategory = {
-  difficulty: QuizDifficulty;
-  tests: number;
-  completedTestsCount: number;
-};
+import DifficultySkeleton from './DifficultySkeleton/DifficultySkeleton';
+import DashboardError from '../DashboardError/DashboardError';
 
 export default function DifficultyBlock() {
-  const difficultyObject = quizData.reduce(
-    (acc, item) => {
-      const difficulty = item.difficulty;
-      if (!acc[difficulty]) {
-        acc[difficulty] = { difficulty, tests: 0, completedTestsCount: 0 };
-      }
-      acc[difficulty].tests += 1;
-      acc[difficulty].completedTestsCount += item.correctCompletions !== 0 ? 1 : 0;
-      return acc;
-    },
-    {} as Record<string, DifficultyCategory>,
-  );
+  const { t } = useTranslation('dashboard');
+  const theme = useTheme();
 
-  const difficultyData = Object.values(difficultyObject);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<null | AppError>(null);
+  const [difficultyStatistic, setDifficultyStatistic] = useState<DifficultyStatistic[]>([]);
+
+  useEffect(() => {
+    getCategoryStatistic();
+  }, []);
+
+  async function getCategoryStatistic() {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const data: DifficultyStatistic[] = await fetchDifficultyStatistic();
+      setDifficultyStatistic(data);
+    } catch (error) {
+      if (error instanceof AppError) {
+        setError(error);
+      } else {
+        throw error;
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  if (error)
+    return (
+      <DashboardError
+        message={t(`dashboard.error.${error.code}`, error.params)}
+        onRetry={getCategoryStatistic}
+      />
+    );
 
   return (
-    <div className={styles.wrapper}>
-      <h3>Прогресс по сложности</h3>
-      <ul className={styles.difficulty_list}>
-        {difficultyData.map((item, index) => (
-          <DifficultyItem key={index} item={item} />
-        ))}
-      </ul>
+    <div
+      className={styles.wrapper}
+      style={{ backgroundColor: theme.palette.background.paper, boxShadow: theme.shadows[1] }}
+    >
+      <Typography variant="h3">{t('dashboard.difficulty.title')}</Typography>
+
+      {isLoading ? (
+        <DifficultySkeleton />
+      ) : (
+        <ul className={styles.difficulty_list}>
+          {difficultyStatistic.map((item, index) => (
+            <DifficultyItem key={index} item={item} />
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

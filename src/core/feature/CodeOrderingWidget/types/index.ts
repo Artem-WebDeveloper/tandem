@@ -4,10 +4,10 @@ import { type BaseTask, TaskType } from '@/core/types/quiz';
 export interface CodeOrderingQuestion {
   id: string;
   text: string;
-  codeLines: CodeLine[];
+  codeLines: CodeLineData[];
 }
 
-export type CodeLine = {
+export type CodeLineData = {
   id: string;
   code: string;
   correctPosition: number;

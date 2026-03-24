@@ -1,111 +1,63 @@
-// import { DragDropProvider } from '@dnd-kit/react';
-import { useTheme } from '@mui/material';
-import { useSortable } from '@dnd-kit/react/sortable';
-import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import { docco, railscasts } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { useMemo, useState } from 'react';
+import { DragDropProvider } from '@dnd-kit/react';
+import { move } from '@dnd-kit/helpers';
 
 import styles from './CodeOrderingDragAndDrop.module.scss';
-
-// import { useCodeOrderingStore } from '@/core/store/codeOrdering.store';
-import { useThemeStore } from '@/core/store/theme.store';
-import type { CodeLine } from '../../types';
-
-// type OnDragEnd = React.ComponentProps<typeof DragDropProvider>['onDragEnd'];
+import { useCodeOrderingStore } from '@/core/store/codeOrdering.store';
+import type { CodeLineData } from '../../types';
+import { CodeLine } from './CodeLine/CodeLine';
 
 export default function CodeOrderingDragAndDrop({
   codeLines,
   currentQuestionId,
 }: {
-  codeLines: CodeLine[];
+  codeLines: CodeLineData[];
   currentQuestionId: string;
 }) {
-  console.log(currentQuestionId);
-  // const setAnswer = useCodeOrderingStore((state) => state.setAnswer);
-  // const answers = useCodeOrderingStore((state) => state.answers);
-  // const currentAnswer = answers.find((answer) => answer.questionId === currentQuestionId);
+  const setAnswer = useCodeOrderingStore((state) => state.setAnswer);
+  const answers = useCodeOrderingStore((state) => state.answers);
 
-  // const previousAnswerRef = useRef<string[] | null>(null);
+  // получаем ответ на отрисовываемый вопрос, если он был сохранен в стор
+  const answer = answers.find((answer) => answer.questionId === currentQuestionId)?.payload;
 
-  // const items = {
-  //   source: [...blocks].filter(
-  //     (item) => currentAnswer?.payload.find((i) => i === item) === undefined,
-  //   ),
-  //   target: currentAnswer?.payload || [],
-  // };
+  // получаем массив линий в нужном для отрисовки порядке
+  const orderedLines = useMemo(() => {
+    // если есть сохраненный ответ - пересортировываем линии с сервера так,
+    // как их расставил пользователь в сохраненном ответе
+    if (answer) {
+      // console.log(`Saved answer is ${answer}`)
+      return answer.map((lineId) =>
+        codeLines.find((codeLine) => codeLine.id === lineId),
+      ) as CodeLineData[];
+    }
 
-  // const handleDragEnd: OnDragEnd = (event) => {
-  //   if (event.canceled && previousAnswerRef.current) {
-  //     setAnswer(currentQuestionId, previousAnswerRef.current);
-  //   }
-  // };
+    // если сохраненного ответа нет то шафлим линии
+    // console.log(`No saved answer, shuffle`)
+    const shuffledLines = [...codeLines];
+
+    // этот временное игнорирование Math.random для линтера,
+    // в итоге перемешивание будет делаться на сервере
+    // eslint-disable-next-line react-hooks/purity
+    shuffledLines.sort(() => (Math.random() > 0.5 ? 1 : -1));
+    return shuffledLines;
+  }, [codeLines, answer]);
+
+  const [lineIds, setLineIds] = useState(orderedLines.map((line) => line.id));
 
   return (
     <div className={styles.container}>
-      {codeLines.map((codeLine, index) => (
-        <CodeLine key={codeLine.id} index={index} codeLine={codeLine} />
-      ))}
-
-      {/* <DragDropProvider
-        plugins={(defaults) => defaults.filter((plugin) => plugin !== AutoScroller)}
-        onDragStart={() => {
-          previousAnswerRef.current = [...items.target];
-        }}
-        onDragOver={(e) => setAnswer(currentQuestionId, move(items, e).target)}
-        onDragEnd={handleDragEnd}
-      >
-        <Dropzone id="target" key="target">
-          {items.target.length > 0 ? (
-            items.target.map((id, index) => <Item id={id} key={id} index={index} line="target" />)
-          ) : (
-            <DropzonePlaceholder />
-          )}
-        </Dropzone>
-
-        <Dropzone id="source" key="source">
-          {items.source.length > 0
-            ? items.source.map((id, index) => <Item id={id} key={id} index={index} line="source" />)
-            : EMPTY_SOURCE_BLOCK_MESSAGE}
-        </Dropzone>
-      </DragDropProvider> */}
-    </div>
-  );
-}
-
-function CodeLine({ codeLine, index }: { codeLine: CodeLine; index: number }) {
-  const appMode = useThemeStore((state) => state.mode);
-  const theme = useTheme();
-  const { isDragging, ref } = useSortable({ id: codeLine.id, index });
-
-  return (
-    <div
-      ref={ref}
-      className={styles.item}
-      style={{
-        // backgroundColor: isDragging
-        //   ? theme.palette.backgroundAccent
-        //   : theme.palette.background.default,
-        backgroundColor: theme.palette.background.default,
-        color: theme.palette.text.primary,
-        boxShadow: isDragging ? theme.shadows[8] : '',
-
-        borderColor: theme.palette.divider,
-      }}
-    >
-      <DragIndicatorIcon className={styles.dragIcon} style={{ width: '16px' }} />
-      <div className={styles.indent}>{'  '.repeat(codeLine.indent)}</div>
-      <SyntaxHighlighter
-        language="javascript"
-        style={appMode === 'light' ? docco : railscasts}
-        customStyle={{
-          background: 'transparent',
-          paddingLeft: 10 * codeLine.indent + 'px',
-          margin: 0,
-          display: 'inline-block',
+      <DragDropProvider
+        onDragEnd={(event) => {
+          const answer = move(lineIds, event);
+          console.log(`Save answer ${answer}`);
+          setAnswer(currentQuestionId, answer);
+          setLineIds(answer);
         }}
       >
-        {codeLine.code}
-      </SyntaxHighlighter>
+        {orderedLines.map((codeLine, index) => (
+          <CodeLine key={codeLine.id} index={index} codeLine={codeLine} />
+        ))}
+      </DragDropProvider>
     </div>
   );
 }

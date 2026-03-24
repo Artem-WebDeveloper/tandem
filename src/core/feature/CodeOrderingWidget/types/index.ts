@@ -3,7 +3,10 @@ import { type BaseTask, TaskType } from '@/core/types/quiz';
 // Task text with multiple code lines
 export interface CodeOrderingQuestion {
   id: string;
-  text: string;
+  text: {
+    ru: string;
+    en: string;
+  };
   codeLines: CodeLineData[];
 }
 
@@ -17,8 +20,6 @@ export type CodeLineData = {
 // Server response
 export interface CodeOrderingTask extends BaseTask {
   type: typeof TaskType.CodeOrdering;
-  title: string;
-  section: string;
   tags: string[];
   description?: string;
   questions: CodeOrderingQuestion[];

@@ -5,14 +5,21 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
   {
     id: 'co-001',
     type: 'code_ordering',
-    title: 'Code Ordering Title 1',
+    time_limit: 8,
+    title: {
+      ru: 'Code Ordering заголовок 1',
+      en: 'Code Ordering Title 1',
+    },
     difficulty: 1,
     section: 'Core JS',
-    tags: ['array-methods', 'promises', 'objects', 'functions', 'strings'],
+    tags: ['functions', 'strings', 'array-methods', 'javascript'],
     questions: [
       {
         id: '1',
-        text: 'Создайте функцию debounce',
+        text: {
+          ru: 'Создайте функцию debounce',
+          en: 'Create debounce function',
+        },
         codeLines: [
           { id: 'line-1', code: 'function debounce(func, delay) {', correctPosition: 0, indent: 0 },
           { id: 'line-2', code: 'let timeoutId;', correctPosition: 1, indent: 1 },
@@ -27,7 +34,10 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
       },
       {
         id: '2',
-        text: 'Создайте счётчик с замыканием',
+        text: {
+          ru: 'Создайте счётчик с замыканием',
+          en: 'Create a closure-based counter',
+        },
         codeLines: [
           { id: 'line-1', code: 'function createCounter() {', correctPosition: 0, indent: 0 },
           { id: 'line-2', code: 'let count = 0;', correctPosition: 1, indent: 1 },
@@ -40,7 +50,10 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
       },
       {
         id: '3',
-        text: 'Расставьте строки кода для простого каррирования функции с двумя параметрами',
+        text: {
+          ru: 'Расставьте строки кода для простого каррирования функции с двумя параметрами',
+          en: 'Arrange code lines for simple currying of a two-parameter function',
+        },
         codeLines: [
           { id: 'line-1', code: 'function curry(fn) {', correctPosition: 0, indent: 0 },
           { id: 'line-2', code: 'return function(a) {', correctPosition: 1, indent: 1 },
@@ -53,7 +66,10 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
       },
       {
         id: '4',
-        text: 'Расставьте строки кода для функции проверки палиндрома',
+        text: {
+          ru: 'Расставьте строки кода для функции проверки палиндрома',
+          en: 'Arrange code lines for a palindrome check function',
+        },
         codeLines: [
           { id: 'line-1', code: 'function isPalindrome(str) {', correctPosition: 0, indent: 0 },
           {
@@ -74,7 +90,10 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
       },
       {
         id: '5',
-        text: 'Расставьте строки кода для функции суммирования массива',
+        text: {
+          ru: 'Расставьте строки кода для функции суммирования массива',
+          en: 'Arrange code lines for an array sum function',
+        },
         codeLines: [
           { id: 'line-1', code: 'function sumArray(arr) {', correctPosition: 0, indent: 0 },
           { id: 'line-2', code: 'let sum = 0;', correctPosition: 1, indent: 1 },
@@ -90,6 +109,38 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           { id: 'line-7', code: '}', correctPosition: 6, indent: 0 },
         ],
       },
+      {
+        id: '6',
+        text: {
+          ru: 'Соберите функцию приветствия по имени',
+          en: 'Assemble a greeting function by name',
+        },
+        codeLines: [
+          { id: 'line-1', code: 'function greet(name) {', correctPosition: 0, indent: 0 },
+          {
+            id: 'line-2',
+            code: "if (!name) return 'Hello, guest!';",
+            correctPosition: 1,
+            indent: 1,
+          },
+          { id: 'line-3', code: 'return `Hello, ${name}!`;', correctPosition: 2, indent: 1 },
+          { id: 'line-4', code: '}', correctPosition: 3, indent: 0 },
+        ],
+      },
+      {
+        id: '7',
+        text: {
+          ru: 'Соберите функцию, которая удваивает числа в массиве',
+          en: 'Assemble a function that doubles numbers in an array',
+        },
+        codeLines: [
+          { id: 'line-1', code: 'function doubleNumbers(arr) {', correctPosition: 0, indent: 0 },
+          { id: 'line-2', code: 'return arr.map((num) => {', correctPosition: 1, indent: 1 },
+          { id: 'line-3', code: 'return num * 2;', correctPosition: 2, indent: 2 },
+          { id: 'line-4', code: '});', correctPosition: 3, indent: 1 },
+          { id: 'line-5', code: '}', correctPosition: 4, indent: 0 },
+        ],
+      },
     ],
   },
 
@@ -97,14 +148,21 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
   {
     id: 'co-002',
     type: 'code_ordering',
-    title: 'Code Ordering Title 2',
+    time_limit: 10,
+    title: {
+      ru: 'Code Ordering заголовок 2',
+      en: 'Code Ordering Title 2',
+    },
     difficulty: 2,
     section: 'Core JS',
-    tags: ['objects'],
+    tags: ['async', 'promises', 'functions', 'objects', 'array-methods'],
     questions: [
       {
         id: '1',
-        text: 'Соберите async-функцию с try/catch',
+        text: {
+          ru: 'Соберите async-функцию с try/catch',
+          en: 'Assemble an async function with try/catch',
+        },
         codeLines: [
           { id: 'line-1', code: 'async function loadData() {', correctPosition: 0, indent: 0 },
           { id: 'line-2', code: 'try {', correctPosition: 1, indent: 1 },
@@ -135,7 +193,10 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
       },
       {
         id: '2',
-        text: 'Расставьте строки кода для кэширования результатов функции',
+        text: {
+          ru: 'Расставьте строки кода для кэширования результатов функции',
+          en: 'Arrange code lines for caching function results',
+        },
         codeLines: [
           { id: 'line-1', code: 'function memoize(fn) {', correctPosition: 0, indent: 0 },
           { id: 'line-2', code: 'const cache = {};', correctPosition: 1, indent: 1 },
@@ -163,7 +224,10 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
       },
       {
         id: '3',
-        text: 'Соберите цепочку fetch-запросов с обработкой ошибки',
+        text: {
+          ru: 'Соберите цепочку fetch-запросов с обработкой ошибки',
+          en: 'Assemble a fetch request chain with error handling',
+        },
         codeLines: [
           { id: 'line-1', code: 'function fetchUserData(id) {', correctPosition: 0, indent: 0 },
           { id: 'line-2', code: 'return fetch(`/api/user/${id}`)', correctPosition: 1, indent: 1 },
@@ -193,7 +257,10 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
       },
       {
         id: '4',
-        text: 'Расставьте строки для функции delayCall, которая откладывает вызов функции',
+        text: {
+          ru: 'Расставьте строки для функции delayCall, которая откладывает вызов функции',
+          en: 'Arrange lines for delayCall that postpones function execution',
+        },
         codeLines: [
           { id: 'line-1', code: 'function delayCall(fn, ms) {', correctPosition: 0, indent: 0 },
           { id: 'line-2', code: 'return function(...args) {', correctPosition: 1, indent: 1 },
@@ -206,7 +273,10 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
       },
       {
         id: '5',
-        text: 'Соберите функцию groupBy для массива объектов',
+        text: {
+          ru: 'Соберите функцию groupBy для массива объектов',
+          en: 'Assemble a groupBy function for an array of objects',
+        },
         codeLines: [
           { id: 'line-1', code: 'function groupBy(items, key) {', correctPosition: 0, indent: 0 },
           {
@@ -225,6 +295,79 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           { id: 'line-10', code: '}', correctPosition: 9, indent: 0 },
         ],
       },
+      {
+        id: '6',
+        text: {
+          ru: 'Соберите функцию retry, которая повторяет async-операцию при ошибке',
+          en: 'Assemble a retry function that repeats an async operation on failure',
+        },
+        codeLines: [
+          {
+            id: 'line-1',
+            code: 'async function retry(fn, attempts) {',
+            correctPosition: 0,
+            indent: 0,
+          },
+          { id: 'line-2', code: 'let lastError;', correctPosition: 1, indent: 1 },
+          {
+            id: 'line-3',
+            code: 'for (let i = 0; i < attempts; i++) {',
+            correctPosition: 2,
+            indent: 1,
+          },
+          { id: 'line-4', code: 'try {', correctPosition: 3, indent: 2 },
+          { id: 'line-5', code: 'return await fn();', correctPosition: 4, indent: 3 },
+          { id: 'line-6', code: '} catch (error) {', correctPosition: 5, indent: 2 },
+          { id: 'line-7', code: 'lastError = error;', correctPosition: 6, indent: 3 },
+          { id: 'line-8', code: '}', correctPosition: 7, indent: 2 },
+          { id: 'line-9', code: '}', correctPosition: 8, indent: 1 },
+          { id: 'line-10', code: 'throw lastError;', correctPosition: 9, indent: 1 },
+          { id: 'line-11', code: '}', correctPosition: 10, indent: 0 },
+        ],
+      },
+      {
+        id: '7',
+        text: {
+          ru: 'Соберите функцию безопасного парсинга JSON со значением по умолчанию',
+          en: 'Assemble a safe JSON parse function with a fallback value',
+        },
+        codeLines: [
+          {
+            id: 'line-1',
+            code: 'function safeParse(json, fallback) {',
+            correctPosition: 0,
+            indent: 0,
+          },
+          { id: 'line-2', code: 'try {', correctPosition: 1, indent: 1 },
+          { id: 'line-3', code: 'return JSON.parse(json);', correctPosition: 2, indent: 2 },
+          { id: 'line-4', code: '} catch {', correctPosition: 3, indent: 1 },
+          { id: 'line-5', code: 'return fallback;', correctPosition: 4, indent: 2 },
+          { id: 'line-6', code: '}', correctPosition: 5, indent: 1 },
+          { id: 'line-7', code: '}', correctPosition: 6, indent: 0 },
+        ],
+      },
+      {
+        id: '8',
+        text: {
+          ru: 'Соберите функцию, которая возвращает уникальные элементы массива',
+          en: 'Assemble a function that returns unique array elements',
+        },
+        codeLines: [
+          { id: 'line-1', code: 'function uniqueValues(arr) {', correctPosition: 0, indent: 0 },
+          { id: 'line-2', code: 'const seen = new Set();', correctPosition: 1, indent: 1 },
+          { id: 'line-3', code: 'return arr.filter((item) => {', correctPosition: 2, indent: 1 },
+          {
+            id: 'line-4',
+            code: 'if (seen.has(item)) return false;',
+            correctPosition: 3,
+            indent: 2,
+          },
+          { id: 'line-5', code: 'seen.add(item);', correctPosition: 4, indent: 2 },
+          { id: 'line-6', code: 'return true;', correctPosition: 5, indent: 2 },
+          { id: 'line-7', code: '});', correctPosition: 6, indent: 1 },
+          { id: 'line-8', code: '}', correctPosition: 7, indent: 0 },
+        ],
+      },
     ],
   },
 
@@ -232,14 +375,21 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
   {
     id: 'co-003',
     type: 'code_ordering',
-    title: 'Code Ordering Title 3',
+    time_limit: 12,
+    title: {
+      ru: 'Code Ordering заголовок 3',
+      en: 'Code Ordering Title 3',
+    },
     difficulty: 3,
     section: 'Core JS',
-    tags: ['objects'],
+    tags: ['objects', 'array-methods', 'functions', 'prototypes', 'javascript'],
     questions: [
       {
         id: '1',
-        text: 'Расставьте строки кода для рекурсивного клонирования объектов',
+        text: {
+          ru: 'Расставьте строки кода для рекурсивного клонирования объектов',
+          en: 'Arrange code lines for recursive object cloning',
+        },
         codeLines: [
           { id: 'line-1', code: 'function deepClone(obj) {', correctPosition: 0, indent: 0 },
           {
@@ -272,7 +422,10 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
       },
       {
         id: '2',
-        text: 'Расставьте строки кода для собственной реализации метода reduce',
+        text: {
+          ru: 'Расставьте строки кода для собственной реализации метода reduce',
+          en: 'Arrange code lines for a custom reduce implementation',
+        },
         codeLines: [
           {
             id: 'line-1',
@@ -300,7 +453,10 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
       },
       {
         id: '3',
-        text: 'Расставьте строки кода для функции flatten массива',
+        text: {
+          ru: 'Расставьте строки кода для функции flatten массива',
+          en: 'Arrange code lines for an array flatten function',
+        },
         codeLines: [
           { id: 'line-1', code: 'function flatten(arr) {', correctPosition: 0, indent: 0 },
           {
@@ -324,7 +480,10 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
       },
       {
         id: '4',
-        text: 'Расставьте строки кода для реализации once',
+        text: {
+          ru: 'Расставьте строки кода для реализации once',
+          en: 'Arrange code lines for once implementation',
+        },
         codeLines: [
           { id: 'line-1', code: 'function once(fn) {', correctPosition: 0, indent: 0 },
           { id: 'line-2', code: 'let called = false;', correctPosition: 1, indent: 1 },
@@ -341,7 +500,10 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
       },
       {
         id: '5',
-        text: 'Расставьте строки кода для функции группировки массива по ключу',
+        text: {
+          ru: 'Расставьте строки кода для функции группировки массива по ключу',
+          en: 'Arrange code lines for grouping an array by key',
+        },
         codeLines: [
           { id: 'line-1', code: 'function groupBy(arr, key) {', correctPosition: 0, indent: 0 },
           {
@@ -357,6 +519,61 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           { id: 'line-7', code: 'acc[group].push(item);', correctPosition: 6, indent: 2 },
           { id: 'line-8', code: 'return acc;', correctPosition: 7, indent: 2 },
           { id: 'line-9', code: '}, {});', correctPosition: 8, indent: 1 },
+          { id: 'line-10', code: '}', correctPosition: 9, indent: 0 },
+        ],
+      },
+      {
+        id: '6',
+        text: {
+          ru: 'Соберите функцию compose, которая объединяет несколько функций справа налево',
+          en: 'Assemble a compose function that combines functions from right to left',
+        },
+        codeLines: [
+          { id: 'line-1', code: 'function compose(...fns) {', correctPosition: 0, indent: 0 },
+          { id: 'line-2', code: 'return function(initialValue) {', correctPosition: 1, indent: 1 },
+          {
+            id: 'line-3',
+            code: 'return fns.reduceRight((value, fn) => {',
+            correctPosition: 2,
+            indent: 2,
+          },
+          { id: 'line-4', code: 'return fn(value);', correctPosition: 3, indent: 3 },
+          { id: 'line-5', code: '}, initialValue);', correctPosition: 4, indent: 2 },
+          { id: 'line-6', code: '};', correctPosition: 5, indent: 1 },
+          { id: 'line-7', code: '}', correctPosition: 6, indent: 0 },
+        ],
+      },
+      {
+        id: '7',
+        text: {
+          ru: 'Соберите функцию deepEqual для глубокого сравнения объектов',
+          en: 'Assemble a deepEqual function for deep object comparison',
+        },
+        codeLines: [
+          { id: 'line-1', code: 'function deepEqual(a, b) {', correctPosition: 0, indent: 0 },
+          { id: 'line-2', code: 'if (a === b) return true;', correctPosition: 1, indent: 1 },
+          {
+            id: 'line-3',
+            code: "if (typeof a !== 'object' || typeof b !== 'object' || !a || !b) {",
+            correctPosition: 2,
+            indent: 1,
+          },
+          { id: 'line-4', code: 'return false;', correctPosition: 3, indent: 2 },
+          { id: 'line-5', code: '}', correctPosition: 4, indent: 1 },
+          { id: 'line-6', code: 'const keysA = Object.keys(a);', correctPosition: 5, indent: 1 },
+          { id: 'line-7', code: 'const keysB = Object.keys(b);', correctPosition: 6, indent: 1 },
+          {
+            id: 'line-8',
+            code: 'if (keysA.length !== keysB.length) return false;',
+            correctPosition: 7,
+            indent: 1,
+          },
+          {
+            id: 'line-9',
+            code: 'return keysA.every((key) => deepEqual(a[key], b[key]));',
+            correctPosition: 8,
+            indent: 1,
+          },
           { id: 'line-10', code: '}', correctPosition: 9, indent: 0 },
         ],
       },

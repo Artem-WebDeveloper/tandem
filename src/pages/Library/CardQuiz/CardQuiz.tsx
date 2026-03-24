@@ -31,7 +31,7 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
     completePercentage,
     id,
     description,
-    questionsQuantity,
+    questions_count: questionsQuantity,
     time_limit: time,
     difficulty,
     tags,

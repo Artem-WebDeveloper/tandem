@@ -7,7 +7,7 @@ export interface LibraryQuiz extends BaseTask {
     ru: string;
     en: string;
   };
-  questionsQuantity: number;
+  questions_count: number;
   completePercentage: number;
   isComplete: boolean;
   isFavorite: boolean;
@@ -23,5 +23,6 @@ export interface LibraryResponse {
   count: number;
   previous: string | null;
   next: string | null;
+  total_pages: number;
   results: LibraryQuiz[];
 }

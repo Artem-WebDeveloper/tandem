@@ -9,8 +9,14 @@ import {
 } from '@mui/material';
 import styles from './Filters.module.scss';
 import type { LibraryFilters } from '../types';
-import type { Difficulty, TaskTheme, TaskType } from '@/core/types/quiz';
-import { difficultyLabels, getQuizTypeConfig, sectionConfig } from '@/core/configs/library.config';
+import {
+  difficultyLabels,
+  getQuizTypeConfig,
+  isDifficulty,
+  isTaskTheme,
+  isTaskType,
+  sectionConfig,
+} from '@/core/configs/library.config';
 
 import { useTranslation } from 'react-i18next';
 
@@ -29,9 +35,9 @@ export default function Filters({ allQuizzes, filterValues, onSetFilters, loadin
 
   const { section, quiz_type, difficulty } = filterValues;
 
-  const types = [...Object.keys(quizTypeConfig)] as TaskType[];
-  const difficulties = Object.keys(difficultyLabels).map(Number) as Difficulty[];
-  const categories = [...Object.keys(sectionConfig)] as TaskTheme[];
+  const categories = Object.keys(sectionConfig).filter(isTaskTheme);
+  const types = Object.keys(quizTypeConfig).filter(isTaskType);
+  const difficulties = Object.keys(difficultyLabels).map(Number).filter(isDifficulty);
 
   return (
     <div

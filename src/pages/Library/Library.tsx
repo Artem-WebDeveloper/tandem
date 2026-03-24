@@ -13,7 +13,7 @@ import CardSkeleton from './CardSkeleton/CardSkeleton';
 import { AppError, AppErrorCode } from '@/core/errors/errors';
 
 import { useTranslation } from 'react-i18next';
-import type { Difficulty, TaskTheme, TaskType } from '@/core/types/quiz';
+import { parseDifficulty, parseQuizType, parseSection } from '@/core/configs/library.config';
 
 const SKELETON_COUNT = 6;
 
@@ -24,30 +24,27 @@ export default function Library() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [quizzesData, setQuizzesData] = useState<LibraryQuiz[] | null>(null);
   const [countAllQuizzes, setCountAllQuizzes] = useState<number | null>(null);
+  const [totalPages, setTotalPages] = useState<number>(1);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<AppError | null>(null);
-  const [pageSize, setPageSize] = useState<number | null>(null);
 
   const currentPage = Number(searchParams.get('page')) || 1;
   const filtersUrl = useMemo<LibraryFilters>(
     () => ({
-      section: (searchParams.get('section') as TaskTheme) || 'all',
-      quiz_type: (searchParams.get('quiz_type') as TaskType) || 'all',
-      difficulty: searchParams.get('difficulty')
-        ? (Number(searchParams.get('difficulty')) as Difficulty)
-        : 'all',
+      section: parseSection(searchParams.get('section')),
+      quiz_type: parseQuizType(searchParams.get('quiz_type')),
+      difficulty: parseDifficulty(searchParams.get('difficulty')),
     }),
     [searchParams],
   );
-
-  const totalPages = countAllQuizzes && pageSize ? Math.ceil(countAllQuizzes / pageSize) : 1;
 
   const handleChangePage = (_: React.ChangeEvent<unknown>, value: number) => {
     setSearchParams({ ...Object.fromEntries(searchParams), page: String(value) });
   };
 
   const handleFiltersChange = (newFilters: LibraryFilters) => {
-    setPageSize(null);
+    setTotalPages(1);
     const params: Record<string, string> = { page: '1' };
 
     if (newFilters.section !== 'all') params.section = newFilters.section;
@@ -69,9 +66,7 @@ export default function Library() {
 
         setQuizzesData(data.results);
         setCountAllQuizzes(data.count);
-        if (currentPage === 1) {
-          setPageSize(data.results.length);
-        }
+        setTotalPages(data.total_pages);
       } catch (error) {
         if (error instanceof AppError) {
           setError(error);

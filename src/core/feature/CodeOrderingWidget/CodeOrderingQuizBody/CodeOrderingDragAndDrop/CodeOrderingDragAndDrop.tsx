@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { DragDropProvider } from '@dnd-kit/react';
 import { move } from '@dnd-kit/helpers';
 
@@ -21,27 +20,23 @@ export default function CodeOrderingDragAndDrop({
   const savedLinesIds = answers.find((answer) => answer.questionId === currentQuestionId)?.payload;
 
   // получаем массив линий в нужном для отрисовки порядке
-  const [orderedLines, orderedLinesIds] = useMemo(() => {
-    let orderedLines: CodeLineData[] = [];
-
-    if (savedLinesIds) {
-      // если есть сохраненный ответ - пересортировываем линии с сервера так,
-      // как их расставил пользователь в сохраненном ответе
-      for (const savedLineId of savedLinesIds) {
-        const codeLine = codeLines.find((codeLine) => codeLine.id === savedLineId);
-        if (codeLine) {
-          orderedLines.push(codeLine);
-        }
+  let orderedLines: CodeLineData[] = [];
+  if (savedLinesIds) {
+    // если есть сохраненный ответ - пересортировываем линии с сервера так,
+    // как их расставил пользователь в сохраненном ответе
+    for (const savedLineId of savedLinesIds) {
+      const codeLine = codeLines.find((codeLine) => codeLine.id === savedLineId);
+      if (codeLine) {
+        orderedLines.push(codeLine);
       }
-    } else {
-      // если сохраненного ответа нет то используем исходный массив линий
-      orderedLines = codeLines;
     }
+  } else {
+    // если сохраненного ответа нет то используем исходный массив линий
+    orderedLines = codeLines;
+  }
 
-    const orderedLinesIds = orderedLines.map((orderedLine) => orderedLine.id);
-
-    return [orderedLines, orderedLinesIds];
-  }, [codeLines, savedLinesIds]);
+  // получаем массив id для использования в dnd
+  const orderedLinesIds = orderedLines.map((orderedLine) => orderedLine.id);
 
   return (
     <div className={styles.container}>

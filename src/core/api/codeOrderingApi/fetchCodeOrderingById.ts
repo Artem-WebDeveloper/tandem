@@ -6,10 +6,15 @@ import { MOCK_CODE_ORDERING_DATA } from '../../mock/codeOrderingData';
 export function fetchCodeOrderingById(id: string): Promise<CodeOrderingTask> {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      const data = MOCK_CODE_ORDERING_DATA.find((quiz) => quiz.id === id);
+      const task = MOCK_CODE_ORDERING_DATA.find((task) => task.id === id);
 
-      if (data !== undefined) {
-        resolve(data);
+      if (task) {
+        // TODO: перенести на сервер
+        for (const question of task.questions) {
+          question.codeLines.sort(() => (Math.random() > 0.5 ? 1 : -1));
+        }
+
+        resolve(task);
       } else {
         reject(new Error(`Single Choice quiz with id "${id}" not found`));
       }

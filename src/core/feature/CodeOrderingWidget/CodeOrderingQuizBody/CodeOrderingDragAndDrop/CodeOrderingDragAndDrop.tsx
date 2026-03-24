@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { DragDropProvider } from '@dnd-kit/react';
 import { move } from '@dnd-kit/helpers';
 
@@ -21,37 +21,35 @@ export default function CodeOrderingDragAndDrop({
   const savedLinesIds = answers.find((answer) => answer.questionId === currentQuestionId)?.payload;
 
   // получаем массив линий в нужном для отрисовки порядке
-  const orderedLines = useMemo(() => {
-    // если есть сохраненный ответ - пересортировываем линии с сервера так,
-    // как их расставил пользователь в сохраненном ответе
+  const [orderedLines, orderedLinesIds] = useMemo(() => {
+    let orderedLines: CodeLineData[] = [];
+
     if (savedLinesIds) {
-      // console.log(`Saved answer is ${answer}`)
-      return savedLinesIds.map((lineId) =>
-        codeLines.find((codeLine) => codeLine.id === lineId),
-      ) as CodeLineData[];
+      // если есть сохраненный ответ - пересортировываем линии с сервера так,
+      // как их расставил пользователь в сохраненном ответе
+      for (const savedLineId of savedLinesIds) {
+        const codeLine = codeLines.find((codeLine) => codeLine.id === savedLineId);
+        if (codeLine) {
+          orderedLines.push(codeLine);
+        }
+      }
+    } else {
+      // если сохраненного ответа нет то используем исходный массив линий
+      orderedLines = codeLines;
     }
 
-    // если сохраненного ответа нет то шафлим линии
-    // console.log(`No saved answer, shuffle`)
-    const shuffledLines = [...codeLines];
+    const orderedLinesIds = orderedLines.map((orderedLine) => orderedLine.id);
 
-    // этот временное игнорирование Math.random для линтера,
-    // в итоге перемешивание будет делаться на сервере
-    // eslint-disable-next-line react-hooks/purity
-    shuffledLines.sort(() => (Math.random() > 0.5 ? 1 : -1));
-    return shuffledLines;
+    return [orderedLines, orderedLinesIds];
   }, [codeLines, savedLinesIds]);
-
-  const [lineIds, setLineIds] = useState(orderedLines.map((line) => line.id));
 
   return (
     <div className={styles.container}>
       <DragDropProvider
         onDragEnd={(event) => {
-          const answer = move(lineIds, event);
+          const answer = move(orderedLinesIds, event);
           console.log(`Save answer ${answer}`);
           setAnswer(currentQuestionId, answer);
-          setLineIds(answer);
         }}
       >
         {orderedLines.map((codeLine, index) => (

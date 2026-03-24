@@ -20,7 +20,9 @@
     "quizNotFound": "Quiz with id {{id}} not found",
     "unknownQuizType": "Unknown quiz type",
     "fetchFailed": "Failed to fetch data",
-    "missingQuizId": "Quiz ID is missing"
+    "missingQuizId": "Quiz ID is missing",
+    "unauthorized": "You should log in",
+    "notFound": "Resource not found"
   },
   "backToLibrary": "Back to Library"
 }

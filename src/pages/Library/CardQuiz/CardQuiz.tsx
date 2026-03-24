@@ -16,6 +16,7 @@ import { difficultyLabels, getQuizTypeConfig, sectionConfig } from '@/core/confi
 import DifficultyChip from '@/core/components/DifficultyChip/DifficultyChip';
 
 import { useTranslation } from 'react-i18next';
+import { LOCALE } from '@/core/configs/locale.config';
 
 export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
   const theme = useTheme();
@@ -27,11 +28,11 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
 
   const {
     title,
-    completeProcentage,
+    completePercentage,
     id,
     description,
-    questionsQuantity,
-    time,
+    questions_count: questionsQuantity,
+    time_limit: time,
     difficulty,
     tags,
     section,
@@ -40,8 +41,8 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
   } = quizData;
 
   const themeQuiz = sectionConfig[section];
-  const accentColorThemeLabel = themeQuiz?.color ?? theme.palette.primary.main;
-  const bgColorThemeLabel = themeQuiz?.bgLight ?? theme.palette.background.paper;
+  const accentColorThemeLabel = themeQuiz?.color ?? theme.palette.text.primary;
+  const bgColorThemeLabel = themeQuiz?.bgLight ?? theme.palette.textUltralight;
   const typeQuizLabel = quizTypeConfig[type];
 
   const handleLikeToggle = () => {
@@ -73,7 +74,7 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
         ) : (
           <PanoramaFishEyeIcon sx={{ color: theme.palette.textUltralight }} />
         )}
-        <h3 className={styles.cardTitle}>{title}</h3>
+        <h3 className={styles.cardTitle}>{title[LOCALE]}</h3>
 
         <Chip
           label={themeQuiz?.label ?? section}
@@ -98,47 +99,49 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
       <main className={styles.cardBody}>
         <section className={styles.cardDescription}>
           <Typography variant="body2" sx={{ minHeight: '20px', color: theme.palette.textLight }}>
-            {description}
+            {description?.[LOCALE] || ''}
           </Typography>
         </section>
 
         <section className={styles.cardInfo} style={{ display: 'flex', gap: '10px' }}>
-          <Typography
-            variant="caption"
-            sx={{
-              display: 'flex',
-              alignItems: 'end',
-              fontSize: '13px',
-              '@media (max-width: 360px)': {
-                fontSize: '12px',
-                alignItems: 'center',
-              },
-            }}
-          >
-            <DescriptionOutlinedIcon
-              sx={{ width: 18, marginRight: 0.2, color: theme.palette.textLight }}
-            />
-            {questionsQuantity} {t('cards.countOfQuestions')}
-          </Typography>
-
-          <Typography
-            variant="caption"
-            sx={{
-              display: 'flex',
-              alignItems: 'end',
-              fontSize: '13px',
-              '@media (max-width: 360px)': {
-                fontSize: '12px',
-                alignItems: 'center',
-              },
-            }}
-          >
-            <AccessTimeRoundedIcon
-              sx={{ width: 18, marginRight: 0.2, color: theme.palette.textLight }}
-            />
-            {time} {t('cards.min')}
-          </Typography>
-
+          {questionsQuantity && (
+            <Typography
+              variant="caption"
+              sx={{
+                display: 'flex',
+                alignItems: 'end',
+                fontSize: '13px',
+                '@media (max-width: 360px)': {
+                  fontSize: '12px',
+                  alignItems: 'center',
+                },
+              }}
+            >
+              <DescriptionOutlinedIcon
+                sx={{ width: 18, marginRight: 0.2, color: theme.palette.textLight }}
+              />
+              {questionsQuantity} {t('cards.countOfQuestions')}
+            </Typography>
+          )}
+          {time && (
+            <Typography
+              variant="caption"
+              sx={{
+                display: 'flex',
+                alignItems: 'end',
+                fontSize: '13px',
+                '@media (max-width: 360px)': {
+                  fontSize: '12px',
+                  alignItems: 'center',
+                },
+              }}
+            >
+              <AccessTimeRoundedIcon
+                sx={{ width: 18, marginRight: 0.2, color: theme.palette.textLight }}
+              />
+              {time} {t('cards.min')}
+            </Typography>
+          )}
           <DifficultyChip difficulty={difficulty}>{difficultyLabels[difficulty]}</DifficultyChip>
         </section>
 
@@ -179,8 +182,8 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
             lineHeight: '1.4',
           }}
         >
-          {completeProcentage
-            ? `${t('cards.quizState.completed')} ${completeProcentage}%`
+          {completePercentage
+            ? `${t('cards.quizState.completed')} ${completePercentage}%`
             : `${t('cards.quizState.notStarted')}`}
         </Typography>
         <Button

@@ -1,4 +1,4 @@
-import { TaskType } from '../types/quiz';
+import { Difficulty, TaskType, type TaskTheme } from '../types/quiz';
 
 export const difficultyLabels = {
   1: 'Easy',
@@ -7,7 +7,7 @@ export const difficultyLabels = {
 } as const;
 
 export const sectionConfig = {
-  'Core-js': {
+  'Core JS': {
     color: '#F0B429',
     bgLight: 'rgba(240, 180, 41, 0.15)',
     label: 'JS',
@@ -42,3 +42,30 @@ export const getQuizTypeConfig = (t: (key: string) => string): Record<TaskTypeKe
   [TaskType.AsyncSorter]: t('filters.quizType.sorting'),
   [TaskType.TrueFalse]: t('filters.quizType.trueFalse'),
 });
+
+// Type guards для Selectors в Filters
+export const isTaskTheme = (value: string): value is TaskTheme => value in sectionConfig;
+
+export const isTaskType = (value: string): value is TaskType =>
+  (Object.values(TaskType) as string[]).includes(value);
+
+export const isDifficulty = (value: number): value is Difficulty =>
+  (Object.values(Difficulty) as number[]).includes(value);
+
+//URL parsers для валидирования значения фильтров Library
+export function parseSection(value: string | null): TaskTheme | 'all' | 'Favorites' {
+  if (value === 'Favorites') return 'Favorites';
+  if (value && isTaskTheme(value)) return value;
+  return 'all';
+}
+
+export function parseQuizType(value: string | null): TaskType | 'all' {
+  if (value && isTaskType(value)) return value;
+  return 'all';
+}
+
+export function parseDifficulty(value: string | null): Difficulty | 'all' {
+  const num = Number(value);
+  if (value && isDifficulty(num)) return num;
+  return 'all';
+}

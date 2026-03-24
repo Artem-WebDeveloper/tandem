@@ -18,7 +18,7 @@ export const CATEGORY_DATA: CategoryStatistic[] = [
     completedTestsCount: 12,
   },
   {
-    theme: 'Core-js',
+    theme: 'Core JS',
     tests: 10,
     completedTestsCount: 2,
   },

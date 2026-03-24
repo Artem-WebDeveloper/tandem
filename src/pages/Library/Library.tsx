@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Pagination, Typography, useTheme } from '@mui/material';
 
 import styles from './Library.module.scss';
@@ -12,36 +13,45 @@ import CardSkeleton from './CardSkeleton/CardSkeleton';
 import { AppError, AppErrorCode } from '@/core/errors/errors';
 
 import { useTranslation } from 'react-i18next';
+import { parseDifficulty, parseQuizType, parseSection } from '@/core/configs/library.config';
 
-const CARDS_PER_PAGE = 6;
+const SKELETON_COUNT = 6;
 
 export default function Library() {
   const theme = useTheme();
   const { t } = useTranslation('library');
 
+  const [searchParams, setSearchParams] = useSearchParams();
   const [quizzesData, setQuizzesData] = useState<LibraryQuiz[] | null>(null);
+  const [countAllQuizzes, setCountAllQuizzes] = useState<number | null>(null);
+  const [totalPages, setTotalPages] = useState<number>(1);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<AppError | null>(null);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [filters, setFilters] = useState<LibraryFilters>({
-    section: 'all',
-    type: 'all',
-    difficulty: 'all',
-  });
 
-  const totalPages = quizzesData ? Math.ceil(quizzesData.length / CARDS_PER_PAGE) : 1; // позже данное значение будет получено с сервера
-
-  const currentPageQuizzes = quizzesData
-    ? quizzesData.slice((currentPage - 1) * CARDS_PER_PAGE, currentPage * CARDS_PER_PAGE)
-    : [];
+  const currentPage = Number(searchParams.get('page')) || 1;
+  const filtersUrl = useMemo<LibraryFilters>(
+    () => ({
+      section: parseSection(searchParams.get('section')),
+      quiz_type: parseQuizType(searchParams.get('quiz_type')),
+      difficulty: parseDifficulty(searchParams.get('difficulty')),
+    }),
+    [searchParams],
+  );
 
   const handleChangePage = (_: React.ChangeEvent<unknown>, value: number) => {
-    setCurrentPage(value);
+    setSearchParams({ ...Object.fromEntries(searchParams), page: String(value) });
   };
 
   const handleFiltersChange = (newFilters: LibraryFilters) => {
-    setFilters(newFilters);
-    setCurrentPage(1);
+    setTotalPages(1);
+    const params: Record<string, string> = { page: '1' };
+
+    if (newFilters.section !== 'all') params.section = newFilters.section;
+    if (newFilters.quiz_type !== 'all') params.quiz_type = newFilters.quiz_type;
+    if (newFilters.difficulty !== 'all') params.difficulty = String(newFilters.difficulty);
+
+    setSearchParams(params);
   };
 
   useEffect(() => {
@@ -50,11 +60,13 @@ export default function Library() {
         setQuizzesData(null);
         setLoading(true);
         setError(null);
+        setCountAllQuizzes(null);
 
-        const data = await fetchAllQuizzes();
-        // const data = await fetchAllQuizzes(filters, currentPage); В будущем передавать на бэк фильтры и страницу
+        const data = await fetchAllQuizzes(currentPage, filtersUrl);
 
-        setQuizzesData(data);
+        setQuizzesData(data.results);
+        setCountAllQuizzes(data.count);
+        setTotalPages(data.total_pages);
       } catch (error) {
         if (error instanceof AppError) {
           setError(error);
@@ -67,7 +79,7 @@ export default function Library() {
     };
 
     fetchLibraryData();
-  }, [filters]);
+  }, [currentPage, filtersUrl]);
 
   return (
     <Layout>
@@ -83,8 +95,8 @@ export default function Library() {
 
       {!error && (
         <Filters
-          allQuizzes={quizzesData?.length ?? null}
-          filterValues={filters}
+          allQuizzes={countAllQuizzes}
+          filterValues={filtersUrl}
           onSetFilters={handleFiltersChange}
           loading={loading}
         />
@@ -92,7 +104,7 @@ export default function Library() {
 
       {loading && (
         <ul className={styles.cards}>
-          {Array.from({ length: CARDS_PER_PAGE }).map((_, i) => (
+          {Array.from({ length: SKELETON_COUNT }).map((_, i) => (
             <CardSkeleton key={i} />
           ))}
         </ul>
@@ -107,12 +119,12 @@ export default function Library() {
       {quizzesData && (
         <>
           <ul className={styles.cards}>
-            {currentPageQuizzes.map((quizData) => {
+            {quizzesData.map((quizData) => {
               return <CardQuiz quizData={quizData} key={quizData.id} />;
             })}
           </ul>
 
-          {quizzesData.length > CARDS_PER_PAGE && (
+          {totalPages > 1 && (
             <Pagination
               className={styles.cardsPagination}
               count={totalPages}

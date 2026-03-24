@@ -9,8 +9,14 @@ import {
 } from '@mui/material';
 import styles from './Filters.module.scss';
 import type { LibraryFilters } from '../types';
-import type { Difficulty, TaskTheme, TaskType } from '@/core/types/quiz';
-import { difficultyLabels, getQuizTypeConfig, sectionConfig } from '@/core/configs/library.config';
+import {
+  difficultyLabels,
+  getQuizTypeConfig,
+  isDifficulty,
+  isTaskTheme,
+  isTaskType,
+  sectionConfig,
+} from '@/core/configs/library.config';
 
 import { useTranslation } from 'react-i18next';
 
@@ -27,11 +33,11 @@ export default function Filters({ allQuizzes, filterValues, onSetFilters, loadin
   const { t } = useTranslation('library');
   const quizTypeConfig = getQuizTypeConfig(t);
 
-  const { section, type, difficulty } = filterValues;
+  const { section, quiz_type, difficulty } = filterValues;
 
-  const types = [...Object.keys(quizTypeConfig)] as TaskType[];
-  const difficulties = Object.keys(difficultyLabels).map(Number) as Difficulty[];
-  const categories = [...Object.keys(sectionConfig)] as TaskTheme[];
+  const categories = Object.keys(sectionConfig).filter(isTaskTheme);
+  const types = Object.keys(quizTypeConfig).filter(isTaskType);
+  const difficulties = Object.keys(difficultyLabels).map(Number).filter(isDifficulty);
 
   return (
     <div
@@ -74,6 +80,7 @@ export default function Filters({ allQuizzes, filterValues, onSetFilters, loadin
                 {category}
               </MenuItem>
             ))}
+            <MenuItem value="Favorites">{t('filters.favorites')}</MenuItem>
           </Select>
         </FormControl>
 
@@ -84,12 +91,12 @@ export default function Filters({ allQuizzes, filterValues, onSetFilters, loadin
           <Select
             sx={{ fontSize: '15px' }}
             labelId="label-type"
-            value={type}
+            value={quiz_type}
             label={t('filters.testType')}
             disabled={loading}
             onChange={(event) => {
               const newType = event.target.value;
-              onSetFilters({ ...filterValues, type: newType });
+              onSetFilters({ ...filterValues, quiz_type: newType });
             }}
           >
             <MenuItem value="all">{t('filters.allTypes')}</MenuItem>

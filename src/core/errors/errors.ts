@@ -3,6 +3,8 @@ export const AppErrorCode = {
   UNKNOWN_QUIZ_TYPE: 'unknownQuizType',
   FETCH_FAILED: 'fetchFailed',
   MISSING_QUIZ_ID: 'missingQuizId',
+  UNAUTHORIZED: 'unauthorized',
+  NOT_FOUND: 'notFound',
 } as const;
 
 export type AppErrorCode = (typeof AppErrorCode)[keyof typeof AppErrorCode];

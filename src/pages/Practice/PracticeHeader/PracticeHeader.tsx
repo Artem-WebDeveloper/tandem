@@ -5,7 +5,7 @@ import DifficultyChip from '@/core/components/DifficultyChip/DifficultyChip';
 import { Chip, Typography, useTheme } from '@mui/material';
 
 import { getTaskTypeLabel } from '@/core/utils/getTaskTypeLabel';
-import { LOCALE } from '@/core/configs/locale.config';
+import { useLocale } from '@/core/i18n/useLocal';
 
 const difficultyLabels = {
   1: 'Easy',
@@ -15,6 +15,7 @@ const difficultyLabels = {
 
 function PracticeHeader({ data }: { data: QuizTask }) {
   const theme = useTheme();
+  const locale = useLocale();
 
   const difficultyLabel = difficultyLabels[data.difficulty] || 'Unknown';
 
@@ -23,7 +24,7 @@ function PracticeHeader({ data }: { data: QuizTask }) {
   return (
     <div className={styles.header} style={{ borderColor: theme.palette.divider }}>
       <div className={styles.headerLine}>
-        <Typography variant="h2">{data.title[LOCALE]}</Typography>
+        <Typography variant="h2">{data.title[locale]}</Typography>
 
         <DifficultyChip difficulty={data.difficulty}>{difficultyLabel}</DifficultyChip>
       </div>

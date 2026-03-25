@@ -5,13 +5,19 @@ import { type BaseTask, TaskType } from '@/core/types/quiz';
 // One answer option
 export interface SingleChoiceOption {
   id: string; // unique identifier
-  text: string; // option text
+  text: {
+    ru: string;
+    en: string;
+  };
 }
 
 // One question with multiple answer options
 export interface SingleChoiceQuestion {
   id: number; // question ID
-  text: string; // question text
+  text: {
+    ru: string;
+    en: string;
+  };
   options: SingleChoiceOption[];
 }
 

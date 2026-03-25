@@ -10,12 +10,12 @@ import QuizNavigation from '@/core/components/QuizNavigation/QuizNavigation';
 import Timer from './Timer/Timer';
 import { difficultySecondsConfig } from '@/core/configs/trueFalseWidget.config';
 import { LOCALE } from '@/core/configs/locale.config';
+import { submitQuizAnswers } from '@/core/api/submitQuizAnswers';
 
 type Answer = {
   questionId: string;
   payload: boolean;
   isTimeout?: boolean;
-  // isCorrect: boolean;
 };
 
 function TrueFalseWidget({ data }: { data: TrueFalseTask }) {
@@ -23,7 +23,7 @@ function TrueFalseWidget({ data }: { data: TrueFalseTask }) {
   const [selectedAnswer, setSelectedAnswered] = useState<boolean | null>(null);
   const [answers, setAnswers] = useState<Answer[]>([]);
 
-  const { questions, difficulty } = data;
+  const { questions, difficulty, id } = data;
   const { correct, statement, explanation } = questions[currentIndex];
 
   const answered = selectedAnswer !== null;
@@ -38,7 +38,6 @@ function TrueFalseWidget({ data }: { data: TrueFalseTask }) {
         questionId: questions[currentIndex].id,
         payload: selectedAnswer,
         isTimeout,
-        // isCorrect: selected === questions[currentIndex].correct, Можно легко и на фронте считать, согласовать с бэком
       };
       return updated;
     });
@@ -120,14 +119,16 @@ function TrueFalseWidget({ data }: { data: TrueFalseTask }) {
         questionsCount={questions.length}
         isAnswerGiven={answered}
         isBackAllowed={isSavedAnswer}
-        onAnswersSubmit={() => {
+        onAnswersSubmit={async () => {
           // убираю поле timeout, бэку не пригодится, ответ засчитывается неверным в payload
           const payload = answers.map((answer) => ({
-            questionId: answer.questionId,
-            payload: answer.payload,
+            question_id: answer.questionId,
+            answer: answer.payload,
           }));
           console.log('Submit', payload);
-        }} // Add answers submit
+
+          await submitQuizAnswers<boolean>(id, payload);
+        }}
       />
     </div>
   );

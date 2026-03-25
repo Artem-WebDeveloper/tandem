@@ -21,6 +21,7 @@ export default function CodeOrderingDragAndDrop({
 
   // получаем массив линий в нужном для отрисовки порядке
   let orderedLines: CodeLineData[] = [];
+
   if (savedLinesIds) {
     // если есть сохраненный ответ - пересортировываем линии с сервера так,
     // как их расставил пользователь в сохраненном ответе
@@ -35,7 +36,6 @@ export default function CodeOrderingDragAndDrop({
     orderedLines = codeLines;
   }
 
-  // получаем массив id для использования в dnd
   const orderedLinesIds = orderedLines.map((orderedLine) => orderedLine.id);
 
   return (

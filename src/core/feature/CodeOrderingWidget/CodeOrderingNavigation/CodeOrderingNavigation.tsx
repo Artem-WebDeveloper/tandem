@@ -27,7 +27,7 @@ export default function CodeOrderingNavigation({
       isAnswerGiven={
         !!currentAnswer && currentAnswer.payload.length === currentQuestion.codeLines.length
       }
-      onAnswersSubmit={() => {
+      onAnswersSubmit={async () => {
         console.log(answers);
       }} // Add answers submit
     />

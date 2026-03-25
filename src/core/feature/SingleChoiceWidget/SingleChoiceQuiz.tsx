@@ -60,7 +60,7 @@ export default function SingleChoiceQuiz({ data }: SingleChoiceQuizProps) {
     setCurrentIndex((prev) => prev - 1);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log('Submit answers:', userAnswers);
   };
 

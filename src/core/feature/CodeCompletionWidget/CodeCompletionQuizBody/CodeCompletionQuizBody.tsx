@@ -4,15 +4,17 @@ import { useCodeCompletionStore } from '@/core/store/codeCompletion.store';
 import TipsAndUpdatesTwoToneIcon from '@mui/icons-material/TipsAndUpdatesTwoTone';
 import CodeCompletionAnswerInput from './CodeCompletionAnswerInput/CodeCompletionAnswerInput';
 import ErrorNotification from '@/core/components/ErrorNotification/ErrorNotification';
-import { LOCALE } from '@/core/configs/locale.config';
 
 import styles from './CodeCompletionQuizBody.module.scss';
 
 import { useTranslation } from 'react-i18next';
+import { useLocale } from '@/core/i18n/useLocal';
 
 function CodeCompletionQuizBody({ questions }: { questions: CodeCompletionQuestion[] }) {
   const theme = useTheme();
   const { t } = useTranslation('practice');
+  const locale = useLocale();
+
   const currentQuestionNumber = useCodeCompletionStore((state) => state.currentQuestionNumber);
 
   if (!questions.length) return <ErrorNotification message={t('errors.missingQuestionForQuiz')} />;
@@ -39,7 +41,7 @@ function CodeCompletionQuizBody({ questions }: { questions: CodeCompletionQuesti
       </pre>
       <div className={styles.tip}>
         <TipsAndUpdatesTwoToneIcon />
-        <p>{hint[LOCALE]}</p>
+        <p>{hint[locale]}</p>
       </div>
     </div>
   );

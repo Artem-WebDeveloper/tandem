@@ -18,6 +18,7 @@ import CodeCompletionWidget from '../../core/feature/CodeCompletionWidget/CodeCo
 import { AppError, AppErrorCode } from '@/core/errors/errors';
 import SingleChoiceQuiz from '../../core/feature/SingleChoiceWidget/SingleChoiceQuiz';
 import AsyncSorterWidget from '@/core/feature/AsyncSorterWidget/AsyncSorterWidget';
+import CodeOrderingWidget from '@/core/feature/CodeOrderingWidget/CodeOrderingWidget';
 import TrueFalseWidget from '@/core/feature/TrueFalseWidget/TrueFalseWidget';
 
 export default function Practice() {
@@ -68,6 +69,9 @@ export default function Practice() {
 
       case TaskType.AsyncSorter:
         return <AsyncSorterWidget data={quizData} />;
+
+      case TaskType.CodeOrdering:
+        return <CodeOrderingWidget data={quizData} />;
 
       case TaskType.TrueFalse:
         return <TrueFalseWidget data={quizData} />;

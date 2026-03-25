@@ -23,7 +23,7 @@ function AsyncSorterNavigation({ questions }: { questions: AsyncSorterQuestion[]
       isAnswerGiven={
         !!currentAnswer && currentAnswer.payload.length === currentQuestion.blocks.length
       }
-      onAnswersSubmit={() => {
+      onAnswersSubmit={async () => {
         console.log(answers);
       }} // Add answers submit
     />

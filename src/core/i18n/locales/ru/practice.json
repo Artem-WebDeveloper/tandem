@@ -16,6 +16,13 @@
     "allPlaced": "Все цифры расставлены",
     "placeholder": "Ответ"
   },
+  "trueFalse": {
+    "timeNotification": "Время вышло",
+    "cardNotice": "Вам засчитан неверный ответ!",
+    "correctAnswer": "Утверждение -",
+    "right": "Верно!",
+    "wrong": "Неверно!"
+  },
   "codeOrdering": {
     "instruction": "Расставьте строки в правильном порядке"
   },

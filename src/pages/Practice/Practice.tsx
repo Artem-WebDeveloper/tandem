@@ -55,7 +55,7 @@ export default function Practice() {
     };
 
     fetchPracticeData();
-  }, [id, t]);
+  }, [id]);
 
   const renderQuiz = () => {
     if (!quizData) return null;

@@ -28,7 +28,7 @@ export const libraryData: LibraryResponse = {
     },
     {
       id: 'as-001',
-      type: 'single_choice',
+      type: 'async_sorter',
       difficulty: 3,
       title: {
         ru: 'Продвинутые концепции TS',
@@ -95,7 +95,7 @@ export const libraryData: LibraryResponse = {
       isFavorite: false,
     },
     {
-      id: 'sc-html-easy',
+      id: 'sc-001',
       type: 'single_choice',
       difficulty: 2,
       title: {

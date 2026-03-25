@@ -16,6 +16,13 @@
     "allPlaced": "All numbers are placed",
     "placeholder": "Answer"
   },
+  "trueFalse": {
+    "timeNotification": "Time is up",
+    "cardNotice": "Your answer has been marked incorrect!",
+    "correctAnswer": "Statement is",
+    "right": "Right!",
+    "wrong": "Wrong!"
+  },
   "codeOrdering": {
     "instruction": "Put the lines in the correct order"
   },

@@ -19,7 +19,7 @@ function CodeCompletionNavigation({ questions }: { questions: CodeCompletionQues
       decreaseQuestionNumber={decreaseQuestionNumber}
       questionsCount={questions.length}
       isAnswerGiven={!!currentAnswer && currentAnswer.payload.length > 0}
-      onAnswersSubmit={() => {
+      onAnswersSubmit={async () => {
         console.log(answers);
       }} // Add answers submit
     />

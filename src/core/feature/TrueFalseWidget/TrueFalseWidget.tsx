@@ -9,21 +9,22 @@ import CardAnswer from './CardAnswer/CardAnswer';
 import QuizNavigation from '@/core/components/QuizNavigation/QuizNavigation';
 import Timer from './Timer/Timer';
 import { difficultySecondsConfig } from '@/core/configs/trueFalseWidget.config';
-import { LOCALE } from '@/core/configs/locale.config';
+import { useLocale } from '@/core/i18n/useLocal';
 
 type Answer = {
   questionId: string;
   payload: boolean;
   isTimeout?: boolean;
-  // isCorrect: boolean;
 };
 
 function TrueFalseWidget({ data }: { data: TrueFalseTask }) {
+  const locale = useLocale();
+
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [selectedAnswer, setSelectedAnswered] = useState<boolean | null>(null);
   const [answers, setAnswers] = useState<Answer[]>([]);
 
-  const { questions, difficulty } = data;
+  const { questions, difficulty, id } = data;
   const { correct, statement, explanation } = questions[currentIndex];
 
   const answered = selectedAnswer !== null;
@@ -38,7 +39,6 @@ function TrueFalseWidget({ data }: { data: TrueFalseTask }) {
         questionId: questions[currentIndex].id,
         payload: selectedAnswer,
         isTimeout,
-        // isCorrect: selected === questions[currentIndex].correct, Можно легко и на фронте считать, согласовать с бэком
       };
       return updated;
     });
@@ -82,7 +82,7 @@ function TrueFalseWidget({ data }: { data: TrueFalseTask }) {
         )}
 
         <Typography variant="h3" lineHeight={1.6} fontSize={18}>
-          {statement[LOCALE]}
+          {statement[locale]}
         </Typography>
 
         <section className={styles.answers}>
@@ -106,7 +106,7 @@ function TrueFalseWidget({ data }: { data: TrueFalseTask }) {
           <Box sx={{ pb: 1 }}>
             <Fade in={answered} timeout={500} style={{ transitionDelay: '400ms' }}>
               <Typography>
-                <TipsAndUpdatesTwoToneIcon sx={{ translate: '0 3px' }} /> {explanation[LOCALE]}
+                <TipsAndUpdatesTwoToneIcon sx={{ translate: '0 3px' }} /> {explanation[locale]}
               </Typography>
             </Fade>
           </Box>
@@ -120,14 +120,16 @@ function TrueFalseWidget({ data }: { data: TrueFalseTask }) {
         questionsCount={questions.length}
         isAnswerGiven={answered}
         isBackAllowed={isSavedAnswer}
-        onAnswersSubmit={() => {
+        onAnswersSubmit={async () => {
           // убираю поле timeout, бэку не пригодится, ответ засчитывается неверным в payload
           const payload = answers.map((answer) => ({
-            questionId: answer.questionId,
-            payload: answer.payload,
+            question_id: answer.questionId,
+            answer: answer.payload,
           }));
           console.log('Submit', payload);
-        }} // Add answers submit
+
+          await submitQuizAnswers<boolean>(id, payload);
+        }}
       />
     </div>
   );

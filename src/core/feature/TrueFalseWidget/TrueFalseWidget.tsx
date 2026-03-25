@@ -20,7 +20,6 @@ type Answer = {
 
 function TrueFalseWidget({ data }: { data: TrueFalseTask }) {
   const locale = useLocale();
-  console.log(locale);
 
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [selectedAnswer, setSelectedAnswered] = useState<boolean | null>(null);

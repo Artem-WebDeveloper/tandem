@@ -16,6 +16,13 @@
     "allPlaced": "Все цифры расставлены",
     "placeholder": "Ответ"
   },
+  "trueFalse": {
+    "timeNotification": "Время вышло",
+    "cardNotice": "Вам засчитан неверный ответ!",
+    "correctAnswer": "Утверждение -",
+    "right": "Верно!",
+    "wrong": "Неверно!"
+  },
   "errors": {
     "quizNotFound": "Квиз с id {{id}} не найден",
     "unknownQuizType": "Неизвестный тип квиза",

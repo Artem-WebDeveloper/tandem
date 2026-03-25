@@ -6,6 +6,7 @@ import ThumbDownRoundedIcon from '@mui/icons-material/ThumbDownRounded';
 import HourglassBottomTwoToneIcon from '@mui/icons-material/HourglassBottomTwoTone';
 
 import styles from './CardAnswer.module.scss';
+import { useTranslation } from 'react-i18next';
 
 type CardAnswerProps = {
   selectedAnswer: boolean | null;
@@ -23,6 +24,7 @@ function CardAnswer({
   isTimeout,
 }: CardAnswerProps) {
   const theme = useTheme();
+  const { t } = useTranslation('practice');
 
   const answered = selectedAnswer !== null;
   const isCardSelected = selectedAnswer === cardType; // если выбранный ответ соответствует типу карточки, значит выбрана именно эта карточка, ее переворачиваем
@@ -64,12 +66,12 @@ function CardAnswer({
         {isTimeout && isCardSelected ? (
           <Box textAlign="center">
             <Typography sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <span>Время вышло</span>
+              <span>{t('trueFalse.timeNotification')}</span>
               <HourglassBottomTwoToneIcon />
             </Typography>
-            <Typography sx={{ mb: 1.8 }}>Вам засчитан неверный ответ!</Typography>
+            <Typography sx={{ mb: 1.8 }}>{t('trueFalse.cardNotice')}</Typography>
             <Typography fontWeight={600}>
-              Утверждение - {correctStatement ? 'TRUE' : 'FALSE'}
+              {t('trueFalse.correctAnswer')} {correctStatement ? 'TRUE' : 'FALSE'}
             </Typography>
           </Box>
         ) : (
@@ -78,7 +80,9 @@ function CardAnswer({
             <Fade timeout={1800} in={answered}>
               {backIcon}
             </Fade>
-            <Typography fontSize="large"> {isRightAnswer ? 'Верно!' : 'Неверно!'}</Typography>
+            <Typography fontSize="large">
+              {isRightAnswer ? t('trueFalse.right') : t('trueFalse.wrong')}
+            </Typography>
           </>
         )}
       </Box>

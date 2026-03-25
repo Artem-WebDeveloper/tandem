@@ -17,6 +17,7 @@ import QuizNavigation from '@/core/components/QuizNavigation/QuizNavigation';
 
 import styles from './singleChoiceQuiz.module.scss';
 import { useTranslation } from 'react-i18next';
+import { useLocale } from '@/core/i18n/useLocal';
 
 interface SingleChoiceQuizProps {
   data: SingleChoiceTaskResponse;
@@ -26,6 +27,7 @@ export default function SingleChoiceQuiz({ data }: SingleChoiceQuizProps) {
   const theme = useTheme();
 
   const { t } = useTranslation('practice');
+  const locale = useLocale();
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState<UserAnswer[]>([]);
@@ -72,12 +74,11 @@ export default function SingleChoiceQuiz({ data }: SingleChoiceQuizProps) {
       <Typography
         variant="h3"
         sx={{
-          mt: -3,
-          mb: 2,
+          mb: 1.2,
           fontSize: { xs: '1rem', sm: '1.25rem' },
         }}
       >
-        {currentQuestion.text}
+        {currentQuestion.text[locale]}
       </Typography>
 
       <FormControl component="fieldset" sx={{ width: '100%' }}>
@@ -107,7 +108,7 @@ export default function SingleChoiceQuiz({ data }: SingleChoiceQuizProps) {
                       fontWeight: 500,
                     }}
                   >
-                    {option.text}
+                    {option.text[locale]}
                   </Typography>
                 }
                 sx={{

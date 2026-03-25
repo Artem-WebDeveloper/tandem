@@ -2,8 +2,9 @@ import type { QuizTask } from '../types/quiz';
 import { fetchAsyncSorterById } from './asyncSorterApi/fetchAsyncSorterById';
 import { fetchCodeCompletionById } from './codeCompletionApi/fetchCodeCompletionById';
 import { fetchSingleChoiceById } from './singleChoiceApi/fetchSingleChoiceById';
-import { AppError, AppErrorCode } from '@/core/errors/errors';
+import { fetchCodeOrderingById } from './codeOrderingApi/fetchCodeOrderingById';
 import { fetchTrueFalseById } from './trueFalseApi/fetchTrueFalseById';
+import { AppError, AppErrorCode } from '@/core/errors/errors';
 
 import axiosInstance from './config/axiosInstance';
 
@@ -21,6 +22,8 @@ export async function fetchQuizById(id: string): Promise<QuizTask> {
         return fetchCodeCompletionById(id);
       case 'as':
         return fetchAsyncSorterById(id);
+      case 'co':
+        return fetchCodeOrderingById(id);
       case 'tf':
         return fetchTrueFalseById(id);
       default:

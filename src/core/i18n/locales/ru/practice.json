@@ -23,6 +23,9 @@
     "right": "Верно!",
     "wrong": "Неверно!"
   },
+  "codeOrdering": {
+    "instruction": "Расставьте строки в правильном порядке"
+  },
   "errors": {
     "quizNotFound": "Квиз с id {{id}} не найден",
     "unknownQuizType": "Неизвестный тип квиза",

@@ -2,6 +2,7 @@ import type { SingleChoiceTaskResponse } from '../feature/SingleChoiceWidget/typ
 import type { CodeCompletionTask } from '../feature/CodeCompletionWidget/types';
 import type { AsyncSorterTask } from '../feature/AsyncSorterWidget/types';
 import type { TrueFalseTask } from '../feature/TrueFalseWidget/types';
+import type { CodeOrderingTask } from '../feature/CodeOrderingWidget/types';
 
 // Universal types
 
@@ -12,7 +13,8 @@ export type QuizTask =
   | SingleChoiceTaskResponse
   | CodeCompletionTask
   | AsyncSorterTask
-  | TrueFalseTask;
+  | TrueFalseTask
+  | CodeOrderingTask;
 
 // Task themes - add here when a new Theme appears
 export type TaskTheme = 'Core JS' | 'TypeScript' | 'React' | 'HTML' | 'Algorithms';
@@ -30,6 +32,7 @@ export const TaskType = {
   SingleChoice: 'single_choice',
   CodeCompletion: 'code_completion',
   AsyncSorter: 'async_sorter',
+  CodeOrdering: 'code_ordering',
   TrueFalse: 'true_false',
 
   //CodeCompletion: 'Code Completion', Gleb's code type of quiz

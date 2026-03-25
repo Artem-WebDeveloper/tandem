@@ -23,6 +23,9 @@
     "right": "Right!",
     "wrong": "Wrong!"
   },
+  "codeOrdering": {
+    "instruction": "Put the lines in the correct order"
+  },
   "errors": {
     "quizNotFound": "Quiz with id {{id}} not found",
     "unknownQuizType": "Unknown quiz type",

@@ -5,15 +5,17 @@ import CodeCompletionNavigation from './CodeCompletionNavigation/CodeCompletionN
 import CodeCompletionProgress from './CodeCompletionProgress/CodeCompletionProgress';
 
 function CodeCompletionWidget({ data }: { data: CodeCompletionTask }) {
-  const questionsCount = data.questions.length;
+  const { questions, id } = data;
+
+  const questionsCount = questions.length;
 
   return (
     <div>
       <CodeCompletionProgress questionsCount={questionsCount} />
 
-      <CodeCompletionQuizBody questions={data.questions} />
+      <CodeCompletionQuizBody questions={questions} />
 
-      <CodeCompletionNavigation questions={data.questions} />
+      <CodeCompletionNavigation questions={questions} quizId={id} />
     </div>
   );
 }

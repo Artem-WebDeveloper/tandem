@@ -11,7 +11,7 @@ export default function CodeOrderingDragAndDrop({
   currentQuestionId,
 }: {
   codeLines: CodeLineData[];
-  currentQuestionId: string;
+  currentQuestionId: number;
 }) {
   const setAnswer = useCodeOrderingStore((state) => state.setAnswer);
   const answers = useCodeOrderingStore((state) => state.answers);

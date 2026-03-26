@@ -10,9 +10,10 @@ import QuizNavigation from '@/core/components/QuizNavigation/QuizNavigation';
 import Timer from './Timer/Timer';
 import { difficultySecondsConfig } from '@/core/configs/trueFalseWidget.config';
 import { useLocale } from '@/core/i18n/useLocal';
+import { submitQuizAnswers } from '@/core/api/submitQuizAnswers';
 
 type Answer = {
-  questionId: string;
+  questionId: number;
   payload: boolean;
   isTimeout?: boolean;
 };

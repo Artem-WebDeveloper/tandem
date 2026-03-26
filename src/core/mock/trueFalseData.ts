@@ -2,7 +2,7 @@ import type { TrueFalseTask } from '../feature/TrueFalseWidget/types';
 
 export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
   {
-    id: 'tf-001',
+    id: 401,
     type: 'true_false',
     difficulty: 2,
     section: 'Core-js',
@@ -14,7 +14,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
     },
     questions: [
       {
-        id: '1',
+        id: 1,
         statement: {
           ru: 'Метод Promise.all() возвращает результаты в порядке завершения промисов.',
           en: 'The method Promise.all() returns results in the order of completion of the promises.',
@@ -26,7 +26,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '2',
+        id: 2,
         statement: {
           ru: 'Метод Promise.resolve() используется для создания отклоненного промиса.',
           en: 'The method Promise.resolve() is used to create a rejected promise.',
@@ -38,7 +38,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '3',
+        id: 3,
         statement: {
           ru: 'Метод Promise.all() работает только с массивами Promise объектов.',
           en: 'The method Promise.all() works only with arrays of Promise objects.',
@@ -50,7 +50,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '4',
+        id: 4,
         statement: {
           ru: 'Promise в JavaScript всегда выполняется асинхронно, даже если промис немедленно решен.',
           en: 'Promises in JavaScript always execute asynchronously, even if the promise is immediately resolved.',
@@ -62,7 +62,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '5',
+        id: 5,
         statement: {
           ru: 'Метод .then() возвращает новый Promise, который можно использовать для цепочки операций.',
           en: 'The method .then() returns a new Promise that can be used for chaining operations.',
@@ -74,7 +74,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '6',
+        id: 6,
         statement: {
           ru: 'Метод Promise.all() может обрабатывать как асинхронные функции, так и синхронные.',
           en: 'The method Promise.all() can handle both asynchronous and synchronous functions.',
@@ -86,7 +86,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '7',
+        id: 7,
         statement: {
           ru: 'Promise.all() завершится сразу же, как только один из промисов завершится с ошибкой.',
           en: 'Promise.all() will finish as soon as one of the promises completes with an error.',
@@ -100,7 +100,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
     ],
   },
   {
-    id: 'tf-002',
+    id: 402,
     type: 'true_false',
     difficulty: 3,
     section: 'TypeScript',
@@ -112,7 +112,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
     },
     questions: [
       {
-        id: '1',
+        id: 1,
         statement: {
           ru: 'TypeScript не поддерживает типы данных, такие как null или undefined.',
           en: 'TypeScript does not support data types like null or undefined.',
@@ -124,7 +124,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '2',
+        id: 2,
         statement: {
           ru: 'TypeScript поддерживает только строгую типизацию.',
           en: 'TypeScript only supports strict typing.',
@@ -136,7 +136,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '3',
+        id: 3,
         statement: {
           ru: 'Generics в TypeScript позволяют создавать обобщенные компоненты для работы с разными типами данных.',
           en: 'Generics in TypeScript allow creating generic components to work with different data types.',
@@ -148,7 +148,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '4',
+        id: 4,
         statement: {
           ru: 'TypeScript не поддерживает декораторы (decorators) в классовых компонентах.',
           en: 'TypeScript does not support decorators in class components.',
@@ -160,7 +160,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '5',
+        id: 5,
         statement: {
           ru: 'Interfaces в TypeScript не могут содержать реализации методов.',
           en: 'Interfaces in TypeScript cannot contain method implementations.',
@@ -172,7 +172,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '6',
+        id: 6,
         statement: {
           ru: 'TypeScript поддерживает перегрузку функций (function overloading).',
           en: 'TypeScript supports function overloading.',
@@ -184,7 +184,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '7',
+        id: 7,
         statement: {
           ru: 'В TypeScript переменная с типом string всегда может быть использована как number.',
           en: 'In TypeScript, a variable of type string can always be used as a number.',
@@ -196,7 +196,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '8',
+        id: 8,
         statement: {
           ru: 'Перечисления в TypeScript могут быть строковыми или числовыми.',
           en: 'Enums in TypeScript can be either string or numeric.',
@@ -208,7 +208,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '9',
+        id: 9,
         statement: {
           ru: 'С помощью TypeScript можно создать тип, который будет совместим с несколькими другими типами.',
           en: 'With TypeScript, you can create a type that is compatible with multiple other types.',
@@ -220,7 +220,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '10',
+        id: 10,
         statement: {
           ru: 'TypeScript всегда будет выявлять ошибки типов при компиляции, независимо от настроек компилятора.',
           en: 'TypeScript will always detect type errors during compilation, regardless of compiler settings.',
@@ -232,7 +232,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '11',
+        id: 11,
         statement: {
           ru: 'TypeScript поддерживает условные типы, которые могут быть использованы для условной проверки типов.',
           en: 'TypeScript supports conditional types, which can be used for conditional type checking.',
@@ -246,7 +246,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
     ],
   },
   {
-    id: 'tf-003',
+    id: 403,
     type: 'true_false',
     difficulty: 2,
     section: 'React',
@@ -258,7 +258,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
     },
     questions: [
       {
-        id: '1',
+        id: 1,
         statement: {
           ru: 'React использует виртуальный DOM для улучшения производительности.',
           en: 'React uses virtual DOM to improve performance.',
@@ -270,7 +270,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '2',
+        id: 2,
         statement: {
           ru: 'Хуки в React могут быть использованы только внутри функциональных компонентов.',
           en: 'Hooks in React can only be used inside functional components.',
@@ -282,7 +282,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '3',
+        id: 3,
         statement: {
           ru: 'State в React всегда должен быть изменен с помощью метода setState, даже в функциональных компонентах.',
           en: 'State in React should always be changed using the setState method, even in functional components.',
@@ -294,7 +294,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '4',
+        id: 4,
         statement: {
           ru: 'React компоненты могут быть как функциональными, так и классовыми.',
           en: 'React components can be both functional and class-based.',
@@ -306,7 +306,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '5',
+        id: 5,
         statement: {
           ru: 'React не поддерживает передачу данных между компонентами через props.',
           en: 'React does not support passing data between components via props.',
@@ -318,7 +318,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '6',
+        id: 6,
         statement: {
           ru: 'React предоставляет встроенную систему роутинга через библиотеку React Router.',
           en: 'React provides a built-in routing system via the React Router library.',
@@ -330,7 +330,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '7',
+        id: 7,
         statement: {
           ru: 'Хуки useEffect и useLayoutEffect имеют одинаковое поведение.',
           en: 'The hooks useEffect and useLayoutEffect behave the same.',
@@ -342,7 +342,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '8',
+        id: 8,
         statement: {
           ru: 'React поддерживает одностороннюю привязку данных (one-way data binding).',
           en: 'React supports one-way data binding.',
@@ -354,7 +354,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '9',
+        id: 9,
         statement: {
           ru: 'Компоненты React всегда должны возвращать только один элемент.',
           en: 'React components must always return only one element.',
@@ -366,7 +366,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '10',
+        id: 10,
         statement: {
           ru: 'React предоставляет возможность использовать напрямую состояние браузера через useState.',
           en: 'React provides the ability to use browser state directly through useState.',
@@ -380,7 +380,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
     ],
   },
   {
-    id: 'tf-004',
+    id: 404,
     type: 'true_false',
     difficulty: 2,
     section: 'HTML',
@@ -392,7 +392,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
     },
     questions: [
       {
-        id: '1',
+        id: 1,
         statement: {
           ru: 'Тег <form> используется для создания таблиц в HTML.',
           en: 'The <form> tag is used for creating tables in HTML.',
@@ -404,7 +404,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '2',
+        id: 2,
         statement: {
           ru: 'Атрибут href в теге <a> указывает URL ссылки.',
           en: 'The href attribute in the <a> tag specifies the URL of the link.',
@@ -416,7 +416,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '3',
+        id: 3,
         statement: {
           ru: 'Семантические элементы HTML, такие как <header>, <footer>, <section>, помогают улучшить доступность страницы.',
           en: 'Semantic HTML elements like <header>, <footer>, <section> improve page accessibility.',
@@ -428,7 +428,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '4',
+        id: 4,
         statement: {
           ru: 'В HTML можно использовать только один <head> и один <body> на страницу.',
           en: 'In HTML, you can use only one <head> and one <body> per page.',
@@ -440,7 +440,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '5',
+        id: 5,
         statement: {
           ru: 'Элемент <input type="text"> используется для отображения кнопки.',
           en: 'The <input type="text"> element is used for displaying a button.',
@@ -452,7 +452,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '6',
+        id: 6,
         statement: {
           ru: 'Тег <img> используется для вставки изображений на страницу.',
           en: 'The <img> tag is used to insert images into the page.',
@@ -464,7 +464,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '7',
+        id: 7,
         statement: {
           ru: 'HTML5 поддерживает аудио и видео теги для работы с мультимедийными файлами.',
           en: 'HTML5 supports audio and video tags for working with multimedia files.',
@@ -476,7 +476,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '8',
+        id: 8,
         statement: {
           ru: 'Элемент <link> используется для подключения JavaScript файлов к странице.',
           en: 'The <link> element is used to link JavaScript files to the page.',
@@ -490,7 +490,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
     ],
   },
   {
-    id: 'tf-005',
+    id: 405,
     type: 'true_false',
     difficulty: 3,
     section: 'Algorithms',
@@ -502,7 +502,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
     },
     questions: [
       {
-        id: '1',
+        id: 1,
         statement: {
           ru: 'Алгоритм сортировки пузырьком работает за время O(n^2).',
           en: 'Bubble sort algorithm works in O(n^2) time.',
@@ -514,7 +514,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '2',
+        id: 2,
         statement: {
           ru: 'Поиск в глубину (DFS) всегда находит наикратший путь в графе.',
           en: 'Depth First Search (DFS) always finds the shortest path in a graph.',
@@ -526,7 +526,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '3',
+        id: 3,
         statement: {
           ru: 'Алгоритм Дейкстры используется для нахождения кратчайшего пути в графе с отрицательными весами.',
           en: "Dijkstra's algorithm is used to find the shortest path in graphs with negative weights.",
@@ -538,7 +538,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '4',
+        id: 4,
         statement: {
           ru: 'Динамическое программирование используется для решения задач, которые могут быть разделены на подзадачи.',
           en: 'Dynamic programming is used to solve problems that can be divided into subproblems.',
@@ -550,7 +550,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '5',
+        id: 5,
         statement: {
           ru: 'Алгоритм быстрой сортировки имеет сложность O(n log n) в худшем случае.',
           en: 'Quick sort has a time complexity of O(n log n) in the worst case.',
@@ -562,7 +562,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '6',
+        id: 6,
         statement: {
           ru: 'Алгоритм Кнута-Морриса-Пратта (KMP) использует предварительное вычисление частичных совпадений.',
           en: 'The Knuth-Morris-Pratt (KMP) algorithm uses precomputed partial matches.',
@@ -574,7 +574,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '7',
+        id: 7,
         statement: {
           ru: 'Алгоритм слияния (Merge Sort) работает за время O(n log n).',
           en: 'Merge Sort algorithm works in O(n log n) time.',
@@ -586,7 +586,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '8',
+        id: 8,
         statement: {
           ru: 'Графы могут быть ориентированными и неориентированными.',
           en: 'Graphs can be directed and undirected.',
@@ -598,7 +598,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
         },
       },
       {
-        id: '9',
+        id: 9,
         statement: {
           ru: 'Алгоритм Флойда-Уоршелла находит кратчайшие пути между всеми парами вершин в графе.',
           en: 'The Floyd-Warshall algorithm finds the shortest paths between all pairs of vertices in a graph.',

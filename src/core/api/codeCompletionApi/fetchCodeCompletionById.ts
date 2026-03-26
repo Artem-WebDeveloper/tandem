@@ -2,7 +2,7 @@ import type { CodeCompletionTask } from '@/core/feature/CodeCompletionWidget/typ
 import { MOCK_CODE_COMPLETION_DATA } from '@/core/mock/codeCompletionData';
 import { AppError, AppErrorCode } from '@/core/errors/errors';
 
-export function fetchCodeCompletionById(id: string): Promise<CodeCompletionTask> {
+export function fetchCodeCompletionById(id: number): Promise<CodeCompletionTask> {
   return new Promise<CodeCompletionTask>((resolve, reject) => {
     setTimeout(() => {
       const data = MOCK_CODE_COMPLETION_DATA.find((quiz) => quiz.id === id);

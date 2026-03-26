@@ -42,7 +42,7 @@ export type TaskType = (typeof TaskType)[keyof typeof TaskType];
 
 // A universal set of fields for any quiz to render in practice.tsx
 export interface BaseTask {
-  id: string;
+  id: number;
   type: TaskType;
   section: string;
   difficulty: Difficulty;

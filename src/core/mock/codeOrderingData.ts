@@ -3,7 +3,7 @@ import type { CodeOrderingTask } from '../feature/CodeOrderingWidget/types';
 export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
   // easy
   {
-    id: 'co-001',
+    id: 301,
     type: 'code_ordering',
     time_limit: 8,
     title: {
@@ -15,7 +15,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
     tags: ['variables', 'conditions', 'functions'],
     questions: [
       {
-        id: '1',
+        id: 1,
         text: {
           ru: 'Соберите функцию clamp для ограничения числа',
           en: 'Assemble a clamp function for limiting a number',
@@ -50,7 +50,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
         ],
       },
       {
-        id: '2',
+        id: 2,
         text: {
           ru: 'Соберите функцию проверки доступа по возрасту',
           en: 'Assemble an access check by age function',
@@ -70,7 +70,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
         ],
       },
       {
-        id: '3',
+        id: 3,
         text: {
           ru: 'Соберите функцию вычисления скидочной цены',
           en: 'Assemble a discounted price calculation function',
@@ -100,7 +100,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
         ],
       },
       {
-        id: '4',
+        id: 4,
         text: {
           ru: 'Соберите функцию приветствия с fallback',
           en: 'Assemble a greeting function with fallback',
@@ -124,7 +124,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
   },
 
   {
-    id: 'co-002',
+    id: 302,
     type: 'code_ordering',
     time_limit: 8,
     title: {
@@ -136,7 +136,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
     tags: ['strings', 'numbers', 'template-literals'],
     questions: [
       {
-        id: '1',
+        id: 1,
         text: {
           ru: 'Соберите функцию нормализации email',
           en: 'Assemble an email normalization function',
@@ -156,7 +156,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
         ],
       },
       {
-        id: '2',
+        id: 2,
         text: {
           ru: 'Соберите функцию форматирования валюты',
           en: 'Assemble a currency formatting function',
@@ -171,7 +171,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
         ],
       },
       {
-        id: '3',
+        id: 3,
         text: {
           ru: 'Соберите функцию подсчёта слов в строке',
           en: 'Assemble a word counting function for a string',
@@ -191,7 +191,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
         ],
       },
       {
-        id: '4',
+        id: 4,
         text: {
           ru: 'Соберите функцию получения инициалов',
           en: 'Assemble an initials getter function',
@@ -224,7 +224,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
   },
 
   {
-    id: 'co-003',
+    id: 303,
     type: 'code_ordering',
     time_limit: 8,
     title: {
@@ -236,7 +236,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
     tags: ['arrays', 'loops', 'conditions'],
     questions: [
       {
-        id: '1',
+        id: 1,
         text: {
           ru: 'Соберите функцию суммы положительных чисел',
           en: 'Assemble a positive numbers sum function',
@@ -257,7 +257,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
         ],
       },
       {
-        id: '2',
+        id: 2,
         text: {
           ru: 'Соберите функцию поиска индекса элемента',
           en: 'Assemble an element index search function',
@@ -282,7 +282,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
         ],
       },
       {
-        id: '3',
+        id: 3,
         text: {
           ru: 'Соберите функцию разворота массива циклом',
           en: 'Assemble a loop-based array reverse function',
@@ -303,7 +303,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
         ],
       },
       {
-        id: '4',
+        id: 4,
         text: {
           ru: 'Соберите функцию подсчёта чётных значений',
           en: 'Assemble an even values count function',
@@ -323,7 +323,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
 
   // medium
   {
-    id: 'co-004',
+    id: 304,
     type: 'code_ordering',
     time_limit: 10,
     title: {
@@ -335,7 +335,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
     tags: ['array-methods', 'filter', 'reduce'],
     questions: [
       {
-        id: '1',
+        id: 1,
         text: {
           ru: 'Соберите функцию фильтрации и сортировки цен',
           en: 'Assemble a prices filter and sort function',
@@ -370,7 +370,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
         ],
       },
       {
-        id: '2',
+        id: 2,
         text: {
           ru: 'Соберите функцию группировки слов по длине',
           en: 'Assemble a words grouping by length function',
@@ -392,7 +392,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
         ],
       },
       {
-        id: '3',
+        id: 3,
         text: {
           ru: 'Соберите функцию суммы уникальных значений',
           en: 'Assemble a unique values sum function',
@@ -418,7 +418,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
         ],
       },
       {
-        id: '4',
+        id: 4,
         text: {
           ru: 'Соберите функцию подготовки списка имён',
           en: 'Assemble a names list preparation function',
@@ -451,7 +451,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
   },
 
   {
-    id: 'co-005',
+    id: 305,
     type: 'code_ordering',
     time_limit: 10,
     title: {
@@ -463,7 +463,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
     tags: ['objects', 'spread', 'destructuring'],
     questions: [
       {
-        id: '1',
+        id: 1,
         text: {
           ru: 'Соберите функцию безопасного чтения профиля',
           en: 'Assemble a safe profile reading function',
@@ -488,7 +488,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
         ],
       },
       {
-        id: '2',
+        id: 2,
         text: {
           ru: 'Соберите функцию обновления вложенного флага',
           en: 'Assemble a nested flag update function',
@@ -508,7 +508,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
         ],
       },
       {
-        id: '3',
+        id: 3,
         text: {
           ru: 'Соберите функцию сравнения объектов настроек',
           en: 'Assemble a settings objects comparison function',
@@ -533,7 +533,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
         ],
       },
       {
-        id: '4',
+        id: 4,
         text: {
           ru: 'Соберите функцию выбора публичных полей',
           en: 'Assemble a public fields selection function',
@@ -571,7 +571,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
   },
 
   {
-    id: 'co-006',
+    id: 306,
     type: 'code_ordering',
     time_limit: 10,
     title: {
@@ -583,7 +583,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
     tags: ['async', 'promises', 'fetch'],
     questions: [
       {
-        id: '1',
+        id: 1,
         text: {
           ru: 'Соберите функцию загрузки JSON с проверкой статуса',
           en: 'Assemble a JSON loader with status check',
@@ -613,7 +613,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
         ],
       },
       {
-        id: '2',
+        id: 2,
         text: {
           ru: 'Соберите функцию retry с двумя попытками',
           en: 'Assemble a retry function with two attempts',
@@ -629,7 +629,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
         ],
       },
       {
-        id: '3',
+        id: 3,
         text: {
           ru: 'Соберите функцию параллельной загрузки профиля и задач',
           en: 'Assemble a parallel profile and tasks loading function',
@@ -664,7 +664,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
         ],
       },
       {
-        id: '4',
+        id: 4,
         text: {
           ru: 'Соберите функцию safeRequest с fallback',
           en: 'Assemble a safeRequest function with fallback',
@@ -695,7 +695,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
 
   // hard
   {
-    id: 'co-007',
+    id: 307,
     type: 'code_ordering',
     time_limit: 12,
     title: {
@@ -707,7 +707,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
     tags: ['closures', 'currying', 'composition'],
     questions: [
       {
-        id: '1',
+        id: 1,
         text: {
           ru: 'Соберите реализацию memoize для нескольких аргументов',
           en: 'Assemble memoize implementation for multiple arguments',
@@ -741,7 +741,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
         ],
       },
       {
-        id: '2',
+        id: 2,
         text: {
           ru: 'Соберите compose для массива функций',
           en: 'Assemble compose for an array of functions',
@@ -762,7 +762,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
         ],
       },
       {
-        id: '3',
+        id: 3,
         text: {
           ru: 'Соберите curry для функции из трёх аргументов',
           en: 'Assemble curry for a three-argument function',
@@ -780,7 +780,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
         ],
       },
       {
-        id: '4',
+        id: 4,
         text: {
           ru: 'Соберите debounce с сохранением контекста',
           en: 'Assemble debounce with context preservation',
@@ -801,7 +801,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
   },
 
   {
-    id: 'co-008',
+    id: 308,
     type: 'code_ordering',
     time_limit: 12,
     title: {
@@ -813,7 +813,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
     tags: ['arrays', 'map', 'set'],
     questions: [
       {
-        id: '1',
+        id: 1,
         text: {
           ru: 'Соберите функцию deepClone для объектов и массивов',
           en: 'Assemble a deepClone function for objects and arrays',
@@ -845,7 +845,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
         ],
       },
       {
-        id: '2',
+        id: 2,
         text: {
           ru: 'Соберите функцию flatten для вложенного массива',
           en: 'Assemble a flatten function for nested array',
@@ -872,7 +872,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
         ],
       },
       {
-        id: '3',
+        id: 3,
         text: {
           ru: 'Соберите deepEqual для плоских объектов',
           en: 'Assemble deepEqual for flat objects',
@@ -904,7 +904,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
         ],
       },
       {
-        id: '4',
+        id: 4,
         text: {
           ru: 'Соберите функцию groupBy для массива объектов',
           en: 'Assemble a groupBy function for object array',
@@ -934,7 +934,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
   },
 
   {
-    id: 'co-009',
+    id: 309,
     type: 'code_ordering',
     time_limit: 12,
     title: {
@@ -946,7 +946,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
     tags: ['promises', 'retry', 'timeout'],
     questions: [
       {
-        id: '1',
+        id: 1,
         text: {
           ru: 'Соберите withTimeout для асинхронной операции',
           en: 'Assemble withTimeout for async operation',
@@ -982,7 +982,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
         ],
       },
       {
-        id: '2',
+        id: 2,
         text: {
           ru: 'Соберите функцию последовательного выполнения задач',
           en: 'Assemble a sequential tasks execution function',
@@ -1004,7 +1004,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
         ],
       },
       {
-        id: '3',
+        id: 3,
         text: {
           ru: 'Соберите функцию allSettledSummary',
           en: 'Assemble an allSettledSummary function',
@@ -1040,7 +1040,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
         ],
       },
       {
-        id: '4',
+        id: 4,
         text: {
           ru: 'Соберите функцию повторов с паузой',
           en: 'Assemble a retries with delay function',

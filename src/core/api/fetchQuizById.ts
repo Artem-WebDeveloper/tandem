@@ -8,26 +8,21 @@ import { AppError, AppErrorCode } from '@/core/errors/errors';
 
 import axiosInstance from './config/axiosInstance';
 
-export async function fetchQuizById(id: string): Promise<QuizTask> {
+export async function fetchQuizById(id: number): Promise<QuizTask> {
   if (import.meta.env.VITE_API_MODE === 'api') {
     const res = await axiosInstance.get<QuizTask>(`/quizzes/${id}/`);
     return res.data;
   } else {
-    const quizType = id.split('-')[0];
+    if (id < 100) return await fetchSingleChoiceById(id);
 
-    switch (quizType) {
-      case 'sc':
-        return fetchSingleChoiceById(id);
-      case 'cc':
-        return fetchCodeCompletionById(id);
-      case 'as':
-        return fetchAsyncSorterById(id);
-      case 'co':
-        return fetchCodeOrderingById(id);
-      case 'tf':
-        return fetchTrueFalseById(id);
-      default:
-        throw new AppError(AppErrorCode.UNKNOWN_QUIZ_TYPE);
-    }
+    if (id < 200) return await fetchCodeCompletionById(id);
+
+    if (id < 300) return await fetchAsyncSorterById(id);
+
+    if (id < 400) return await fetchCodeOrderingById(id);
+
+    if (id < 500) return await fetchTrueFalseById(id);
+
+    throw new AppError(AppErrorCode.UNKNOWN_QUIZ_TYPE);
   }
 }

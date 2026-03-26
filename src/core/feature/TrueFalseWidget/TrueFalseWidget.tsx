@@ -11,6 +11,12 @@ import Timer from './Timer/Timer';
 import { difficultySecondsConfig } from '@/core/configs/trueFalseWidget.config';
 import { useLocale } from '@/core/i18n/useLocal';
 import { submitQuizAnswers } from '@/core/api/submitQuizAnswers';
+import type {
+  TrueFalseUserAnswerPayload,
+  QuizAnswer,
+  QuizResults,
+  UserAnswerPayload,
+} from '@/core/api/submitQuizAnswers';
 
 type Answer = {
   questionId: number;
@@ -18,7 +24,13 @@ type Answer = {
   isTimeout?: boolean;
 };
 
-function TrueFalseWidget({ data }: { data: TrueFalseTask }) {
+function TrueFalseWidget({
+  data,
+  onSubmit,
+}: {
+  data: TrueFalseTask;
+  onSubmit?: <T extends UserAnswerPayload>(quizResults: QuizResults<T>) => void;
+}) {
   const locale = useLocale();
 
   const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -129,7 +141,11 @@ function TrueFalseWidget({ data }: { data: TrueFalseTask }) {
           }));
           console.log('Submit', payload);
 
-          await submitQuizAnswers<boolean>(id, payload);
+          const quizResults = await submitQuizAnswers(
+            id,
+            payload as QuizAnswer<TrueFalseUserAnswerPayload>[],
+          );
+          if (onSubmit) onSubmit(quizResults);
         }}
       />
     </div>

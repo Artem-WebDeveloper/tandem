@@ -11,6 +11,12 @@ import {
 
 import type { SingleChoiceTaskResponse } from './types';
 import type { UserAnswer } from '@/core/types/quiz';
+import type {
+  SingleChoiceUserAnswerPayload,
+  QuizAnswer,
+  QuizResults,
+  UserAnswerPayload,
+} from '@/core/api/submitQuizAnswers';
 
 import QuizProgressBar from '@/core/components/QuizProgressBar/QuizProgressBar';
 import QuizNavigation from '@/core/components/QuizNavigation/QuizNavigation';
@@ -22,9 +28,10 @@ import { submitQuizAnswers } from '@/core/api/submitQuizAnswers';
 
 interface SingleChoiceQuizProps {
   data: SingleChoiceTaskResponse;
+  onSubmit?: <T extends UserAnswerPayload>(quizResults: QuizResults<T>) => void;
 }
 
-export default function SingleChoiceQuiz({ data }: SingleChoiceQuizProps) {
+export default function SingleChoiceQuiz({ data, onSubmit }: SingleChoiceQuizProps) {
   const theme = useTheme();
 
   const { t } = useTranslation('practice');
@@ -67,7 +74,11 @@ export default function SingleChoiceQuiz({ data }: SingleChoiceQuizProps) {
       answer: answer.payload,
     }));
 
-    await submitQuizAnswers(data.id, answersForApi);
+    const quizResults = await submitQuizAnswers(
+      data.id,
+      answersForApi as QuizAnswer<SingleChoiceUserAnswerPayload>[],
+    );
+    if (onSubmit) onSubmit(quizResults);
   };
 
   return (

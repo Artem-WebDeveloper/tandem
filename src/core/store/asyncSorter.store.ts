@@ -11,11 +11,15 @@ type AsyncSorterState = {
   decreaseQuestionNumber: () => void;
   answers: AsyncSorterAnswer[];
   setAnswer: (questionId: number, answer: string[]) => void;
+  reset: () => void;
 };
 
 export const useAsyncSorterStore = create<AsyncSorterState>()((set, get) => ({
   currentQuestionNumber: 0,
   answers: [],
+  reset: () => {
+    set({ currentQuestionNumber: 0, answers: [] });
+  },
   increaseQuestionNumber: () => set({ currentQuestionNumber: get().currentQuestionNumber + 1 }),
   decreaseQuestionNumber: () => set({ currentQuestionNumber: get().currentQuestionNumber - 1 }),
   setAnswer: (questionId, answer) => {

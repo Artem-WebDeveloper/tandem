@@ -20,6 +20,7 @@ function AsyncSorterNavigation({
 
   const increaseQuestionNumber = useAsyncSorterStore((state) => state.increaseQuestionNumber);
   const decreaseQuestionNumber = useAsyncSorterStore((state) => state.decreaseQuestionNumber);
+  const resetQuizState = useAsyncSorterStore((state) => state.reset);
 
   return (
     <QuizNavigation
@@ -37,6 +38,7 @@ function AsyncSorterNavigation({
         }));
 
         await submitQuizAnswers(quizId, answersForApi);
+        resetQuizState();
       }}
     />
   );

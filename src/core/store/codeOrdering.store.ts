@@ -11,11 +11,15 @@ type CodeOrderingState = {
   decreaseQuestionNumber: () => void;
   answers: CodeOrderingAnswer[];
   setAnswer: (questionId: number, answer: string[]) => void;
+  reset: () => void;
 };
 
 export const useCodeOrderingStore = create<CodeOrderingState>()((set, get) => ({
   currentQuestionNumber: 0,
   answers: [],
+  reset: () => {
+    set({ currentQuestionNumber: 0, answers: [] });
+  },
   increaseQuestionNumber: () => set({ currentQuestionNumber: get().currentQuestionNumber + 1 }),
   decreaseQuestionNumber: () => set({ currentQuestionNumber: get().currentQuestionNumber - 1 }),
   setAnswer: (questionId, answer) => {

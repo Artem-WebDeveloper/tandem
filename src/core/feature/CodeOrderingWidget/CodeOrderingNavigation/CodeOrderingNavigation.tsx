@@ -20,6 +20,7 @@ export default function CodeOrderingNavigation({
 
   const increaseQuestionNumber = useCodeOrderingStore((state) => state.increaseQuestionNumber);
   const decreaseQuestionNumber = useCodeOrderingStore((state) => state.decreaseQuestionNumber);
+  const resetQuizState = useCodeOrderingStore((state) => state.reset);
 
   return (
     <QuizNavigation
@@ -37,6 +38,7 @@ export default function CodeOrderingNavigation({
         }));
 
         await submitQuizAnswers(quizId, answersForApi);
+        resetQuizState();
       }}
     />
   );

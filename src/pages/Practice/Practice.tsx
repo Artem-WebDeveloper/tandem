@@ -40,7 +40,7 @@ export default function Practice() {
           throw new AppError(AppErrorCode.MISSING_QUIZ_ID);
         }
 
-        const quizData = await fetchQuizById(id);
+        const quizData = await fetchQuizById(Number(id));
 
         setQuizData(quizData);
       } catch (error) {

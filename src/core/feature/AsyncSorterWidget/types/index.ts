@@ -1,7 +1,7 @@
 import { type BaseTask, TaskType } from '@/core/types/quiz';
 
 export interface AsyncSorterQuestion {
-  id: string;
+  id: number;
   code: string;
   blocks: string[];
 }

@@ -2,7 +2,7 @@ import { type BaseTask, TaskType } from '@/core/types/quiz';
 
 // Task text with multiple code lines
 export interface CodeOrderingQuestion {
-  id: string;
+  id: number;
   text: {
     ru: string;
     en: string;

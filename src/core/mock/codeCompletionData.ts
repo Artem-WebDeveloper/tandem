@@ -2,7 +2,7 @@ import type { CodeCompletionTask } from '../feature/CodeCompletionWidget/types';
 
 export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
   {
-    id: 'cc-001',
+    id: 101,
     type: 'code_completion',
     difficulty: 1,
     section: 'Core JS',
@@ -14,7 +14,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
     tags: ['array-methods'],
     questions: [
       {
-        id: '1',
+        id: 1,
         code: 'const result = arr.___(x => x > 10);',
         blanks: '___',
         hint: {
@@ -23,7 +23,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '2',
+        id: 2,
         code: 'const doubled = arr.___(x => x * 2);',
         blanks: '___',
         hint: {
@@ -32,7 +32,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '3',
+        id: 3,
         code: 'const sum = arr.___((acc, val) => acc + val, 0);',
         blanks: '___',
         hint: {
@@ -41,7 +41,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '4',
+        id: 4,
         code: 'const found = arr.___(x => x === 5);',
         blanks: '___',
         hint: {
@@ -50,7 +50,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '5',
+        id: 5,
         code: 'arr.___(x => console.log(x));',
         blanks: '___',
         hint: {
@@ -62,7 +62,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
   },
 
   {
-    id: 'cc-002',
+    id: 102,
     type: 'code_completion',
     difficulty: 2,
     section: 'Core JS',
@@ -74,7 +74,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
     tags: ['objects'],
     questions: [
       {
-        id: '1',
+        id: 1,
         code: 'const keys = Object.___(user);',
         blanks: '___',
         hint: {
@@ -83,7 +83,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '2',
+        id: 2,
         code: 'const values = Object.___(user);',
         blanks: '___',
         hint: {
@@ -92,7 +92,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '3',
+        id: 3,
         code: 'const entries = Object.___(user);',
         blanks: '___',
         hint: {
@@ -101,7 +101,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '4',
+        id: 4,
         code: 'const clone = Object.___({}, user);',
         blanks: '___',
         hint: {
@@ -110,7 +110,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '5',
+        id: 5,
         code: "console.log(user.___('name'));",
         blanks: '___',
         hint: {
@@ -122,7 +122,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
   },
 
   {
-    id: 'cc-003',
+    id: 103,
     type: 'code_completion',
     difficulty: 2,
     section: 'Core JS',
@@ -134,7 +134,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
     tags: ['functions'],
     questions: [
       {
-        id: '1',
+        id: 1,
         code: 'function greet() { return this.name; }\nconst bound = greet.___(user);',
         blanks: '___',
         hint: {
@@ -143,7 +143,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '2',
+        id: 2,
         code: 'function sum(a,b){ return a + b }\nsum.___(null,[1,2])',
         blanks: '___',
         hint: {
@@ -152,7 +152,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '3',
+        id: 3,
         code: "function greet(name){ return `Hi ${name}` }\ngreet.___(null,'Tom')",
         blanks: '___',
         hint: {
@@ -161,7 +161,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '4',
+        id: 4,
         code: 'const add = (a) => (b) => a + b;\n// Это пример ___ функции',
         blanks: '___',
         hint: {
@@ -170,7 +170,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '5',
+        id: 5,
         code: 'function counter(){ let n = 0; return () => ++n }\n// Это пример ___',
         blanks: '___',
         hint: {
@@ -182,7 +182,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
   },
 
   {
-    id: 'cc-004',
+    id: 4,
     type: 'code_completion',
     difficulty: 3,
     section: 'Core JS',
@@ -194,7 +194,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
     tags: ['promises', 'async'],
     questions: [
       {
-        id: '1',
+        id: 1,
         code: 'promise.___(result => console.log(result));',
         blanks: '___',
         hint: {
@@ -203,7 +203,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '2',
+        id: 2,
         code: 'promise.___(err => console.error(err));',
         blanks: '___',
         hint: {
@@ -212,7 +212,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '3',
+        id: 3,
         code: "promise.___(() => console.log('done'));",
         blanks: '___',
         hint: {
@@ -221,7 +221,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '4',
+        id: 4,
         code: 'const data = ___ fetch(url)',
         blanks: '___',
         hint: {
@@ -230,7 +230,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '5',
+        id: 5,
         code: 'Promise.___([p1,p2]).then(res => console.log(res));',
         blanks: '___',
         hint: {
@@ -242,7 +242,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
   },
 
   {
-    id: 'cc-005',
+    id: 105,
     type: 'code_completion',
     difficulty: 1,
     section: 'HTML',
@@ -254,7 +254,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
     tags: ['html-elements'],
     questions: [
       {
-        id: '1',
+        id: 1,
         code: '<___>Hello</p>',
         blanks: '___',
         hint: {
@@ -263,7 +263,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '2',
+        id: 2,
         code: "<a ___='https://example.com'>Link</a>",
         blanks: '___',
         hint: {
@@ -272,7 +272,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '3',
+        id: 3,
         code: "<img ___='photo.jpg' />",
         blanks: '___',
         hint: {
@@ -281,7 +281,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '4',
+        id: 4,
         code: "<input type='___'>",
         blanks: '___',
         hint: {
@@ -290,7 +290,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '5',
+        id: 5,
         code: '<___>Item</li>',
         blanks: '___',
         hint: {
@@ -302,7 +302,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
   },
 
   {
-    id: 'cc-006',
+    id: 106,
     type: 'code_completion',
     difficulty: 2,
     section: 'HTML',
@@ -314,7 +314,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
     tags: ['forms', 'attributes'],
     questions: [
       {
-        id: '1',
+        id: 1,
         code: "<form ___='/submit'>",
         blanks: '___',
         hint: {
@@ -323,7 +323,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '2',
+        id: 2,
         code: "<input ___='email'>",
         blanks: '___',
         hint: {
@@ -332,7 +332,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '3',
+        id: 3,
         code: "<label ___='email'>Email</label>",
         blanks: '___',
         hint: {
@@ -341,7 +341,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '4',
+        id: 4,
         code: "<input placeholder='Enter name' ___>",
         blanks: '___',
         hint: {
@@ -350,7 +350,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '5',
+        id: 5,
         code: "<button type='___'>Submit</button>",
         blanks: '___',
         hint: {
@@ -359,7 +359,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '6',
+        id: 6,
         code: '<input ___>',
         blanks: '___',
         hint: {
@@ -371,7 +371,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
   },
 
   {
-    id: 'cc-007',
+    id: 107,
     type: 'code_completion',
     difficulty: 3,
     section: 'HTML',
@@ -383,7 +383,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
     tags: ['semantic', 'accessibility'],
     questions: [
       {
-        id: '1',
+        id: 1,
         code: '<___>Navigation links</nav>',
         blanks: '___',
         hint: {
@@ -392,7 +392,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '2',
+        id: 2,
         code: '<___>Main content</main>',
         blanks: '___',
         hint: {
@@ -401,7 +401,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '3',
+        id: 3,
         code: "<img src='cat.jpg' ___='Cat'>",
         blanks: '___',
         hint: {
@@ -410,7 +410,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '4',
+        id: 4,
         code: "<section aria-___='Title'>",
         blanks: '___',
         hint: {
@@ -419,7 +419,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '5',
+        id: 5,
         code: "<button aria-___='Close'>",
         blanks: '___',
         hint: {
@@ -428,7 +428,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '6',
+        id: 6,
         code: "<meta ___='UTF-8'>",
         blanks: '___',
         hint: {
@@ -440,7 +440,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
   },
 
   {
-    id: 'cc-008',
+    id: 108,
     type: 'code_completion',
     difficulty: 1,
     section: 'React',
@@ -452,7 +452,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
     tags: ['jsx', 'components'],
     questions: [
       {
-        id: '1',
+        id: 1,
         code: 'function App(){ return <___>Hello</div> }',
         blanks: '___',
         hint: {
@@ -461,7 +461,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '2',
+        id: 2,
         code: '<button ___={handleClick}>Click</button>',
         blanks: '___',
         hint: {
@@ -470,7 +470,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '3',
+        id: 3,
         code: 'const list = items.___(item => <li>{item}</li>)',
         blanks: '___',
         hint: {
@@ -479,7 +479,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '4',
+        id: 4,
         code: "<div class___='container'></div>",
         blanks: '___',
         hint: {
@@ -488,7 +488,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '5',
+        id: 5,
         code: 'export ___ App',
         blanks: '___',
         hint: {
@@ -500,7 +500,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
   },
 
   {
-    id: 'cc-009',
+    id: 109,
     type: 'code_completion',
     difficulty: 2,
     section: 'React',
@@ -512,7 +512,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
     tags: ['hooks', 'state'],
     questions: [
       {
-        id: '1',
+        id: 1,
         code: 'const [count,setCount] = React.___(0)',
         blanks: '___',
         hint: {
@@ -521,7 +521,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '2',
+        id: 2,
         code: "React.___(()=>{ console.log('mounted') },[])",
         blanks: '___',
         hint: {
@@ -530,7 +530,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '3',
+        id: 3,
         code: 'const ref = React.___(null)',
         blanks: '___',
         hint: {
@@ -539,7 +539,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '4',
+        id: 4,
         code: 'const value = React.___(()=>a+b,[a,b])',
         blanks: '___',
         hint: {
@@ -548,7 +548,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '5',
+        id: 5,
         code: 'const fn = React.___(handler,[a,b])',
         blanks: '___',
         hint: {
@@ -560,7 +560,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
   },
 
   {
-    id: 'cc-010',
+    id: 110,
     type: 'code_completion',
     difficulty: 3,
     section: 'React',
@@ -572,7 +572,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
     tags: ['context', 'performance', 'hooks'],
     questions: [
       {
-        id: '1',
+        id: 1,
         code: 'const ThemeContext = React.___()',
         blanks: '___',
         hint: {
@@ -581,7 +581,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '2',
+        id: 2,
         code: 'const theme = React.___(ThemeContext)',
         blanks: '___',
         hint: {
@@ -590,7 +590,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '3',
+        id: 3,
         code: 'export default React.___(Component)',
         blanks: '___',
         hint: {
@@ -599,7 +599,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '4',
+        id: 4,
         code: 'const [state,dispatch] = React.___(reducer,initialState)',
         blanks: '___',
         hint: {
@@ -608,7 +608,7 @@ export const MOCK_CODE_COMPLETION_DATA: CodeCompletionTask[] = [
         },
       },
       {
-        id: '5',
+        id: 5,
         code: 'const id = React.___()',
         blanks: '___',
         hint: {

@@ -1,7 +1,7 @@
 import type { TrueFalseTask } from '@/core/feature/TrueFalseWidget/types';
 import { MOCK_TRUE_FALSE_DATA } from '@/core/mock/trueFalseData';
 
-export function fetchTrueFalseById(id: string): Promise<TrueFalseTask> {
+export function fetchTrueFalseById(id: number): Promise<TrueFalseTask> {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       const data = MOCK_TRUE_FALSE_DATA.find((quiz) => quiz.id === id);

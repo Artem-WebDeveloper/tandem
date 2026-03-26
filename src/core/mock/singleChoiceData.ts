@@ -5,7 +5,7 @@ import type { SingleChoiceTaskResponse } from '../feature/SingleChoiceWidget/typ
 
 export const MOCK_SINGLE_CHOICE_DATA: SingleChoiceTaskResponse[] = [
   {
-    id: 'sc-001',
+    id: 1,
     type: TaskType.SingleChoice,
     title: {
       ru: 'Основы HTML',

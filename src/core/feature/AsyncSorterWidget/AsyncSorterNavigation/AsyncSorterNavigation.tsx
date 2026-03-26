@@ -1,8 +1,15 @@
 import { useAsyncSorterStore } from '@/core/store/asyncSorter.store';
 import QuizNavigation from '@/core/components/QuizNavigation/QuizNavigation';
 import type { AsyncSorterQuestion } from '../types';
+import { submitQuizAnswers } from '@/core/api/submitQuizAnswers';
 
-function AsyncSorterNavigation({ questions }: { questions: AsyncSorterQuestion[] }) {
+function AsyncSorterNavigation({
+  questions,
+  quizId,
+}: {
+  questions: AsyncSorterQuestion[];
+  quizId: number;
+}) {
   const currentQuestionNumber = useAsyncSorterStore((state) => state.currentQuestionNumber);
   const currentQuestion = questions[currentQuestionNumber];
 
@@ -24,8 +31,13 @@ function AsyncSorterNavigation({ questions }: { questions: AsyncSorterQuestion[]
         !!currentAnswer && currentAnswer.payload.length === currentQuestion.blocks.length
       }
       onAnswersSubmit={async () => {
-        console.log(answers);
-      }} // Add answers submit
+        const answersForApi = answers.map((answer) => ({
+          question_id: answer.questionId,
+          answer: answer.payload,
+        }));
+
+        await submitQuizAnswers(quizId, answersForApi);
+      }}
     />
   );
 }

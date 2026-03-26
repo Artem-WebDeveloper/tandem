@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
 export type CodeOrderingAnswer = {
-  questionId: string; // айди вопроса для которого сохранен ответ
+  questionId: number; // айди вопроса для которого сохранен ответ
   payload: string[]; // ответ на вопрос, массив айдишек строк в выбранном юзером порядке
 };
 
@@ -10,7 +10,7 @@ type CodeOrderingState = {
   increaseQuestionNumber: () => void;
   decreaseQuestionNumber: () => void;
   answers: CodeOrderingAnswer[];
-  setAnswer: (questionId: string, answer: string[]) => void;
+  setAnswer: (questionId: number, answer: string[]) => void;
 };
 
 export const useCodeOrderingStore = create<CodeOrderingState>()((set, get) => ({

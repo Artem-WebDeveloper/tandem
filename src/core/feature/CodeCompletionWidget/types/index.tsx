@@ -1,7 +1,7 @@
 import { type BaseTask, TaskType } from '@/core/types/quiz';
 
 export interface CodeCompletionQuestion {
-  id: string;
+  id: number;
   code: string;
   blanks: string;
   hint: {

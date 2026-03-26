@@ -1,11 +1,14 @@
 import { useCodeOrderingStore } from '@/core/store/codeOrdering.store';
 import QuizNavigation from '@/core/components/QuizNavigation/QuizNavigation';
 import type { CodeOrderingQuestion } from '../types';
+import { submitQuizAnswers } from '@/core/api/submitQuizAnswers';
 
 export default function CodeOrderingNavigation({
   questions,
+  quizId,
 }: {
   questions: CodeOrderingQuestion[];
+  quizId: number;
 }) {
   const currentQuestionNumber = useCodeOrderingStore((state) => state.currentQuestionNumber);
   const currentQuestion = questions[currentQuestionNumber];
@@ -28,8 +31,13 @@ export default function CodeOrderingNavigation({
         !!currentAnswer && currentAnswer.payload.length === currentQuestion.codeLines.length
       }
       onAnswersSubmit={async () => {
-        console.log(answers);
-      }} // Add answers submit
+        const answersForApi = answers.map((answer) => ({
+          question_id: answer.questionId,
+          answer: answer.payload,
+        }));
+
+        await submitQuizAnswers(quizId, answersForApi);
+      }}
     />
   );
 }

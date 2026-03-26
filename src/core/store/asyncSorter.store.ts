@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
 export type AsyncSorterAnswer = {
-  questionId: string;
+  questionId: number;
   payload: string[];
 };
 
@@ -10,7 +10,7 @@ type AsyncSorterState = {
   increaseQuestionNumber: () => void;
   decreaseQuestionNumber: () => void;
   answers: AsyncSorterAnswer[];
-  setAnswer: (questionId: string, answer: string[]) => void;
+  setAnswer: (questionId: number, answer: string[]) => void;
 };
 
 export const useAsyncSorterStore = create<AsyncSorterState>()((set, get) => ({

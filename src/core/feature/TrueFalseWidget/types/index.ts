@@ -1,7 +1,7 @@
 import type { BaseTask, TaskType } from '@/core/types/quiz';
 
 export interface TrueFalseQuestion {
-  id: string;
+  id: number;
   statement: {
     ru: string;
     en: string;

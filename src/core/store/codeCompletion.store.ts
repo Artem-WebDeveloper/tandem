@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
 export type CodeCompletionAnswer = {
-  questionId: string;
+  questionId: number;
   payload: string;
 };
 
@@ -10,7 +10,7 @@ type CodeCompletionState = {
   increaseQuestionNumber: () => void;
   decreaseQuestionNumber: () => void;
   answers: CodeCompletionAnswer[];
-  setAnswer: (questionId: string, answer: string) => void;
+  setAnswer: (questionId: number, answer: string) => void;
 };
 
 export const useCodeCompletionStore = create<CodeCompletionState>()((set, get) => ({

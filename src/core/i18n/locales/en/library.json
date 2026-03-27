@@ -23,7 +23,7 @@
     "countOfQuestions": "questions",
     "min": "min",
     "quizState": {
-      "notStarted": "Not started",
+      "noResults": "No results",
       "completed": "Completed"
     },
     "startTest": "Start test"

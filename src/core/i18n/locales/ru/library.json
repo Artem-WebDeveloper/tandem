@@ -23,7 +23,7 @@
     "countOfQuestions": "вопросов",
     "min": "мин",
     "quizState": {
-      "notStarted": "Не начат",
+      "noResults": "Нет результатов",
       "completed": "Завершено"
     },
     "startTest": "Начать тест"

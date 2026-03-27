@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { useTheme, Typography, Button, Chip } from '@mui/material';
 
 import PanoramaFishEyeIcon from '@mui/icons-material/PanoramaFishEye';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
+import AdjustRoundedIcon from '@mui/icons-material/AdjustRounded';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
@@ -28,7 +29,6 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
 
   const {
     title,
-    completePercentage,
     id,
     description,
     questions_count: questionsQuantity,
@@ -37,8 +37,11 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
     tags,
     section,
     type,
-    isComplete,
+    user_progress: userProgress,
   } = quizData;
+
+  let { best_result: bestResult } = userProgress;
+  bestResult = bestResult !== null ? Math.floor(bestResult) : bestResult;
 
   const themeQuiz = sectionConfig[section];
   const accentColorThemeLabel = themeQuiz?.color ?? theme.palette.text.primary;
@@ -60,6 +63,16 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
     }
   }; */
 
+  const displayHeaderIcon = () => {
+    return bestResult && bestResult === 100 ? (
+      <CheckCircleOutlineRoundedIcon sx={{ color: theme.palette.success.main }} />
+    ) : bestResult ? (
+      <AdjustRoundedIcon sx={{ color: theme.palette.textLight }} />
+    ) : (
+      <PanoramaFishEyeIcon sx={{ color: theme.palette.textUltralight }} />
+    );
+  };
+
   return (
     <li
       style={{
@@ -69,11 +82,7 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
       className={styles.card}
     >
       <header className={styles.cardHeading}>
-        {isComplete ? (
-          <CheckCircleOutlineIcon sx={{ color: theme.palette.success.main }} />
-        ) : (
-          <PanoramaFishEyeIcon sx={{ color: theme.palette.textUltralight }} />
-        )}
+        {displayHeaderIcon()}
         <h3 className={styles.cardTitle}>{title[locale]}</h3>
 
         <Chip
@@ -182,9 +191,9 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
             lineHeight: '1.4',
           }}
         >
-          {completePercentage
-            ? `${t('cards.quizState.completed')} ${completePercentage}%`
-            : `${t('cards.quizState.notStarted')}`}
+          {bestResult
+            ? `${t('cards.quizState.completed')} ${bestResult}%`
+            : `${t('cards.quizState.noResults')}`}
         </Typography>
         <Button
           component={Link}

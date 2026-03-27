@@ -15,13 +15,41 @@ axiosInstance.interceptors.request.use((config) => {
   return config;
 });
 
+function logout() {
+  localStorage.removeItem('access_token');
+  localStorage.removeItem('refresh_token');
+  window.location.href = '/login';
+}
+
 axiosInstance.interceptors.response.use(
   (response) => response,
-  (error) => {
+  async (error) => {
+    const originalRequest = error.config;
+
     if (axios.isAxiosError(error)) {
       switch (error.response?.status) {
         case 401:
-          throw new AppError(AppErrorCode.UNAUTHORIZED);
+          if (originalRequest._retry) {
+            logout();
+            throw new AppError(AppErrorCode.UNAUTHORIZED);
+          }
+
+          originalRequest._retry = true;
+          try {
+            const refreshToken = localStorage.getItem('refresh_token');
+            const res = await axios.post(`${API_URL}/users/login/refresh/`, {
+              refresh: refreshToken,
+            });
+
+            const newAccessToken = res.data.access;
+            localStorage.setItem('access_token', newAccessToken);
+            originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+
+            return axiosInstance(originalRequest);
+          } catch {
+            logout();
+            throw new AppError(AppErrorCode.UNAUTHORIZED);
+          }
         case 404:
           throw new AppError(AppErrorCode.NOT_FOUND);
         default:

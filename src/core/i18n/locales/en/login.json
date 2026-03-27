@@ -12,6 +12,10 @@
     "messages": {
       "error": "Authorization error. Check your username and password.",
       "success": "Registration was successful! You can now log in."
+    },
+    "controls": {
+      "toggleTheme": "Сменить тему",
+      "toggleLanguage": "Сменить язык"
     }
   },
   "registerPage": {
@@ -25,6 +29,27 @@
     "messages": {
       "error": "Registration error. The user may already exist.",
       "unexpectedError": "Unexpected error"
+    }
+  },
+  "validation": {
+    "username": {
+      "required": "Username is required",
+      "tooShort": "Minimum 3 characters",
+      "tooLong": "Maximum 15 characters",
+      "invalidChars": "Only letters, numbers and _ allowed",
+      "characters": "characters"
+    },
+    "password": {
+      "required": "Password is required",
+      "tooShort": "Minimum 8 characters",
+      "sameAsUsername": "Password must not match username",
+      "onlyDigits": "Password cannot contain only digits",
+      "tooCommon": "Password is too common",
+      "strength": {
+        "weak": "Weak password",
+        "medium": "Medium password",
+        "strong": "Strong password"
+      }
     }
   }
 }

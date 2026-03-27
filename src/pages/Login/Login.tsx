@@ -9,46 +9,112 @@ import {
   CircularProgress,
   Alert,
   useTheme,
+  Collapse,
+  IconButton,
+  Tooltip,
 } from '@mui/material';
 import { isAxiosError } from 'axios';
+
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import LanguageIcon from '@mui/icons-material/Language';
 
 import { useAuthStore } from '../../core/store/auth.store';
 import { loginApi } from '../../core/api/auth';
 import styles from './Login.module.scss';
+import { useThemeStore } from '../../core/store/theme.store';
+
+import { validateUsername, validatePassword } from '../../core/utils/loginValidation';
+
 import logo from '../../core/assets/logo.svg';
 import RegisterDialog from './RegisterDialog/RegisterDialog';
 
 import { useTranslation } from 'react-i18next';
 
 export default function Login() {
-  const { t } = useTranslation('login');
+  const { t, i18n } = useTranslation('login');
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [successMsg, setSuccessMsg] = useState<string | null>(null);
+
+  const [serverError, setServerError] = useState<string | null>(null);
+  const [usernameTouched, setUsernameTouched] = useState(false);
+  const [passwordTouched, setPasswordTouched] = useState(false);
+
+  const [usernameErrors, setUsernameErrors] = useState<string[]>([]);
+  const [passwordErrors, setPasswordErrors] = useState<string[]>([]);
 
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
-  const [successMsg, setSuccessMsg] = useState<string | null>(null);
 
   const login = useAuthStore((state) => state.login);
   const navigate = useNavigate();
   const theme = useTheme();
+  const { switchMode } = useThemeStore();
 
   useEffect(() => {
-    if (error || successMsg) {
+    if (usernameTouched && username) {
+      const validation = validateUsername(username);
+      setUsernameErrors(validation.errors);
+    } else if (!username) {
+      setUsernameErrors([]);
+    }
+  }, [username, usernameTouched]);
+
+  useEffect(() => {
+    if (passwordTouched && password) {
+      const validation = validatePassword(password, username);
+      setPasswordErrors(validation.errors);
+    } else if (!password) {
+      setPasswordErrors([]);
+    }
+  }, [password, passwordTouched, username]);
+
+  useEffect(() => {
+    if (serverError || successMsg) {
       const timer = setTimeout(() => {
-        setError(null);
+        setServerError(null);
         setSuccessMsg(null);
       }, 5000);
       return () => clearTimeout(timer);
     }
-  }, [error, successMsg]);
+  }, [serverError, successMsg]);
 
-  const handleSubmit = async (e: React.SubmitEvent) => {
+  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (value.length <= 15) {
+      setUsername(value);
+      if (!usernameTouched && value) {
+        setUsernameTouched(true);
+      }
+    }
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+    if (!passwordTouched && e.target.value) {
+      setPasswordTouched(true);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    setError(null);
+    setUsernameTouched(true);
+    setPasswordTouched(true);
+
+    const usernameValidation = validateUsername(username);
+    const passwordValidation = validatePassword(password, username);
+
+    setUsernameErrors(usernameValidation.errors);
+    setPasswordErrors(passwordValidation.errors);
+
+    if (!usernameValidation.isValid || !passwordValidation.isValid) {
+      return;
+    }
+
+    setServerError(null);
     setIsLoading(true);
 
     try {
@@ -58,10 +124,9 @@ export default function Login() {
       navigate('/library', { replace: true });
     } catch (err) {
       if (isAxiosError(err)) {
-        const errorMessage = err.response?.data?.detail || `${t('loginPage.messages.error')}`;
-        setError(errorMessage);
+        setServerError(t('loginPage.messages.error'));
       } else {
-        setError('Unexpected error');
+        setServerError(t('loginPage.messages.error'));
       }
     } finally {
       setIsLoading(false);
@@ -73,7 +138,17 @@ export default function Login() {
     setSuccessMsg(`${t('loginPage.messages.success')}`);
     setUsername(newUsername);
     setPassword('');
+    setUsernameTouched(false);
+    setPasswordTouched(false);
   };
+
+  const toggleLanguage = () => {
+    const newLang = i18n.language.startsWith('ru') ? 'en' : 'ru';
+    i18n.changeLanguage(newLang);
+  };
+
+  const isFormValid =
+    username && password && usernameErrors.length === 0 && passwordErrors.length === 0;
 
   const containerStyle = {
     backgroundColor: theme.palette.background.default,
@@ -103,6 +178,10 @@ export default function Login() {
       backgroundColor: theme.palette.primary.main,
       opacity: 0.9,
     },
+    '&:disabled': {
+      backgroundColor: theme.palette.action.disabledBackground,
+      color: theme.palette.action.disabled,
+    },
   };
 
   const textButtonStyle = {
@@ -114,6 +193,16 @@ export default function Login() {
       color: theme.palette.primary.main,
     },
   };
+
+  const iconButtonStyle = {
+    color: theme.palette.text.secondary,
+    '&:hover': {
+      color: theme.palette.primary.main,
+    },
+  };
+
+  const allErrors = [...usernameErrors, ...passwordErrors];
+  const showErrors = (usernameTouched || passwordTouched) && allErrors.length > 0;
 
   return (
     <Box className={styles.container} sx={containerStyle}>
@@ -132,17 +221,21 @@ export default function Login() {
           {t('loginPage.forms.title')}
         </Typography>
 
-        {error && (
-          <Alert severity="error" sx={{ mb: 2 }}>
-            {error}
-          </Alert>
-        )}
+        <Collapse in={!!serverError}>
+          {serverError && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {serverError}
+            </Alert>
+          )}
+        </Collapse>
 
-        {successMsg && (
-          <Alert severity="success" sx={{ mb: 2 }}>
-            {successMsg}
-          </Alert>
-        )}
+        <Collapse in={!!successMsg}>
+          {successMsg && (
+            <Alert severity="success" sx={{ mb: 2 }}>
+              {successMsg}
+            </Alert>
+          )}
+        </Collapse>
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <TextField
@@ -152,8 +245,15 @@ export default function Login() {
             fullWidth
             required
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={handleUsernameChange}
+            onBlur={() => setUsernameTouched(true)}
             disabled={isLoading}
+            error={usernameTouched && usernameErrors.length > 0}
+            helperText={
+              usernameTouched && username && usernameErrors.length === 0
+                ? `${username.length}/15 ${t('validation.username.characters')}`
+                : ''
+            }
           />
 
           <TextField
@@ -163,15 +263,43 @@ export default function Login() {
             fullWidth
             required
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handlePasswordChange}
+            onBlur={() => setPasswordTouched(true)}
             disabled={isLoading}
+            error={passwordTouched && passwordErrors.length > 0}
           />
+
+          <Box
+            sx={{
+              minHeight: '80px',
+              maxHeight: '120px',
+              overflow: 'auto',
+              transition: 'all 0.3s ease',
+            }}
+          >
+            <Collapse in={showErrors}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                {allErrors.map((error, index) => (
+                  <Alert
+                    key={index}
+                    severity="error"
+                    sx={{
+                      fontSize: '0.875rem',
+                      py: 0.5,
+                    }}
+                  >
+                    {t(error)}
+                  </Alert>
+                ))}
+              </Box>
+            </Collapse>
+          </Box>
 
           <Button
             type="submit"
             variant="contained"
             fullWidth
-            disabled={isLoading}
+            disabled={isLoading || !isFormValid}
             className={styles.submitBtn}
             sx={buttonStyle}
           >
@@ -191,6 +319,18 @@ export default function Login() {
             {t('loginPage.forms.register')}
           </Button>
         </form>
+        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1, mt: 2 }}>
+          <Tooltip title={t('loginPage.controls.toggleTheme')}>
+            <IconButton onClick={switchMode} sx={iconButtonStyle}>
+              {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+            </IconButton>
+          </Tooltip>
+          <Tooltip title={t('loginPage.controls.toggleLanguage')}>
+            <IconButton onClick={toggleLanguage} sx={iconButtonStyle}>
+              <LanguageIcon />
+            </IconButton>
+          </Tooltip>
+        </Box>
       </Paper>
 
       <RegisterDialog

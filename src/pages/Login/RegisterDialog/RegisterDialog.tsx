@@ -8,10 +8,19 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
+  Box,
+  Collapse,
+  LinearProgress,
+  Typography,
 } from '@mui/material';
 import { isAxiosError } from 'axios';
 
 import { registerApi } from '../../../core/api/auth';
+import {
+  validateUsername,
+  validatePassword,
+  getPasswordStrength,
+} from '../../../core/utils/loginValidation';
 import styles from './RegisterDialog.module.scss';
 
 import { useTranslation } from 'react-i18next';
@@ -26,45 +35,120 @@ export default function RegisterDialog({ open, onClose, onSuccess }: RegisterMod
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [serverError, setServerError] = useState<string | null>(null);
+
+  const [usernameTouched, setUsernameTouched] = useState(false);
+  const [passwordTouched, setPasswordTouched] = useState(false);
+
+  const [usernameErrors, setUsernameErrors] = useState<string[]>([]);
+  const [passwordErrors, setPasswordErrors] = useState<string[]>([]);
 
   const theme = useTheme();
 
   const { t } = useTranslation('login');
 
   useEffect(() => {
-    if (error) {
-      const timer = setTimeout(() => setError(null), 5000);
+    if (usernameTouched && username) {
+      const validation = validateUsername(username);
+      setUsernameErrors(validation.errors);
+    } else if (!username) {
+      setUsernameErrors([]);
+    }
+  }, [username, usernameTouched]);
+
+  useEffect(() => {
+    if (passwordTouched && password) {
+      const validation = validatePassword(password, username);
+      setPasswordErrors(validation.errors);
+    } else if (!password) {
+      setPasswordErrors([]);
+    }
+  }, [password, passwordTouched, username]);
+
+  useEffect(() => {
+    if (serverError) {
+      const timer = setTimeout(() => setServerError(null), 5000);
       return () => clearTimeout(timer);
     }
-  }, [error]);
+  }, [serverError]);
 
-  const handleSubmit = async (e: React.SubmitEvent) => {
+  useEffect(() => {
+    if (!open) {
+      setUsername('');
+      setPassword('');
+      setUsernameTouched(false);
+      setPasswordTouched(false);
+      setUsernameErrors([]);
+      setPasswordErrors([]);
+      setServerError(null);
+    }
+  }, [open]);
+
+  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (value.length <= 15) {
+      setUsername(value);
+      if (!usernameTouched && value) {
+        setUsernameTouched(true);
+      }
+    }
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+    if (!passwordTouched && e.target.value) {
+      setPasswordTouched(true);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null);
+
+    setUsernameTouched(true);
+    setPasswordTouched(true);
+
+    const usernameValidation = validateUsername(username);
+    const passwordValidation = validatePassword(password, username);
+
+    setUsernameErrors(usernameValidation.errors);
+    setPasswordErrors(passwordValidation.errors);
+
+    if (!usernameValidation.isValid || !passwordValidation.isValid) {
+      return;
+    }
+
+    setServerError(null);
     setIsLoading(true);
 
     try {
       await registerApi(username, password);
-
       onSuccess(username);
-
-      setUsername('');
-      setPassword('');
     } catch (err) {
       if (isAxiosError(err)) {
-        const errorMessage =
-          err.response?.data?.username?.[0] ||
-          err.response?.data?.detail ||
-          err.response?.data?.password?.[1] ||
-          `${t('registerPage.messages.error')}`;
-        setError(errorMessage);
+        setServerError(t('registerPage.messages.error'));
       } else {
-        setError(`${t('registerPage.messages.unexpectedError')}`);
+        setServerError(t('registerPage.messages.unexpectedError'));
       }
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const isFormValid =
+    username && password && usernameErrors.length === 0 && passwordErrors.length === 0;
+
+  const passwordStrength = password ? getPasswordStrength(password) : null;
+
+  const strengthColors = {
+    weak: '#f44336',
+    medium: '#ff9800',
+    strong: '#4caf50',
+  };
+
+  const strengthLabels = {
+    weak: t('validation.password.strength.weak'),
+    medium: t('validation.password.strength.medium'),
+    strong: t('validation.password.strength.strong'),
   };
 
   const formTitleStyle = {
@@ -77,6 +161,10 @@ export default function RegisterDialog({ open, onClose, onSuccess }: RegisterMod
     '&:hover': {
       backgroundColor: theme.palette.primary.main,
       opacity: 0.9,
+    },
+    '&:disabled': {
+      backgroundColor: theme.palette.action.disabledBackground,
+      color: theme.palette.action.disabled,
     },
   };
 
@@ -93,12 +181,14 @@ export default function RegisterDialog({ open, onClose, onSuccess }: RegisterMod
     border: `1px solid ${theme.palette.divider}`,
   };
 
+  const allErrors = [...usernameErrors, ...passwordErrors];
+  const showErrors = (usernameTouched || passwordTouched) && allErrors.length > 0;
+
   return (
     <Dialog
       open={open}
       onClose={() => {
         if (!isLoading) {
-          setError(null);
           onClose();
         }
       }}
@@ -112,11 +202,13 @@ export default function RegisterDialog({ open, onClose, onSuccess }: RegisterMod
       </DialogTitle>
 
       <DialogContent sx={{ padding: 0 }}>
-        {error && (
-          <Alert severity="error" sx={{ mb: 2 }}>
-            {error}
-          </Alert>
-        )}
+        <Collapse in={!!serverError}>
+          {serverError && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {serverError}
+            </Alert>
+          )}
+        </Collapse>
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <TextField
@@ -126,8 +218,15 @@ export default function RegisterDialog({ open, onClose, onSuccess }: RegisterMod
             fullWidth
             required
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={handleUsernameChange}
+            onBlur={() => setUsernameTouched(true)}
             disabled={isLoading}
+            error={usernameTouched && usernameErrors.length > 0}
+            helperText={
+              usernameTouched && username && usernameErrors.length === 0
+                ? `${username.length}/15 ${t('validation.username.characters')}`
+                : ''
+            }
             sx={{ mt: 0.5 }}
           />
 
@@ -138,15 +237,73 @@ export default function RegisterDialog({ open, onClose, onSuccess }: RegisterMod
             fullWidth
             required
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handlePasswordChange}
+            onBlur={() => setPasswordTouched(true)}
             disabled={isLoading}
+            error={passwordTouched && passwordErrors.length > 0}
           />
+
+          <Box
+            sx={{
+              minHeight: '140px',
+              maxHeight: '180px',
+              overflow: 'auto',
+              transition: 'all 0.3s ease',
+            }}
+          >
+            {passwordTouched && password && passwordErrors.length === 0 && passwordStrength && (
+              <Box sx={{ mb: 2 }}>
+                <LinearProgress
+                  variant="determinate"
+                  value={(passwordStrength.score / 5) * 100}
+                  sx={{
+                    height: 6,
+                    borderRadius: 3,
+                    backgroundColor: 'rgba(0,0,0,0.1)',
+                    '& .MuiLinearProgress-bar': {
+                      backgroundColor: strengthColors[passwordStrength.strength],
+                      borderRadius: 3,
+                    },
+                  }}
+                />
+                <Typography
+                  variant="caption"
+                  sx={{
+                    display: 'block',
+                    mt: 0.5,
+                    color: strengthColors[passwordStrength.strength],
+                    fontWeight: 500,
+                  }}
+                >
+                  {strengthLabels[passwordStrength.strength]}
+                </Typography>
+              </Box>
+            )}
+
+            {/* Ошибки валидации */}
+            <Collapse in={showErrors}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                {allErrors.map((error, index) => (
+                  <Alert
+                    key={index}
+                    severity="error"
+                    sx={{
+                      fontSize: '0.875rem',
+                      py: 0.5,
+                    }}
+                  >
+                    {t(error)}
+                  </Alert>
+                ))}
+              </Box>
+            </Collapse>
+          </Box>
 
           <Button
             type="submit"
             variant="contained"
             fullWidth
-            disabled={isLoading}
+            disabled={isLoading || !isFormValid}
             sx={buttonStyle}
             className={styles.submitBtn}
           >

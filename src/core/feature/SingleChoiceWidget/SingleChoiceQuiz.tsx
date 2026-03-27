@@ -18,6 +18,7 @@ import QuizNavigation from '@/core/components/QuizNavigation/QuizNavigation';
 import styles from './singleChoiceQuiz.module.scss';
 import { useTranslation } from 'react-i18next';
 import { useLocale } from '@/core/i18n/useLocal';
+import { submitQuizAnswers } from '@/core/api/submitQuizAnswers';
 
 interface SingleChoiceQuizProps {
   data: SingleChoiceTaskResponse;
@@ -61,7 +62,12 @@ export default function SingleChoiceQuiz({ data }: SingleChoiceQuizProps) {
   };
 
   const handleSubmit = async () => {
-    console.log('Submit answers:', userAnswers);
+    const answersForApi = userAnswers.map((answer) => ({
+      question_id: answer.questionId,
+      answer: answer.payload,
+    }));
+
+    await submitQuizAnswers(data.id, answersForApi);
   };
 
   return (

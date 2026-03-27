@@ -5,15 +5,17 @@ import CodeOrderingNavigation from './CodeOrderingNavigation/CodeOrderingNavigat
 import CodeOrderingProgress from './CodeOrderingProgress/CodeOrderingProgress';
 
 export default function CodeOrderingWidget({ data }: { data: CodeOrderingTask }) {
-  const questionsCount = data.questions.length;
+  const { questions, id } = data;
+
+  const questionsCount = questions.length;
 
   return (
     <div>
       <CodeOrderingProgress questionsCount={questionsCount} />
 
-      <CodeOrderingQuizBody questions={data.questions} />
+      <CodeOrderingQuizBody questions={questions} />
 
-      <CodeOrderingNavigation questions={data.questions} />
+      <CodeOrderingNavigation questions={questions} quizId={id} />
     </div>
   );
 }

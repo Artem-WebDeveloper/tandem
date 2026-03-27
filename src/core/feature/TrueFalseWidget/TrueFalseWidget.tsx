@@ -13,7 +13,7 @@ import { useLocale } from '@/core/i18n/useLocal';
 import { submitQuizAnswers } from '@/core/api/submitQuizAnswers';
 
 type Answer = {
-  questionId: string;
+  questionId: number;
   payload: boolean;
   isTimeout?: boolean;
 };

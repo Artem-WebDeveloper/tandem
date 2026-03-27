@@ -64,9 +64,9 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
   }; */
 
   const displayHeaderIcon = () => {
-    return bestResult && bestResult === 100 ? (
+    return bestResult === 100 ? (
       <CheckCircleOutlineRoundedIcon sx={{ color: theme.palette.success.main }} />
-    ) : bestResult ? (
+    ) : bestResult !== null ? (
       <AdjustRoundedIcon sx={{ color: theme.palette.textLight }} />
     ) : (
       <PanoramaFishEyeIcon sx={{ color: theme.palette.textUltralight }} />
@@ -191,7 +191,7 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
             lineHeight: '1.4',
           }}
         >
-          {bestResult
+          {bestResult !== null
             ? `${t('cards.quizState.completed')} ${bestResult}%`
             : `${t('cards.quizState.noResults')}`}
         </Typography>

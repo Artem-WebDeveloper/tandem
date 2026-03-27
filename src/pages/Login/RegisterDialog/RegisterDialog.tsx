@@ -280,7 +280,6 @@ export default function RegisterDialog({ open, onClose, onSuccess }: RegisterMod
               </Box>
             )}
 
-            {/* Ошибки валидации */}
             <Collapse in={showErrors}>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
                 {allErrors.map((error, index) => (

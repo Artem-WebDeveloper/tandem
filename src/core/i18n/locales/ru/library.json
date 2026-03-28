@@ -6,7 +6,7 @@
     "found": "Найдено тестов: ",
     "notFound": "Ничего не найдено",
     "categories": "Категории",
-    "allCategories": "Всё категории",
+    "allCategories": "Все категории",
     "favorites": "Избранное",
     "testType": "Тип теста",
     "allTypes": "Все типы",
@@ -18,7 +18,11 @@
       "codeOrdering": "Порядок кода"
     },
     "difficulty": "Сложность",
-    "allLevels": "Все уровни"
+    "allLevels": "Все уровни",
+    "status": "Статус",
+    "allStatuses": "Любой статус",
+    "perfect": "Пройденные",
+    "notPerfect": "Непройденные"
   },
   "cards": {
     "countOfQuestions": "вопросов",

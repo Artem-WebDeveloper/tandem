@@ -22,6 +22,7 @@ export type LibraryFilters = {
   section: TaskTheme | 'all' | 'Favorites';
   quiz_type: TaskType | 'all';
   difficulty: Difficulty | 'all';
+  is_perfect: 'all' | 'true' | 'false';
 };
 
 export interface LibraryResponse {

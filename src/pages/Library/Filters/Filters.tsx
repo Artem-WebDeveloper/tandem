@@ -33,7 +33,7 @@ export default function Filters({ allQuizzes, filterValues, onSetFilters, loadin
   const { t } = useTranslation('library');
   const quizTypeConfig = getQuizTypeConfig(t);
 
-  const { section, quiz_type, difficulty } = filterValues;
+  const { section, quiz_type, difficulty, is_perfect } = filterValues;
 
   const categories = Object.keys(sectionConfig).filter(isTaskTheme);
   const types = Object.keys(quizTypeConfig).filter(isTaskType);
@@ -49,7 +49,7 @@ export default function Filters({ allQuizzes, filterValues, onSetFilters, loadin
       <div className={styles.filtersInfo}>
         <h3>{t('filters.title')}</h3>
         {allQuizzes !== null ? (
-          <Typography variant="body2">
+          <Typography variant="body2" sx={{ textWrap: 'noWrap' }}>
             {allQuizzes === 0
               ? `${t('filters.notFound')}`
               : `${t('filters.found')} ${allQuizzes}`}{' '}
@@ -59,6 +59,27 @@ export default function Filters({ allQuizzes, filterValues, onSetFilters, loadin
         )}
       </div>
       <div className={styles.filtersForms}>
+        <FormControl size="small" sx={{ flex: 1, minWidth: 165 }}>
+          <InputLabel id="label-status" sx={{ left: '-1px' }}>
+            {t('filters.status')}
+          </InputLabel>
+          <Select
+            sx={{ fontSize: '15px' }}
+            labelId="label-status"
+            value={is_perfect}
+            label={t('filters.status')}
+            disabled={loading}
+            onChange={(event) => {
+              const newStatus = event.target.value;
+              onSetFilters({ ...filterValues, is_perfect: newStatus });
+            }}
+          >
+            <MenuItem value="all">{t('filters.allStatuses')}</MenuItem>
+            <MenuItem value="true">{t('filters.perfect')}</MenuItem>
+            <MenuItem value="false">{t('filters.notPerfect')}</MenuItem>
+          </Select>
+        </FormControl>
+
         <FormControl size="small" sx={{ flex: 1, minWidth: 165 }}>
           <InputLabel id="label-category" sx={{ left: '-2px' }}>
             {t('filters.categories')}
@@ -108,7 +129,7 @@ export default function Filters({ allQuizzes, filterValues, onSetFilters, loadin
           </Select>
         </FormControl>
 
-        <FormControl size="small" sx={{ flex: 1, minWidth: 165 }}>
+        <FormControl size="small" sx={{ flex: 1, minWidth: 120 }}>
           <InputLabel id="label-difficulty" sx={{ left: '-2px' }}>
             {t('filters.difficulty')}
           </InputLabel>

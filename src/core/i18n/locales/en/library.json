@@ -18,7 +18,11 @@
       "codeOrdering": "Code Ordering"
     },
     "difficulty": "Difficulty",
-    "allLevels": "All levels"
+    "allLevels": "All levels",
+    "status": "Status",
+    "allStatuses": "Any status",
+    "perfect": "Completed",
+    "notPerfect": "Not completed"
   },
   "cards": {
     "countOfQuestions": "questions",

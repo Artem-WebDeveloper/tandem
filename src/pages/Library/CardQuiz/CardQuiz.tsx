@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useTheme, Typography, Button, Chip } from '@mui/material';
+import { useTheme, Typography, Button, Chip, IconButton } from '@mui/material';
 
 import PanoramaFishEyeIcon from '@mui/icons-material/PanoramaFishEye';
 import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
@@ -9,7 +9,6 @@ import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded';
-import { IconButton } from '@mui/material';
 
 import styles from './CardQuiz.module.scss';
 import type { LibraryQuiz } from '../types';
@@ -19,6 +18,8 @@ import DifficultyChip from '@/core/components/DifficultyChip/DifficultyChip';
 import { useTranslation } from 'react-i18next';
 import { useLocale } from '@/core/i18n/useLocal';
 import { updateQuizFavoriteStatus } from '@/core/api/libraryApi/updateQuizFavoriteStatus';
+
+const PASSING_PERCENTAGE = 100;
 
 export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
   const theme = useTheme();
@@ -59,7 +60,7 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
   };
 
   const displayHeaderIcon = () => {
-    return bestResult === 100 ? (
+    return bestResult === PASSING_PERCENTAGE ? (
       <CheckCircleOutlineRoundedIcon sx={{ color: theme.palette.success.main }} />
     ) : bestResult !== null ? (
       <AdjustRoundedIcon sx={{ color: theme.palette.textLight }} />

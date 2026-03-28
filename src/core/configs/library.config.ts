@@ -70,3 +70,8 @@ export function parseDifficulty(value: string | null): Difficulty | 'all' {
   if (value && isDifficulty(num)) return num;
   return 'all';
 }
+
+export const parsePerfect = (value: string | null): 'all' | 'true' | 'false' => {
+  if (value === 'true' || value === 'false') return value;
+  return 'all';
+};

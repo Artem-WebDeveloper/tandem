@@ -7,11 +7,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 25px;
+  gap: 85px;
 
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: start;
+    gap: 25px;
   }
 
   &Info {

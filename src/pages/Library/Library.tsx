@@ -13,7 +13,12 @@ import CardSkeleton from './CardSkeleton/CardSkeleton';
 import { AppError, AppErrorCode } from '@/core/errors/errors';
 
 import { useTranslation } from 'react-i18next';
-import { parseDifficulty, parseQuizType, parseSection } from '@/core/configs/library.config';
+import {
+  parseDifficulty,
+  parsePerfect,
+  parseQuizType,
+  parseSection,
+} from '@/core/configs/library.config';
 
 const SKELETON_COUNT = 6;
 
@@ -35,6 +40,7 @@ export default function Library() {
       section: parseSection(searchParams.get('section')),
       quiz_type: parseQuizType(searchParams.get('quiz_type')),
       difficulty: parseDifficulty(searchParams.get('difficulty')),
+      is_perfect: parsePerfect(searchParams.get('is_perfect')),
     }),
     [searchParams],
   );
@@ -50,6 +56,7 @@ export default function Library() {
     if (newFilters.section !== 'all') params.section = newFilters.section;
     if (newFilters.quiz_type !== 'all') params.quiz_type = newFilters.quiz_type;
     if (newFilters.difficulty !== 'all') params.difficulty = String(newFilters.difficulty);
+    if (newFilters.is_perfect !== 'all') params.is_perfect = newFilters.is_perfect;
 
     setSearchParams(params);
   };

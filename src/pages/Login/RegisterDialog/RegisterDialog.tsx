@@ -101,7 +101,7 @@ export default function RegisterDialog({ open, onClose, onSuccess }: RegisterMod
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
 
     setUsernameTouched(true);
@@ -125,7 +125,11 @@ export default function RegisterDialog({ open, onClose, onSuccess }: RegisterMod
       onSuccess(username);
     } catch (err) {
       if (isAxiosError(err)) {
-        setServerError(t('registerPage.messages.error'));
+        if (err.response?.status === 400) {
+          setServerError(t('registerPage.messages.userExists'));
+        } else {
+          setServerError(t('registerPage.messages.serverError'));
+        }
       } else {
         setServerError(t('registerPage.messages.unexpectedError'));
       }
@@ -192,9 +196,11 @@ export default function RegisterDialog({ open, onClose, onSuccess }: RegisterMod
           onClose();
         }
       }}
-      PaperProps={{
-        sx: dialogPaperStyle,
-        className: styles.dialogPaper,
+      slotProps={{
+        paper: {
+          sx: dialogPaperStyle,
+          className: styles.dialogPaper,
+        },
       }}
     >
       <DialogTitle sx={formTitleStyle} className={styles.formTitle}>
@@ -202,14 +208,6 @@ export default function RegisterDialog({ open, onClose, onSuccess }: RegisterMod
       </DialogTitle>
 
       <DialogContent sx={{ padding: 0 }}>
-        <Collapse in={!!serverError}>
-          {serverError && (
-            <Alert severity="error" sx={{ mb: 2 }}>
-              {serverError}
-            </Alert>
-          )}
-        </Collapse>
-
         <form onSubmit={handleSubmit} className={styles.form}>
           <TextField
             label={t('registerPage.userName')}
@@ -295,6 +293,14 @@ export default function RegisterDialog({ open, onClose, onSuccess }: RegisterMod
                   </Alert>
                 ))}
               </Box>
+            </Collapse>
+
+            <Collapse in={!!serverError}>
+              {serverError && (
+                <Alert severity="error" sx={{ mt: 1, fontSize: '0.875rem', py: 0.5 }}>
+                  {serverError}
+                </Alert>
+              )}
             </Collapse>
           </Box>
 

@@ -10,19 +10,14 @@ import {
   Alert,
   useTheme,
   Collapse,
-  IconButton,
-  Tooltip,
 } from '@mui/material';
 import { isAxiosError } from 'axios';
 
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
-import LanguageIcon from '@mui/icons-material/Language';
-
 import { useAuthStore } from '../../core/store/auth.store';
 import { loginApi } from '../../core/api/auth';
+import SwitchThemeButton from '@/core/components/Header/SwitchThemeButton/SwitchThemeButton';
+import LanguageSwitcher from '@/core/components/LanguageSwitcher/LanguageSwitcher';
 import styles from './Login.module.scss';
-import { useThemeStore } from '../../core/store/theme.store';
 
 import { validateUsername, validatePassword } from '../../core/utils/loginValidation';
 
@@ -32,7 +27,7 @@ import RegisterDialog from './RegisterDialog/RegisterDialog';
 import { useTranslation } from 'react-i18next';
 
 export default function Login() {
-  const { t, i18n } = useTranslation('login');
+  const { t } = useTranslation('login');
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -51,7 +46,6 @@ export default function Login() {
   const login = useAuthStore((state) => state.login);
   const navigate = useNavigate();
   const theme = useTheme();
-  const { switchMode } = useThemeStore();
 
   useEffect(() => {
     if (usernameTouched && username) {
@@ -142,11 +136,6 @@ export default function Login() {
     setPasswordTouched(false);
   };
 
-  const toggleLanguage = () => {
-    const newLang = i18n.language.startsWith('ru') ? 'en' : 'ru';
-    i18n.changeLanguage(newLang);
-  };
-
   const isFormValid =
     username && password && usernameErrors.length === 0 && passwordErrors.length === 0;
 
@@ -194,13 +183,6 @@ export default function Login() {
     },
   };
 
-  const iconButtonStyle = {
-    color: theme.palette.text.secondary,
-    '&:hover': {
-      color: theme.palette.primary.main,
-    },
-  };
-
   const allErrors = [...usernameErrors, ...passwordErrors];
   const showErrors = (usernameTouched || passwordTouched) && allErrors.length > 0;
 
@@ -220,14 +202,6 @@ export default function Login() {
         <Typography variant="h3" component="h3" className={styles.formTitle} sx={mainTitleStyle}>
           {t('loginPage.forms.title')}
         </Typography>
-
-        <Collapse in={!!serverError}>
-          {serverError && (
-            <Alert severity="error" sx={{ mb: 2 }}>
-              {serverError}
-            </Alert>
-          )}
-        </Collapse>
 
         <Collapse in={!!successMsg}>
           {successMsg && (
@@ -271,28 +245,44 @@ export default function Login() {
 
           <Box
             sx={{
-              minHeight: '80px',
-              maxHeight: '120px',
-              overflow: 'auto',
+              minHeight: '60px',
+              maxHeight: '110px',
+              overflowY: 'auto',
+              overflowX: 'hidden',
               transition: 'all 0.3s ease',
+              scrollbarWidth: 'thin',
+              scrollbarColor: `${theme.palette.divider} transparent`,
+              '&::-webkit-scrollbar': { width: '4px' },
+              '&::-webkit-scrollbar-thumb': {
+                backgroundColor: theme.palette.divider,
+                borderRadius: '2px',
+              },
             }}
           >
-            <Collapse in={showErrors}>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                {allErrors.map((error, index) => (
-                  <Alert
-                    key={index}
-                    severity="error"
-                    sx={{
-                      fontSize: '0.875rem',
-                      py: 0.5,
-                    }}
-                  >
-                    {t(error)}
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+              <Collapse in={!!serverError}>
+                {serverError && (
+                  <Alert severity="error" sx={{ fontSize: '0.875rem', py: 0.5 }}>
+                    {serverError}
                   </Alert>
-                ))}
-              </Box>
-            </Collapse>
+                )}
+              </Collapse>
+
+              <Collapse in={showErrors}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                  {allErrors.map((error, index) => (
+                    <Alert key={index} severity="error" sx={{ fontSize: '0.875rem', py: 0.5 }}>
+                      {t(error)}
+                    </Alert>
+                  ))}
+                </Box>
+              </Collapse>
+            </Box>
+          </Box>
+
+          <Box sx={{ display: 'flex', justifyContent: 'right', gap: 1, mt: 2, mr: 2 }}>
+            <SwitchThemeButton />
+            <LanguageSwitcher />
           </Box>
 
           <Button
@@ -319,18 +309,6 @@ export default function Login() {
             {t('loginPage.forms.register')}
           </Button>
         </form>
-        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1, mt: 2 }}>
-          <Tooltip title={t('loginPage.controls.toggleTheme')}>
-            <IconButton onClick={switchMode} sx={iconButtonStyle}>
-              {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-            </IconButton>
-          </Tooltip>
-          <Tooltip title={t('loginPage.controls.toggleLanguage')}>
-            <IconButton onClick={toggleLanguage} sx={iconButtonStyle}>
-              <LanguageIcon />
-            </IconButton>
-          </Tooltip>
-        </Box>
       </Paper>
 
       <RegisterDialog

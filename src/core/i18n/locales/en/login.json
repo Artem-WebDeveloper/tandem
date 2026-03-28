@@ -27,21 +27,21 @@
       "cancel": "Cancel"
     },
     "messages": {
-      "error": "Registration error. The user may already exist.",
+      "userExists": "A user with this name already exists.",
+      "serverError": "Server connection error. Please try again later.",
       "unexpectedError": "Unexpected error"
     }
   },
   "validation": {
     "username": {
-      "required": "Username is required",
-      "tooShort": "Minimum 3 characters",
-      "tooLong": "Maximum 15 characters",
-      "invalidChars": "Only letters, numbers and _ allowed",
+      "tooShort": "Name: Minimum 3 characters",
+      "tooLong": "Name: Maximum 15 characters",
+      "invalidChars": "Name: Only letters, numbers and _ allowed",
       "characters": "characters"
     },
     "password": {
       "required": "Password is required",
-      "tooShort": "Minimum 8 characters",
+      "tooShort": "Password: Minimum 8 characters",
       "sameAsUsername": "Password must not match username",
       "onlyDigits": "Password cannot contain only digits",
       "tooCommon": "Password is too common",

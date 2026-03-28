@@ -22,7 +22,6 @@ export async function fetchAllQuizzes(
 
   if (IS_API_MODE) {
     const res = await axiosInstance.get<LibraryResponse>(`/quizzes/?${params.toString()}`);
-    console.log(res.data);
     return res.data;
   } else {
     return new Promise((resolve, reject) => {

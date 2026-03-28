@@ -9,8 +9,7 @@ export interface LibraryQuiz extends BaseTask {
   };
   questions_count: number;
   user_progress: UserProgress;
-  // isComplete: boolean;
-  isFavorite: boolean;
+  is_favorite: boolean;
 }
 
 type UserProgress = {

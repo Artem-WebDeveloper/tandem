@@ -25,7 +25,7 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
   const { t } = useTranslation('library');
   const quizTypeConfig = getQuizTypeConfig(t);
 
-  const [isLike, setIsLike] = useState<boolean>(quizData.isFavorite);
+  const [isLike, setIsLike] = useState<boolean>(quizData.is_favorite);
 
   const {
     title,
@@ -33,6 +33,7 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
     description,
     questions_count: questionsQuantity,
     time_limit: time,
+    // is_favorite: isFavorite,
     difficulty,
     tags,
     section,

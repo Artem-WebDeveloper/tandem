@@ -14,7 +14,8 @@
       "quiz": "Квиз",
       "insertingCode": "Вставка кода",
       "sorting": "Сортировка",
-      "trueFalse": "True / False"
+      "trueFalse": "True / False",
+      "codeOrdering": "Порядок кода"
     },
     "difficulty": "Сложность",
     "allLevels": "Все уровни"

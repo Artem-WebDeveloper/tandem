@@ -1,51 +1,19 @@
 import styles from './CategoryBlock.module.scss';
-import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Typography, useTheme } from '@mui/material';
-import { fetchCategoryStatistic } from '@/core/api/dashboardApi/fetchCategoryStatistic';
-import { AppError } from '@/core/errors/errors';
 import type { CategoryStatistic } from '../types';
 import CategoryItem from './CategoryItem/CategoryItem';
 import CategorySkeleton from './CategorySkeleton/CategorySkeleton';
-import DashboardError from '../DashboardError/DashboardError';
 
-export default function CategoryBlock() {
+export default function CategoryBlock({
+  data,
+  isLoading,
+}: {
+  data: CategoryStatistic[] | null;
+  isLoading: boolean;
+}) {
   const { t } = useTranslation('dashboard');
   const theme = useTheme();
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<null | AppError>(null);
-  const [categoryStatistic, setCategoryStatistic] = useState<CategoryStatistic[]>([]);
-
-  useEffect(() => {
-    getCategoryStatistic();
-  }, []);
-
-  async function getCategoryStatistic() {
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      const data: CategoryStatistic[] = await fetchCategoryStatistic();
-      setCategoryStatistic(data);
-    } catch (error) {
-      if (error instanceof AppError) {
-        setError(error);
-      } else {
-        throw error;
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
-  if (error)
-    return (
-      <DashboardError
-        message={t(`dashboard.error.${error.code}`, error.params)}
-        onRetry={getCategoryStatistic}
-      />
-    );
 
   return (
     <div
@@ -59,11 +27,11 @@ export default function CategoryBlock() {
         </Typography>
       </div>
 
-      {isLoading ? (
+      {isLoading || data === null ? (
         <CategorySkeleton />
       ) : (
         <ul className={styles.category_list}>
-          {categoryStatistic.map((item) => (
+          {data.map((item) => (
             <CategoryItem key={item.theme} item={item} />
           ))}
         </ul>

@@ -16,3 +16,9 @@ export type DifficultyStatistic = {
   tests: number;
   completedTestsCount: number;
 };
+
+export type DashboardData = {
+  commonStatistic: CommonStatistic;
+  categoryStatistic: CategoryStatistic[];
+  difficultyStatistic: DifficultyStatistic[];
+};

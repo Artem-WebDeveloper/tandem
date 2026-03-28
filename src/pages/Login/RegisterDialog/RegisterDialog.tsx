@@ -243,8 +243,8 @@ export default function RegisterDialog({ open, onClose, onSuccess }: RegisterMod
 
           <Box
             sx={{
-              minHeight: '120px',
-              maxHeight: '120px',
+              minHeight: '110px',
+              maxHeight: '110px',
               overflowY: 'auto',
               overflowX: 'hidden',
               transition: 'all 0.3s ease',

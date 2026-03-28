@@ -271,7 +271,7 @@ export default function Login() {
 
           <Box
             sx={{
-              minHeight: '80px',
+              minHeight: '110px',
               maxHeight: '110px',
               overflowY: 'auto',
               overflowX: 'hidden',

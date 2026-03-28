@@ -36,7 +36,7 @@
     "username": {
       "tooShort": "Name: Minimum 3 characters",
       "tooLong": "Name: Maximum 15 characters",
-      "invalidChars": "Name: Only letters, numbers and _ allowed",
+      "invalidChars": "Name: Only 'En' letters, numbers and _ allowed",
       "characters": "characters"
     },
     "password": {

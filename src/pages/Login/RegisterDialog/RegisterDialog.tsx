@@ -243,10 +243,39 @@ export default function RegisterDialog({ open, onClose, onSuccess }: RegisterMod
 
           <Box
             sx={{
-              minHeight: '140px',
-              maxHeight: '180px',
-              overflow: 'auto',
+              minHeight: '120px',
+              maxHeight: '120px',
+              overflowY: 'auto',
+              overflowX: 'hidden',
               transition: 'all 0.3s ease',
+              scrollbarWidth: 'thin',
+              scrollbarColor:
+                theme.palette.mode === 'light'
+                  ? `${theme.palette.textUltralight} transparent`
+                  : `${theme.palette.textUltralight} transparent`,
+              '&::-webkit-scrollbar': {
+                width: '6px',
+              },
+              '&::-webkit-scrollbar-track': {
+                backgroundColor:
+                  theme.palette.mode === 'light'
+                    ? theme.palette.background.default
+                    : theme.palette.background.paper,
+                borderRadius: '3px',
+              },
+              '&::-webkit-scrollbar-thumb': {
+                backgroundColor:
+                  theme.palette.mode === 'light'
+                    ? theme.palette.textUltralight
+                    : theme.palette.primaryDisabled,
+                borderRadius: '3px',
+                '&:hover': {
+                  backgroundColor:
+                    theme.palette.mode === 'light'
+                      ? theme.palette.textLight
+                      : theme.palette.text.secondary,
+                },
+              },
             }}
           >
             {passwordTouched && password && passwordErrors.length === 0 && passwordStrength && (

@@ -193,15 +193,41 @@ export default function Login() {
         <Typography variant="h1" component="h1" className={styles.mainTitle} sx={mainTitleStyle}>
           {t('loginPage.title')}
         </Typography>
+
         <Typography variant="body1" className={styles.subtitle} sx={subtitleStyle}>
           {t('loginPage.description')}
         </Typography>
       </Box>
 
       <Paper elevation={0} className={styles.formCard} sx={cardStyle}>
-        <Typography variant="h3" component="h3" className={styles.formTitle} sx={mainTitleStyle}>
-          {t('loginPage.forms.title')}
-        </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            mb: 2,
+            flexWrap: 'wrap',
+            gap: 1,
+          }}
+        >
+          <Typography
+            variant="h3"
+            component="h3"
+            sx={{
+              ...mainTitleStyle,
+              margin: 0,
+              lineHeight: 1,
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
+            {t('loginPage.forms.title')}
+          </Typography>
+          <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+            <SwitchThemeButton />
+            <LanguageSwitcher />
+          </Box>
+        </Box>
 
         <Collapse in={!!successMsg}>
           {successMsg && (
@@ -245,17 +271,38 @@ export default function Login() {
 
           <Box
             sx={{
-              minHeight: '60px',
+              minHeight: '80px',
               maxHeight: '110px',
               overflowY: 'auto',
               overflowX: 'hidden',
               transition: 'all 0.3s ease',
               scrollbarWidth: 'thin',
-              scrollbarColor: `${theme.palette.divider} transparent`,
-              '&::-webkit-scrollbar': { width: '4px' },
+              scrollbarColor:
+                theme.palette.mode === 'light'
+                  ? `${theme.palette.textUltralight} transparent`
+                  : `${theme.palette.textUltralight} transparent`,
+              '&::-webkit-scrollbar': {
+                width: '6px',
+              },
+              '&::-webkit-scrollbar-track': {
+                backgroundColor:
+                  theme.palette.mode === 'light'
+                    ? theme.palette.background.default
+                    : theme.palette.background.paper,
+                borderRadius: '3px',
+              },
               '&::-webkit-scrollbar-thumb': {
-                backgroundColor: theme.palette.divider,
-                borderRadius: '2px',
+                backgroundColor:
+                  theme.palette.mode === 'light'
+                    ? theme.palette.textUltralight
+                    : theme.palette.primaryDisabled,
+                borderRadius: '3px',
+                '&:hover': {
+                  backgroundColor:
+                    theme.palette.mode === 'light'
+                      ? theme.palette.textLight
+                      : theme.palette.text.secondary,
+                },
               },
             }}
           >
@@ -278,11 +325,6 @@ export default function Login() {
                 </Box>
               </Collapse>
             </Box>
-          </Box>
-
-          <Box sx={{ display: 'flex', justifyContent: 'right', gap: 1, mt: 2, mr: 2 }}>
-            <SwitchThemeButton />
-            <LanguageSwitcher />
           </Box>
 
           <Button

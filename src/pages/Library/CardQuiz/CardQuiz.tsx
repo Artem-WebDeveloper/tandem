@@ -18,6 +18,7 @@ import DifficultyChip from '@/core/components/DifficultyChip/DifficultyChip';
 
 import { useTranslation } from 'react-i18next';
 import { useLocale } from '@/core/i18n/useLocal';
+import { updateQuizFavoriteStatus } from '@/core/api/libraryApi/updateQuizFavoriteStatus';
 
 export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
   const theme = useTheme();
@@ -33,7 +34,6 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
     description,
     questions_count: questionsQuantity,
     time_limit: time,
-    // is_favorite: isFavorite,
     difficulty,
     tags,
     section,
@@ -49,20 +49,14 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
   const bgColorThemeLabel = themeQuiz?.bgLight ?? theme.palette.textUltralight;
   const typeQuizLabel = quizTypeConfig[type];
 
-  const handleLikeToggle = () => {
+  const handleLikeToggle = async () => {
     setIsLike((prev) => !prev);
-    // updateLikeStatus(id, !isFavorite); // позже, после обсуждения с бэком
-  };
-
-  // TODO после согласования с бэком
-  /* const updateLikeStatus = async (id: string, newStatus: boolean) => {
     try {
-      await updateQuizFavoriteStatus(id, newStatus);
-    } catch (error) {
-      console.error('Ошибка при обновлении лайка', error);
+      await updateQuizFavoriteStatus(id);
+    } catch {
       setIsLike((prev) => !prev);
     }
-  }; */
+  };
 
   const displayHeaderIcon = () => {
     return bestResult === 100 ? (

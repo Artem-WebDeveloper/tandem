@@ -1,5 +1,7 @@
 {
   "testCompleted": "Тест завершен!",
   "correctAnswers": "% правильных ответов",
-  "outOf": "из"
+  "outOf": "из",
+  "question": "Вопрос",
+  "yourAnswer": "Ваш ответ"
 }

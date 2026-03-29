@@ -1,5 +1,7 @@
 {
   "testCompleted": "Test completed!",
   "correctAnswers": "% correct answers",
-  "outOf": "out of"
+  "outOf": "out of",
+  "question": "Question",
+  "yourAnswer": "Your answer"
 }

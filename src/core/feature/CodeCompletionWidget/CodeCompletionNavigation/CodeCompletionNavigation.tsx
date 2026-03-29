@@ -30,15 +30,12 @@ function CodeCompletionNavigation({
       questionsCount={questions.length}
       isAnswerGiven={!!currentAnswer && currentAnswer.payload.length > 0}
       onAnswersSubmit={async () => {
-        const answersForApi = answers.map((answer) => ({
+        const answersForApi: QuizAnswer<CodeComplitionAnswerPayload>[] = answers.map((answer) => ({
           question_id: answer.questionId,
           answer: answer.payload,
         }));
 
-        const quizResults = await submitQuizAnswers(
-          quizId,
-          answersForApi as QuizAnswer<CodeComplitionAnswerPayload>[],
-        );
+        const quizResults = await submitQuizAnswers(quizId, answersForApi);
         if (onSubmit) onSubmit(quizResults);
       }}
     />

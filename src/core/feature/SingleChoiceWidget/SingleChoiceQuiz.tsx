@@ -64,15 +64,12 @@ export default function SingleChoiceQuiz({ data, onSubmit }: SingleChoiceQuizPro
   };
 
   const handleSubmit = async () => {
-    const answersForApi = userAnswers.map((answer) => ({
+    const answersForApi: QuizAnswer<SingleChoiceAnswerPayload>[] = userAnswers.map((answer) => ({
       question_id: answer.questionId,
-      answer: answer.payload,
+      answer: answer.payload as SingleChoiceAnswerPayload,
     }));
 
-    const quizResults = await submitQuizAnswers(
-      data.id,
-      answersForApi as QuizAnswer<SingleChoiceAnswerPayload>[],
-    );
+    const quizResults = await submitQuizAnswers(data.id, answersForApi);
     if (onSubmit) onSubmit(quizResults);
   };
 

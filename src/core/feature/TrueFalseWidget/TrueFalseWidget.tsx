@@ -130,16 +130,13 @@ function TrueFalseWidget({
         isBackAllowed={isSavedAnswer}
         onAnswersSubmit={async () => {
           // убираю поле timeout, бэку не пригодится, ответ засчитывается неверным в payload
-          const payload = answers.map((answer) => ({
+          const payload: QuizAnswer<TrueFalseAnswerPayload>[] = answers.map((answer) => ({
             question_id: answer.questionId,
             answer: answer.payload,
           }));
           console.log('Submit', payload);
 
-          const quizResults = await submitQuizAnswers(
-            id,
-            payload as QuizAnswer<TrueFalseAnswerPayload>[],
-          );
+          const quizResults = await submitQuizAnswers(id, payload);
           if (onSubmit) onSubmit(quizResults);
         }}
       />

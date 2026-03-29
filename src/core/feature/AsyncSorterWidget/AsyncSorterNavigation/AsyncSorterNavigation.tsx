@@ -34,15 +34,12 @@ function AsyncSorterNavigation({
         !!currentAnswer && currentAnswer.payload.length === currentQuestion.blocks.length
       }
       onAnswersSubmit={async () => {
-        const answersForApi = answers.map((answer) => ({
+        const answersForApi: QuizAnswer<AsyncSorterAnswerPayload>[] = answers.map((answer) => ({
           question_id: answer.questionId,
           answer: answer.payload,
         }));
 
-        const quizResults = await submitQuizAnswers(
-          quizId,
-          answersForApi as QuizAnswer<AsyncSorterAnswerPayload>[],
-        );
+        const quizResults = await submitQuizAnswers(quizId, answersForApi);
         if (onSubmit) onSubmit(quizResults);
       }}
     />

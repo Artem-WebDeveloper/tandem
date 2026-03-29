@@ -15,6 +15,12 @@ export default function DifficultyBlock({
   const { t } = useTranslation('dashboard');
   const theme = useTheme();
 
+  const easyItem = data?.find((item) => item.difficulty === 1);
+  const mediumItem = data?.find((item) => item.difficulty === 2);
+  const hardItem = data?.find((item) => item.difficulty === 3);
+
+  const isData = easyItem !== undefined && mediumItem !== undefined && hardItem !== undefined;
+
   return (
     <div
       className={styles.wrapper}
@@ -22,13 +28,13 @@ export default function DifficultyBlock({
     >
       <Typography variant="h3">{t('dashboard.difficulty.title')}</Typography>
 
-      {isLoading || data === null ? (
+      {isLoading || !isData ? (
         <DifficultySkeleton />
       ) : (
         <ul className={styles.difficulty_list}>
-          {data.map((item, index) => (
-            <DifficultyItem key={index} item={item} />
-          ))}
+          <DifficultyItem item={easyItem} />
+          <DifficultyItem item={mediumItem} />
+          <DifficultyItem item={hardItem} />
         </ul>
       )}
     </div>

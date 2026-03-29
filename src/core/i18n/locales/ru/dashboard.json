@@ -4,7 +4,7 @@
     "description": "Статистика и прогресс обучения",
     "error": {
       "button": "Попробовать снова",
-      "fetchFailed": "Не удалось загрузить {{resource}}. Проверьте соединение с интернетом."
+      "fetchFailed": "Не удалось загрузить данные."
     },
     "statistics": {
       "availableTask": {

@@ -4,7 +4,7 @@
     "description": "Statistics and learning progress",
     "error": {
       "button": "Try again",
-      "fetchFailed": "Failed to load {{resource}}. Check your internet connection."
+      "fetchFailed": "Failed to load data."
     },
     "statistics": {
       "availableTask": {

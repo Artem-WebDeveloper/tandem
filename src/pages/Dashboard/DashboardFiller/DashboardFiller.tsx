@@ -1,7 +1,7 @@
 import { Typography, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-function Filler() {
+function DashboardFiller() {
   const { t } = useTranslation('dashboard');
   const theme = useTheme();
 
@@ -25,4 +25,4 @@ function Filler() {
   );
 }
 
-export default Filler;
+export default DashboardFiller;

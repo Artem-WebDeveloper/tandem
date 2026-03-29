@@ -10,7 +10,7 @@ import { fetchDashboardData } from '@/core/api/dashboardApi/fetchDashboardData';
 import type { DashboardData } from './types';
 import { AppError } from '@/core/errors/errors';
 import DashboardError from './DashboardError/DashboardError';
-import Filler from './Filler/Filler';
+import DashboardFiller from './DashboardFiller/DashboardFiller';
 
 export default function Dashboard() {
   const { t } = useTranslation('dashboard');
@@ -58,17 +58,11 @@ export default function Dashboard() {
           />
         ) : (
           <>
-            <CommonStatisticBlock
-              isLoading={isLoading}
-              data={dashboardData?.commonStatistic ?? null}
-            />
-            <CategoryBlock isLoading={isLoading} data={dashboardData?.categoryStatistic ?? null} />
+            <CommonStatisticBlock isLoading={isLoading} data={dashboardData?.general ?? null} />
+            <CategoryBlock isLoading={isLoading} data={dashboardData?.by_section ?? null} />
             <div className={styles.static_bottom}>
-              <DifficultyBlock
-                isLoading={isLoading}
-                data={dashboardData?.difficultyStatistic ?? null}
-              />
-              <Filler />
+              <DifficultyBlock isLoading={isLoading} data={dashboardData?.by_difficulty ?? null} />
+              <DashboardFiller />
             </div>
           </>
         )}

@@ -1,6 +1,6 @@
 import type { TaskTheme } from '@/core/types/quiz';
 
-export type QuizDifficulty = 'Easy' | 'Medium' | 'Hard';
+export type QuizDifficulty = 1 | 2 | 3;
 
 export type CommonStatistic = {
   testsCount: number | null;
@@ -18,7 +18,7 @@ export type DifficultyStatistic = {
 };
 
 export type DashboardData = {
-  commonStatistic: CommonStatistic;
-  categoryStatistic: CategoryStatistic[];
-  difficultyStatistic: DifficultyStatistic[];
+  general: CommonStatistic;
+  by_section: CategoryStatistic[];
+  by_difficulty: DifficultyStatistic[];
 };

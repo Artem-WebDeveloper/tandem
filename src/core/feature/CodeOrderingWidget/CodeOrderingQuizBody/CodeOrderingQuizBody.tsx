@@ -14,7 +14,6 @@ export default function CodeOrderingQuizBody({ questions }: { questions: CodeOrd
 
   const currentQuestionNumber = useCodeOrderingStore((state) => state.currentQuestionNumber);
   const { id, text, lines } = questions[currentQuestionNumber];
-  console.log('currentQuestionNumber', currentQuestionNumber, questions);
 
   return (
     <div className={styles.quizBody}>

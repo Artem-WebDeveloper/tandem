@@ -29,15 +29,13 @@ export default function CodeOrderingDragAndDrop({
       const codeLine = lines.find((codeLine) => codeLine.id === savedLineId);
       if (codeLine) {
         orderedLines.push(codeLine);
-        console.log('1', orderedLines);
       }
     }
   } else {
     // если сохраненного ответа нет то используем исходный массив линий
     orderedLines = lines;
-    console.log('2', orderedLines);
   }
-  console.log(orderedLines);
+
   const orderedLinesIds = orderedLines.map((orderedLine) => orderedLine.id);
 
   return (
@@ -45,7 +43,6 @@ export default function CodeOrderingDragAndDrop({
       <DragDropProvider
         onDragEnd={(event) => {
           const answer = move(orderedLinesIds, event);
-          console.log(`Save answer ${answer}`);
           setAnswer(currentQuestionId, answer);
         }}
       >

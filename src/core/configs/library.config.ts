@@ -41,6 +41,7 @@ export const getQuizTypeConfig = (t: (key: string) => string): Record<TaskTypeKe
   [TaskType.CodeCompletion]: t('filters.quizType.insertingCode'),
   [TaskType.AsyncSorter]: t('filters.quizType.sorting'),
   [TaskType.TrueFalse]: t('filters.quizType.trueFalse'),
+  [TaskType.CodeOrdering]: t('filters.quizType.codeOrdering'),
 });
 
 // Type guards для Selectors в Filters
@@ -69,3 +70,8 @@ export function parseDifficulty(value: string | null): Difficulty | 'all' {
   if (value && isDifficulty(num)) return num;
   return 'all';
 }
+
+export const parsePerfect = (value: string | null): 'all' | 'true' | 'false' => {
+  if (value === 'true' || value === 'false') return value;
+  return 'all';
+};

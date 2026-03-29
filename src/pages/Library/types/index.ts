@@ -8,15 +8,21 @@ export interface LibraryQuiz extends BaseTask {
     en: string;
   };
   questions_count: number;
-  completePercentage: number;
-  isComplete: boolean;
-  isFavorite: boolean;
+  user_progress: UserProgress;
+  is_favorite: boolean;
 }
+
+type UserProgress = {
+  is_completed: boolean;
+  latest_score: null | number;
+  best_result: null | number;
+};
 
 export type LibraryFilters = {
   section: TaskTheme | 'all' | 'Favorites';
   quiz_type: TaskType | 'all';
   difficulty: Difficulty | 'all';
+  is_perfect: 'all' | 'true' | 'false';
 };
 
 export interface LibraryResponse {

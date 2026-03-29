@@ -6,7 +6,7 @@
     "found": "Найдено тестов: ",
     "notFound": "Ничего не найдено",
     "categories": "Категории",
-    "allCategories": "Всё категории",
+    "allCategories": "Все категории",
     "favorites": "Избранное",
     "testType": "Тип теста",
     "allTypes": "Все типы",
@@ -14,16 +14,21 @@
       "quiz": "Квиз",
       "insertingCode": "Вставка кода",
       "sorting": "Сортировка",
-      "trueFalse": "True / False"
+      "trueFalse": "True / False",
+      "codeOrdering": "Порядок кода"
     },
     "difficulty": "Сложность",
-    "allLevels": "Все уровни"
+    "allLevels": "Все уровни",
+    "status": "Статус",
+    "allStatuses": "Любой статус",
+    "perfect": "Пройденные",
+    "notPerfect": "Непройденные"
   },
   "cards": {
     "countOfQuestions": "вопросов",
     "min": "мин",
     "quizState": {
-      "notStarted": "Не начат",
+      "noResults": "Нет результатов",
       "completed": "Завершено"
     },
     "startTest": "Начать тест"

@@ -18,7 +18,7 @@ describe('QuizProgressBar', () => {
   it('renders with correct current question', () => {
     setup();
 
-    const currentQuestion = screen.getByText('Вопрос 2 из 5');
+    const currentQuestion = screen.getByText('progressBar.question 2 progressBar.of 5');
 
     expect(currentQuestion).toBeInTheDocument();
   });

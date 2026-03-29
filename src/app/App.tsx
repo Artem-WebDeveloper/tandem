@@ -8,7 +8,6 @@ import { getTheme } from '../core/theme/getTheme';
 import Login from '../pages/Login/Login';
 import Dashboard from '../pages/Dashboard/Dashboard';
 import Library from '../pages/Library/Library';
-import Results from '../pages/Results/Results';
 import Practice from '../pages/Practice/Practice';
 import NotFound from '../pages/NotFound/NotFound';
 
@@ -75,14 +74,6 @@ function App() {
             element={
               <ProtectedRoute>
                 <Practice />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="results"
-            element={
-              <ProtectedRoute>
-                <Results />
               </ProtectedRoute>
             }
           />

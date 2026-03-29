@@ -20,7 +20,6 @@ export default function CodeOrderingNavigation({
 
   const increaseQuestionNumber = useCodeOrderingStore((state) => state.increaseQuestionNumber);
   const decreaseQuestionNumber = useCodeOrderingStore((state) => state.decreaseQuestionNumber);
-  const resetQuizState = useCodeOrderingStore((state) => state.reset);
 
   return (
     <QuizNavigation
@@ -29,7 +28,7 @@ export default function CodeOrderingNavigation({
       decreaseQuestionNumber={decreaseQuestionNumber}
       questionsCount={questions.length}
       isAnswerGiven={
-        !!currentAnswer && currentAnswer.payload.length === currentQuestion.codeLines.length
+        !!currentAnswer && currentAnswer.payload.length === currentQuestion.lines.length
       }
       onAnswersSubmit={async () => {
         const answersForApi = answers.map((answer) => ({
@@ -38,7 +37,6 @@ export default function CodeOrderingNavigation({
         }));
 
         await submitQuizAnswers(quizId, answersForApi);
-        resetQuizState();
       }}
     />
   );

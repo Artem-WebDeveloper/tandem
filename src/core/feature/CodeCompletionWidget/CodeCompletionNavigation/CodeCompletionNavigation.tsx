@@ -26,7 +26,6 @@ function CodeCompletionNavigation({
 
   const increaseQuestionNumber = useCodeCompletionStore((state) => state.increaseQuestionNumber);
   const decreaseQuestionNumber = useCodeCompletionStore((state) => state.decreaseQuestionNumber);
-  const resetQuizState = useCodeCompletionStore((state) => state.reset);
 
   return (
     <QuizNavigation
@@ -46,8 +45,6 @@ function CodeCompletionNavigation({
           answersForApi as QuizAnswer<CodeComplitionUserAnswerPayload>[],
         );
         if (onSubmit) onSubmit(quizResults);
-
-        resetQuizState();
       }}
     />
   );

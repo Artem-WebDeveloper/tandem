@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useTheme, Typography, Button, Chip } from '@mui/material';
+import { useTheme, Typography, Button, Chip, IconButton } from '@mui/material';
 
 import PanoramaFishEyeIcon from '@mui/icons-material/PanoramaFishEye';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
+import AdjustRoundedIcon from '@mui/icons-material/AdjustRounded';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded';
-import { IconButton } from '@mui/material';
 
 import styles from './CardQuiz.module.scss';
 import type { LibraryQuiz } from '../types';
@@ -17,6 +17,9 @@ import DifficultyChip from '@/core/components/DifficultyChip/DifficultyChip';
 
 import { useTranslation } from 'react-i18next';
 import { useLocale } from '@/core/i18n/useLocal';
+import { updateQuizFavoriteStatus } from '@/core/api/libraryApi/updateQuizFavoriteStatus';
+
+const PASSING_PERCENTAGE = 100;
 
 export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
   const theme = useTheme();
@@ -24,11 +27,10 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
   const { t } = useTranslation('library');
   const quizTypeConfig = getQuizTypeConfig(t);
 
-  const [isLike, setIsLike] = useState<boolean>(quizData.isFavorite);
+  const [isLike, setIsLike] = useState<boolean>(quizData.is_favorite);
 
   const {
     title,
-    completePercentage,
     id,
     description,
     questions_count: questionsQuantity,
@@ -37,28 +39,35 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
     tags,
     section,
     type,
-    isComplete,
+    user_progress: userProgress,
   } = quizData;
+
+  let { best_result: bestResult } = userProgress;
+  bestResult = bestResult !== null ? Math.floor(bestResult) : bestResult;
 
   const themeQuiz = sectionConfig[section];
   const accentColorThemeLabel = themeQuiz?.color ?? theme.palette.text.primary;
   const bgColorThemeLabel = themeQuiz?.bgLight ?? theme.palette.textUltralight;
   const typeQuizLabel = quizTypeConfig[type];
 
-  const handleLikeToggle = () => {
+  const handleLikeToggle = async () => {
     setIsLike((prev) => !prev);
-    // updateLikeStatus(id, !isFavorite); // позже, после обсуждения с бэком
-  };
-
-  // TODO после согласования с бэком
-  /* const updateLikeStatus = async (id: string, newStatus: boolean) => {
     try {
-      await updateQuizFavoriteStatus(id, newStatus);
-    } catch (error) {
-      console.error('Ошибка при обновлении лайка', error);
+      await updateQuizFavoriteStatus(id);
+    } catch {
       setIsLike((prev) => !prev);
     }
-  }; */
+  };
+
+  const displayHeaderIcon = () => {
+    return bestResult === PASSING_PERCENTAGE ? (
+      <CheckCircleOutlineRoundedIcon sx={{ color: theme.palette.success.main }} />
+    ) : bestResult !== null ? (
+      <AdjustRoundedIcon sx={{ color: theme.palette.textLight }} />
+    ) : (
+      <PanoramaFishEyeIcon sx={{ color: theme.palette.textUltralight }} />
+    );
+  };
 
   return (
     <li
@@ -69,11 +78,7 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
       className={styles.card}
     >
       <header className={styles.cardHeading}>
-        {isComplete ? (
-          <CheckCircleOutlineIcon sx={{ color: theme.palette.success.main }} />
-        ) : (
-          <PanoramaFishEyeIcon sx={{ color: theme.palette.textUltralight }} />
-        )}
+        {displayHeaderIcon()}
         <h3 className={styles.cardTitle}>{title[locale]}</h3>
 
         <Chip
@@ -182,9 +187,9 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
             lineHeight: '1.4',
           }}
         >
-          {completePercentage
-            ? `${t('cards.quizState.completed')} ${completePercentage}%`
-            : `${t('cards.quizState.notStarted')}`}
+          {bestResult !== null
+            ? `${t('cards.quizState.completed')} ${bestResult}%`
+            : `${t('cards.quizState.noResults')}`}
         </Typography>
         <Button
           component={Link}

@@ -20,7 +20,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите функцию clamp для ограничения числа',
           en: 'Assemble a clamp function for limiting a number',
         },
-        codeLines: [
+        lines: [
           {
             id: 'line-1',
             code: 'function clamp(value, min, max) {',
@@ -55,7 +55,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите функцию проверки доступа по возрасту',
           en: 'Assemble an access check by age function',
         },
-        codeLines: [
+        lines: [
           { id: 'line-1', code: 'function canAccess(age) {', correctPosition: 0, indent: 0 },
           {
             id: 'line-2',
@@ -75,7 +75,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите функцию вычисления скидочной цены',
           en: 'Assemble a discounted price calculation function',
         },
-        codeLines: [
+        lines: [
           {
             id: 'line-1',
             code: 'function getDiscountPrice(price, percent) {',
@@ -105,7 +105,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите функцию приветствия с fallback',
           en: 'Assemble a greeting function with fallback',
         },
-        codeLines: [
+        lines: [
           { id: 'line-1', code: 'function greetUser(name) {', correctPosition: 0, indent: 0 },
           {
             id: 'line-2',
@@ -141,7 +141,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите функцию нормализации email',
           en: 'Assemble an email normalization function',
         },
-        codeLines: [
+        lines: [
           { id: 'line-1', code: 'function normalizeEmail(email) {', correctPosition: 0, indent: 0 },
           { id: 'line-2', code: 'const safe = String(email);', correctPosition: 1, indent: 1 },
           { id: 'line-3', code: 'const trimmed = safe.trim();', correctPosition: 2, indent: 1 },
@@ -161,7 +161,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите функцию форматирования валюты',
           en: 'Assemble a currency formatting function',
         },
-        codeLines: [
+        lines: [
           { id: 'line-1', code: 'function formatCurrency(value) {', correctPosition: 0, indent: 0 },
           { id: 'line-2', code: 'const amount = Number(value);', correctPosition: 1, indent: 1 },
           { id: 'line-3', code: 'const fixed = amount.toFixed(2);', correctPosition: 2, indent: 1 },
@@ -176,7 +176,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите функцию подсчёта слов в строке',
           en: 'Assemble a word counting function for a string',
         },
-        codeLines: [
+        lines: [
           { id: 'line-1', code: 'function countWords(text) {', correctPosition: 0, indent: 0 },
           { id: 'line-2', code: 'const normalized = text.trim();', correctPosition: 1, indent: 1 },
           { id: 'line-3', code: 'if (!normalized) return 0;', correctPosition: 2, indent: 1 },
@@ -196,7 +196,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите функцию получения инициалов',
           en: 'Assemble an initials getter function',
         },
-        codeLines: [
+        lines: [
           {
             id: 'line-1',
             code: 'function getInitials(first, last) {',
@@ -241,7 +241,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите функцию суммы положительных чисел',
           en: 'Assemble a positive numbers sum function',
         },
-        codeLines: [
+        lines: [
           { id: 'line-1', code: 'function sumPositive(arr) {', correctPosition: 0, indent: 0 },
           { id: 'line-2', code: 'let sum = 0;', correctPosition: 1, indent: 1 },
           {
@@ -262,7 +262,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите функцию поиска индекса элемента',
           en: 'Assemble an element index search function',
         },
-        codeLines: [
+        lines: [
           {
             id: 'line-1',
             code: 'function findIndexOf(arr, target) {',
@@ -287,7 +287,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите функцию разворота массива циклом',
           en: 'Assemble a loop-based array reverse function',
         },
-        codeLines: [
+        lines: [
           { id: 'line-1', code: 'function reverseLoop(arr) {', correctPosition: 0, indent: 0 },
           { id: 'line-2', code: 'const result = [];', correctPosition: 1, indent: 1 },
           {
@@ -308,7 +308,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите функцию подсчёта чётных значений',
           en: 'Assemble an even values count function',
         },
-        codeLines: [
+        lines: [
           { id: 'line-1', code: 'function countEven(arr) {', correctPosition: 0, indent: 0 },
           { id: 'line-2', code: 'let count = 0;', correctPosition: 1, indent: 1 },
           { id: 'line-3', code: 'for (const value of arr) {', correctPosition: 2, indent: 1 },
@@ -340,7 +340,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите функцию фильтрации и сортировки цен',
           en: 'Assemble a prices filter and sort function',
         },
-        codeLines: [
+        lines: [
           {
             id: 'line-1',
             code: 'function getExpensiveSorted(prices) {',
@@ -375,7 +375,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите функцию группировки слов по длине',
           en: 'Assemble a words grouping by length function',
         },
-        codeLines: [
+        lines: [
           { id: 'line-1', code: 'function groupByLength(words) {', correctPosition: 0, indent: 0 },
           {
             id: 'line-2',
@@ -397,7 +397,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите функцию суммы уникальных значений',
           en: 'Assemble a unique values sum function',
         },
-        codeLines: [
+        lines: [
           { id: 'line-1', code: 'function sumUnique(numbers) {', correctPosition: 0, indent: 0 },
           {
             id: 'line-2',
@@ -423,7 +423,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите функцию подготовки списка имён',
           en: 'Assemble a names list preparation function',
         },
-        codeLines: [
+        lines: [
           { id: 'line-1', code: 'function prepareNames(users) {', correctPosition: 0, indent: 0 },
           {
             id: 'line-2',
@@ -468,7 +468,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите функцию безопасного чтения профиля',
           en: 'Assemble a safe profile reading function',
         },
-        codeLines: [
+        lines: [
           { id: 'line-1', code: 'function getProfileInfo(user) {', correctPosition: 0, indent: 0 },
           { id: 'line-2', code: 'const id = user?.id ?? null;', correctPosition: 1, indent: 1 },
           {
@@ -493,7 +493,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите функцию обновления вложенного флага',
           en: 'Assemble a nested flag update function',
         },
-        codeLines: [
+        lines: [
           { id: 'line-1', code: 'function setAdmin(user, value) {', correctPosition: 0, indent: 0 },
           { id: 'line-2', code: 'return {', correctPosition: 1, indent: 1 },
           { id: 'line-3', code: '...user,', correctPosition: 2, indent: 2 },
@@ -513,7 +513,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите функцию сравнения объектов настроек',
           en: 'Assemble a settings objects comparison function',
         },
-        codeLines: [
+        lines: [
           { id: 'line-1', code: 'function sameSettings(a, b) {', correctPosition: 0, indent: 0 },
           { id: 'line-2', code: 'const keysA = Object.keys(a);', correctPosition: 1, indent: 1 },
           { id: 'line-3', code: 'const keysB = Object.keys(b);', correctPosition: 2, indent: 1 },
@@ -538,7 +538,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите функцию выбора публичных полей',
           en: 'Assemble a public fields selection function',
         },
-        codeLines: [
+        lines: [
           { id: 'line-1', code: 'function pickPublic(user) {', correctPosition: 0, indent: 0 },
           {
             id: 'line-2',
@@ -588,7 +588,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите функцию загрузки JSON с проверкой статуса',
           en: 'Assemble a JSON loader with status check',
         },
-        codeLines: [
+        lines: [
           { id: 'line-1', code: 'async function fetchJson(url) {', correctPosition: 0, indent: 0 },
           {
             id: 'line-2',
@@ -618,7 +618,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите функцию retry с двумя попытками',
           en: 'Assemble a retry function with two attempts',
         },
-        codeLines: [
+        lines: [
           { id: 'line-1', code: 'async function retryTwice(fn) {', correctPosition: 0, indent: 0 },
           { id: 'line-2', code: 'try {', correctPosition: 1, indent: 1 },
           { id: 'line-3', code: 'return await fn();', correctPosition: 2, indent: 2 },
@@ -634,7 +634,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите функцию параллельной загрузки профиля и задач',
           en: 'Assemble a parallel profile and tasks loading function',
         },
-        codeLines: [
+        lines: [
           {
             id: 'line-1',
             code: 'async function loadDashboard(userId) {',
@@ -669,7 +669,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите функцию safeRequest с fallback',
           en: 'Assemble a safeRequest function with fallback',
         },
-        codeLines: [
+        lines: [
           {
             id: 'line-1',
             code: 'async function safeRequest(url, fallback) {',
@@ -712,7 +712,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите реализацию memoize для нескольких аргументов',
           en: 'Assemble memoize implementation for multiple arguments',
         },
-        codeLines: [
+        lines: [
           { id: 'line-1', code: 'function memoize(fn) {', correctPosition: 0, indent: 0 },
           { id: 'line-2', code: 'const cache = new Map();', correctPosition: 1, indent: 1 },
           { id: 'line-3', code: 'return function(...args) {', correctPosition: 2, indent: 1 },
@@ -746,7 +746,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите compose для массива функций',
           en: 'Assemble compose for an array of functions',
         },
-        codeLines: [
+        lines: [
           { id: 'line-1', code: 'function compose(...fns) {', correctPosition: 0, indent: 0 },
           { id: 'line-2', code: 'return function(initial) {', correctPosition: 1, indent: 1 },
           {
@@ -767,7 +767,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите curry для функции из трёх аргументов',
           en: 'Assemble curry for a three-argument function',
         },
-        codeLines: [
+        lines: [
           { id: 'line-1', code: 'function curry3(fn) {', correctPosition: 0, indent: 0 },
           { id: 'line-2', code: 'return function(a) {', correctPosition: 1, indent: 1 },
           { id: 'line-3', code: 'return function(b) {', correctPosition: 2, indent: 2 },
@@ -785,7 +785,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите debounce с сохранением контекста',
           en: 'Assemble debounce with context preservation',
         },
-        codeLines: [
+        lines: [
           { id: 'line-1', code: 'function debounce(fn, delay) {', correctPosition: 0, indent: 0 },
           { id: 'line-2', code: 'let timer = null;', correctPosition: 1, indent: 1 },
           { id: 'line-3', code: 'return function(...args) {', correctPosition: 2, indent: 1 },
@@ -818,7 +818,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите функцию deepClone для объектов и массивов',
           en: 'Assemble a deepClone function for objects and arrays',
         },
-        codeLines: [
+        lines: [
           { id: 'line-1', code: 'function deepClone(value) {', correctPosition: 0, indent: 0 },
           {
             id: 'line-2',
@@ -850,7 +850,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите функцию flatten для вложенного массива',
           en: 'Assemble a flatten function for nested array',
         },
-        codeLines: [
+        lines: [
           { id: 'line-1', code: 'function flatten(arr) {', correctPosition: 0, indent: 0 },
           {
             id: 'line-2',
@@ -877,7 +877,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите deepEqual для плоских объектов',
           en: 'Assemble deepEqual for flat objects',
         },
-        codeLines: [
+        lines: [
           { id: 'line-1', code: 'function deepEqual(a, b) {', correctPosition: 0, indent: 0 },
           { id: 'line-2', code: 'if (a === b) return true;', correctPosition: 1, indent: 1 },
           {
@@ -909,7 +909,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите функцию groupBy для массива объектов',
           en: 'Assemble a groupBy function for object array',
         },
-        codeLines: [
+        lines: [
           { id: 'line-1', code: 'function groupBy(items, key) {', correctPosition: 0, indent: 0 },
           {
             id: 'line-2',
@@ -951,7 +951,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите withTimeout для асинхронной операции',
           en: 'Assemble withTimeout for async operation',
         },
-        codeLines: [
+        lines: [
           {
             id: 'line-1',
             code: 'function withTimeout(promise, ms) {',
@@ -987,7 +987,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите функцию последовательного выполнения задач',
           en: 'Assemble a sequential tasks execution function',
         },
-        codeLines: [
+        lines: [
           {
             id: 'line-1',
             code: 'async function runSequential(tasks) {',
@@ -1009,7 +1009,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите функцию allSettledSummary',
           en: 'Assemble an allSettledSummary function',
         },
-        codeLines: [
+        lines: [
           {
             id: 'line-1',
             code: 'async function allSettledSummary(promises) {',
@@ -1045,7 +1045,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           ru: 'Соберите функцию повторов с паузой',
           en: 'Assemble a retries with delay function',
         },
-        codeLines: [
+        lines: [
           {
             id: 'line-1',
             code: 'async function retryWithDelay(fn, attempts, delayMs) {',

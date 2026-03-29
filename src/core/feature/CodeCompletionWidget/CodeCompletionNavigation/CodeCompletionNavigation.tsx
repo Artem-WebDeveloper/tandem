@@ -1,13 +1,8 @@
 import { useCodeCompletionStore } from '@/core/store/codeCompletion.store';
 import QuizNavigation from '@/core/components/QuizNavigation/QuizNavigation';
-import type { CodeCompletionQuestion } from '../types';
+import type { CodeCompletionQuestion, CodeComplitionAnswerPayload } from '../types';
 import { submitQuizAnswers } from '@/core/api/submitQuizAnswers';
-import type {
-  CodeComplitionUserAnswerPayload,
-  QuizAnswer,
-  QuizResults,
-  UserAnswerPayload,
-} from '@/core/api/submitQuizAnswers';
+import type { QuizAnswer, QuizResults, UserAnswerPayload } from '@/core/api/submitQuizAnswers';
 
 function CodeCompletionNavigation({
   questions,
@@ -42,7 +37,7 @@ function CodeCompletionNavigation({
 
         const quizResults = await submitQuizAnswers(
           quizId,
-          answersForApi as QuizAnswer<CodeComplitionUserAnswerPayload>[],
+          answersForApi as QuizAnswer<CodeComplitionAnswerPayload>[],
         );
         if (onSubmit) onSubmit(quizResults);
       }}

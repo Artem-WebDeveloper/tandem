@@ -12,7 +12,7 @@ import {
 import type { SingleChoiceTaskResponse } from './types';
 import type { UserAnswer } from '@/core/types/quiz';
 import type {
-  SingleChoiceUserAnswerPayload,
+  SingleChoiceAnswerPayload,
   QuizAnswer,
   QuizResults,
   UserAnswerPayload,
@@ -76,7 +76,7 @@ export default function SingleChoiceQuiz({ data, onSubmit }: SingleChoiceQuizPro
 
     const quizResults = await submitQuizAnswers(
       data.id,
-      answersForApi as QuizAnswer<SingleChoiceUserAnswerPayload>[],
+      answersForApi as QuizAnswer<SingleChoiceAnswerPayload>[],
     );
     if (onSubmit) onSubmit(quizResults);
   };

@@ -24,3 +24,10 @@ export interface CodeOrderingTask extends BaseTask {
   description?: string;
   questions: CodeOrderingQuestion[];
 }
+
+export type CodeOrderingAnswerPayload = string[];
+
+export type CodeOrderingAnswer = {
+  questionId: number; // айди вопроса для которого сохранен ответ
+  payload: CodeOrderingAnswerPayload; // ответ на вопрос, массив айдишек строк в выбранном юзером порядке
+};

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Box, Collapse, Fade, Typography } from '@mui/material';
 import TipsAndUpdatesTwoToneIcon from '@mui/icons-material/TipsAndUpdatesTwoTone';
 
-import type { TrueFalseTask } from './types';
+import type { TrueFalseTask, TrueFalseAnswerPayload } from './types';
 import styles from './TrueFalseWidget.module.scss';
 import QuizProgressBar from '@/core/components/QuizProgressBar/QuizProgressBar';
 import CardAnswer from './CardAnswer/CardAnswer';
@@ -11,12 +11,7 @@ import Timer from './Timer/Timer';
 import { difficultySecondsConfig } from '@/core/configs/trueFalseWidget.config';
 import { useLocale } from '@/core/i18n/useLocal';
 import { submitQuizAnswers } from '@/core/api/submitQuizAnswers';
-import type {
-  TrueFalseUserAnswerPayload,
-  QuizAnswer,
-  QuizResults,
-  UserAnswerPayload,
-} from '@/core/api/submitQuizAnswers';
+import type { QuizAnswer, QuizResults, UserAnswerPayload } from '@/core/api/submitQuizAnswers';
 
 type Answer = {
   questionId: number;
@@ -143,7 +138,7 @@ function TrueFalseWidget({
 
           const quizResults = await submitQuizAnswers(
             id,
-            payload as QuizAnswer<TrueFalseUserAnswerPayload>[],
+            payload as QuizAnswer<TrueFalseAnswerPayload>[],
           );
           if (onSubmit) onSubmit(quizResults);
         }}

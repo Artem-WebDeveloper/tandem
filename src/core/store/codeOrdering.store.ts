@@ -1,9 +1,5 @@
 import { create } from 'zustand';
-
-export type CodeOrderingAnswer = {
-  questionId: number; // айди вопроса для которого сохранен ответ
-  payload: string[]; // ответ на вопрос, массив айдишек строк в выбранном юзером порядке
-};
+import type { CodeOrderingAnswer } from '../feature/CodeOrderingWidget/types';
 
 type CodeOrderingState = {
   currentQuestionNumber: number;

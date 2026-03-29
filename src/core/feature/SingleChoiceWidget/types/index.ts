@@ -28,3 +28,5 @@ export interface SingleChoiceTaskResponse extends BaseTask {
   tags: string[];
   questions: SingleChoiceQuestion[];
 }
+
+export type SingleChoiceAnswerPayload = string;

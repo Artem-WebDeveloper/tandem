@@ -5,22 +5,26 @@ import LinkButton from '../../core/components/LinkButton.tsx/LinkButton';
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 import { useTranslation } from 'react-i18next';
 import Layout from '../../core/components/Layout/Layout';
-import type {
-  QuizResult,
-  QuizResults,
-  UserAnswerPayload,
-  SingleChoiceUserAnswerPayload,
-  CodeComplitionUserAnswerPayload,
-  AsyncSorterUserAnswerPayload,
-  TrueFalseUserAnswerPayload,
-} from '@/core/api/submitQuizAnswers';
+import type { QuizResult, QuizResults, UserAnswerPayload } from '@/core/api/submitQuizAnswers';
 import type { QuizTask } from '@/core/types/quiz';
 import { fetchQuizById } from '@/core/api/fetchQuizById';
 import { useEffect, useState } from 'react';
-import type { CodeCompletionQuestion } from '@/core/feature/CodeCompletionWidget/types';
-import type { SingleChoiceQuestion } from '@/core/feature/SingleChoiceWidget/types';
-import type { AsyncSorterQuestion } from '@/core/feature/AsyncSorterWidget/types';
-import type { TrueFalseQuestion } from '@/core/feature/TrueFalseWidget/types';
+import type {
+  CodeCompletionQuestion,
+  CodeComplitionAnswerPayload,
+} from '@/core/feature/CodeCompletionWidget/types';
+import type {
+  SingleChoiceQuestion,
+  SingleChoiceAnswerPayload,
+} from '@/core/feature/SingleChoiceWidget/types';
+import type {
+  AsyncSorterQuestion,
+  AsyncSorterAnswerPayload,
+} from '@/core/feature/AsyncSorterWidget/types';
+import type {
+  TrueFalseQuestion,
+  TrueFalseAnswerPayload,
+} from '@/core/feature/TrueFalseWidget/types';
 
 export default function Results<T extends UserAnswerPayload>({
   quizResults,
@@ -98,8 +102,7 @@ export default function Results<T extends UserAnswerPayload>({
               if (quizTask.type === 'single_choice') {
                 questionText =
                   (question as SingleChoiceQuestion).text[i18n.language as 'ru' | 'en'] ?? '';
-                const optionId = (quizResult as QuizResult<SingleChoiceUserAnswerPayload>)
-                  .user_answer;
+                const optionId = (quizResult as QuizResult<SingleChoiceAnswerPayload>).user_answer;
                 const optionText = (question as SingleChoiceQuestion).options.find(
                   (option) => option.id === optionId,
                 )?.text;
@@ -108,18 +111,16 @@ export default function Results<T extends UserAnswerPayload>({
                 questionText = (question as CodeCompletionQuestion).code;
                 hintText =
                   (question as CodeCompletionQuestion).hint[i18n.language as 'ru' | 'en'] ?? '';
-                answerText = (quizResult as QuizResult<CodeComplitionUserAnswerPayload>)
-                  .user_answer;
+                answerText = (quizResult as QuizResult<CodeComplitionAnswerPayload>).user_answer;
               } else if (quizTask.type === 'async_sorter') {
                 questionText = (question as AsyncSorterQuestion).code;
-                answerText = (
-                  quizResult as QuizResult<AsyncSorterUserAnswerPayload>
-                ).user_answer.join(' ');
+                answerText = (quizResult as QuizResult<AsyncSorterAnswerPayload>).user_answer.join(
+                  ' ',
+                );
               } else if (quizTask.type === 'true_false') {
                 questionText =
                   (question as TrueFalseQuestion).statement[i18n.language as 'ru' | 'en'] ?? '';
-                const isCorrect = (quizResult as QuizResult<TrueFalseUserAnswerPayload>)
-                  .user_answer;
+                const isCorrect = (quizResult as QuizResult<TrueFalseAnswerPayload>).user_answer;
                 answerText = t(isCorrect ? 'trueFalse.true' : 'trueFalse.false', {
                   ns: 'practice',
                 });

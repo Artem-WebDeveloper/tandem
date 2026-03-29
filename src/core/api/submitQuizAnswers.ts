@@ -1,17 +1,16 @@
 import axiosInstance from './config/axiosInstance';
-
-export type SingleChoiceUserAnswerPayload = string;
-export type CodeOrderingUserAnswerPayload = string[];
-export type AsyncSorterUserAnswerPayload = string[];
-export type CodeComplitionUserAnswerPayload = string;
-export type TrueFalseUserAnswerPayload = boolean;
+import type { SingleChoiceAnswerPayload } from '@/core/feature/SingleChoiceWidget/types';
+import type { CodeOrderingAnswerPayload } from '@/core/feature/CodeOrderingWidget/types';
+import type { AsyncSorterAnswerPayload } from '@/core/feature/AsyncSorterWidget/types';
+import type { CodeComplitionAnswerPayload } from '@/core/feature/CodeCompletionWidget/types';
+import type { TrueFalseAnswerPayload } from '@/core/feature/TrueFalseWidget/types';
 
 export type UserAnswerPayload =
-  | SingleChoiceUserAnswerPayload
-  | CodeOrderingUserAnswerPayload
-  | AsyncSorterUserAnswerPayload
-  | CodeComplitionUserAnswerPayload
-  | TrueFalseUserAnswerPayload;
+  | SingleChoiceAnswerPayload
+  | CodeOrderingAnswerPayload
+  | AsyncSorterAnswerPayload
+  | CodeComplitionAnswerPayload
+  | TrueFalseAnswerPayload;
 
 export type QuizAnswer<T extends UserAnswerPayload> = {
   question_id: number;

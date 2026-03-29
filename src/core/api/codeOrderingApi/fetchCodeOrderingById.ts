@@ -11,7 +11,7 @@ export function fetchCodeOrderingById(id: number): Promise<CodeOrderingTask> {
       if (task) {
         // TODO: перенести на сервер
         for (const question of task.questions) {
-          question.codeLines.sort(() => (Math.random() > 0.5 ? 1 : -1));
+          question.lines.sort(() => (Math.random() > 0.5 ? 1 : -1));
         }
 
         resolve(task);

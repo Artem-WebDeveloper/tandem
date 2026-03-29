@@ -7,7 +7,7 @@ export interface CodeOrderingQuestion {
     ru: string;
     en: string;
   };
-  codeLines: CodeLineData[];
+  lines: CodeLineData[];
 }
 
 export type CodeLineData = {

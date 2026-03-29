@@ -1,10 +1,26 @@
 import styles from './Results.module.scss';
 import { useTheme, Typography, Box, Container } from '@mui/material';
+import { CheckCircle, Cancel } from '@mui/icons-material';
 import LinkButton from '../../core/components/LinkButton.tsx/LinkButton';
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 import { useTranslation } from 'react-i18next';
 import Layout from '../../core/components/Layout/Layout';
-import type { QuizResults, UserAnswerPayload } from '@/core/api/submitQuizAnswers';
+import type {
+  QuizResult,
+  QuizResults,
+  UserAnswerPayload,
+  SingleChoiceUserAnswerPayload,
+  CodeComplitionUserAnswerPayload,
+  AsyncSorterUserAnswerPayload,
+  TrueFalseUserAnswerPayload,
+} from '@/core/api/submitQuizAnswers';
+import type { QuizTask } from '@/core/types/quiz';
+import { fetchQuizById } from '@/core/api/fetchQuizById';
+import { useEffect, useState } from 'react';
+import type { CodeCompletionQuestion } from '@/core/feature/CodeCompletionWidget/types';
+import type { SingleChoiceQuestion } from '@/core/feature/SingleChoiceWidget/types';
+import type { AsyncSorterQuestion } from '@/core/feature/AsyncSorterWidget/types';
+import type { TrueFalseQuestion } from '@/core/feature/TrueFalseWidget/types';
 
 export default function Results<T extends UserAnswerPayload>({
   quizResults,
@@ -12,7 +28,15 @@ export default function Results<T extends UserAnswerPayload>({
   quizResults: QuizResults<T>;
 }) {
   const theme = useTheme();
-  const { t } = useTranslation(['results', 'practice']);
+  const { t, i18n } = useTranslation(['results', 'practice']);
+
+  const [quizTask, setQuizTask] = useState<QuizTask | undefined>(undefined);
+  useEffect(() => {
+    fetchQuizById(quizResults.quiz_id).then((quizTask) => {
+      setQuizTask(quizTask);
+    });
+  }, [quizResults.quiz_id]);
+
   const correctAnswersPercentage = Math.round(
     quizResults.total_questions
       ? (quizResults.correct_count * 100) / quizResults.total_questions
@@ -33,28 +57,256 @@ export default function Results<T extends UserAnswerPayload>({
           <Typography variant="h1" className={styles.title}>
             {t('testCompleted')}
           </Typography>
-          <p>
+          <Typography
+            variant="h6"
+            className={styles.resultStats}
+            style={{
+              color: quizResults.correct_count
+                ? quizResults.correct_count === quizResults.total_questions
+                  ? theme.palette.success.main
+                  : undefined
+                : theme.palette.error.main,
+            }}
+          >
             {quizResults.correct_count} {t('outOf')} {quizResults.total_questions}
-          </p>
-          <p>
+          </Typography>
+          <Typography
+            variant="body1"
+            className={styles.answersPercentage}
+            style={{ color: theme.palette.text.secondary }}
+            sx={{ mb: 2 }}
+          >
             {correctAnswersPercentage}
             {t('correctAnswers')}
-          </p>
+          </Typography>
 
           <Box className={styles.resultElementsContainer}>
-            {quizResults.results.map((quizResult) => (
-              <Box
-                key={quizResult.question_id}
-                className={styles.resultElement}
-                style={{
-                  backgroundColor: theme.palette.background.default,
-                  color: theme.palette.text.primary,
-                  borderColor: theme.palette.divider,
-                }}
-              >
-                <p>{quizResult.question_id}</p>
-              </Box>
-            ))}
+            {quizTask?.questions.map((question) => {
+              // ищем ответ пользователя на вопрос в массиве ответов quizResults.results
+              // сравниваем id вопроса в вопросах с id вопроса в ответах
+              const quizResult = quizResults.results.find((quizResult) => {
+                return quizResult.question_id === question.id;
+              });
+
+              // ничего не рендерим для этого вопроса если не нашли ответ на него
+              if (!quizResult) return null;
+
+              let questionText = '';
+              let hintText = '';
+              let answerText = '';
+
+              if (quizTask.type === 'single_choice') {
+                questionText =
+                  (question as SingleChoiceQuestion).text[i18n.language as 'ru' | 'en'] ?? '';
+                const optionId = (quizResult as QuizResult<SingleChoiceUserAnswerPayload>)
+                  .user_answer;
+                const optionText = (question as SingleChoiceQuestion).options.find(
+                  (option) => option.id === optionId,
+                )?.text;
+                answerText = optionText?.[i18n.language as 'ru' | 'en'] ?? '';
+              } else if (quizTask.type === 'code_completion') {
+                questionText = (question as CodeCompletionQuestion).code;
+                hintText =
+                  (question as CodeCompletionQuestion).hint[i18n.language as 'ru' | 'en'] ?? '';
+                answerText = (quizResult as QuizResult<CodeComplitionUserAnswerPayload>)
+                  .user_answer;
+              } else if (quizTask.type === 'async_sorter') {
+                questionText = (question as AsyncSorterQuestion).code;
+                answerText = (
+                  quizResult as QuizResult<AsyncSorterUserAnswerPayload>
+                ).user_answer.join(' ');
+              } else if (quizTask.type === 'true_false') {
+                questionText =
+                  (question as TrueFalseQuestion).statement[i18n.language as 'ru' | 'en'] ?? '';
+                const isCorrect = (quizResult as QuizResult<TrueFalseUserAnswerPayload>)
+                  .user_answer;
+                answerText = t(isCorrect ? 'trueFalse.true' : 'trueFalse.false', {
+                  ns: 'practice',
+                });
+              }
+
+              switch (quizTask.type) {
+                case 'single_choice':
+                case 'true_false':
+                  return (
+                    <Box
+                      key={question.id}
+                      className={styles.resultElement}
+                      style={{
+                        backgroundColor: theme.palette.background.default,
+                        color: quizResult.is_correct
+                          ? theme.palette.text.primary
+                          : theme.palette.text.secondary,
+                        borderColor: theme.palette.divider,
+                      }}
+                    >
+                      {quizResult.is_correct ? (
+                        <CheckCircle
+                          sx={{
+                            fontSize: 20,
+                            color: theme.palette.success.main,
+                            flexShrink: 0,
+                            mt: 0.25,
+                          }}
+                        />
+                      ) : (
+                        <Cancel
+                          sx={{
+                            fontSize: 20,
+                            color: theme.palette.error.main,
+                            flexShrink: 0,
+                            mt: 0.25,
+                          }}
+                        />
+                      )}
+
+                      {/* Вопрос и ответ */}
+                      <Box className={styles.resultTexts}>
+                        {/* Вопрос */}
+                        <Box className={styles.textRow} sx={{ mb: 1 }}>
+                          <Typography
+                            variant="body2"
+                            sx={{ fontWeight: 'bold', mb: 0.5, whiteSpace: 'nowrap' }}
+                          >
+                            {t('question')} {question.id}:
+                          </Typography>
+                          <Typography variant="body2" sx={{ mb: 0.5 }}>
+                            {questionText}
+                          </Typography>
+                        </Box>
+
+                        {/* Ответ пользователя */}
+                        <Box className={styles.textRow}>
+                          <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                            {t('yourAnswer')}:
+                          </Typography>
+                          <Typography variant="body2">{answerText}</Typography>
+                        </Box>
+                      </Box>
+                    </Box>
+                  );
+                case 'code_completion':
+                  return (
+                    <Box
+                      key={question.id}
+                      className={styles.resultElement}
+                      style={{
+                        backgroundColor: theme.palette.background.default,
+                        color: quizResult.is_correct
+                          ? theme.palette.text.primary
+                          : theme.palette.text.secondary,
+                        borderColor: theme.palette.divider,
+                      }}
+                    >
+                      {quizResult.is_correct ? (
+                        <CheckCircle
+                          sx={{ fontSize: 20, color: '#16a34a', flexShrink: 0, mt: 0.25 }}
+                        />
+                      ) : (
+                        <Cancel sx={{ fontSize: 20, color: '#dc2626', flexShrink: 0, mt: 0.25 }} />
+                      )}
+
+                      {/* Вопрос и ответ */}
+                      <Box className={styles.resultTexts}>
+                        {/* Вопрос */}
+                        <Box className={styles.textCodeColumn} sx={{ mb: 1 }}>
+                          <Typography
+                            variant="body2"
+                            sx={{ fontWeight: 'bold', mb: 0.5, whiteSpace: 'nowrap' }}
+                          >
+                            {t('question')} {question.id}: {hintText}
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            sx={{ mb: 0.5, p: '6px 12px' }}
+                            className={styles.resultElement}
+                            style={{
+                              backgroundColor: `${theme.palette.divider}80`,
+                              borderColor: theme.palette.divider,
+                            }}
+                          >
+                            <code>{questionText}</code>
+                          </Typography>
+                        </Box>
+
+                        {/* Ответ пользователя */}
+                        <Box className={styles.textRow}>
+                          <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                            {t('yourAnswer')}:
+                          </Typography>
+                          <Typography variant="body2">{answerText}</Typography>
+                        </Box>
+                      </Box>
+                    </Box>
+                  );
+                case 'async_sorter':
+                  return (
+                    <Box
+                      key={question.id}
+                      className={styles.resultElement}
+                      style={{
+                        backgroundColor: theme.palette.background.default,
+                        color: quizResult.is_correct
+                          ? theme.palette.text.primary
+                          : theme.palette.text.secondary,
+                        borderColor: theme.palette.divider,
+                      }}
+                    >
+                      {quizResult.is_correct ? (
+                        <CheckCircle
+                          sx={{
+                            fontSize: 20,
+                            color: theme.palette.success.main,
+                            flexShrink: 0,
+                            mt: 0.25,
+                          }}
+                        />
+                      ) : (
+                        <Cancel
+                          sx={{
+                            fontSize: 20,
+                            color: theme.palette.error.main,
+                            flexShrink: 0,
+                            mt: 0.25,
+                          }}
+                        />
+                      )}
+
+                      {/* Вопрос и ответ */}
+                      <Box className={styles.resultTexts}>
+                        {/* Вопрос */}
+                        <Box className={styles.textCodeColumn} sx={{ mb: 1 }}>
+                          <Typography
+                            variant="body2"
+                            sx={{ fontWeight: 'bold', mb: 0.5, whiteSpace: 'nowrap' }}
+                          >
+                            {t('question')} {question.id}:
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            sx={{ mb: 0.5, p: '6px 12px' }}
+                            className={styles.resultElement}
+                            style={{
+                              backgroundColor: `${theme.palette.divider}80`,
+                              borderColor: theme.palette.divider,
+                            }}
+                          >
+                            <code>{questionText}</code>
+                          </Typography>
+                        </Box>
+
+                        {/* Ответ пользователя */}
+                        <Box className={styles.textRow}>
+                          <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                            {t('yourAnswer')}:
+                          </Typography>
+                          <Typography variant="body2">{answerText}</Typography>
+                        </Box>
+                      </Box>
+                    </Box>
+                  );
+              }
+            })}
           </Box>
         </div>
       </Container>

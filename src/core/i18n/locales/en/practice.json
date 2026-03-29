@@ -21,7 +21,9 @@
     "cardNotice": "Your answer has been marked incorrect!",
     "correctAnswer": "Statement is",
     "right": "Right!",
-    "wrong": "Wrong!"
+    "wrong": "Wrong!",
+    "true": "True",
+    "false": "False"
   },
   "codeOrdering": {
     "instruction": "Put the lines in the correct order"

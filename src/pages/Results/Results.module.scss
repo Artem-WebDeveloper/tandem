@@ -1,5 +1,7 @@
 .title {
   font-size: 20px;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 .resultsContainer {
@@ -29,8 +31,7 @@
   position: relative;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: start;
+  align-items: start;
   min-height: 40px;
   border-radius: 8px;
   user-select: none;
@@ -38,7 +39,7 @@
   border: 1px solid;
   overflow-wrap: break-word;
   font-weight: 400;
-  padding: 0 16px;
+  padding: 16px;
 
   @media (max-width: 500px) {
     font-size: 14px;
@@ -47,4 +48,33 @@
   @media (max-width: 350px) {
     font-size: 12px;
   }
+}
+
+.answersPercentage {
+  text-align: center;
+}
+
+.resultStats {
+  text-align: center;
+}
+
+.resultTexts {
+  margin-left: 16px;
+}
+
+.textRow {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+}
+
+.textCodeColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.icon {
+  background-color: pink;
+  width: 16px;
+  height: 16px;
 }

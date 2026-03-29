@@ -9,14 +9,9 @@ import {
   FormControl,
 } from '@mui/material';
 
-import type { SingleChoiceTaskResponse } from './types';
+import type { SingleChoiceTaskResponse, SingleChoiceAnswerPayload } from './types';
 import type { UserAnswer } from '@/core/types/quiz';
-import type {
-  SingleChoiceAnswerPayload,
-  QuizAnswer,
-  QuizResults,
-  UserAnswerPayload,
-} from '@/core/api/submitQuizAnswers';
+import type { QuizAnswer, QuizResults } from '@/core/api/submitQuizAnswers';
 
 import QuizProgressBar from '@/core/components/QuizProgressBar/QuizProgressBar';
 import QuizNavigation from '@/core/components/QuizNavigation/QuizNavigation';
@@ -28,7 +23,7 @@ import { submitQuizAnswers } from '@/core/api/submitQuizAnswers';
 
 interface SingleChoiceQuizProps {
   data: SingleChoiceTaskResponse;
-  onSubmit?: <T extends UserAnswerPayload>(quizResults: QuizResults<T>) => void;
+  onSubmit?: (quizResults: QuizResults<SingleChoiceAnswerPayload>) => void;
 }
 
 export default function SingleChoiceQuiz({ data, onSubmit }: SingleChoiceQuizProps) {

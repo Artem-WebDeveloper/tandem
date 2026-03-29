@@ -11,7 +11,7 @@ import Timer from './Timer/Timer';
 import { difficultySecondsConfig } from '@/core/configs/trueFalseWidget.config';
 import { useLocale } from '@/core/i18n/useLocal';
 import { submitQuizAnswers } from '@/core/api/submitQuizAnswers';
-import type { QuizAnswer, QuizResults, UserAnswerPayload } from '@/core/api/submitQuizAnswers';
+import type { QuizAnswer, QuizResults } from '@/core/api/submitQuizAnswers';
 
 type Answer = {
   questionId: number;
@@ -24,7 +24,7 @@ function TrueFalseWidget({
   onSubmit,
 }: {
   data: TrueFalseTask;
-  onSubmit?: <T extends UserAnswerPayload>(quizResults: QuizResults<T>) => void;
+  onSubmit?: (quizResults: QuizResults<TrueFalseAnswerPayload>) => void;
 }) {
   const locale = useLocale();
 

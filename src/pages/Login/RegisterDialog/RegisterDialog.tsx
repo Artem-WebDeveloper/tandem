@@ -12,7 +12,12 @@ import {
   Collapse,
   LinearProgress,
   Typography,
+  IconButton,
+  InputAdornment,
 } from '@mui/material';
+
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+
 import { isAxiosError } from 'axios';
 
 import { registerApi } from '../../../core/api/auth';
@@ -21,6 +26,7 @@ import {
   validatePassword,
   getPasswordStrength,
 } from '../../../core/utils/loginValidation';
+
 import styles from './RegisterDialog.module.scss';
 
 import { useTranslation } from 'react-i18next';
@@ -42,6 +48,7 @@ export default function RegisterDialog({ open, onClose, onSuccess }: RegisterMod
 
   const [usernameErrors, setUsernameErrors] = useState<string[]>([]);
   const [passwordErrors, setPasswordErrors] = useState<string[]>([]);
+  const [showPassword, setShowPassword] = useState(false);
 
   const theme = useTheme();
 
@@ -230,7 +237,7 @@ export default function RegisterDialog({ open, onClose, onSuccess }: RegisterMod
 
           <TextField
             label={t('registerPage.password')}
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             variant="outlined"
             fullWidth
             required
@@ -239,6 +246,15 @@ export default function RegisterDialog({ open, onClose, onSuccess }: RegisterMod
             onBlur={() => setPasswordTouched(true)}
             disabled={isLoading}
             error={passwordTouched && passwordErrors.length > 0}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={() => setShowPassword((prev) => !prev)} edge="end">
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
 
           <Box

@@ -10,8 +10,11 @@ import {
   Alert,
   useTheme,
   Collapse,
+  IconButton,
+  InputAdornment,
 } from '@mui/material';
-import { isAxiosError } from 'axios';
+
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 import { useAuthStore } from '../../core/store/auth.store';
 import { loginApi } from '../../core/api/auth';
@@ -33,37 +36,15 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   const [serverError, setServerError] = useState<string | null>(null);
-  const [usernameTouched, setUsernameTouched] = useState(false);
-  const [passwordTouched, setPasswordTouched] = useState(false);
-
-  const [usernameErrors, setUsernameErrors] = useState<string[]>([]);
-  const [passwordErrors, setPasswordErrors] = useState<string[]>([]);
 
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
   const login = useAuthStore((state) => state.login);
   const navigate = useNavigate();
   const theme = useTheme();
-
-  useEffect(() => {
-    if (usernameTouched && username) {
-      const validation = validateUsername(username);
-      setUsernameErrors(validation.errors);
-    } else if (!username) {
-      setUsernameErrors([]);
-    }
-  }, [username, usernameTouched]);
-
-  useEffect(() => {
-    if (passwordTouched && password) {
-      const validation = validatePassword(password, username);
-      setPasswordErrors(validation.errors);
-    } else if (!password) {
-      setPasswordErrors([]);
-    }
-  }, [password, passwordTouched, username]);
 
   useEffect(() => {
     if (serverError || successMsg) {
@@ -79,32 +60,21 @@ export default function Login() {
     const value = e.target.value;
     if (value.length <= 15) {
       setUsername(value);
-      if (!usernameTouched && value) {
-        setUsernameTouched(true);
-      }
     }
   };
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
-    if (!passwordTouched && e.target.value) {
-      setPasswordTouched(true);
-    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    setUsernameTouched(true);
-    setPasswordTouched(true);
-
     const usernameValidation = validateUsername(username);
     const passwordValidation = validatePassword(password, username);
 
-    setUsernameErrors(usernameValidation.errors);
-    setPasswordErrors(passwordValidation.errors);
-
     if (!usernameValidation.isValid || !passwordValidation.isValid) {
+      setServerError(t('loginPage.messages.error'));
       return;
     }
 
@@ -116,12 +86,8 @@ export default function Login() {
 
       login(access, refresh, { name: username });
       navigate('/library', { replace: true });
-    } catch (err) {
-      if (isAxiosError(err)) {
-        setServerError(t('loginPage.messages.error'));
-      } else {
-        setServerError(t('loginPage.messages.error'));
-      }
+    } catch {
+      setServerError(t('loginPage.messages.error'));
     } finally {
       setIsLoading(false);
     }
@@ -132,12 +98,9 @@ export default function Login() {
     setSuccessMsg(`${t('loginPage.messages.success')}`);
     setUsername(newUsername);
     setPassword('');
-    setUsernameTouched(false);
-    setPasswordTouched(false);
   };
 
-  const isFormValid =
-    username && password && usernameErrors.length === 0 && passwordErrors.length === 0;
+  const isFormValid = username.trim() !== '' && password.trim() !== '';
 
   const containerStyle = {
     backgroundColor: theme.palette.background.default,
@@ -182,9 +145,6 @@ export default function Login() {
       color: theme.palette.primary.main,
     },
   };
-
-  const allErrors = [...usernameErrors, ...passwordErrors];
-  const showErrors = (usernameTouched || passwordTouched) && allErrors.length > 0;
 
   return (
     <Box className={styles.container} sx={containerStyle}>
@@ -246,33 +206,33 @@ export default function Login() {
             required
             value={username}
             onChange={handleUsernameChange}
-            onBlur={() => setUsernameTouched(true)}
             disabled={isLoading}
-            error={usernameTouched && usernameErrors.length > 0}
-            helperText={
-              usernameTouched && username && usernameErrors.length === 0
-                ? `${username.length}/15 ${t('validation.username.characters')}`
-                : ''
-            }
           />
 
           <TextField
             label={t('loginPage.forms.password')}
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             variant="outlined"
             fullWidth
             required
             value={password}
             onChange={handlePasswordChange}
-            onBlur={() => setPasswordTouched(true)}
             disabled={isLoading}
-            error={passwordTouched && passwordErrors.length > 0}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={() => setShowPassword((prev) => !prev)} edge="end">
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
 
           <Box
             sx={{
-              minHeight: '110px',
-              maxHeight: '110px',
+              minHeight: '70px',
+              maxHeight: '70px',
               overflowY: 'auto',
               overflowX: 'hidden',
               transition: 'all 0.3s ease',
@@ -313,16 +273,6 @@ export default function Login() {
                     {serverError}
                   </Alert>
                 )}
-              </Collapse>
-
-              <Collapse in={showErrors}>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                  {allErrors.map((error, index) => (
-                    <Alert key={index} severity="error" sx={{ fontSize: '0.875rem', py: 0.5 }}>
-                      {t(error)}
-                    </Alert>
-                  ))}
-                </Box>
               </Collapse>
             </Box>
           </Box>

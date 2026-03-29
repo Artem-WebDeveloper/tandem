@@ -1,12 +1,12 @@
-import styles from './DifficultyItem.module.scss';
-import { Liquid } from '@ant-design/plots';
-import { useTheme } from '@mui/material';
-import type { DifficultyStatistic } from '../../types';
-import { useThemeStore } from '@/core/store/theme.store';
-import { Difficulty } from '@/core/types/quiz';
-import DifficultyChip from '@/core/components/DifficultyChip/DifficultyChip';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '@mui/material';
+import { Liquid } from '@ant-design/plots';
+import styles from './DifficultyItem.module.scss';
+import type { DifficultyStatistic } from '../../types';
+import { difficultyLabels } from '@/core/configs/library.config';
+import { useThemeStore } from '@/core/store/theme.store';
+import DifficultyChip from '@/core/components/DifficultyChip/DifficultyChip';
 
 export default function DifficultyItem({ item }: { item: DifficultyStatistic }) {
   const { t } = useTranslation('dashboard');
@@ -14,9 +14,9 @@ export default function DifficultyItem({ item }: { item: DifficultyStatistic }) 
 
   const theme = useTheme();
   const color =
-    item.difficulty === 'Easy'
+    item.difficulty === 1
       ? theme.palette.success
-      : item.difficulty === 'Medium'
+      : item.difficulty === 2
         ? theme.palette.warning
         : theme.palette.error;
 
@@ -40,12 +40,11 @@ export default function DifficultyItem({ item }: { item: DifficultyStatistic }) 
   };
 
   return (
-    <li title={item.difficulty}>
-      <Link
-        to={`/library?difficulty=${Difficulty[item.difficulty]}`}
-        className={styles.difficulty_item}
-      >
-        <DifficultyChip difficulty={Difficulty[item.difficulty]}>{item.difficulty}</DifficultyChip>
+    <li title={difficultyLabels[item.difficulty]}>
+      <Link to={`/library?difficulty=${item.difficulty}`} className={styles.difficulty_item}>
+        <DifficultyChip difficulty={item.difficulty}>
+          {difficultyLabels[item.difficulty]}
+        </DifficultyChip>
 
         <Liquid {...config} className={styles.chart} />
 

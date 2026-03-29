@@ -31,9 +31,7 @@ export default function Practice() {
   const [quizData, setQuizData] = useState<QuizTask | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<AppError | null>(null);
-  const [quizResults, setQuizResults] = useState<QuizResults<UserAnswerPayload> | undefined>(
-    undefined,
-  );
+  const [quizResults, setQuizResults] = useState<QuizResults<UserAnswerPayload> | null>(null);
 
   useEffect(() => {
     const fetchPracticeData = async () => {
@@ -59,6 +57,7 @@ export default function Practice() {
       }
     };
 
+    setQuizResults(null);
     fetchPracticeData();
   }, [id]);
 

@@ -7,10 +7,10 @@ import type { CodeLineData } from '../../types';
 import { CodeLine } from './CodeLine/CodeLine';
 
 export default function CodeOrderingDragAndDrop({
-  codeLines,
+  lines,
   currentQuestionId,
 }: {
-  codeLines: CodeLineData[];
+  lines: CodeLineData[];
   currentQuestionId: number;
 }) {
   const setAnswer = useCodeOrderingStore((state) => state.setAnswer);
@@ -26,14 +26,14 @@ export default function CodeOrderingDragAndDrop({
     // если есть сохраненный ответ - пересортировываем линии с сервера так,
     // как их расставил пользователь в сохраненном ответе
     for (const savedLineId of savedLinesIds) {
-      const codeLine = codeLines.find((codeLine) => codeLine.id === savedLineId);
+      const codeLine = lines.find((codeLine) => codeLine.id === savedLineId);
       if (codeLine) {
         orderedLines.push(codeLine);
       }
     }
   } else {
     // если сохраненного ответа нет то используем исходный массив линий
-    orderedLines = codeLines;
+    orderedLines = lines;
   }
 
   const orderedLinesIds = orderedLines.map((orderedLine) => orderedLine.id);
@@ -43,7 +43,6 @@ export default function CodeOrderingDragAndDrop({
       <DragDropProvider
         onDragEnd={(event) => {
           const answer = move(orderedLinesIds, event);
-          console.log(`Save answer ${answer}`);
           setAnswer(currentQuestionId, answer);
         }}
       >

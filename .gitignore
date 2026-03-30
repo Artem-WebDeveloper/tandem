@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 *.local.json
+*.local.tsx
 .env
 
 # Editor directories and files

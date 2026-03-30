@@ -5,6 +5,7 @@ import LinkButton from '../../core/components/LinkButton.tsx/LinkButton';
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 import { useTranslation } from 'react-i18next';
 import { useLocale } from '@/core/i18n/useLocal';
+import ResultsNavigation from './ResultsNavigation/ResultsNavigation';
 
 import Layout from '../../core/components/Layout/Layout';
 import type { QuizResult, QuizResults, UserAnswerPayload } from '@/core/api/submitQuizAnswers';
@@ -30,8 +31,10 @@ import type {
 
 export default function Results<T extends UserAnswerPayload>({
   quizResults,
+  onRetry,
 }: {
   quizResults: QuizResults<T>;
+  onRetry: () => void;
 }) {
   const theme = useTheme();
   const { t } = useTranslation(['results', 'practice']);
@@ -266,8 +269,7 @@ export default function Results<T extends UserAnswerPayload>({
                           >
                             {t('question')} {index + 1}:
                           </Typography>
-                          <Typography
-                            variant="body2"
+                          <Box
                             sx={{ mb: 0.5, p: '6px 12px', wordBreak: 'break-word' }}
                             className={styles.resultElement}
                             // className={`${styles.resultElement} ${styles.codeText}`}
@@ -279,7 +281,7 @@ export default function Results<T extends UserAnswerPayload>({
                             <pre>
                               <code className={styles.codeText}>{questionText}</code>
                             </pre>
-                          </Typography>
+                          </Box>
                         </Box>
 
                         {/* Ответ пользователя */}
@@ -295,6 +297,7 @@ export default function Results<T extends UserAnswerPayload>({
               }
             })}
           </Box>
+          <ResultsNavigation onRetry={onRetry} />
         </div>
       </Container>
     </Layout>

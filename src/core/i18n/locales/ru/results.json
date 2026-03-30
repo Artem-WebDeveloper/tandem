@@ -3,5 +3,7 @@
   "correctAnswers": "% правильных ответов",
   "outOf": "из",
   "question": "Вопрос",
-  "yourAnswer": "Ваш ответ"
+  "yourAnswer": "Ваш ответ",
+  "tryAgain": "Пройти снова",
+  "backToTests": "Вернуться к тестам"
 }

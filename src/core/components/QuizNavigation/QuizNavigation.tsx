@@ -44,9 +44,6 @@ function QuizNavigation({
 
   async function handleSubmit() {
     await onAnswersSubmit();
-
-    // Заменить потом если будет страница результаты
-    // navigate('/dashboard');
   }
 
   return (

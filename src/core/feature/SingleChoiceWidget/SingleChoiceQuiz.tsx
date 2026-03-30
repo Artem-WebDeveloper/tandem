@@ -1,71 +1,146 @@
 import { useState } from 'react';
 
+import {
+  Typography,
+  useTheme,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormControl,
+} from '@mui/material';
+
 import type { SingleChoiceTaskResponse } from './types';
 import type { UserAnswer } from '@/core/types/quiz';
 
-import styles from './SingleChoiceQuiz.module.scss';
+import QuizProgressBar from '@/core/components/QuizProgressBar/QuizProgressBar';
+import QuizNavigation from '@/core/components/QuizNavigation/QuizNavigation';
+
+import styles from './singleChoiceQuiz.module.scss';
+import { useTranslation } from 'react-i18next';
+import { useLocale } from '@/core/i18n/useLocal';
+import { submitQuizAnswers } from '@/core/api/submitQuizAnswers';
 
 interface SingleChoiceQuizProps {
   data: SingleChoiceTaskResponse;
 }
 
 export default function SingleChoiceQuiz({ data }: SingleChoiceQuizProps) {
+  const theme = useTheme();
+
+  const { t } = useTranslation('practice');
+  const locale = useLocale();
+
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
   const [userAnswers, setUserAnswers] = useState<UserAnswer[]>([]);
 
   const currentQuestion = data.questions[currentIndex];
-  const isLastQuestion = currentIndex === data.questions.length - 1;
+
+  if (!currentQuestion) {
+    return <p>{t(`errors.noQuestionInTest`)}</p>;
+  }
+
+  const currentAnswer = userAnswers[currentIndex];
+  const selectedOptionId = currentAnswer ? String(currentAnswer.payload) : null;
+
+  const handleOptionChange = (optionId: string) => {
+    setUserAnswers((prev) => {
+      const updated = [...prev];
+      updated[currentIndex] = {
+        questionId: currentQuestion.id,
+        payload: optionId,
+      };
+      return updated;
+    });
+  };
 
   const goNext = () => {
-    if (selectedOptionId === null) return;
+    setCurrentIndex((prev) => prev + 1);
+  };
 
-    setUserAnswers([
-      ...userAnswers,
-      {
-        questionId: currentQuestion.id,
-        payload: selectedOptionId,
-      },
-    ]);
+  const goBack = () => {
+    setCurrentIndex((prev) => prev - 1);
+  };
 
-    if (!isLastQuestion) {
-      setCurrentIndex((prev) => prev + 1);
-      setSelectedOptionId(null);
-    } else {
-      // submit to server
-      console.log('Answers:', userAnswers);
-    }
+  const handleSubmit = async () => {
+    const answersForApi = userAnswers.map((answer) => ({
+      question_id: answer.questionId,
+      answer: answer.payload,
+    }));
+
+    await submitQuizAnswers(data.id, answersForApi);
   };
 
   return (
-    <div className={styles.singleChoice}>
-      <p className={styles.singleChoice__title}>
-        Question {currentIndex + 1} of {data.questions.length}
-      </p>
+    <div>
+      <QuizProgressBar
+        currentQuestionNumber={currentIndex + 1}
+        questionsCount={data.questions.length}
+      />
 
-      <h3 className={styles.singleChoice__question}>{currentQuestion.text}</h3>
+      <Typography
+        variant="h3"
+        sx={{
+          mb: 1.2,
+          fontSize: { xs: '1rem', sm: '1.25rem' },
+        }}
+      >
+        {currentQuestion.text[locale]}
+      </Typography>
 
-      <ul className={styles.singleChoice__list}>
-        {currentQuestion.options.map((option) => (
-          <li
-            key={option.id}
-            className={`${styles.singleChoice__item} ${selectedOptionId === option.id ? styles.singleChoice__item_selected : ''}`}
-            onClick={() => setSelectedOptionId(option.id)}
-          >
-            {option.text}
-          </li>
-        ))}
-      </ul>
-
-      <div className={styles.singleChoice__btnWrapper}>
-        <button
-          className={styles.singleChoice__btn}
-          disabled={selectedOptionId === null}
-          onClick={goNext}
+      <FormControl component="fieldset" sx={{ width: '100%' }}>
+        <RadioGroup
+          value={selectedOptionId ?? ''}
+          onChange={(e) => handleOptionChange(e.target.value)}
         >
-          {isLastQuestion ? 'Submit' : 'Next'}
-        </button>
-      </div>
+          {currentQuestion.options.map((option) => {
+            const isSelected = selectedOptionId === option.id;
+
+            return (
+              <FormControlLabel
+                className={styles.option}
+                key={option.id}
+                value={option.id}
+                control={
+                  <Radio
+                    sx={{
+                      color: theme.palette.text.primary,
+                    }}
+                  />
+                }
+                label={
+                  <Typography
+                    sx={{
+                      fontSize: { xs: '0.9rem', sm: '1rem' },
+                      fontWeight: 500,
+                    }}
+                  >
+                    {option.text[locale]}
+                  </Typography>
+                }
+                sx={{
+                  border: `1px solid ${theme.palette.divider}`,
+                  transform: isSelected ? 'scale(1.005)' : 'scale(1)',
+                  transition: 'all 0.3s ease',
+
+                  '&:hover': {
+                    backgroundColor: theme.palette.backgroundAccent,
+                    borderColor: theme.palette.info.main,
+                  },
+                }}
+              />
+            );
+          })}
+        </RadioGroup>
+      </FormControl>
+
+      <QuizNavigation
+        currentQuestionNumber={currentIndex}
+        increaseQuestionNumber={goNext}
+        decreaseQuestionNumber={goBack}
+        questionsCount={data.questions.length}
+        isAnswerGiven={selectedOptionId !== null}
+        onAnswersSubmit={handleSubmit}
+      />
     </div>
   );
 }

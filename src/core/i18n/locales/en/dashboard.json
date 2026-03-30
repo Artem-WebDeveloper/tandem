@@ -1,0 +1,38 @@
+{
+  "dashboard": {
+    "title": "Your training",
+    "description": "Statistics and learning progress",
+    "error": {
+      "button": "Try again",
+      "fetchFailed": "Failed to load data."
+    },
+    "statistics": {
+      "availableTask": {
+        "title": "Available tasks",
+        "description": "Total available for training"
+      },
+      "completedTask": {
+        "title": "Completed tasks",
+        "description": "Number of completed tasks"
+      },
+      "remainingTest": {
+        "title": "Remaining to complete",
+        "description": "The number of tasks that are not yet completed"
+      },
+      "totalAttempts": {
+        "title": "Total attempts",
+        "description": "Number of attempts during the learning process"
+      }
+    },
+
+    "categories": {
+      "title": "Progress by category",
+      "description": "Your performance in different sections"
+    },
+    "difficulty": {
+      "title": "Progress by difficulty",
+      "completed": "Completed"
+    },
+    "filler": "So far, these are all statistics. Good luck with your further studies!"
+  }
+}

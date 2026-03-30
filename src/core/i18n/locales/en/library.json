@@ -1,0 +1,41 @@
+{
+  "title": "Library",
+  "description": "Choose a test to practice",
+  "filters": {
+    "title": "Filtering",
+    "found": "Tests found: ",
+    "notFound": "Nothing found",
+    "categories": "Categories",
+    "allCategories": "All categories",
+    "favorites": "Favorites",
+    "testType": "Test type",
+    "allTypes": "All types",
+    "quizType": {
+      "quiz": "Quiz",
+      "insertingCode": "Inserting code",
+      "sorting": "Sorting",
+      "trueFalse": "True / False",
+      "codeOrdering": "Code Ordering"
+    },
+    "difficulty": "Difficulty",
+    "allLevels": "All levels",
+    "status": "Status",
+    "allStatuses": "Any status",
+    "perfect": "Completed",
+    "notPerfect": "Not completed"
+  },
+  "cards": {
+    "countOfQuestions": "questions",
+    "min": "min",
+    "quizState": {
+      "noResults": "No results",
+      "completed": "Completed"
+    },
+    "startTest": "Start test"
+  },
+  "errors": {
+    "fetchFailed": "Failed to load {{resource}}, please check your internet connection.",
+    "unauthorized": "You should log in",
+    "notFound": "Resource not found"
+  }
+}

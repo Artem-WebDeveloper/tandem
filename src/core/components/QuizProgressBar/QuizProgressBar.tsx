@@ -2,6 +2,8 @@ import { LinearProgress, Typography, useTheme } from '@mui/material';
 
 import styles from './QuizProgressBar.module.scss';
 
+import { useTranslation } from 'react-i18next';
+
 function QuizProgressBar({
   currentQuestionNumber,
   questionsCount,
@@ -10,6 +12,8 @@ function QuizProgressBar({
   questionsCount: number;
 }) {
   const theme = useTheme();
+
+  const { t } = useTranslation('practice');
   const normalizedProgress =
     questionsCount === 0 ? 0 : (currentQuestionNumber / questionsCount) * 100;
 
@@ -17,7 +21,7 @@ function QuizProgressBar({
     <div>
       <div className={styles.progressInfo}>
         <Typography variant="body2" sx={{ color: theme.palette.text.secondary, fontWeight: 700 }}>
-          Вопрос {currentQuestionNumber} из {questionsCount}
+          {t('progressBar.question')} {currentQuestionNumber} {t('progressBar.of')} {questionsCount}
         </Typography>
         <Typography variant="body2" sx={{ color: theme.palette.textLight }}>
           {normalizedProgress.toFixed(0)}%

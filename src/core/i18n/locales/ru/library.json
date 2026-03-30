@@ -1,0 +1,41 @@
+{
+  "title": "Библиотека",
+  "description": "Выберите тест для практики",
+  "filters": {
+    "title": "Фильтрация",
+    "found": "Найдено тестов: ",
+    "notFound": "Ничего не найдено",
+    "categories": "Категории",
+    "allCategories": "Все категории",
+    "favorites": "Избранное",
+    "testType": "Тип теста",
+    "allTypes": "Все типы",
+    "quizType": {
+      "quiz": "Квиз",
+      "insertingCode": "Вставка кода",
+      "sorting": "Сортировка",
+      "trueFalse": "True / False",
+      "codeOrdering": "Порядок кода"
+    },
+    "difficulty": "Сложность",
+    "allLevels": "Все уровни",
+    "status": "Статус",
+    "allStatuses": "Любой статус",
+    "perfect": "Пройденные",
+    "notPerfect": "Непройденные"
+  },
+  "cards": {
+    "countOfQuestions": "вопросов",
+    "min": "мин",
+    "quizState": {
+      "noResults": "Нет результатов",
+      "completed": "Завершено"
+    },
+    "startTest": "Начать тест"
+  },
+  "errors": {
+    "fetchFailed": "Не удалось загрузить {{resource}}, проверьте соединение с интернетом",
+    "unauthorized": "Необходимо авторизоваться",
+    "notFound": "Ресурс не найден"
+  }
+}

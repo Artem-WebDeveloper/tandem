@@ -1,0 +1,157 @@
+import type { LibraryResponse } from '@/pages/Library/types';
+
+export const libraryData: LibraryResponse = {
+  count: 6,
+  next: 'https://tandem-api.duckdns.org/api/quizzes/?page=2',
+  previous: null,
+  total_pages: 1,
+  results: [
+    {
+      id: 101,
+      type: 'code_completion',
+      difficulty: 1,
+      title: {
+        ru: 'Методы массивов JS',
+        en: 'Array Methods in JS',
+      },
+      section: 'Core JS',
+      tags: ['array-methods', 'loops', 'functions'],
+      description: {
+        ru: 'Заполни недостающий код для выполнения операций с массивами.',
+        en: 'Fill in the missing code to perform array operations.',
+      },
+      time_limit: 6,
+      questions_count: 5,
+      is_favorite: false,
+      user_progress: {
+        is_completed: false,
+        latest_score: null,
+        best_result: null,
+      },
+    },
+    {
+      id: 402,
+      type: 'true_false',
+      difficulty: 3,
+      title: {
+        ru: 'Типы данных в TypeScript',
+        en: 'Data Types in TypeScript',
+      },
+      section: 'TypeScript',
+      tags: ['types', 'interfaces', 'generics'],
+      description: {
+        ru: 'Проверь свои знания с помощью вопросов "Верно/Неверно" по продвинутому TypeScript.',
+        en: 'Test your knowledge with "True/False" questions on advance TypeScript.',
+      },
+      time_limit: 10,
+      questions_count: 11,
+      is_favorite: true,
+      user_progress: {
+        is_completed: true,
+        latest_score: 80,
+        best_result: 100,
+      },
+    },
+    {
+      id: 201,
+      type: 'async_sorter',
+      difficulty: 1,
+      title: {
+        ru: 'Базовые задачи Event Loop',
+        en: 'Basic Event Loop Tasks',
+      },
+      section: 'Core JS',
+      tags: ['event-loop', 'promises'],
+      description: {
+        ru: 'Глубокое изучение продвинутых особенностей JavaScript. Пример длинного описания, как будет выглядеть карточка с большим количеством текста. Появляется неявная полоса прокрутки, которую можно проскроллить.',
+        en: 'In-depth study of advanced TypeScript features. Example of a long description, showing how the card will look with a large amount of text. An implicit scrollbar appears that you can scroll.',
+      },
+      time_limit: 5,
+      questions_count: 5,
+      is_favorite: false,
+      user_progress: {
+        is_completed: false,
+        latest_score: null,
+        best_result: null,
+      },
+    },
+    {
+      id: 109,
+      type: 'code_completion',
+      difficulty: 2,
+      title: {
+        ru: 'React Hooks: useEffect',
+        en: 'React Hooks: useEffect',
+      },
+      section: 'React',
+      tags: [
+        'useEffect',
+        'hooks',
+        'dependencies',
+        'render',
+        'side-effects',
+        'state',
+        'component-lifecycle',
+      ],
+      description: {
+        ru: 'Пример с большим количеством тегов.',
+        en: 'An example with a lot of tags.',
+      },
+      time_limit: 12,
+      questions_count: 6,
+      is_favorite: true,
+      user_progress: {
+        is_completed: true,
+        latest_score: 80,
+        best_result: 100,
+      },
+    },
+
+    {
+      id: 1,
+      type: 'single_choice',
+      difficulty: 1,
+      title: {
+        ru: 'Основы HTML',
+        en: 'HTML Basics',
+      },
+      section: 'HTML',
+      tags: ['html', 'basics', 'markup'],
+      description: {
+        ru: 'Тест по Flexbox в CSS.',
+        en: 'A test on Flexbox in CSS.',
+      },
+      time_limit: 5,
+      questions_count: 5,
+      is_favorite: false,
+      user_progress: {
+        is_completed: true,
+        latest_score: 60,
+        best_result: 80,
+      },
+    },
+    {
+      id: 301,
+      type: 'code_ordering',
+      difficulty: 3,
+      title: {
+        ru: 'Массивы и циклы',
+        en: 'Arrays and Loops',
+      },
+      section: 'Core JS',
+      tags: ['arrays', 'loops', 'conditions'],
+      description: {
+        ru: 'Отсортируй список, правильно используя async/await и промисы.',
+        en: 'Sort the list correctly using async/await and promises.',
+      },
+      time_limit: 8,
+      questions_count: 5,
+      is_favorite: false,
+      user_progress: {
+        is_completed: true,
+        latest_score: 40,
+        best_result: 40,
+      },
+    },
+  ],
+};

@@ -1,6 +1,23 @@
+import type { SingleChoiceTaskResponse } from '../feature/SingleChoiceWidget/types';
+import type { CodeCompletionTask } from '../feature/CodeCompletionWidget/types';
+import type { AsyncSorterTask } from '../feature/AsyncSorterWidget/types';
+import type { TrueFalseTask } from '../feature/TrueFalseWidget/types';
+import type { CodeOrderingTask } from '../feature/CodeOrderingWidget/types';
+
 // Universal types
 
 //----------------------------------
+
+// Types of Quizzes
+export type QuizTask =
+  | SingleChoiceTaskResponse
+  | CodeCompletionTask
+  | AsyncSorterTask
+  | TrueFalseTask
+  | CodeOrderingTask;
+
+// Task themes - add here when a new Theme appears
+export type TaskTheme = 'Core JS' | 'TypeScript' | 'React' | 'HTML' | 'Algorithms';
 
 // Difficulty levels
 export const Difficulty = {
@@ -14,7 +31,9 @@ export type Difficulty = (typeof Difficulty)[keyof typeof Difficulty];
 export const TaskType = {
   SingleChoice: 'single_choice',
   CodeCompletion: 'code_completion',
-  //TrueFalse:      'true_false',
+  AsyncSorter: 'async_sorter',
+  CodeOrdering: 'code_ordering',
+  TrueFalse: 'true_false',
 
   //CodeCompletion: 'Code Completion', Gleb's code type of quiz
 } as const;
@@ -23,9 +42,15 @@ export type TaskType = (typeof TaskType)[keyof typeof TaskType];
 
 // A universal set of fields for any quiz to render in practice.tsx
 export interface BaseTask {
-  id: string;
+  id: number;
   type: TaskType;
+  section: string;
   difficulty: Difficulty;
+  time_limit: number;
+  title: {
+    ru: string;
+    en: string;
+  };
 }
 
 // -----------------------------------------------------------------------------

@@ -1,0 +1,31 @@
+.timer {
+  right: 6px;
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+
+  animation: fadeIn 0.6s ease;
+}
+
+.value {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 600;
+  transition: color 0.3s ease;
+  // rotate обратно чтобы цифра стояла прямо
+  // (svg повёрнут на -90deg)
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

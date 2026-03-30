@@ -1,33 +1,28 @@
-import { MOCK_CODE_COMPLETION_DATA } from '../mock/codeCompletionData';
+import type { QuizTask } from '../types/quiz';
+import { fetchAsyncSorterById } from './asyncSorterApi/fetchAsyncSorterById';
+import { fetchCodeCompletionById } from './codeCompletionApi/fetchCodeCompletionById';
 import { fetchSingleChoiceById } from './singleChoiceApi/fetchSingleChoiceById';
+import { fetchCodeOrderingById } from './codeOrderingApi/fetchCodeOrderingById';
+import { fetchTrueFalseById } from './trueFalseApi/fetchTrueFalseById';
+import { AppError, AppErrorCode } from '@/core/errors/errors';
 
-import type { SingleChoiceTaskResponse } from '../feature/SingleChoiceWidget/types';
-import type { CodeCompletionTask } from '../feature/CodeCompletionWidget/types';
+import axiosInstance from './config/axiosInstance';
 
-// Add more types here
-export type QuizTask = SingleChoiceTaskResponse | CodeCompletionTask;
+export async function fetchQuizById(id: number): Promise<QuizTask> {
+  if (import.meta.env.VITE_API_MODE === 'api') {
+    const res = await axiosInstance.get<QuizTask>(`/quizzes/${id}/`);
+    return res.data;
+  } else {
+    if (id < 100) return await fetchSingleChoiceById(id);
 
-export function fetchQuizById(id: string): Promise<QuizTask> {
-  // Define quiz type by part of id before '-'
-  const quizType = id.split('-')[0];
+    if (id < 200) return await fetchCodeCompletionById(id);
 
-  switch (quizType) {
-    case 'sc':
-      return fetchSingleChoiceById(id);
-    case 'cc':
-      // Returning Mock data until backend is set up
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          const data = MOCK_CODE_COMPLETION_DATA.find((quiz) => quiz.id === id);
+    if (id < 300) return await fetchAsyncSorterById(id);
 
-          if (data !== undefined) {
-            resolve(data);
-          } else {
-            reject(new Error('Не удалось найти квиз с указанным идентификатором'));
-          }
-        }, 2000);
-      });
-    default:
-      throw new Error('Неизвестный тип квиза');
+    if (id < 400) return await fetchCodeOrderingById(id);
+
+    if (id < 500) return await fetchTrueFalseById(id);
+
+    throw new AppError(AppErrorCode.UNKNOWN_QUIZ_TYPE);
   }
 }

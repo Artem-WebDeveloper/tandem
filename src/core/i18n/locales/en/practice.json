@@ -1,0 +1,38 @@
+{
+  "progressBar": {
+    "question": "Question",
+    "of": "of"
+  },
+  "navigation": {
+    "back": "Back",
+    "next": "Next Question",
+    "submit": "Submit"
+  },
+  "codeCompletion": {
+    "instruction": "Fill in the blank based on the hint"
+  },
+  "asyncSorter": {
+    "instruction": "Arrange the numbers in the order they appear in the console",
+    "allPlaced": "All numbers are placed",
+    "placeholder": "Answer"
+  },
+  "trueFalse": {
+    "timeNotification": "Time is up",
+    "cardNotice": "Your answer has been marked incorrect!",
+    "correctAnswer": "Statement is",
+    "right": "Right!",
+    "wrong": "Wrong!"
+  },
+  "codeOrdering": {
+    "instruction": "Put the lines in the correct order"
+  },
+  "errors": {
+    "quizNotFound": "Quiz with id {{id}} not found",
+    "unknownQuizType": "Unknown quiz type",
+    "fetchFailed": "Failed to fetch data",
+    "missingQuizId": "Quiz ID is missing",
+    "unauthorized": "You should log in",
+    "notFound": "Resource not found"
+  },
+  "backToLibrary": "Back to Library"
+}

@@ -10,11 +10,17 @@ import { useAuthStore } from '../../store/auth.store';
 import logo from '../../assets/logo.svg';
 import Navigation from './Navigation/Navigation';
 
+import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher';
+import { useTranslation } from 'react-i18next';
+
 export default function Header() {
+  const { t } = useTranslation('common');
   const MEDIA_QUERY_CONDITION_DESKTOP = '(min-width:1024.1px)'; // для решения проблемы пограничного пикселя
   const CLOSE_SIDE_NAV_MS = 200;
 
-  const { user, logout } = useAuthStore();
+  const user = useAuthStore((state) => state.user);
+  const logout = useAuthStore((state) => state.logout);
+
   const theme = useTheme();
   const isDesktop = useMediaQuery(MEDIA_QUERY_CONDITION_DESKTOP);
 
@@ -33,9 +39,9 @@ export default function Header() {
             <img src={logo} className={styles.logo} alt="Logo" />
           </Link>
           <div>
-            <h1 className={styles.title}>RS School Trainer</h1>
+            <div className={styles.title}>{t(`header.title`)}</div>
             <p className={styles.descrip} style={{ color: theme.palette.textLight }}>
-              Тренажер по программированию
+              {t('header.description')}
             </p>
           </div>
         </div>
@@ -53,10 +59,11 @@ export default function Header() {
               >
                 {user?.name || 'User'}
               </p>
-              <Button startIcon={<LogoutRoundedIcon sx={{ width: '16px' }} />} onClick={logout}>
-                Выход
-              </Button>
               <SwitchThemeButton />
+              <LanguageSwitcher />
+              <Button startIcon={<LogoutRoundedIcon sx={{ width: '16px' }} />} onClick={logout}>
+                {t('header.logout')}
+              </Button>
             </>
           )}
 
@@ -74,11 +81,12 @@ export default function Header() {
           >
             <Box sx={{ minWidth: 250, boxSizing: 'border-box' }}>
               <header className={styles.sideNavHeader}>
-                <Button size="small" onClick={logout}>
+                <Button size="small" onClick={logout} sx={{ minWidth: '45px' }}>
                   <LogoutRoundedIcon sx={{ width: '22px' }} />
                 </Button>
                 <p style={{ color: theme.palette.textLight }}>{user?.name || 'User'}</p>
                 <SwitchThemeButton />
+                <LanguageSwitcher />
               </header>
 
               <Divider sx={{ borderColor: theme.palette.textUltralight }} />

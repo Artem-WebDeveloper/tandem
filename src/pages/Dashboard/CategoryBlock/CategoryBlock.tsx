@@ -1,34 +1,41 @@
-import { quizData, type QuizTheme } from '@/core/mock/dashboard';
 import styles from './CategoryBlock.module.scss';
+import { useTranslation } from 'react-i18next';
+import { Typography, useTheme } from '@mui/material';
+import type { CategoryStatistic } from '../types';
 import CategoryItem from './CategoryItem/CategoryItem';
+import CategorySkeleton from './CategorySkeleton/CategorySkeleton';
 
-export type ThemeCategory = { theme: QuizTheme; tests: number; completedTestsCount: number };
-
-export default function CategoryBlock() {
-  const categoryObject = quizData.reduce(
-    (acc, item) => {
-      const theme = item.theme;
-      if (!acc[theme]) {
-        acc[theme] = { theme, tests: 0, completedTestsCount: 0 };
-      }
-      acc[theme].tests += 1;
-      acc[theme].completedTestsCount += item.correctCompletions !== 0 ? 1 : 0;
-      return acc;
-    },
-    {} as Record<string, ThemeCategory>,
-  );
-
-  const categoryData = Object.values(categoryObject);
+export default function CategoryBlock({
+  data,
+  isLoading,
+}: {
+  data: CategoryStatistic[] | null;
+  isLoading: boolean;
+}) {
+  const { t } = useTranslation('dashboard');
+  const theme = useTheme();
 
   return (
-    <div className={styles.wrapper}>
-      <h3>Прогресс по категориям</h3>
-      <p>Ваша успеваемость в разных разделах</p>
-      <ul className={styles.category_list}>
-        {categoryData.map((item, index) => (
-          <CategoryItem key={index} item={item} />
-        ))}
-      </ul>
+    <div
+      className={styles.wrapper}
+      style={{ backgroundColor: theme.palette.background.paper, boxShadow: theme.shadows[1] }}
+    >
+      <div className={styles.header}>
+        <Typography variant="h3">{t('dashboard.categories.title')}</Typography>
+        <Typography variant="body2" sx={{ color: theme.palette.textLight }}>
+          {t('dashboard.categories.description')}
+        </Typography>
+      </div>
+
+      {isLoading || data === null ? (
+        <CategorySkeleton />
+      ) : (
+        <ul className={styles.category_list}>
+          {data.map((item) => (
+            <CategoryItem key={item.theme} item={item} />
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

@@ -3,26 +3,32 @@ import { useParams } from 'react-router-dom';
 import { Container, useTheme } from '@mui/material';
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 
+import { useTranslation } from 'react-i18next';
+
 import styles from './Practice.module.scss';
 
-import { fetchQuizById, type QuizTask } from '../../core/api/fetchQuizById';
-import { TaskType } from '../../core/types/quiz';
+import { fetchQuizById } from '../../core/api/fetchQuizById';
+import { TaskType, type QuizTask } from '../../core/types/quiz';
 import Layout from '../../core/components/Layout/Layout';
 import QuizSkeleton from './QuizSkeleton/QuizSkeleton';
 import PracticeHeader from './PracticeHeader/PracticeHeader';
 import LinkButton from '../../core/components/LinkButton.tsx/LinkButton';
 import ErrorNotification from '../../core/components/ErrorNotification/ErrorNotification';
 import CodeCompletionWidget from '../../core/feature/CodeCompletionWidget/CodeCompletionWidget';
-
+import { AppError, AppErrorCode } from '@/core/errors/errors';
 import SingleChoiceQuiz from '../../core/feature/SingleChoiceWidget/SingleChoiceQuiz';
+import AsyncSorterWidget from '@/core/feature/AsyncSorterWidget/AsyncSorterWidget';
+import CodeOrderingWidget from '@/core/feature/CodeOrderingWidget/CodeOrderingWidget';
+import TrueFalseWidget from '@/core/feature/TrueFalseWidget/TrueFalseWidget';
 
 export default function Practice() {
   const theme = useTheme();
+  const { t } = useTranslation('practice');
   const { id } = useParams<{ id: string }>();
 
   const [quizData, setQuizData] = useState<QuizTask | null>(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<AppError | null>(null);
 
   useEffect(() => {
     const fetchPracticeData = async () => {
@@ -31,17 +37,17 @@ export default function Practice() {
 
       try {
         if (id === undefined) {
-          throw new Error('Отсутствует идентификатор квиза');
+          throw new AppError(AppErrorCode.MISSING_QUIZ_ID);
         }
 
-        const quizData = await fetchQuizById(id);
+        const quizData = await fetchQuizById(Number(id));
 
         setQuizData(quizData);
       } catch (error) {
-        if (error instanceof Error) {
-          setError(error.message);
+        if (error instanceof AppError) {
+          setError(error);
         } else {
-          throw error;
+          setError(new AppError(AppErrorCode.FETCH_FAILED));
         }
       } finally {
         setLoading(false);
@@ -61,15 +67,24 @@ export default function Practice() {
       case TaskType.SingleChoice:
         return <SingleChoiceQuiz data={quizData} />;
 
+      case TaskType.AsyncSorter:
+        return <AsyncSorterWidget data={quizData} />;
+
+      case TaskType.CodeOrdering:
+        return <CodeOrderingWidget data={quizData} />;
+
+      case TaskType.TrueFalse:
+        return <TrueFalseWidget data={quizData} />;
+
       default:
-        return <p>Неизвестный тип квиза</p>;
+        return <p>{t('errors.unknownQuizType')}</p>;
     }
   };
 
   if (loading) {
     return (
       <Layout>
-        <Container maxWidth="md">
+        <Container maxWidth="md" disableGutters={true}>
           <QuizSkeleton />
         </Container>
       </Layout>
@@ -79,8 +94,8 @@ export default function Practice() {
   if (error) {
     return (
       <Layout>
-        <Container maxWidth="md">
-          <ErrorNotification message={error} />
+        <Container maxWidth="md" disableGutters={true}>
+          <ErrorNotification message={t(`errors.${error.code}`, error.params)} />
         </Container>
       </Layout>
     );
@@ -92,7 +107,7 @@ export default function Practice() {
         <Container maxWidth="md" disableGutters={true}>
           <LinkButton href="/library">
             <ArrowBackRoundedIcon sx={{ width: '16px', marginRight: '8px' }} />
-            Назад в библиотеку
+            {t('backToLibrary')}
           </LinkButton>
           <div
             className={styles.quizContainer}

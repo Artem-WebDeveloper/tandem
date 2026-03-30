@@ -1,0 +1,158 @@
+import {
+  useTheme,
+  Select,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Typography,
+  Skeleton,
+} from '@mui/material';
+import styles from './Filters.module.scss';
+import type { LibraryFilters } from '../types';
+import {
+  difficultyLabels,
+  getQuizTypeConfig,
+  isDifficulty,
+  isTaskTheme,
+  isTaskType,
+  sectionConfig,
+} from '@/core/configs/library.config';
+
+import { useTranslation } from 'react-i18next';
+
+type FiltersProps = {
+  allQuizzes: number | null;
+  filterValues: LibraryFilters;
+  onSetFilters: (filters: LibraryFilters) => void;
+  loading: boolean;
+};
+
+export default function Filters({ allQuizzes, filterValues, onSetFilters, loading }: FiltersProps) {
+  const theme = useTheme();
+
+  const { t } = useTranslation('library');
+  const quizTypeConfig = getQuizTypeConfig(t);
+
+  const { section, quiz_type, difficulty, is_perfect } = filterValues;
+
+  const categories = Object.keys(sectionConfig).filter(isTaskTheme);
+  const types = Object.keys(quizTypeConfig).filter(isTaskType);
+  const difficulties = Object.keys(difficultyLabels).map(Number).filter(isDifficulty);
+
+  return (
+    <div
+      className={styles.filters}
+      style={{
+        backgroundColor: theme.palette.background.paper,
+      }}
+    >
+      <div className={styles.filtersInfo}>
+        <h3>{t('filters.title')}</h3>
+        {allQuizzes !== null ? (
+          <Typography variant="body2" sx={{ textWrap: 'noWrap' }}>
+            {allQuizzes === 0
+              ? `${t('filters.notFound')}`
+              : `${t('filters.found')} ${allQuizzes}`}{' '}
+          </Typography>
+        ) : (
+          <Skeleton animation="wave" variant="text" width={130} height={20} />
+        )}
+      </div>
+      <div className={styles.filtersForms}>
+        <FormControl size="small" sx={{ flex: 1, minWidth: 165 }}>
+          <InputLabel id="label-status" sx={{ left: '-1px' }}>
+            {t('filters.status')}
+          </InputLabel>
+          <Select
+            sx={{ fontSize: '15px' }}
+            labelId="label-status"
+            value={is_perfect}
+            label={t('filters.status')}
+            disabled={loading}
+            onChange={(event) => {
+              const newStatus = event.target.value;
+              onSetFilters({ ...filterValues, is_perfect: newStatus });
+            }}
+          >
+            <MenuItem value="all">{t('filters.allStatuses')}</MenuItem>
+            <MenuItem value="true">{t('filters.perfect')}</MenuItem>
+            <MenuItem value="false">{t('filters.notPerfect')}</MenuItem>
+          </Select>
+        </FormControl>
+
+        <FormControl size="small" sx={{ flex: 1, minWidth: 165 }}>
+          <InputLabel id="label-category" sx={{ left: '-2px' }}>
+            {t('filters.categories')}
+          </InputLabel>
+          <Select
+            sx={{ fontSize: '15px' }}
+            labelId="label-category"
+            value={section}
+            label={t('filters.categories')}
+            disabled={loading}
+            onChange={(event) => {
+              const newSection = event.target.value;
+              onSetFilters({ ...filterValues, section: newSection });
+            }}
+          >
+            <MenuItem value="all">{t('filters.allCategories')}</MenuItem>
+            {categories.map((category, i) => (
+              <MenuItem key={i} value={category}>
+                {category}
+              </MenuItem>
+            ))}
+            <MenuItem value="Favorites">{t('filters.favorites')}</MenuItem>
+          </Select>
+        </FormControl>
+
+        <FormControl size="small" sx={{ flex: 1, minWidth: 165 }}>
+          <InputLabel id="label-type" sx={{ left: '-2px' }}>
+            {t('filters.testType')}
+          </InputLabel>
+          <Select
+            sx={{ fontSize: '15px' }}
+            labelId="label-type"
+            value={quiz_type}
+            label={t('filters.testType')}
+            disabled={loading}
+            onChange={(event) => {
+              const newType = event.target.value;
+              onSetFilters({ ...filterValues, quiz_type: newType });
+            }}
+          >
+            <MenuItem value="all">{t('filters.allTypes')}</MenuItem>
+            {types.map((type, i) => (
+              <MenuItem key={i} value={type}>
+                {quizTypeConfig[type]}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        <FormControl size="small" sx={{ flex: 1, minWidth: 120 }}>
+          <InputLabel id="label-difficulty" sx={{ left: '-2px' }}>
+            {t('filters.difficulty')}
+          </InputLabel>
+          <Select
+            sx={{ fontSize: '15px' }}
+            labelId="label-difficulty"
+            value={difficulty}
+            label={t('filters.difficulty')}
+            disabled={loading}
+            onChange={(event) => {
+              const newDifficulty = event.target.value;
+              onSetFilters({ ...filterValues, difficulty: newDifficulty });
+            }}
+          >
+            <MenuItem value="all">{t('filters.allLevels')}</MenuItem>
+            {difficulties.map((difficulty, i) => (
+              <MenuItem key={i} value={difficulty}>
+                {difficultyLabels[difficulty]}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,38 @@
+{
+  "progressBar": {
+    "question": "Вопрос",
+    "of": "из"
+  },
+  "navigation": {
+    "back": "Назад",
+    "next": "Следующий вопрос",
+    "submit": "Завершить"
+  },
+  "codeCompletion": {
+    "instruction": "Заполните пропуск, опираясь на подсказку"
+  },
+  "asyncSorter": {
+    "instruction": "Расставьте цифры в порядке их вывода на консоль",
+    "allPlaced": "Все цифры расставлены",
+    "placeholder": "Ответ"
+  },
+  "trueFalse": {
+    "timeNotification": "Время вышло",
+    "cardNotice": "Вам засчитан неверный ответ!",
+    "correctAnswer": "Утверждение -",
+    "right": "Верно!",
+    "wrong": "Неверно!"
+  },
+  "codeOrdering": {
+    "instruction": "Расставьте строки в правильном порядке"
+  },
+  "errors": {
+    "quizNotFound": "Квиз с id {{id}} не найден",
+    "unknownQuizType": "Неизвестный тип квиза",
+    "fetchFailed": "Не удалось получить данные",
+    "missingQuizId": "Идентификатор квиза отсутствует",
+    "unauthorized": "Необходимо авторизоваться",
+    "notFound": "Ресурс не найден"
+  },
+  "backToLibrary": "Назад в библиотеку"
+}

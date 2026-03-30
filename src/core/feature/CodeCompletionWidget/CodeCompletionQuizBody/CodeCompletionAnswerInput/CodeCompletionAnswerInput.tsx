@@ -25,7 +25,11 @@ function CodeCompletionAnswerInput({
   }, [currentQuestion]);
 
   function handleInput(event: React.ChangeEvent<HTMLInputElement, HTMLInputElement>) {
-    setAnswer(currentQuestion.id, event.target.value);
+    const rawAnswer = event.target.value;
+    let answer = rawAnswer.replace(/[^A-Za-z\s-]/g, '');
+    answer = answer.replace(/^[^A-Za-z]+/, '');
+
+    setAnswer(currentQuestion.id, answer);
   }
 
   return (

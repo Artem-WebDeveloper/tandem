@@ -27,12 +27,11 @@ jobs:
 
       - name: Run ESLint
         run: npm run lint
-      # Пока тесты падают, без проверки, пока закоментил
-      # - name: Run tests
-      #   run: npm run test -- --run
-      #   env:
-      #     VITE_API_URL: ${{ secrets.VITE_API_URL }}
-      #     VITE_API_MODE: ${{ secrets.VITE_API_MODE }}
+      - name: Run tests
+        run: npm run test -- --run
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          VITE_API_MODE: ${{ secrets.VITE_API_MODE }}
 
       - name: Build
         run: npm run build

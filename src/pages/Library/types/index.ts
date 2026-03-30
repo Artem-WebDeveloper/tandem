@@ -16,6 +16,7 @@ type UserProgress = {
   is_completed: boolean;
   latest_score: null | number;
   best_result: null | number;
+  is_perfect: boolean;
 };
 
 export type LibraryFilters = {

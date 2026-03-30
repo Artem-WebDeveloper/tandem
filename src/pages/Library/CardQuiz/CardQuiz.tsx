@@ -19,8 +19,6 @@ import { useTranslation } from 'react-i18next';
 import { useLocale } from '@/core/i18n/useLocal';
 import { updateQuizFavoriteStatus } from '@/core/api/libraryApi/updateQuizFavoriteStatus';
 
-const PASSING_PERCENTAGE = 100;
-
 export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
   const theme = useTheme();
   const locale = useLocale();
@@ -42,8 +40,7 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
     user_progress: userProgress,
   } = quizData;
 
-  let { best_result: bestResult } = userProgress;
-  bestResult = bestResult !== null ? Math.floor(bestResult) : bestResult;
+  const { best_result: bestResult, is_perfect: isPerfect } = userProgress;
 
   const themeQuiz = sectionConfig[section];
   const accentColorThemeLabel = themeQuiz?.color ?? theme.palette.text.primary;
@@ -60,7 +57,7 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
   };
 
   const displayHeaderIcon = () => {
-    return bestResult === PASSING_PERCENTAGE ? (
+    return isPerfect ? (
       <CheckCircleOutlineRoundedIcon sx={{ color: theme.palette.success.main }} />
     ) : bestResult !== null ? (
       <AdjustRoundedIcon sx={{ color: theme.palette.textLight }} />
@@ -188,7 +185,7 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
           }}
         >
           {bestResult !== null
-            ? `${t('cards.quizState.completed')} ${bestResult}%`
+            ? `${t('cards.quizState.completed')} ${Math.floor(bestResult)}%`
             : `${t('cards.quizState.noResults')}`}
         </Typography>
         <Button

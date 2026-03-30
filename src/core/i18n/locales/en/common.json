@@ -10,5 +10,9 @@
   },
   "footer": {
     "copyright": "developed by "
+  },
+  "controls": {
+    "toggleTheme": "Toggle theme",
+    "toggleLanguage": "Change language"
   }
 }

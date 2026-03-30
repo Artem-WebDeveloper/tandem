@@ -21,7 +21,9 @@
     "cardNotice": "Вам засчитан неверный ответ!",
     "correctAnswer": "Утверждение -",
     "right": "Верно!",
-    "wrong": "Неверно!"
+    "wrong": "Неверно!",
+    "true": "True",
+    "false": "False"
   },
   "codeOrdering": {
     "instruction": "Расставьте строки в правильном порядке"

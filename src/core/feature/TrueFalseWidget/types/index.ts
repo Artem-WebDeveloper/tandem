@@ -18,3 +18,5 @@ export interface TrueFalseTask extends BaseTask {
   tags: string[];
   questions: TrueFalseQuestion[];
 }
+
+export type TrueFalseAnswerPayload = boolean;

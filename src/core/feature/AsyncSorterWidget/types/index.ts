@@ -12,3 +12,10 @@ export interface AsyncSorterTask extends BaseTask {
   tags: string[];
   questions: AsyncSorterQuestion[];
 }
+
+export type AsyncSorterAnswerPayload = string[];
+
+export type AsyncSorterAnswer = {
+  questionId: number;
+  payload: AsyncSorterAnswerPayload;
+};

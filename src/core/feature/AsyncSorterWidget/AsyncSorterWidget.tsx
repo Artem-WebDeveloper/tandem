@@ -1,12 +1,19 @@
 import { useEffect } from 'react';
 
 import { useAsyncSorterStore } from '@/core/store/asyncSorter.store';
-import type { AsyncSorterTask } from './types';
+import type { AsyncSorterTask, AsyncSorterAnswerPayload } from './types';
 import AsyncSorterQuizBody from './AsyncSorterQuizBody/AsyncSorterQuizBody';
 import AsyncSorterNavigation from './AsyncSorterNavigation/AsyncSorterNavigation';
 import AsyncSorterProgress from './AsyncSorterProgress/AsyncSorterProgress';
+import type { QuizResults } from '@/core/api/submitQuizAnswers';
 
-function AsyncSorterWidget({ data }: { data: AsyncSorterTask }) {
+function AsyncSorterWidget({
+  data,
+  onSubmit,
+}: {
+  data: AsyncSorterTask;
+  onSubmit?: (quizResults: QuizResults<AsyncSorterAnswerPayload>) => void;
+}) {
   const { questions, id } = data;
   const questionsCount = questions.length;
 
@@ -22,7 +29,7 @@ function AsyncSorterWidget({ data }: { data: AsyncSorterTask }) {
 
       <AsyncSorterQuizBody questions={data.questions} />
 
-      <AsyncSorterNavigation questions={data.questions} quizId={id} />
+      <AsyncSorterNavigation questions={data.questions} quizId={id} onSubmit={onSubmit} />
     </div>
   );
 }

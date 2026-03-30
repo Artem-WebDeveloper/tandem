@@ -1,9 +1,5 @@
 import { create } from 'zustand';
-
-export type AsyncSorterAnswer = {
-  questionId: number;
-  payload: string[];
-};
+import type { AsyncSorterAnswer } from '../feature/AsyncSorterWidget/types';
 
 type AsyncSorterState = {
   currentQuestionNumber: number;

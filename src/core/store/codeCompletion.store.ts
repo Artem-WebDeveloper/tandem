@@ -1,9 +1,5 @@
 import { create } from 'zustand';
-
-export type CodeCompletionAnswer = {
-  questionId: number;
-  payload: string;
-};
+import type { CodeCompletionAnswer } from '../feature/CodeCompletionWidget/types';
 
 type CodeCompletionState = {
   currentQuestionNumber: number;

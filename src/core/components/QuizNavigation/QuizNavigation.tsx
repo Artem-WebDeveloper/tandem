@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 
@@ -23,7 +23,7 @@ function QuizNavigation({
   onAnswersSubmit: () => Promise<void>;
   isBackAllowed?: boolean;
 }) {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const isFirstQuestion = currentQuestionNumber <= 0;
   const isLastQuestion = currentQuestionNumber >= questionsCount - 1;
@@ -46,7 +46,7 @@ function QuizNavigation({
     await onAnswersSubmit();
 
     // Заменить потом если будет страница результаты
-    navigate('/dashboard');
+    // navigate('/dashboard');
   }
 
   return (

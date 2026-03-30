@@ -4,6 +4,8 @@ import { CheckCircle, Cancel } from '@mui/icons-material';
 import LinkButton from '../../core/components/LinkButton.tsx/LinkButton';
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 import { useTranslation } from 'react-i18next';
+import { useLocale } from '@/core/i18n/useLocal';
+
 import Layout from '../../core/components/Layout/Layout';
 import type { QuizResult, QuizResults, UserAnswerPayload } from '@/core/api/submitQuizAnswers';
 import type { QuizTask } from '@/core/types/quiz';
@@ -32,7 +34,8 @@ export default function Results<T extends UserAnswerPayload>({
   quizResults: QuizResults<T>;
 }) {
   const theme = useTheme();
-  const { t, i18n } = useTranslation(['results', 'practice']);
+  const { t } = useTranslation(['results', 'practice']);
+  const locale = useLocale();
 
   const [quizTask, setQuizTask] = useState<QuizTask | undefined>(undefined);
   useEffect(() => {
@@ -85,7 +88,7 @@ export default function Results<T extends UserAnswerPayload>({
           </Typography>
 
           <Box className={styles.resultElementsContainer}>
-            {quizTask?.questions.map((question) => {
+            {quizTask?.questions.map((question, index) => {
               // ищем ответ пользователя на вопрос в массиве ответов quizResults.results
               // сравниваем id вопроса в вопросах с id вопроса в ответах
               const quizResult = quizResults.results.find((quizResult) => {
@@ -100,17 +103,15 @@ export default function Results<T extends UserAnswerPayload>({
               let answerText = '';
 
               if (quizTask.type === 'single_choice') {
-                questionText =
-                  (question as SingleChoiceQuestion).text[i18n.language as 'ru' | 'en'] ?? '';
+                questionText = (question as SingleChoiceQuestion).text[locale] ?? '';
                 const optionId = (quizResult as QuizResult<SingleChoiceAnswerPayload>).user_answer;
                 const optionText = (question as SingleChoiceQuestion).options.find(
                   (option) => option.id === optionId,
                 )?.text;
-                answerText = optionText?.[i18n.language as 'ru' | 'en'] ?? '';
+                answerText = optionText?.[locale] ?? '';
               } else if (quizTask.type === 'code_completion') {
                 questionText = (question as CodeCompletionQuestion).code;
-                hintText =
-                  (question as CodeCompletionQuestion).hint[i18n.language as 'ru' | 'en'] ?? '';
+                hintText = (question as CodeCompletionQuestion).hint[locale] ?? '';
                 answerText = (quizResult as QuizResult<CodeComplitionAnswerPayload>).user_answer;
               } else if (quizTask.type === 'async_sorter') {
                 questionText = (question as AsyncSorterQuestion).code;
@@ -118,8 +119,7 @@ export default function Results<T extends UserAnswerPayload>({
                   ' ',
                 );
               } else if (quizTask.type === 'true_false') {
-                questionText =
-                  (question as TrueFalseQuestion).statement[i18n.language as 'ru' | 'en'] ?? '';
+                questionText = (question as TrueFalseQuestion).statement[locale] ?? '';
                 const isCorrect = (quizResult as QuizResult<TrueFalseAnswerPayload>).user_answer;
                 answerText = t(isCorrect ? 'trueFalse.true' : 'trueFalse.false', {
                   ns: 'practice',
@@ -147,7 +147,6 @@ export default function Results<T extends UserAnswerPayload>({
                             fontSize: 20,
                             color: theme.palette.success.main,
                             flexShrink: 0,
-                            mt: 0.25,
                           }}
                         />
                       ) : (
@@ -156,7 +155,6 @@ export default function Results<T extends UserAnswerPayload>({
                             fontSize: 20,
                             color: theme.palette.error.main,
                             flexShrink: 0,
-                            mt: 0.25,
                           }}
                         />
                       )}
@@ -164,25 +162,17 @@ export default function Results<T extends UserAnswerPayload>({
                       {/* Вопрос и ответ */}
                       <Box className={styles.resultTexts}>
                         {/* Вопрос */}
-                        <Box className={styles.textRow} sx={{ mb: 1 }}>
-                          <Typography
-                            variant="body2"
-                            sx={{ fontWeight: 'bold', mb: 0.5, whiteSpace: 'nowrap' }}
-                          >
-                            {t('question')} {question.id}:
-                          </Typography>
-                          <Typography variant="body2" sx={{ mb: 0.5 }}>
-                            {questionText}
-                          </Typography>
-                        </Box>
+                        <Typography variant="body2" sx={{ mb: 1 }}>
+                          <strong>
+                            {t('question')} {index + 1}:
+                          </strong>{' '}
+                          {questionText}
+                        </Typography>
 
                         {/* Ответ пользователя */}
-                        <Box className={styles.textRow}>
-                          <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
-                            {t('yourAnswer')}:
-                          </Typography>
-                          <Typography variant="body2">{answerText}</Typography>
-                        </Box>
+                        <Typography variant="body2">
+                          <strong>{t('yourAnswer')}:</strong> {answerText}
+                        </Typography>
                       </Box>
                     </Box>
                   );
@@ -200,26 +190,24 @@ export default function Results<T extends UserAnswerPayload>({
                       }}
                     >
                       {quizResult.is_correct ? (
-                        <CheckCircle
-                          sx={{ fontSize: 20, color: '#16a34a', flexShrink: 0, mt: 0.25 }}
-                        />
+                        <CheckCircle sx={{ fontSize: 20, color: '#16a34a', flexShrink: 0 }} />
                       ) : (
-                        <Cancel sx={{ fontSize: 20, color: '#dc2626', flexShrink: 0, mt: 0.25 }} />
+                        <Cancel sx={{ fontSize: 20, color: '#dc2626', flexShrink: 0 }} />
                       )}
 
                       {/* Вопрос и ответ */}
                       <Box className={styles.resultTexts}>
                         {/* Вопрос */}
                         <Box className={styles.textCodeColumn} sx={{ mb: 1 }}>
-                          <Typography
-                            variant="body2"
-                            sx={{ fontWeight: 'bold', mb: 0.5, whiteSpace: 'nowrap' }}
-                          >
-                            {t('question')} {question.id}: {hintText}
+                          <Typography variant="body2" sx={{ mb: 1 }}>
+                            <strong>
+                              {t('question')} {index + 1}:
+                            </strong>{' '}
+                            {hintText}
                           </Typography>
                           <Typography
                             variant="body2"
-                            sx={{ mb: 0.5, p: '6px 12px' }}
+                            sx={{ p: '6px 12px', wordBreak: 'break-word' }}
                             className={styles.resultElement}
                             style={{
                               backgroundColor: `${theme.palette.divider}80`,
@@ -231,12 +219,9 @@ export default function Results<T extends UserAnswerPayload>({
                         </Box>
 
                         {/* Ответ пользователя */}
-                        <Box className={styles.textRow}>
-                          <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
-                            {t('yourAnswer')}:
-                          </Typography>
-                          <Typography variant="body2">{answerText}</Typography>
-                        </Box>
+                        <Typography variant="body2">
+                          <strong>{t('yourAnswer')}:</strong> {answerText}
+                        </Typography>
                       </Box>
                     </Box>
                   );
@@ -259,7 +244,6 @@ export default function Results<T extends UserAnswerPayload>({
                             fontSize: 20,
                             color: theme.palette.success.main,
                             flexShrink: 0,
-                            mt: 0.25,
                           }}
                         />
                       ) : (
@@ -268,7 +252,6 @@ export default function Results<T extends UserAnswerPayload>({
                             fontSize: 20,
                             color: theme.palette.error.main,
                             flexShrink: 0,
-                            mt: 0.25,
                           }}
                         />
                       )}
@@ -281,18 +264,21 @@ export default function Results<T extends UserAnswerPayload>({
                             variant="body2"
                             sx={{ fontWeight: 'bold', mb: 0.5, whiteSpace: 'nowrap' }}
                           >
-                            {t('question')} {question.id}:
+                            {t('question')} {index + 1}:
                           </Typography>
                           <Typography
                             variant="body2"
-                            sx={{ mb: 0.5, p: '6px 12px' }}
+                            sx={{ mb: 0.5, p: '6px 12px', wordBreak: 'break-word' }}
                             className={styles.resultElement}
+                            // className={`${styles.resultElement} ${styles.codeText}`}
                             style={{
                               backgroundColor: `${theme.palette.divider}80`,
                               borderColor: theme.palette.divider,
                             }}
                           >
-                            <code>{questionText}</code>
+                            <pre>
+                              <code className={styles.codeText}>{questionText}</code>
+                            </pre>
                           </Typography>
                         </Box>
 

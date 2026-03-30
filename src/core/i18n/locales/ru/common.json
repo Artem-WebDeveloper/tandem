@@ -9,5 +9,9 @@
   },
   "footer": {
     "copyright": "разработано "
+  },
+  "controls": {
+    "toggleTheme": "Сменить тему",
+    "toggleLanguage": "Сменить язык"
   }
 }

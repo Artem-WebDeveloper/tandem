@@ -9,12 +9,21 @@ import {
   CircularProgress,
   Alert,
   useTheme,
+  Collapse,
+  IconButton,
+  InputAdornment,
 } from '@mui/material';
-import { isAxiosError } from 'axios';
+
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 import { useAuthStore } from '../../core/store/auth.store';
 import { loginApi } from '../../core/api/auth';
+import SwitchThemeButton from '@/core/components/Header/SwitchThemeButton/SwitchThemeButton';
+import LanguageSwitcher from '@/core/components/LanguageSwitcher/LanguageSwitcher';
 import styles from './Login.module.scss';
+
+import { validateUsername, validatePassword } from '../../core/utils/loginValidation';
+
 import logo from '../../core/assets/logo.svg';
 import RegisterDialog from './RegisterDialog/RegisterDialog';
 
@@ -26,29 +35,50 @@ export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [successMsg, setSuccessMsg] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const [serverError, setServerError] = useState<string | null>(null);
 
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
-  const [successMsg, setSuccessMsg] = useState<string | null>(null);
 
   const login = useAuthStore((state) => state.login);
   const navigate = useNavigate();
   const theme = useTheme();
 
   useEffect(() => {
-    if (error || successMsg) {
+    if (serverError || successMsg) {
       const timer = setTimeout(() => {
-        setError(null);
+        setServerError(null);
         setSuccessMsg(null);
       }, 5000);
       return () => clearTimeout(timer);
     }
-  }, [error, successMsg]);
+  }, [serverError, successMsg]);
 
-  const handleSubmit = async (e: React.SubmitEvent) => {
+  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (value.length <= 15) {
+      setUsername(value);
+    }
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    setError(null);
+    const usernameValidation = validateUsername(username);
+    const passwordValidation = validatePassword(password, username);
+
+    if (!usernameValidation.isValid || !passwordValidation.isValid) {
+      setServerError(t('loginPage.messages.error'));
+      return;
+    }
+
+    setServerError(null);
     setIsLoading(true);
 
     try {
@@ -56,13 +86,8 @@ export default function Login() {
 
       login(access, refresh, { name: username });
       navigate('/library', { replace: true });
-    } catch (err) {
-      if (isAxiosError(err)) {
-        const errorMessage = err.response?.data?.detail || `${t('loginPage.messages.error')}`;
-        setError(errorMessage);
-      } else {
-        setError('Unexpected error');
-      }
+    } catch {
+      setServerError(t('loginPage.messages.error'));
     } finally {
       setIsLoading(false);
     }
@@ -74,6 +99,8 @@ export default function Login() {
     setUsername(newUsername);
     setPassword('');
   };
+
+  const isFormValid = username.trim() !== '' && password.trim() !== '';
 
   const containerStyle = {
     backgroundColor: theme.palette.background.default,
@@ -103,6 +130,10 @@ export default function Login() {
       backgroundColor: theme.palette.primary.main,
       opacity: 0.9,
     },
+    '&:disabled': {
+      backgroundColor: theme.palette.action.disabledBackground,
+      color: theme.palette.action.disabled,
+    },
   };
 
   const textButtonStyle = {
@@ -122,27 +153,49 @@ export default function Login() {
         <Typography variant="h1" component="h1" className={styles.mainTitle} sx={mainTitleStyle}>
           {t('loginPage.title')}
         </Typography>
+
         <Typography variant="body1" className={styles.subtitle} sx={subtitleStyle}>
           {t('loginPage.description')}
         </Typography>
       </Box>
 
       <Paper elevation={0} className={styles.formCard} sx={cardStyle}>
-        <Typography variant="h3" component="h3" className={styles.formTitle} sx={mainTitleStyle}>
-          {t('loginPage.forms.title')}
-        </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            mb: 2,
+            flexWrap: 'wrap',
+            gap: 1,
+          }}
+        >
+          <Typography
+            variant="h3"
+            component="h3"
+            sx={{
+              ...mainTitleStyle,
+              margin: 0,
+              lineHeight: 1,
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
+            {t('loginPage.forms.title')}
+          </Typography>
+          <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+            <SwitchThemeButton />
+            <LanguageSwitcher />
+          </Box>
+        </Box>
 
-        {error && (
-          <Alert severity="error" sx={{ mb: 2 }}>
-            {error}
-          </Alert>
-        )}
-
-        {successMsg && (
-          <Alert severity="success" sx={{ mb: 2 }}>
-            {successMsg}
-          </Alert>
-        )}
+        <Collapse in={!!successMsg}>
+          {successMsg && (
+            <Alert severity="success" sx={{ mb: 2 }}>
+              {successMsg}
+            </Alert>
+          )}
+        </Collapse>
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <TextField
@@ -152,26 +205,83 @@ export default function Login() {
             fullWidth
             required
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={handleUsernameChange}
             disabled={isLoading}
           />
 
           <TextField
             label={t('loginPage.forms.password')}
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             variant="outlined"
             fullWidth
             required
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handlePasswordChange}
             disabled={isLoading}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={() => setShowPassword((prev) => !prev)} edge="end">
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
+
+          <Box
+            sx={{
+              minHeight: '70px',
+              maxHeight: '70px',
+              overflowY: 'auto',
+              overflowX: 'hidden',
+              transition: 'all 0.3s ease',
+              scrollbarWidth: 'thin',
+              scrollbarColor:
+                theme.palette.mode === 'light'
+                  ? `${theme.palette.textUltralight} transparent`
+                  : `${theme.palette.textUltralight} transparent`,
+              '&::-webkit-scrollbar': {
+                width: '6px',
+              },
+              '&::-webkit-scrollbar-track': {
+                backgroundColor:
+                  theme.palette.mode === 'light'
+                    ? theme.palette.background.default
+                    : theme.palette.background.paper,
+                borderRadius: '3px',
+              },
+              '&::-webkit-scrollbar-thumb': {
+                backgroundColor:
+                  theme.palette.mode === 'light'
+                    ? theme.palette.textUltralight
+                    : theme.palette.primaryDisabled,
+                borderRadius: '3px',
+                '&:hover': {
+                  backgroundColor:
+                    theme.palette.mode === 'light'
+                      ? theme.palette.textLight
+                      : theme.palette.text.secondary,
+                },
+              },
+            }}
+          >
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+              <Collapse in={!!serverError}>
+                {serverError && (
+                  <Alert severity="error" sx={{ fontSize: '0.875rem', py: 0.5 }}>
+                    {serverError}
+                  </Alert>
+                )}
+              </Collapse>
+            </Box>
+          </Box>
 
           <Button
             type="submit"
             variant="contained"
             fullWidth
-            disabled={isLoading}
+            disabled={isLoading || !isFormValid}
             className={styles.submitBtn}
             sx={buttonStyle}
           >

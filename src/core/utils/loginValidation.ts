@@ -43,7 +43,7 @@ export function validateUsername(username: string): ValidationResult {
     errors.push('validation.username.tooLong');
   }
 
-  const validPattern = /^[a-zA-Z0-9_]+$/;
+  const validPattern = /^[a-zA-Zа-яА-ЯёЁ0-9_]+$/;
   if (!validPattern.test(username)) {
     errors.push('validation.username.invalidChars');
   }

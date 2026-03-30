@@ -12,10 +12,6 @@
     "messages": {
       "error": "Authorization error. Check your username and password.",
       "success": "Registration was successful! You can now log in."
-    },
-    "controls": {
-      "toggleTheme": "Сменить тему",
-      "toggleLanguage": "Сменить язык"
     }
   },
   "registerPage": {

@@ -12,10 +12,6 @@
     "messages": {
       "error": "Ошибка авторизации. Проверьте имя пользователя и пароль.",
       "success": "Регистрация прошла успешно! Теперь вы можете войти."
-    },
-    "controls": {
-      "toggleTheme": "Toggle theme",
-      "toggleLanguage": "Change language"
     }
   },
   "registerPage": {

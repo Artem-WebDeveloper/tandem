@@ -1,4 +1,4 @@
-name: Linting
+name: CI/CD
 
 on:
   push:
@@ -9,9 +9,9 @@ on:
       - main
 
 jobs:
-  lint:
+  ci:
+    name: Lint, Test, Build
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
         name: Checkout code
@@ -27,3 +27,28 @@ jobs:
 
       - name: Run ESLint
         run: npm run lint
+      - name: Run tests
+        run: npm run test -- --run
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          VITE_API_MODE: ${{ secrets.VITE_API_MODE }}
+
+      - name: Build
+        run: npm run build
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          VITE_API_MODE: ${{ secrets.VITE_API_MODE }}
+
+  cd:
+    name: Deploy to Vercel
+    runs-on: ubuntu-latest
+    needs: ci
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to Vercel
+        run: npx vercel --prod --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}

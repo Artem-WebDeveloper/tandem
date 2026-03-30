@@ -14,14 +14,12 @@ import { useTranslation } from 'react-i18next';
 
 type OnDragEnd = React.ComponentProps<typeof DragDropProvider>['onDragEnd'];
 
-// const EMPTY_SOURCE_BLOCK_MESSAGE = 'Все цифры расставлены'; // {t('asyncSorter.allPlaced')}
-
 function AsyncSorterDragAndDrop({
   blocks,
   currentQuestionId,
 }: {
   blocks: string[];
-  currentQuestionId: string;
+  currentQuestionId: number;
 }) {
   const { t } = useTranslation('practice');
   const setAnswer = useAsyncSorterStore((state) => state.setAnswer);

@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { BrowserRouter } from 'react-router-dom';
 
 import QuizNavigation from './QuizNavigation';
 
@@ -23,7 +24,11 @@ describe('QuizNavigation', () => {
       isAnswerGiven: false,
     };
 
-    render(<QuizNavigation {...defaultProps} {...props} />);
+    render(
+      <BrowserRouter>
+        <QuizNavigation {...defaultProps} {...props} />
+      </BrowserRouter>,
+    );
   }
 
   it('renders without errors', () => {
@@ -34,7 +39,7 @@ describe('QuizNavigation', () => {
     it('not allows proceeding if answer is not given', () => {
       setup();
 
-      const proceedButton = screen.getByRole('button', { name: 'Следующий вопрос' });
+      const proceedButton = screen.getByRole('button', { name: 'navigation.next' });
 
       expect(proceedButton).toBeDisabled();
     });
@@ -42,7 +47,7 @@ describe('QuizNavigation', () => {
     it('allows proceeding if answer is given', () => {
       setup({ isAnswerGiven: true });
 
-      const proceedButton = screen.getByRole('button', { name: 'Следующий вопрос' });
+      const proceedButton = screen.getByRole('button', { name: 'navigation.next' });
 
       expect(proceedButton).toBeEnabled();
     });
@@ -50,7 +55,7 @@ describe('QuizNavigation', () => {
     it('increaseQuestionNumber is called once on proceed button click', async () => {
       setup({ isAnswerGiven: true });
 
-      const proceedButton = screen.getByRole('button', { name: 'Следующий вопрос' });
+      const proceedButton = screen.getByRole('button', { name: 'navigation.next' });
 
       await userEvent.click(proceedButton);
 
@@ -62,7 +67,7 @@ describe('QuizNavigation', () => {
     it('not allows moving back on the first question', () => {
       setup();
 
-      const backButton = screen.getByRole('button', { name: 'Назад' });
+      const backButton = screen.getByRole('button', { name: 'navigation.back' });
 
       expect(backButton).toBeDisabled();
     });
@@ -70,7 +75,7 @@ describe('QuizNavigation', () => {
     it('allows moving back starting from the second question', () => {
       setup({ currentQuestionNumber: 1 });
 
-      const backButton = screen.getByRole('button', { name: 'Назад' });
+      const backButton = screen.getByRole('button', { name: 'navigation.back' });
 
       expect(backButton).toBeEnabled();
     });
@@ -78,7 +83,7 @@ describe('QuizNavigation', () => {
     it('decreaseQuestionNumber is called once on back button click', async () => {
       setup({ currentQuestionNumber: 1 });
 
-      const backButton = screen.getByRole('button', { name: 'Назад' });
+      const backButton = screen.getByRole('button', { name: 'navigation.back' });
 
       await userEvent.click(backButton);
 
@@ -90,7 +95,7 @@ describe('QuizNavigation', () => {
     it('shows finish button if it is the last question', () => {
       setup({ currentQuestionNumber: questionsCount - 1 });
 
-      const finishButton = screen.getByRole('button', { name: 'Завершить' });
+      const finishButton = screen.getByRole('button', { name: 'navigation.submit' });
 
       expect(finishButton).toBeInTheDocument();
     });
@@ -98,7 +103,7 @@ describe('QuizNavigation', () => {
     it('allows finishing quiz if answer to the last question is given', () => {
       setup({ currentQuestionNumber: questionsCount - 1, isAnswerGiven: true });
 
-      const finishButton = screen.getByRole('button', { name: 'Завершить' });
+      const finishButton = screen.getByRole('button', { name: 'navigation.submit' });
 
       expect(finishButton).toBeEnabled();
     });
@@ -106,7 +111,7 @@ describe('QuizNavigation', () => {
     it('onAnswersSubmit is called once on finish button click', async () => {
       setup({ currentQuestionNumber: questionsCount - 1, isAnswerGiven: true });
 
-      const finishButton = screen.getByRole('button', { name: 'Завершить' });
+      const finishButton = screen.getByRole('button', { name: 'navigation.submit' });
 
       await userEvent.click(finishButton);
 

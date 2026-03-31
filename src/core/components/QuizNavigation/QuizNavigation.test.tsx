@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { BrowserRouter } from 'react-router-dom';
 
 import QuizNavigation from './QuizNavigation';
 
@@ -24,11 +23,7 @@ describe('QuizNavigation', () => {
       isAnswerGiven: false,
     };
 
-    render(
-      <BrowserRouter>
-        <QuizNavigation {...defaultProps} {...props} />
-      </BrowserRouter>,
-    );
+    render(<QuizNavigation {...defaultProps} {...props} />);
   }
 
   it('renders without errors', () => {

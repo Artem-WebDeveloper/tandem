@@ -272,7 +272,6 @@ export default function Results<T extends UserAnswerPayload>({
                           <Box
                             sx={{ mb: 0.5, p: '6px 12px', wordBreak: 'break-word' }}
                             className={styles.resultElement}
-                            // className={`${styles.resultElement} ${styles.codeText}`}
                             style={{
                               backgroundColor: `${theme.palette.divider}80`,
                               borderColor: theme.palette.divider,

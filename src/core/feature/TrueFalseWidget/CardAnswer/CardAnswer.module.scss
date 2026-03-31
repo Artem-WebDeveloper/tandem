@@ -6,7 +6,6 @@
   width: 100%;
   cursor: pointer;
   transform-style: preserve-3d;
-  // transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
   transition:
     transform 0.5s cubic-bezier(0.34, 1.4, 0.64, 1),
     opacity 0.2s ease;
@@ -65,7 +64,6 @@
       border-color: #16a34a;
       color: #16a34a;
       background-color: rgba(22, 163, 74, 0.2);
-      // box-shadow: 0 0 10px rgba(22, 163, 74, 0.6);
       animation: rightShadowIn 0.6s both;
       animation-delay: 1s;
     }
@@ -73,7 +71,6 @@
       border-color: #d13b3b;
       color: #d13b3b;
       background-color: rgba(209, 59, 59, 0.2);
-      // box-shadow: 0 0 10px rgba(209, 59, 59, 0.6);
       animation: wrongShadowIn 0.6s both;
       animation-delay: 1s;
     }
@@ -99,22 +96,18 @@
 
 @keyframes wrongShadowIn {
   from {
-    // filter: drop-shadow(0 0 10px rgba(209, 59, 59, 0));
     box-shadow: none;
   }
   to {
-    // filter: drop-shadow(0 0 10px rgba(209, 59, 59, 0.3));
     box-shadow: 0 0 10px rgba(209, 59, 59, 0.45);
   }
 }
 
 @keyframes rightShadowIn {
   from {
-    // filter: drop-shadow(0 0 10px rgba(22, 163, 74, 0));
     box-shadow: none;
   }
   to {
-    // filter: drop-shadow(0 0 10px rgba(22, 163, 74, 0.3));
     box-shadow: 0 0 10px rgba(22, 163, 74, 0.45);
   }
 }

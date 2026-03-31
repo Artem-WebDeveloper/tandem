@@ -26,8 +26,11 @@ function CodeCompletionAnswerInput({
 
   function handleInput(event: React.ChangeEvent<HTMLInputElement, HTMLInputElement>) {
     const rawAnswer = event.target.value;
-    let answer = rawAnswer.replace(/[^A-Za-z\s-]/g, '');
-    answer = answer.replace(/^[^A-Za-z]+/, '');
+    const answer = rawAnswer
+      .replace(/[^A-Za-z\s-]/g, '') // Убрать все символы, кроме букв, пробелов и тире
+      .replace(/^[^A-Za-z]+/, '') // Убрать из начала всё, кроме букв
+      .replace(/\s+/g, ' ') // Заменить пробелы на одинарные
+      .slice(0, 30);
 
     setAnswer(currentQuestion.id, answer);
   }

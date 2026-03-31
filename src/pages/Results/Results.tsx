@@ -369,7 +369,7 @@ export default function Results<T extends UserAnswerPayload>({
 
                             return (
                               <Box
-                                sx={{ mb: 0.5, p: '2px 12px 5px', wordBreak: 'break-word' }}
+                                sx={{ mb: 0.5, p: '4px 12px', wordBreak: 'break-word' }}
                                 className={`${styles.resultElement} ${styles.indentCode}`}
                                 style={{
                                   backgroundColor: `${isCorrectLinePosition ? theme.palette.success.light : theme.palette.error.light}50`,

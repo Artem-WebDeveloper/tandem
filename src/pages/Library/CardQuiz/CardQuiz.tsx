@@ -1,10 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useTheme, Typography, Button, Chip, IconButton } from '@mui/material';
+import { useTheme, Typography, Button, Chip, IconButton, Tooltip } from '@mui/material';
 
-import PanoramaFishEyeIcon from '@mui/icons-material/PanoramaFishEye';
-import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
-import AdjustRoundedIcon from '@mui/icons-material/AdjustRounded';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
@@ -14,6 +11,7 @@ import styles from './CardQuiz.module.scss';
 import type { LibraryQuiz } from '../types';
 import { difficultyLabels, getQuizTypeConfig, sectionConfig } from '@/core/configs/library.config';
 import DifficultyChip from '@/core/components/DifficultyChip/DifficultyChip';
+import HeaderIconStatus from './HeaderIconStatus/HeaderIconStatus';
 
 import { useTranslation } from 'react-i18next';
 import { useLocale } from '@/core/i18n/useLocal';
@@ -56,16 +54,6 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
     }
   };
 
-  const displayHeaderIcon = () => {
-    return isPerfect ? (
-      <CheckCircleOutlineRoundedIcon sx={{ color: theme.palette.success.main }} />
-    ) : bestResult !== null ? (
-      <AdjustRoundedIcon sx={{ color: theme.palette.textLight }} />
-    ) : (
-      <PanoramaFishEyeIcon sx={{ color: theme.palette.textUltralight }} />
-    );
-  };
-
   return (
     <li
       style={{
@@ -75,7 +63,7 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
       className={styles.card}
     >
       <header className={styles.cardHeading}>
-        {displayHeaderIcon()}
+        <HeaderIconStatus isPerfect={isPerfect} bestResult={bestResult} />
         <h3 className={styles.cardTitle}>{title[locale]}</h3>
 
         <Chip
@@ -174,20 +162,28 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
         </section>
       </main>
       <footer className={styles.cardFooter}>
-        <Typography
-          variant="body2"
-          sx={{
-            color: theme.palette.textLight,
-            width: '30%',
-            fontSize: '12px',
-            textAlign: 'center',
-            lineHeight: '1.4',
-          }}
+        <Tooltip
+          title={t('tooltips.condition')}
+          placement="top-start"
+          enterDelay={450}
+          leaveDelay={150}
         >
-          {bestResult !== null
-            ? `${t('cards.quizState.completed')} ${Math.floor(bestResult)}%`
-            : `${t('cards.quizState.noResults')}`}
-        </Typography>
+          <Typography
+            variant="body2"
+            sx={{
+              color: theme.palette.textLight,
+              width: '30%',
+              fontSize: '12px',
+              textAlign: 'center',
+              lineHeight: '1.4',
+              userSelect: 'none',
+            }}
+          >
+            {bestResult !== null
+              ? `${t('cards.quizState.completed')} ${Math.floor(bestResult)}%`
+              : `${t('cards.quizState.noResults')}`}
+          </Typography>
+        </Tooltip>
         <Button
           component={Link}
           to={`/practice/${id}`}

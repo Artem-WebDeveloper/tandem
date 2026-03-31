@@ -14,7 +14,7 @@ import { fetchQuizById } from '@/core/api/fetchQuizById';
 import { useEffect, useState } from 'react';
 import type {
   CodeCompletionQuestion,
-  CodeComplitionAnswerPayload,
+  CodeCompletionAnswerPayload,
 } from '@/core/feature/CodeCompletionWidget/types';
 import type {
   SingleChoiceQuestion,
@@ -115,7 +115,7 @@ export default function Results<T extends UserAnswerPayload>({
               } else if (quizTask.type === 'code_completion') {
                 questionText = (question as CodeCompletionQuestion).code;
                 hintText = (question as CodeCompletionQuestion).hint[locale] ?? '';
-                answerText = (quizResult as QuizResult<CodeComplitionAnswerPayload>).user_answer;
+                answerText = (quizResult as QuizResult<CodeCompletionAnswerPayload>).user_answer;
               } else if (quizTask.type === 'async_sorter') {
                 questionText = (question as AsyncSorterQuestion).code;
                 answerText = (quizResult as QuizResult<AsyncSorterAnswerPayload>).user_answer.join(

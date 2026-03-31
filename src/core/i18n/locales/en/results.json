@@ -3,5 +3,7 @@
   "correctAnswers": "% correct answers",
   "outOf": "out of",
   "question": "Question",
-  "yourAnswer": "Your answer"
+  "yourAnswer": "Your answer",
+  "tryAgain": "Try again",
+  "backToTests": "Back to tests"
 }

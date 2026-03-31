@@ -1,0 +1,9 @@
+.navigation {
+  margin-top: 32px;
+  display: flex;
+  gap: 16px;
+
+  @media (max-width: 360px) {
+    font-size: 14px;
+  }
+}

@@ -106,7 +106,7 @@ export default function Practice() {
   }
 
   if (quizResults) {
-    return <Results quizResults={quizResults} />;
+    return <Results quizResults={quizResults} onRetry={() => setQuizResults(null)} />;
   }
 
   return (

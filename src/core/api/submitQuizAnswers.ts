@@ -2,14 +2,14 @@ import axiosInstance from './config/axiosInstance';
 import type { SingleChoiceAnswerPayload } from '@/core/feature/SingleChoiceWidget/types';
 import type { CodeOrderingAnswerPayload } from '@/core/feature/CodeOrderingWidget/types';
 import type { AsyncSorterAnswerPayload } from '@/core/feature/AsyncSorterWidget/types';
-import type { CodeComplitionAnswerPayload } from '@/core/feature/CodeCompletionWidget/types';
+import type { CodeCompletionAnswerPayload } from '@/core/feature/CodeCompletionWidget/types';
 import type { TrueFalseAnswerPayload } from '@/core/feature/TrueFalseWidget/types';
 
 export type UserAnswerPayload =
   | SingleChoiceAnswerPayload
   | CodeOrderingAnswerPayload
   | AsyncSorterAnswerPayload
-  | CodeComplitionAnswerPayload
+  | CodeCompletionAnswerPayload
   | TrueFalseAnswerPayload;
 
 export type QuizAnswer<T extends UserAnswerPayload> = {

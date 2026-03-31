@@ -1,6 +1,6 @@
 import { useCodeCompletionStore } from '@/core/store/codeCompletion.store';
 import QuizNavigation from '@/core/components/QuizNavigation/QuizNavigation';
-import type { CodeCompletionQuestion, CodeComplitionAnswerPayload } from '../types';
+import type { CodeCompletionQuestion, CodeCompletionAnswerPayload } from '../types';
 import { submitQuizAnswers } from '@/core/api/submitQuizAnswers';
 import type { QuizAnswer, QuizResults } from '@/core/api/submitQuizAnswers';
 
@@ -11,7 +11,7 @@ function CodeCompletionNavigation({
 }: {
   questions: CodeCompletionQuestion[];
   quizId: number;
-  onSubmit?: (quizResults: QuizResults<CodeComplitionAnswerPayload>) => void;
+  onSubmit?: (quizResults: QuizResults<CodeCompletionAnswerPayload>) => void;
 }) {
   const currentQuestionNumber = useCodeCompletionStore((state) => state.currentQuestionNumber);
   const answers = useCodeCompletionStore((state) => state.answers);
@@ -30,7 +30,7 @@ function CodeCompletionNavigation({
       questionsCount={questions.length}
       isAnswerGiven={!!currentAnswer && currentAnswer.payload.length > 0}
       onAnswersSubmit={async () => {
-        const answersForApi: QuizAnswer<CodeComplitionAnswerPayload>[] = answers.map((answer) => ({
+        const answersForApi: QuizAnswer<CodeCompletionAnswerPayload>[] = answers.map((answer) => ({
           question_id: answer.questionId,
           answer: answer.payload,
         }));

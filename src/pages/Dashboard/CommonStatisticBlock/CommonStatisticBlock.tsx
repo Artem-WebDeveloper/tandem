@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styles from './CommonStatisticBlock.module.scss';
 import { useTranslation } from 'react-i18next';
 import StarIcon from '@mui/icons-material/Star';
@@ -18,32 +19,38 @@ export default function CommonStatisticBlock({
 
   return (
     <ul className={styles.wrapper}>
-      <Tile
-        title={t('dashboard.statistics.availableTask.title')}
-        icon={<StarIcon color="warning" />}
-        color="warning"
-        count={data?.testsCount ?? null}
-        description={t('dashboard.statistics.availableTask.description')}
-        isLoading={isLoading}
-      />
+      <Link to={`/library`}>
+        <Tile
+          title={t('dashboard.statistics.availableTask.title')}
+          icon={<StarIcon color="warning" />}
+          color="warning"
+          count={data?.testsCount ?? null}
+          description={t('dashboard.statistics.availableTask.description')}
+          isLoading={isLoading}
+        />
+      </Link>
 
-      <Tile
-        title={t('dashboard.statistics.completedTask.title')}
-        icon={<SportsScoreIcon color="success" />}
-        color="success"
-        description={t('dashboard.statistics.completedTask.description')}
-        count={data?.completedTests ?? null}
-        isLoading={isLoading}
-      />
+      <Link to={`/library?page=1&is_perfect=true`}>
+        <Tile
+          title={t('dashboard.statistics.completedTask.title')}
+          icon={<SportsScoreIcon color="success" />}
+          color="success"
+          description={t('dashboard.statistics.completedTask.description')}
+          count={data?.completedTests ?? null}
+          isLoading={isLoading}
+        />
+      </Link>
 
-      <Tile
-        title={t('dashboard.statistics.remainingTest.title')}
-        icon={<ScheduleIcon color="info" />}
-        color="info"
-        description={t('dashboard.statistics.remainingTest.description')}
-        count={data?.remainTests ?? null}
-        isLoading={isLoading}
-      />
+      <Link to={`/library?page=1&is_perfect=false`}>
+        <Tile
+          title={t('dashboard.statistics.remainingTest.title')}
+          icon={<ScheduleIcon color="info" />}
+          color="info"
+          description={t('dashboard.statistics.remainingTest.description')}
+          count={data?.remainTests ?? null}
+          isLoading={isLoading}
+        />
+      </Link>
 
       <Tile
         title={t('dashboard.statistics.totalAttempts.title')}

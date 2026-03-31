@@ -75,7 +75,7 @@ export default function Practice() {
         return <AsyncSorterWidget data={quizData} onSubmit={setQuizResults} />;
 
       case TaskType.CodeOrdering:
-        return <CodeOrderingWidget data={quizData} />;
+        return <CodeOrderingWidget data={quizData} onSubmit={setQuizResults} />;
 
       case TaskType.TrueFalse:
         return <TrueFalseWidget data={quizData} onSubmit={setQuizResults} />;

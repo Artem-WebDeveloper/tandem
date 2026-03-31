@@ -1,15 +1,9 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import { useMemo } from 'react';
+import { lazy, useMemo } from 'react';
 import { useAuthStore } from '../core/store/auth.store';
 import { useThemeStore } from '../core/store/theme.store';
 import { getTheme } from '../core/theme/getTheme';
-
-import Login from '../pages/Login/Login';
-import Dashboard from '../pages/Dashboard/Dashboard';
-import Library from '../pages/Library/Library';
-import Practice from '../pages/Practice/Practice';
-import NotFound from '../pages/NotFound/NotFound';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const isAuthorized = useAuthStore((state) => state.isAuthorized);
@@ -26,6 +20,12 @@ const PublicOnlyRoute = ({ children }: { children: React.ReactNode }) => {
   }
   return children;
 };
+
+const Login = lazy(() => import('../pages/Login/Login'));
+const Dashboard = lazy(() => import('../pages/Dashboard/Dashboard'));
+const Library = lazy(() => import('../pages/Library/Library'));
+const Practice = lazy(() => import('../pages/Practice/Practice'));
+const NotFound = lazy(() => import('../pages/NotFound/NotFound'));
 
 function App() {
   const mode = useThemeStore((state) => state.mode);

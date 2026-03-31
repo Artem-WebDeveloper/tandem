@@ -1,7 +1,25 @@
 import type { CodeOrderingTask } from '../feature/CodeOrderingWidget/types';
 
+// 301 en Basic JavaScript functions: clamping values, age checks, discounts, and fallback greetings
+// 301 ru Базовые функции JavaScript: ограничение значений, проверка возраста, скидки и приветствия с fallback
+// 302 en String and number operations: email normalization, currency formatting, word counting, and initials
+// 302 ru Операции со строками и числами: нормализация email, форматирование валюты, подсчёт слов и инициалы
+// 303 en Arrays and loops: summing, searching, reversing, and counting elements
+// 303 ru Массивы и циклы: суммирование, поиск, разворот и подсчёт элементов
+// 304 en Array methods for filtering, sorting, grouping, and reducing data
+// 304 ru Методы массивов для фильтрации, сортировки, группировки и агрегации данных
+// 305 en Object handling: safe reading, nested updates, comparison, and field selection
+// 305 ru Работа с объектами: безопасное чтение, вложенные обновления, сравнение и выбор полей
+// 306 en Async JavaScript: fetch with status check, retry, parallel loading, and safe requests
+// 306 ru Асинхронный JavaScript: fetch с проверкой статуса, повтор запросов, параллельная загрузка и безопасные запросы
+// 307 en Advanced function patterns: memoization, composition, currying, and debounce
+// 307 ru Продвинутые паттерны функций: мемоизация, композиция, каррирование и debounce
+// 308 en Data structure patterns: deep cloning, flattening, deep equality, and groupBy
+// 308 ru Паттерны работы с данными: глубокое клонирование, выравнивание массивов, глубокое сравнение и группировка
+// 309 en Advanced async patterns: timeout, sequential execution, allSettled summary, and retry with delay
+// 309 ru Продвинутые асинхронные паттерны: тайм-аут, последовательное выполнение, allSettled и повтор с паузой
+
 export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
-  // easy
   {
     id: 301,
     type: 'code_ordering',
@@ -45,8 +63,18 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
             correctPosition: 3,
             indent: 1,
           },
-          { id: 'line-5', code: 'return normalized;', correctPosition: 4, indent: 1 },
-          { id: 'line-6', code: '}', correctPosition: 5, indent: 0 },
+          {
+            id: 'line-5',
+            code: 'return normalized;',
+            correctPosition: 4,
+            indent: 1,
+          },
+          {
+            id: 'line-6',
+            code: '}',
+            correctPosition: 5,
+            indent: 0,
+          },
         ],
       },
       {
@@ -56,17 +84,42 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           en: 'Assemble an access check by age function',
         },
         lines: [
-          { id: 'line-1', code: 'function canAccess(age) {', correctPosition: 0, indent: 0 },
+          {
+            id: 'line-1',
+            code: 'function canAccess(age) {',
+            correctPosition: 0,
+            indent: 0,
+          },
           {
             id: 'line-2',
             code: 'if (typeof age !== "number") return false;',
             correctPosition: 1,
             indent: 1,
           },
-          { id: 'line-3', code: 'if (age < 0) return false;', correctPosition: 2, indent: 1 },
-          { id: 'line-4', code: 'if (age >= 18) return true;', correctPosition: 3, indent: 1 },
-          { id: 'line-5', code: 'return false;', correctPosition: 4, indent: 1 },
-          { id: 'line-6', code: '}', correctPosition: 5, indent: 0 },
+          {
+            id: 'line-3',
+            code: 'if (age < 0) return false;',
+            correctPosition: 2,
+            indent: 1,
+          },
+          {
+            id: 'line-4',
+            code: 'if (age >= 18) return true;',
+            correctPosition: 3,
+            indent: 1,
+          },
+          {
+            id: 'line-5',
+            code: 'return false;',
+            correctPosition: 4,
+            indent: 1,
+          },
+          {
+            id: 'line-6',
+            code: '}',
+            correctPosition: 5,
+            indent: 0,
+          },
         ],
       },
       {
@@ -82,7 +135,12 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
             correctPosition: 0,
             indent: 0,
           },
-          { id: 'line-2', code: 'const safePrice = Number(price);', correctPosition: 1, indent: 1 },
+          {
+            id: 'line-2',
+            code: 'const safePrice = Number(price);',
+            correctPosition: 1,
+            indent: 1,
+          },
           {
             id: 'line-3',
             code: 'const safePercent = Number(percent);',
@@ -95,8 +153,18 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
             correctPosition: 3,
             indent: 1,
           },
-          { id: 'line-5', code: 'return safePrice - discount;', correctPosition: 4, indent: 1 },
-          { id: 'line-6', code: '}', correctPosition: 5, indent: 0 },
+          {
+            id: 'line-5',
+            code: 'return safePrice - discount;',
+            correctPosition: 4,
+            indent: 1,
+          },
+          {
+            id: 'line-6',
+            code: '}',
+            correctPosition: 5,
+            indent: 0,
+          },
         ],
       },
       {
@@ -106,23 +174,52 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           en: 'Assemble a greeting function with fallback',
         },
         lines: [
-          { id: 'line-1', code: 'function greetUser(name) {', correctPosition: 0, indent: 0 },
+          {
+            id: 'line-1',
+            code: 'function greetUser(name) {',
+            correctPosition: 0,
+            indent: 0,
+          },
           {
             id: 'line-2',
             code: 'const trimmed = (name ?? "").trim();',
             correctPosition: 1,
             indent: 1,
           },
-          { id: 'line-3', code: 'if (!trimmed) {', correctPosition: 2, indent: 1 },
-          { id: 'line-4', code: 'return "Hello, guest!";', correctPosition: 3, indent: 2 },
-          { id: 'line-5', code: '}', correctPosition: 4, indent: 1 },
-          { id: 'line-6', code: 'return `Hello, ${trimmed}!`;', correctPosition: 5, indent: 1 },
-          { id: 'line-7', code: '}', correctPosition: 6, indent: 0 },
+          {
+            id: 'line-3',
+            code: 'if (!trimmed) {',
+            correctPosition: 2,
+            indent: 1,
+          },
+          {
+            id: 'line-4',
+            code: 'return "Hello, guest!";',
+            correctPosition: 3,
+            indent: 2,
+          },
+          {
+            id: 'line-5',
+            code: '}',
+            correctPosition: 4,
+            indent: 1,
+          },
+          {
+            id: 'line-6',
+            code: 'return `Hello, ${trimmed}!`;',
+            correctPosition: 5,
+            indent: 1,
+          },
+          {
+            id: 'line-7',
+            code: '}',
+            correctPosition: 6,
+            indent: 0,
+          },
         ],
       },
     ],
   },
-
   {
     id: 302,
     type: 'code_ordering',
@@ -142,17 +239,42 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           en: 'Assemble an email normalization function',
         },
         lines: [
-          { id: 'line-1', code: 'function normalizeEmail(email) {', correctPosition: 0, indent: 0 },
-          { id: 'line-2', code: 'const safe = String(email);', correctPosition: 1, indent: 1 },
-          { id: 'line-3', code: 'const trimmed = safe.trim();', correctPosition: 2, indent: 1 },
+          {
+            id: 'line-1',
+            code: 'function normalizeEmail(email) {',
+            correctPosition: 0,
+            indent: 0,
+          },
+          {
+            id: 'line-2',
+            code: 'const safe = String(email);',
+            correctPosition: 1,
+            indent: 1,
+          },
+          {
+            id: 'line-3',
+            code: 'const trimmed = safe.trim();',
+            correctPosition: 2,
+            indent: 1,
+          },
           {
             id: 'line-4',
             code: 'const lower = trimmed.toLowerCase();',
             correctPosition: 3,
             indent: 1,
           },
-          { id: 'line-5', code: 'return lower;', correctPosition: 4, indent: 1 },
-          { id: 'line-6', code: '}', correctPosition: 5, indent: 0 },
+          {
+            id: 'line-5',
+            code: 'return lower;',
+            correctPosition: 4,
+            indent: 1,
+          },
+          {
+            id: 'line-6',
+            code: '}',
+            correctPosition: 5,
+            indent: 0,
+          },
         ],
       },
       {
@@ -162,12 +284,42 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           en: 'Assemble a currency formatting function',
         },
         lines: [
-          { id: 'line-1', code: 'function formatCurrency(value) {', correctPosition: 0, indent: 0 },
-          { id: 'line-2', code: 'const amount = Number(value);', correctPosition: 1, indent: 1 },
-          { id: 'line-3', code: 'const fixed = amount.toFixed(2);', correctPosition: 2, indent: 1 },
-          { id: 'line-4', code: 'const withSign = `$${fixed}`;', correctPosition: 3, indent: 1 },
-          { id: 'line-5', code: 'return withSign;', correctPosition: 4, indent: 1 },
-          { id: 'line-6', code: '}', correctPosition: 5, indent: 0 },
+          {
+            id: 'line-1',
+            code: 'function formatCurrency(value) {',
+            correctPosition: 0,
+            indent: 0,
+          },
+          {
+            id: 'line-2',
+            code: 'const amount = Number(value);',
+            correctPosition: 1,
+            indent: 1,
+          },
+          {
+            id: 'line-3',
+            code: 'const fixed = amount.toFixed(2);',
+            correctPosition: 2,
+            indent: 1,
+          },
+          {
+            id: 'line-4',
+            code: 'const withSign = `$${fixed}`;',
+            correctPosition: 3,
+            indent: 1,
+          },
+          {
+            id: 'line-5',
+            code: 'return withSign;',
+            correctPosition: 4,
+            indent: 1,
+          },
+          {
+            id: 'line-6',
+            code: '}',
+            correctPosition: 5,
+            indent: 0,
+          },
         ],
       },
       {
@@ -177,17 +329,42 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           en: 'Assemble a word counting function for a string',
         },
         lines: [
-          { id: 'line-1', code: 'function countWords(text) {', correctPosition: 0, indent: 0 },
-          { id: 'line-2', code: 'const normalized = text.trim();', correctPosition: 1, indent: 1 },
-          { id: 'line-3', code: 'if (!normalized) return 0;', correctPosition: 2, indent: 1 },
+          {
+            id: 'line-1',
+            code: 'function countWords(text) {',
+            correctPosition: 0,
+            indent: 0,
+          },
+          {
+            id: 'line-2',
+            code: 'const normalized = text.trim();',
+            correctPosition: 1,
+            indent: 1,
+          },
+          {
+            id: 'line-3',
+            code: 'if (!normalized) return 0;',
+            correctPosition: 2,
+            indent: 1,
+          },
           {
             id: 'line-4',
             code: 'const words = normalized.split(/\\s+/);',
             correctPosition: 3,
             indent: 1,
           },
-          { id: 'line-5', code: 'return words.length;', correctPosition: 4, indent: 1 },
-          { id: 'line-6', code: '}', correctPosition: 5, indent: 0 },
+          {
+            id: 'line-5',
+            code: 'return words.length;',
+            correctPosition: 4,
+            indent: 1,
+          },
+          {
+            id: 'line-6',
+            code: '}',
+            correctPosition: 5,
+            indent: 0,
+          },
         ],
       },
       {
@@ -215,14 +392,28 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
             correctPosition: 2,
             indent: 1,
           },
-          { id: 'line-4', code: 'const combined = `${a}${b}`;', correctPosition: 3, indent: 1 },
-          { id: 'line-5', code: 'return combined;', correctPosition: 4, indent: 1 },
-          { id: 'line-6', code: '}', correctPosition: 5, indent: 0 },
+          {
+            id: 'line-4',
+            code: 'const combined = `${a}${b}`;',
+            correctPosition: 3,
+            indent: 1,
+          },
+          {
+            id: 'line-5',
+            code: 'return combined;',
+            correctPosition: 4,
+            indent: 1,
+          },
+          {
+            id: 'line-6',
+            code: '}',
+            correctPosition: 5,
+            indent: 0,
+          },
         ],
       },
     ],
   },
-
   {
     id: 303,
     type: 'code_ordering',
@@ -232,7 +423,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
       en: 'Arrays and Loops',
     },
     difficulty: 1,
-    section: 'Core JS',
+    section: 'Algorithms',
     tags: ['arrays', 'loops', 'conditions'],
     questions: [
       {
@@ -242,18 +433,48 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           en: 'Assemble a positive numbers sum function',
         },
         lines: [
-          { id: 'line-1', code: 'function sumPositive(arr) {', correctPosition: 0, indent: 0 },
-          { id: 'line-2', code: 'let sum = 0;', correctPosition: 1, indent: 1 },
+          {
+            id: 'line-1',
+            code: 'function sumPositive(arr) {',
+            correctPosition: 0,
+            indent: 0,
+          },
+          {
+            id: 'line-2',
+            code: 'let sum = 0;',
+            correctPosition: 1,
+            indent: 1,
+          },
           {
             id: 'line-3',
             code: 'for (let i = 0; i < arr.length; i++) {',
             correctPosition: 2,
             indent: 1,
           },
-          { id: 'line-4', code: 'if (arr[i] > 0) sum += arr[i];', correctPosition: 3, indent: 2 },
-          { id: 'line-5', code: '}', correctPosition: 4, indent: 1 },
-          { id: 'line-6', code: 'return sum;', correctPosition: 5, indent: 1 },
-          { id: 'line-7', code: '}', correctPosition: 6, indent: 0 },
+          {
+            id: 'line-4',
+            code: 'if (arr[i] > 0) sum += arr[i];',
+            correctPosition: 3,
+            indent: 2,
+          },
+          {
+            id: 'line-5',
+            code: '}',
+            correctPosition: 4,
+            indent: 1,
+          },
+          {
+            id: 'line-6',
+            code: 'return sum;',
+            correctPosition: 5,
+            indent: 1,
+          },
+          {
+            id: 'line-7',
+            code: '}',
+            correctPosition: 6,
+            indent: 0,
+          },
         ],
       },
       {
@@ -275,10 +496,30 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
             correctPosition: 1,
             indent: 1,
           },
-          { id: 'line-3', code: 'if (arr[i] === target) return i;', correctPosition: 2, indent: 2 },
-          { id: 'line-4', code: '}', correctPosition: 3, indent: 1 },
-          { id: 'line-5', code: 'return -1;', correctPosition: 4, indent: 1 },
-          { id: 'line-6', code: '}', correctPosition: 5, indent: 0 },
+          {
+            id: 'line-3',
+            code: 'if (arr[i] === target) return i;',
+            correctPosition: 2,
+            indent: 2,
+          },
+          {
+            id: 'line-4',
+            code: '}',
+            correctPosition: 3,
+            indent: 1,
+          },
+          {
+            id: 'line-5',
+            code: 'return -1;',
+            correctPosition: 4,
+            indent: 1,
+          },
+          {
+            id: 'line-6',
+            code: '}',
+            correctPosition: 5,
+            indent: 0,
+          },
         ],
       },
       {
@@ -288,18 +529,48 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           en: 'Assemble a loop-based array reverse function',
         },
         lines: [
-          { id: 'line-1', code: 'function reverseLoop(arr) {', correctPosition: 0, indent: 0 },
-          { id: 'line-2', code: 'const result = [];', correctPosition: 1, indent: 1 },
+          {
+            id: 'line-1',
+            code: 'function reverseLoop(arr) {',
+            correctPosition: 0,
+            indent: 0,
+          },
+          {
+            id: 'line-2',
+            code: 'const result = [];',
+            correctPosition: 1,
+            indent: 1,
+          },
           {
             id: 'line-3',
             code: 'for (let i = arr.length - 1; i >= 0; i--) {',
             correctPosition: 2,
             indent: 1,
           },
-          { id: 'line-4', code: 'result.push(arr[i]);', correctPosition: 3, indent: 2 },
-          { id: 'line-5', code: '}', correctPosition: 4, indent: 1 },
-          { id: 'line-6', code: 'return result;', correctPosition: 5, indent: 1 },
-          { id: 'line-7', code: '}', correctPosition: 6, indent: 0 },
+          {
+            id: 'line-4',
+            code: 'result.push(arr[i]);',
+            correctPosition: 3,
+            indent: 2,
+          },
+          {
+            id: 'line-5',
+            code: '}',
+            correctPosition: 4,
+            indent: 1,
+          },
+          {
+            id: 'line-6',
+            code: 'return result;',
+            correctPosition: 5,
+            indent: 1,
+          },
+          {
+            id: 'line-7',
+            code: '}',
+            correctPosition: 6,
+            indent: 0,
+          },
         ],
       },
       {
@@ -309,19 +580,52 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           en: 'Assemble an even values count function',
         },
         lines: [
-          { id: 'line-1', code: 'function countEven(arr) {', correctPosition: 0, indent: 0 },
-          { id: 'line-2', code: 'let count = 0;', correctPosition: 1, indent: 1 },
-          { id: 'line-3', code: 'for (const value of arr) {', correctPosition: 2, indent: 1 },
-          { id: 'line-4', code: 'if (value % 2 === 0) count += 1;', correctPosition: 3, indent: 2 },
-          { id: 'line-5', code: '}', correctPosition: 4, indent: 1 },
-          { id: 'line-6', code: 'return count;', correctPosition: 5, indent: 1 },
-          { id: 'line-7', code: '}', correctPosition: 6, indent: 0 },
+          {
+            id: 'line-1',
+            code: 'function countEven(arr) {',
+            correctPosition: 0,
+            indent: 0,
+          },
+          {
+            id: 'line-2',
+            code: 'let count = 0;',
+            correctPosition: 1,
+            indent: 1,
+          },
+          {
+            id: 'line-3',
+            code: 'for (const value of arr) {',
+            correctPosition: 2,
+            indent: 1,
+          },
+          {
+            id: 'line-4',
+            code: 'if (value % 2 === 0) count += 1;',
+            correctPosition: 3,
+            indent: 2,
+          },
+          {
+            id: 'line-5',
+            code: '}',
+            correctPosition: 4,
+            indent: 1,
+          },
+          {
+            id: 'line-6',
+            code: 'return count;',
+            correctPosition: 5,
+            indent: 1,
+          },
+          {
+            id: 'line-7',
+            code: '}',
+            correctPosition: 6,
+            indent: 0,
+          },
         ],
       },
     ],
   },
-
-  // medium
   {
     id: 304,
     type: 'code_ordering',
@@ -365,8 +669,18 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
             correctPosition: 3,
             indent: 1,
           },
-          { id: 'line-5', code: 'return result;', correctPosition: 4, indent: 1 },
-          { id: 'line-6', code: '}', correctPosition: 5, indent: 0 },
+          {
+            id: 'line-5',
+            code: 'return result;',
+            correctPosition: 4,
+            indent: 1,
+          },
+          {
+            id: 'line-6',
+            code: '}',
+            correctPosition: 5,
+            indent: 0,
+          },
         ],
       },
       {
@@ -376,19 +690,54 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           en: 'Assemble a words grouping by length function',
         },
         lines: [
-          { id: 'line-1', code: 'function groupByLength(words) {', correctPosition: 0, indent: 0 },
+          {
+            id: 'line-1',
+            code: 'function groupByLength(words) {',
+            correctPosition: 0,
+            indent: 0,
+          },
           {
             id: 'line-2',
             code: 'return words.reduce((acc, word) => {',
             correctPosition: 1,
             indent: 1,
           },
-          { id: 'line-3', code: 'const len = word.length;', correctPosition: 2, indent: 2 },
-          { id: 'line-4', code: 'if (!acc[len]) acc[len] = [];', correctPosition: 3, indent: 2 },
-          { id: 'line-5', code: 'acc[len].push(word);', correctPosition: 4, indent: 2 },
-          { id: 'line-6', code: 'return acc;', correctPosition: 5, indent: 2 },
-          { id: 'line-7', code: '}, {});', correctPosition: 6, indent: 1 },
-          { id: 'line-8', code: '}', correctPosition: 7, indent: 0 },
+          {
+            id: 'line-3',
+            code: 'const len = word.length;',
+            correctPosition: 2,
+            indent: 2,
+          },
+          {
+            id: 'line-4',
+            code: 'if (!acc[len]) acc[len] = [];',
+            correctPosition: 3,
+            indent: 2,
+          },
+          {
+            id: 'line-5',
+            code: 'acc[len].push(word);',
+            correctPosition: 4,
+            indent: 2,
+          },
+          {
+            id: 'line-6',
+            code: 'return acc;',
+            correctPosition: 5,
+            indent: 2,
+          },
+          {
+            id: 'line-7',
+            code: '}, {});',
+            correctPosition: 6,
+            indent: 1,
+          },
+          {
+            id: 'line-8',
+            code: '}',
+            correctPosition: 7,
+            indent: 0,
+          },
         ],
       },
       {
@@ -398,7 +747,12 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           en: 'Assemble a unique values sum function',
         },
         lines: [
-          { id: 'line-1', code: 'function sumUnique(numbers) {', correctPosition: 0, indent: 0 },
+          {
+            id: 'line-1',
+            code: 'function sumUnique(numbers) {',
+            correctPosition: 0,
+            indent: 0,
+          },
           {
             id: 'line-2',
             code: 'const unique = Array.from(new Set(numbers));',
@@ -411,10 +765,30 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
             correctPosition: 2,
             indent: 1,
           },
-          { id: 'line-4', code: 'return sum + n;', correctPosition: 3, indent: 2 },
-          { id: 'line-5', code: '}, 0);', correctPosition: 4, indent: 1 },
-          { id: 'line-6', code: 'return total;', correctPosition: 5, indent: 1 },
-          { id: 'line-7', code: '}', correctPosition: 6, indent: 0 },
+          {
+            id: 'line-4',
+            code: 'return sum + n;',
+            correctPosition: 3,
+            indent: 2,
+          },
+          {
+            id: 'line-5',
+            code: '}, 0);',
+            correctPosition: 4,
+            indent: 1,
+          },
+          {
+            id: 'line-6',
+            code: 'return total;',
+            correctPosition: 5,
+            indent: 1,
+          },
+          {
+            id: 'line-7',
+            code: '}',
+            correctPosition: 6,
+            indent: 0,
+          },
         ],
       },
       {
@@ -424,7 +798,12 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           en: 'Assemble a names list preparation function',
         },
         lines: [
-          { id: 'line-1', code: 'function prepareNames(users) {', correctPosition: 0, indent: 0 },
+          {
+            id: 'line-1',
+            code: 'function prepareNames(users) {',
+            correctPosition: 0,
+            indent: 0,
+          },
           {
             id: 'line-2',
             code: 'const active = users.filter((user) => user.active);',
@@ -443,13 +822,22 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
             correctPosition: 3,
             indent: 1,
           },
-          { id: 'line-5', code: 'return sorted;', correctPosition: 4, indent: 1 },
-          { id: 'line-6', code: '}', correctPosition: 5, indent: 0 },
+          {
+            id: 'line-5',
+            code: 'return sorted;',
+            correctPosition: 4,
+            indent: 1,
+          },
+          {
+            id: 'line-6',
+            code: '}',
+            correctPosition: 5,
+            indent: 0,
+          },
         ],
       },
     ],
   },
-
   {
     id: 305,
     type: 'code_ordering',
@@ -469,8 +857,18 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           en: 'Assemble a safe profile reading function',
         },
         lines: [
-          { id: 'line-1', code: 'function getProfileInfo(user) {', correctPosition: 0, indent: 0 },
-          { id: 'line-2', code: 'const id = user?.id ?? null;', correctPosition: 1, indent: 1 },
+          {
+            id: 'line-1',
+            code: 'function getProfileInfo(user) {',
+            correctPosition: 0,
+            indent: 0,
+          },
+          {
+            id: 'line-2',
+            code: 'const id = user?.id ?? null;',
+            correctPosition: 1,
+            indent: 1,
+          },
           {
             id: 'line-3',
             code: 'const name = user?.name ?? "Unknown";',
@@ -483,8 +881,18 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
             correctPosition: 3,
             indent: 1,
           },
-          { id: 'line-5', code: 'return { id, name, city };', correctPosition: 4, indent: 1 },
-          { id: 'line-6', code: '}', correctPosition: 5, indent: 0 },
+          {
+            id: 'line-5',
+            code: 'return { id, name, city };',
+            correctPosition: 4,
+            indent: 1,
+          },
+          {
+            id: 'line-6',
+            code: '}',
+            correctPosition: 5,
+            indent: 0,
+          },
         ],
       },
       {
@@ -494,17 +902,42 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           en: 'Assemble a nested flag update function',
         },
         lines: [
-          { id: 'line-1', code: 'function setAdmin(user, value) {', correctPosition: 0, indent: 0 },
-          { id: 'line-2', code: 'return {', correctPosition: 1, indent: 1 },
-          { id: 'line-3', code: '...user,', correctPosition: 2, indent: 2 },
+          {
+            id: 'line-1',
+            code: 'function setAdmin(user, value) {',
+            correctPosition: 0,
+            indent: 0,
+          },
+          {
+            id: 'line-2',
+            code: 'return {',
+            correctPosition: 1,
+            indent: 1,
+          },
+          {
+            id: 'line-3',
+            code: '...user,',
+            correctPosition: 2,
+            indent: 2,
+          },
           {
             id: 'line-4',
             code: 'meta: { ...user.meta, admin: value },',
             correctPosition: 3,
             indent: 2,
           },
-          { id: 'line-5', code: '};', correctPosition: 4, indent: 1 },
-          { id: 'line-6', code: '}', correctPosition: 5, indent: 0 },
+          {
+            id: 'line-5',
+            code: '};',
+            correctPosition: 4,
+            indent: 1,
+          },
+          {
+            id: 'line-6',
+            code: '}',
+            correctPosition: 5,
+            indent: 0,
+          },
         ],
       },
       {
@@ -514,9 +947,24 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           en: 'Assemble a settings objects comparison function',
         },
         lines: [
-          { id: 'line-1', code: 'function sameSettings(a, b) {', correctPosition: 0, indent: 0 },
-          { id: 'line-2', code: 'const keysA = Object.keys(a);', correctPosition: 1, indent: 1 },
-          { id: 'line-3', code: 'const keysB = Object.keys(b);', correctPosition: 2, indent: 1 },
+          {
+            id: 'line-1',
+            code: 'function sameSettings(a, b) {',
+            correctPosition: 0,
+            indent: 0,
+          },
+          {
+            id: 'line-2',
+            code: 'const keysA = Object.keys(a);',
+            correctPosition: 1,
+            indent: 1,
+          },
+          {
+            id: 'line-3',
+            code: 'const keysB = Object.keys(b);',
+            correctPosition: 2,
+            indent: 1,
+          },
           {
             id: 'line-4',
             code: 'if (keysA.length !== keysB.length) return false;',
@@ -529,7 +977,12 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
             correctPosition: 4,
             indent: 1,
           },
-          { id: 'line-6', code: '}', correctPosition: 5, indent: 0 },
+          {
+            id: 'line-6',
+            code: '}',
+            correctPosition: 5,
+            indent: 0,
+          },
         ],
       },
       {
@@ -539,7 +992,12 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           en: 'Assemble a public fields selection function',
         },
         lines: [
-          { id: 'line-1', code: 'function pickPublic(user) {', correctPosition: 0, indent: 0 },
+          {
+            id: 'line-1',
+            code: 'function pickPublic(user) {',
+            correctPosition: 0,
+            indent: 0,
+          },
           {
             id: 'line-2',
             code: 'const { id, name, avatar } = user;',
@@ -564,12 +1022,16 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
             correctPosition: 4,
             indent: 1,
           },
-          { id: 'line-6', code: '}', correctPosition: 5, indent: 0 },
+          {
+            id: 'line-6',
+            code: '}',
+            correctPosition: 5,
+            indent: 0,
+          },
         ],
       },
     ],
   },
-
   {
     id: 306,
     type: 'code_ordering',
@@ -589,7 +1051,12 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           en: 'Assemble a JSON loader with status check',
         },
         lines: [
-          { id: 'line-1', code: 'async function fetchJson(url) {', correctPosition: 0, indent: 0 },
+          {
+            id: 'line-1',
+            code: 'async function fetchJson(url) {',
+            correctPosition: 0,
+            indent: 0,
+          },
           {
             id: 'line-2',
             code: 'const response = await fetch(url);',
@@ -608,8 +1075,18 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
             correctPosition: 3,
             indent: 1,
           },
-          { id: 'line-5', code: 'return data;', correctPosition: 4, indent: 1 },
-          { id: 'line-6', code: '}', correctPosition: 5, indent: 0 },
+          {
+            id: 'line-5',
+            code: 'return data;',
+            correctPosition: 4,
+            indent: 1,
+          },
+          {
+            id: 'line-6',
+            code: '}',
+            correctPosition: 5,
+            indent: 0,
+          },
         ],
       },
       {
@@ -619,13 +1096,48 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           en: 'Assemble a retry function with two attempts',
         },
         lines: [
-          { id: 'line-1', code: 'async function retryTwice(fn) {', correctPosition: 0, indent: 0 },
-          { id: 'line-2', code: 'try {', correctPosition: 1, indent: 1 },
-          { id: 'line-3', code: 'return await fn();', correctPosition: 2, indent: 2 },
-          { id: 'line-4', code: '} catch {', correctPosition: 3, indent: 1 },
-          { id: 'line-5', code: 'return fn();', correctPosition: 4, indent: 2 },
-          { id: 'line-6', code: '}', correctPosition: 5, indent: 1 },
-          { id: 'line-7', code: '}', correctPosition: 6, indent: 0 },
+          {
+            id: 'line-1',
+            code: 'async function retryTwice(fn) {',
+            correctPosition: 0,
+            indent: 0,
+          },
+          {
+            id: 'line-2',
+            code: 'try {',
+            correctPosition: 1,
+            indent: 1,
+          },
+          {
+            id: 'line-3',
+            code: 'return await fn();',
+            correctPosition: 2,
+            indent: 2,
+          },
+          {
+            id: 'line-4',
+            code: '} catch {',
+            correctPosition: 3,
+            indent: 1,
+          },
+          {
+            id: 'line-5',
+            code: 'return fn();',
+            correctPosition: 4,
+            indent: 2,
+          },
+          {
+            id: 'line-6',
+            code: '}',
+            correctPosition: 5,
+            indent: 1,
+          },
+          {
+            id: 'line-7',
+            code: '}',
+            correctPosition: 6,
+            indent: 0,
+          },
         ],
       },
       {
@@ -659,8 +1171,18 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
             correctPosition: 3,
             indent: 1,
           },
-          { id: 'line-5', code: 'return { profile, tasks };', correctPosition: 4, indent: 1 },
-          { id: 'line-6', code: '}', correctPosition: 5, indent: 0 },
+          {
+            id: 'line-5',
+            code: 'return { profile, tasks };',
+            correctPosition: 4,
+            indent: 1,
+          },
+          {
+            id: 'line-6',
+            code: '}',
+            correctPosition: 5,
+            indent: 0,
+          },
         ],
       },
       {
@@ -676,24 +1198,52 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
             correctPosition: 0,
             indent: 0,
           },
-          { id: 'line-2', code: 'try {', correctPosition: 1, indent: 1 },
+          {
+            id: 'line-2',
+            code: 'try {',
+            correctPosition: 1,
+            indent: 1,
+          },
           {
             id: 'line-3',
             code: 'const result = await fetchJson(url);',
             correctPosition: 2,
             indent: 2,
           },
-          { id: 'line-4', code: 'return result;', correctPosition: 3, indent: 2 },
-          { id: 'line-5', code: '} catch {', correctPosition: 4, indent: 1 },
-          { id: 'line-6', code: 'return fallback;', correctPosition: 5, indent: 2 },
-          { id: 'line-7', code: '}', correctPosition: 6, indent: 1 },
-          { id: 'line-8', code: '}', correctPosition: 7, indent: 0 },
+          {
+            id: 'line-4',
+            code: 'return result;',
+            correctPosition: 3,
+            indent: 2,
+          },
+          {
+            id: 'line-5',
+            code: '} catch {',
+            correctPosition: 4,
+            indent: 1,
+          },
+          {
+            id: 'line-6',
+            code: 'return fallback;',
+            correctPosition: 5,
+            indent: 2,
+          },
+          {
+            id: 'line-7',
+            code: '}',
+            correctPosition: 6,
+            indent: 1,
+          },
+          {
+            id: 'line-8',
+            code: '}',
+            correctPosition: 7,
+            indent: 0,
+          },
         ],
       },
     ],
   },
-
-  // hard
   {
     id: 307,
     type: 'code_ordering',
@@ -713,9 +1263,24 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           en: 'Assemble memoize implementation for multiple arguments',
         },
         lines: [
-          { id: 'line-1', code: 'function memoize(fn) {', correctPosition: 0, indent: 0 },
-          { id: 'line-2', code: 'const cache = new Map();', correctPosition: 1, indent: 1 },
-          { id: 'line-3', code: 'return function(...args) {', correctPosition: 2, indent: 1 },
+          {
+            id: 'line-1',
+            code: 'function memoize(fn) {',
+            correctPosition: 0,
+            indent: 0,
+          },
+          {
+            id: 'line-2',
+            code: 'const cache = new Map();',
+            correctPosition: 1,
+            indent: 1,
+          },
+          {
+            id: 'line-3',
+            code: 'return function(...args) {',
+            correctPosition: 2,
+            indent: 1,
+          },
           {
             id: 'line-4',
             code: 'const key = JSON.stringify(args);',
@@ -734,10 +1299,30 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
             correctPosition: 5,
             indent: 2,
           },
-          { id: 'line-7', code: 'cache.set(key, value);', correctPosition: 6, indent: 2 },
-          { id: 'line-8', code: 'return value;', correctPosition: 7, indent: 2 },
-          { id: 'line-9', code: '};', correctPosition: 8, indent: 1 },
-          { id: 'line-10', code: '}', correctPosition: 9, indent: 0 },
+          {
+            id: 'line-7',
+            code: 'cache.set(key, value);',
+            correctPosition: 6,
+            indent: 2,
+          },
+          {
+            id: 'line-8',
+            code: 'return value;',
+            correctPosition: 7,
+            indent: 2,
+          },
+          {
+            id: 'line-9',
+            code: '};',
+            correctPosition: 8,
+            indent: 1,
+          },
+          {
+            id: 'line-10',
+            code: '}',
+            correctPosition: 9,
+            indent: 0,
+          },
         ],
       },
       {
@@ -747,18 +1332,48 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           en: 'Assemble compose for an array of functions',
         },
         lines: [
-          { id: 'line-1', code: 'function compose(...fns) {', correctPosition: 0, indent: 0 },
-          { id: 'line-2', code: 'return function(initial) {', correctPosition: 1, indent: 1 },
+          {
+            id: 'line-1',
+            code: 'function compose(...fns) {',
+            correctPosition: 0,
+            indent: 0,
+          },
+          {
+            id: 'line-2',
+            code: 'return function(initial) {',
+            correctPosition: 1,
+            indent: 1,
+          },
           {
             id: 'line-3',
             code: 'return fns.reduceRight((value, fn) => {',
             correctPosition: 2,
             indent: 2,
           },
-          { id: 'line-4', code: 'return fn(value);', correctPosition: 3, indent: 3 },
-          { id: 'line-5', code: '}, initial);', correctPosition: 4, indent: 2 },
-          { id: 'line-6', code: '};', correctPosition: 5, indent: 1 },
-          { id: 'line-7', code: '}', correctPosition: 6, indent: 0 },
+          {
+            id: 'line-4',
+            code: 'return fn(value);',
+            correctPosition: 3,
+            indent: 3,
+          },
+          {
+            id: 'line-5',
+            code: '}, initial);',
+            correctPosition: 4,
+            indent: 2,
+          },
+          {
+            id: 'line-6',
+            code: '};',
+            correctPosition: 5,
+            indent: 1,
+          },
+          {
+            id: 'line-7',
+            code: '}',
+            correctPosition: 6,
+            indent: 0,
+          },
         ],
       },
       {
@@ -768,15 +1383,60 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           en: 'Assemble curry for a three-argument function',
         },
         lines: [
-          { id: 'line-1', code: 'function curry3(fn) {', correctPosition: 0, indent: 0 },
-          { id: 'line-2', code: 'return function(a) {', correctPosition: 1, indent: 1 },
-          { id: 'line-3', code: 'return function(b) {', correctPosition: 2, indent: 2 },
-          { id: 'line-4', code: 'return function(c) {', correctPosition: 3, indent: 3 },
-          { id: 'line-5', code: 'return fn(a, b, c);', correctPosition: 4, indent: 4 },
-          { id: 'line-6', code: '};', correctPosition: 5, indent: 3 },
-          { id: 'line-7', code: '};', correctPosition: 6, indent: 2 },
-          { id: 'line-8', code: '};', correctPosition: 7, indent: 1 },
-          { id: 'line-9', code: '}', correctPosition: 8, indent: 0 },
+          {
+            id: 'line-1',
+            code: 'function curry3(fn) {',
+            correctPosition: 0,
+            indent: 0,
+          },
+          {
+            id: 'line-2',
+            code: 'return function(a) {',
+            correctPosition: 1,
+            indent: 1,
+          },
+          {
+            id: 'line-3',
+            code: 'return function(b) {',
+            correctPosition: 2,
+            indent: 2,
+          },
+          {
+            id: 'line-4',
+            code: 'return function(c) {',
+            correctPosition: 3,
+            indent: 3,
+          },
+          {
+            id: 'line-5',
+            code: 'return fn(a, b, c);',
+            correctPosition: 4,
+            indent: 4,
+          },
+          {
+            id: 'line-6',
+            code: '};',
+            correctPosition: 5,
+            indent: 3,
+          },
+          {
+            id: 'line-7',
+            code: '};',
+            correctPosition: 6,
+            indent: 2,
+          },
+          {
+            id: 'line-8',
+            code: '};',
+            correctPosition: 7,
+            indent: 1,
+          },
+          {
+            id: 'line-9',
+            code: '}',
+            correctPosition: 8,
+            indent: 0,
+          },
         ],
       },
       {
@@ -786,20 +1446,64 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           en: 'Assemble debounce with context preservation',
         },
         lines: [
-          { id: 'line-1', code: 'function debounce(fn, delay) {', correctPosition: 0, indent: 0 },
-          { id: 'line-2', code: 'let timer = null;', correctPosition: 1, indent: 1 },
-          { id: 'line-3', code: 'return function(...args) {', correctPosition: 2, indent: 1 },
-          { id: 'line-4', code: 'clearTimeout(timer);', correctPosition: 3, indent: 2 },
-          { id: 'line-5', code: 'timer = setTimeout(() => {', correctPosition: 4, indent: 2 },
-          { id: 'line-6', code: 'fn.apply(this, args);', correctPosition: 5, indent: 3 },
-          { id: 'line-7', code: '}, delay);', correctPosition: 6, indent: 2 },
-          { id: 'line-8', code: '};', correctPosition: 7, indent: 1 },
-          { id: 'line-9', code: '}', correctPosition: 8, indent: 0 },
+          {
+            id: 'line-1',
+            code: 'function debounce(fn, delay) {',
+            correctPosition: 0,
+            indent: 0,
+          },
+          {
+            id: 'line-2',
+            code: 'let timer = null;',
+            correctPosition: 1,
+            indent: 1,
+          },
+          {
+            id: 'line-3',
+            code: 'return function(...args) {',
+            correctPosition: 2,
+            indent: 1,
+          },
+          {
+            id: 'line-4',
+            code: 'clearTimeout(timer);',
+            correctPosition: 3,
+            indent: 2,
+          },
+          {
+            id: 'line-5',
+            code: 'timer = setTimeout(() => {',
+            correctPosition: 4,
+            indent: 2,
+          },
+          {
+            id: 'line-6',
+            code: 'fn.apply(this, args);',
+            correctPosition: 5,
+            indent: 3,
+          },
+          {
+            id: 'line-7',
+            code: '}, delay);',
+            correctPosition: 6,
+            indent: 2,
+          },
+          {
+            id: 'line-8',
+            code: '};',
+            correctPosition: 7,
+            indent: 1,
+          },
+          {
+            id: 'line-9',
+            code: '}',
+            correctPosition: 8,
+            indent: 0,
+          },
         ],
       },
     ],
   },
-
   {
     id: 308,
     type: 'code_ordering',
@@ -809,7 +1513,7 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
       en: 'Data Patterns',
     },
     difficulty: 3,
-    section: 'Core JS',
+    section: 'Algorithms',
     tags: ['arrays', 'map', 'set'],
     questions: [
       {
@@ -819,7 +1523,12 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           en: 'Assemble a deepClone function for objects and arrays',
         },
         lines: [
-          { id: 'line-1', code: 'function deepClone(value) {', correctPosition: 0, indent: 0 },
+          {
+            id: 'line-1',
+            code: 'function deepClone(value) {',
+            correctPosition: 0,
+            indent: 0,
+          },
           {
             id: 'line-2',
             code: 'if (value === null || typeof value !== "object") return value;',
@@ -832,16 +1541,36 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
             correctPosition: 2,
             indent: 1,
           },
-          { id: 'line-4', code: 'for (const key in value) {', correctPosition: 3, indent: 1 },
+          {
+            id: 'line-4',
+            code: 'for (const key in value) {',
+            correctPosition: 3,
+            indent: 1,
+          },
           {
             id: 'line-5',
             code: 'result[key] = deepClone(value[key]);',
             correctPosition: 4,
             indent: 2,
           },
-          { id: 'line-6', code: '}', correctPosition: 5, indent: 1 },
-          { id: 'line-7', code: 'return result;', correctPosition: 6, indent: 1 },
-          { id: 'line-8', code: '}', correctPosition: 7, indent: 0 },
+          {
+            id: 'line-6',
+            code: '}',
+            correctPosition: 5,
+            indent: 1,
+          },
+          {
+            id: 'line-7',
+            code: 'return result;',
+            correctPosition: 6,
+            indent: 1,
+          },
+          {
+            id: 'line-8',
+            code: '}',
+            correctPosition: 7,
+            indent: 0,
+          },
         ],
       },
       {
@@ -851,24 +1580,54 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           en: 'Assemble a flatten function for nested array',
         },
         lines: [
-          { id: 'line-1', code: 'function flatten(arr) {', correctPosition: 0, indent: 0 },
+          {
+            id: 'line-1',
+            code: 'function flatten(arr) {',
+            correctPosition: 0,
+            indent: 0,
+          },
           {
             id: 'line-2',
             code: 'return arr.reduce((acc, item) => {',
             correctPosition: 1,
             indent: 1,
           },
-          { id: 'line-3', code: 'if (Array.isArray(item)) {', correctPosition: 2, indent: 2 },
+          {
+            id: 'line-3',
+            code: 'if (Array.isArray(item)) {',
+            correctPosition: 2,
+            indent: 2,
+          },
           {
             id: 'line-4',
             code: 'return acc.concat(flatten(item));',
             correctPosition: 3,
             indent: 3,
           },
-          { id: 'line-5', code: '}', correctPosition: 4, indent: 2 },
-          { id: 'line-6', code: 'return acc.concat(item);', correctPosition: 5, indent: 2 },
-          { id: 'line-7', code: '}, []);', correctPosition: 6, indent: 1 },
-          { id: 'line-8', code: '}', correctPosition: 7, indent: 0 },
+          {
+            id: 'line-5',
+            code: '}',
+            correctPosition: 4,
+            indent: 2,
+          },
+          {
+            id: 'line-6',
+            code: 'return acc.concat(item);',
+            correctPosition: 5,
+            indent: 2,
+          },
+          {
+            id: 'line-7',
+            code: '}, []);',
+            correctPosition: 6,
+            indent: 1,
+          },
+          {
+            id: 'line-8',
+            code: '}',
+            correctPosition: 7,
+            indent: 0,
+          },
         ],
       },
       {
@@ -878,16 +1637,36 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           en: 'Assemble deepEqual for flat objects',
         },
         lines: [
-          { id: 'line-1', code: 'function deepEqual(a, b) {', correctPosition: 0, indent: 0 },
-          { id: 'line-2', code: 'if (a === b) return true;', correctPosition: 1, indent: 1 },
+          {
+            id: 'line-1',
+            code: 'function deepEqual(a, b) {',
+            correctPosition: 0,
+            indent: 0,
+          },
+          {
+            id: 'line-2',
+            code: 'if (a === b) return true;',
+            correctPosition: 1,
+            indent: 1,
+          },
           {
             id: 'line-3',
             code: 'if (!a || !b || typeof a !== "object" || typeof b !== "object") return false;',
             correctPosition: 2,
             indent: 1,
           },
-          { id: 'line-4', code: 'const keysA = Object.keys(a);', correctPosition: 3, indent: 1 },
-          { id: 'line-5', code: 'const keysB = Object.keys(b);', correctPosition: 4, indent: 1 },
+          {
+            id: 'line-4',
+            code: 'const keysA = Object.keys(a);',
+            correctPosition: 3,
+            indent: 1,
+          },
+          {
+            id: 'line-5',
+            code: 'const keysB = Object.keys(b);',
+            correctPosition: 4,
+            indent: 1,
+          },
           {
             id: 'line-6',
             code: 'if (keysA.length !== keysB.length) return false;',
@@ -900,7 +1679,12 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
             correctPosition: 6,
             indent: 1,
           },
-          { id: 'line-8', code: '}', correctPosition: 7, indent: 0 },
+          {
+            id: 'line-8',
+            code: '}',
+            correctPosition: 7,
+            indent: 0,
+          },
         ],
       },
       {
@@ -910,29 +1694,58 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
           en: 'Assemble a groupBy function for object array',
         },
         lines: [
-          { id: 'line-1', code: 'function groupBy(items, key) {', correctPosition: 0, indent: 0 },
+          {
+            id: 'line-1',
+            code: 'function groupBy(items, key) {',
+            correctPosition: 0,
+            indent: 0,
+          },
           {
             id: 'line-2',
             code: 'return items.reduce((acc, item) => {',
             correctPosition: 1,
             indent: 1,
           },
-          { id: 'line-3', code: 'const group = item[key];', correctPosition: 2, indent: 2 },
+          {
+            id: 'line-3',
+            code: 'const group = item[key];',
+            correctPosition: 2,
+            indent: 2,
+          },
           {
             id: 'line-4',
             code: 'if (!acc[group]) acc[group] = [];',
             correctPosition: 3,
             indent: 2,
           },
-          { id: 'line-5', code: 'acc[group].push(item);', correctPosition: 4, indent: 2 },
-          { id: 'line-6', code: 'return acc;', correctPosition: 5, indent: 2 },
-          { id: 'line-7', code: '}, {});', correctPosition: 6, indent: 1 },
-          { id: 'line-8', code: '}', correctPosition: 7, indent: 0 },
+          {
+            id: 'line-5',
+            code: 'acc[group].push(item);',
+            correctPosition: 4,
+            indent: 2,
+          },
+          {
+            id: 'line-6',
+            code: 'return acc;',
+            correctPosition: 5,
+            indent: 2,
+          },
+          {
+            id: 'line-7',
+            code: '}, {});',
+            correctPosition: 6,
+            indent: 1,
+          },
+          {
+            id: 'line-8',
+            code: '}',
+            correctPosition: 7,
+            indent: 0,
+          },
         ],
       },
     ],
   },
-
   {
     id: 309,
     type: 'code_ordering',
@@ -970,15 +1783,30 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
             correctPosition: 2,
             indent: 2,
           },
-          { id: 'line-4', code: '});', correctPosition: 3, indent: 1 },
+          {
+            id: 'line-4',
+            code: '});',
+            correctPosition: 3,
+            indent: 1,
+          },
           {
             id: 'line-5',
             code: 'const raced = Promise.race([promise, timeoutPromise]);',
             correctPosition: 4,
             indent: 1,
           },
-          { id: 'line-6', code: 'return raced;', correctPosition: 5, indent: 1 },
-          { id: 'line-7', code: '}', correctPosition: 6, indent: 0 },
+          {
+            id: 'line-6',
+            code: 'return raced;',
+            correctPosition: 5,
+            indent: 1,
+          },
+          {
+            id: 'line-7',
+            code: '}',
+            correctPosition: 6,
+            indent: 0,
+          },
         ],
       },
       {
@@ -994,13 +1822,48 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
             correctPosition: 0,
             indent: 0,
           },
-          { id: 'line-2', code: 'const result = [];', correctPosition: 1, indent: 1 },
-          { id: 'line-3', code: 'for (const task of tasks) {', correctPosition: 2, indent: 1 },
-          { id: 'line-4', code: 'const value = await task();', correctPosition: 3, indent: 2 },
-          { id: 'line-5', code: 'result.push(value);', correctPosition: 4, indent: 2 },
-          { id: 'line-6', code: '}', correctPosition: 5, indent: 1 },
-          { id: 'line-7', code: 'return result;', correctPosition: 6, indent: 1 },
-          { id: 'line-8', code: '}', correctPosition: 7, indent: 0 },
+          {
+            id: 'line-2',
+            code: 'const result = [];',
+            correctPosition: 1,
+            indent: 1,
+          },
+          {
+            id: 'line-3',
+            code: 'for (const task of tasks) {',
+            correctPosition: 2,
+            indent: 1,
+          },
+          {
+            id: 'line-4',
+            code: 'const value = await task();',
+            correctPosition: 3,
+            indent: 2,
+          },
+          {
+            id: 'line-5',
+            code: 'result.push(value);',
+            correctPosition: 4,
+            indent: 2,
+          },
+          {
+            id: 'line-6',
+            code: '}',
+            correctPosition: 5,
+            indent: 1,
+          },
+          {
+            id: 'line-7',
+            code: 'return result;',
+            correctPosition: 6,
+            indent: 1,
+          },
+          {
+            id: 'line-8',
+            code: '}',
+            correctPosition: 7,
+            indent: 0,
+          },
         ],
       },
       {
@@ -1028,15 +1891,30 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
             correctPosition: 2,
             indent: 1,
           },
-          { id: 'line-4', code: 'acc[item.status] += 1;', correctPosition: 3, indent: 2 },
-          { id: 'line-5', code: 'return acc;', correctPosition: 4, indent: 2 },
+          {
+            id: 'line-4',
+            code: 'acc[item.status] += 1;',
+            correctPosition: 3,
+            indent: 2,
+          },
+          {
+            id: 'line-5',
+            code: 'return acc;',
+            correctPosition: 4,
+            indent: 2,
+          },
           {
             id: 'line-6',
             code: '}, { fulfilled: 0, rejected: 0 });',
             correctPosition: 5,
             indent: 1,
           },
-          { id: 'line-7', code: '}', correctPosition: 6, indent: 0 },
+          {
+            id: 'line-7',
+            code: '}',
+            correctPosition: 6,
+            indent: 0,
+          },
         ],
       },
       {
@@ -1052,7 +1930,12 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
             correctPosition: 0,
             indent: 0,
           },
-          { id: 'line-2', code: 'let lastError = null;', correctPosition: 1, indent: 1 },
+          {
+            id: 'line-2',
+            code: 'let lastError = null;',
+            correctPosition: 1,
+            indent: 1,
+          },
           {
             id: 'line-3',
             code: 'for (let i = 0; i < attempts; i++) {',
@@ -1071,9 +1954,24 @@ export const MOCK_CODE_ORDERING_DATA: CodeOrderingTask[] = [
             correctPosition: 4,
             indent: 2,
           },
-          { id: 'line-6', code: '}', correctPosition: 5, indent: 1 },
-          { id: 'line-7', code: 'throw lastError;', correctPosition: 6, indent: 1 },
-          { id: 'line-8', code: '}', correctPosition: 7, indent: 0 },
+          {
+            id: 'line-6',
+            code: '}',
+            correctPosition: 5,
+            indent: 1,
+          },
+          {
+            id: 'line-7',
+            code: 'throw lastError;',
+            correctPosition: 6,
+            indent: 1,
+          },
+          {
+            id: 'line-8',
+            code: '}',
+            correctPosition: 7,
+            indent: 0,
+          },
         ],
       },
     ],

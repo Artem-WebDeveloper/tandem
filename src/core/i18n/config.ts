@@ -15,6 +15,8 @@ import practiceEN from './locales/en/practice.json';
 import practiceRU from './locales/ru/practice.json';
 import notFoundEN from './locales/en/not-found.json';
 import notFoundRU from './locales/ru/not-found.json';
+import resultsEN from './locales/en/results.json';
+import resultsRU from './locales/ru/results.json';
 
 i18n
   .use(LanguageDetector) // автоопределения языка браузера
@@ -28,6 +30,7 @@ i18n
         login: loginEN,
         practice: practiceEN,
         'not-found': notFoundEN,
+        results: resultsEN,
       },
       ru: {
         common: commonRU,
@@ -36,6 +39,7 @@ i18n
         login: loginRU,
         practice: practiceRU,
         'not-found': notFoundRU,
+        results: resultsRU,
       },
     },
 

@@ -37,6 +37,7 @@ export function CodeLine({ codeLine, index }: { codeLine: CodeLineData; index: n
           margin: 0,
           display: 'inline-block',
         }}
+        wrapLongLines
       >
         {codeLine.code}
       </SyntaxHighlighter>

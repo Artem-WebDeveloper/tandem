@@ -20,6 +20,8 @@ import SingleChoiceQuiz from '../../core/feature/SingleChoiceWidget/SingleChoice
 import AsyncSorterWidget from '@/core/feature/AsyncSorterWidget/AsyncSorterWidget';
 import CodeOrderingWidget from '@/core/feature/CodeOrderingWidget/CodeOrderingWidget';
 import TrueFalseWidget from '@/core/feature/TrueFalseWidget/TrueFalseWidget';
+import Results from '@/pages/Results/Results';
+import type { QuizResults, UserAnswerPayload } from '@/core/api/submitQuizAnswers';
 
 export default function Practice() {
   const theme = useTheme();
@@ -29,6 +31,7 @@ export default function Practice() {
   const [quizData, setQuizData] = useState<QuizTask | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<AppError | null>(null);
+  const [quizResults, setQuizResults] = useState<QuizResults<UserAnswerPayload> | null>(null);
 
   useEffect(() => {
     const fetchPracticeData = async () => {
@@ -54,6 +57,7 @@ export default function Practice() {
       }
     };
 
+    setQuizResults(null);
     fetchPracticeData();
   }, [id]);
 
@@ -62,19 +66,19 @@ export default function Practice() {
 
     switch (quizData.type) {
       case TaskType.CodeCompletion:
-        return <CodeCompletionWidget data={quizData} />;
+        return <CodeCompletionWidget data={quizData} onSubmit={setQuizResults} />;
 
       case TaskType.SingleChoice:
-        return <SingleChoiceQuiz data={quizData} />;
+        return <SingleChoiceQuiz data={quizData} onSubmit={setQuizResults} />;
 
       case TaskType.AsyncSorter:
-        return <AsyncSorterWidget data={quizData} />;
+        return <AsyncSorterWidget data={quizData} onSubmit={setQuizResults} />;
 
       case TaskType.CodeOrdering:
         return <CodeOrderingWidget data={quizData} />;
 
       case TaskType.TrueFalse:
-        return <TrueFalseWidget data={quizData} />;
+        return <TrueFalseWidget data={quizData} onSubmit={setQuizResults} />;
 
       default:
         return <p>{t('errors.unknownQuizType')}</p>;
@@ -99,6 +103,10 @@ export default function Practice() {
         </Container>
       </Layout>
     );
+  }
+
+  if (quizResults) {
+    return <Results quizResults={quizResults} />;
   }
 
   return (

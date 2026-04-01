@@ -1,3 +1,5 @@
+[Pull Request](https://github.com/Artem-WebDeveloper/tandem/pull/85)
+
 # Оценка компонентов
 
 | Категория            | Фича                                                                    | Баллы   |
@@ -151,3 +153,5 @@
 
 - Code Completion Widget
 - Async Sorter Widget
+
+[Pull Request](https://github.com/Artem-WebDeveloper/tandem/pull/85)

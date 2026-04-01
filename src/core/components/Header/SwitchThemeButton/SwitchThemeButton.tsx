@@ -1,4 +1,4 @@
-import { useTheme } from '@mui/material';
+import { IconButton, useTheme } from '@mui/material';
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
 
@@ -15,7 +15,7 @@ function SwitchThemeButton() {
   const { t } = useTranslation('common');
 
   return (
-    <button
+    <IconButton
       onClick={switchMode}
       className={styles.button}
       aria-label={t('controls.toggleTheme')}
@@ -26,7 +26,7 @@ function SwitchThemeButton() {
       ) : (
         <DarkModeRoundedIcon sx={{ color: theme.palette.primary.main }} />
       )}
-    </button>
+    </IconButton>
   );
 }
 

@@ -27,6 +27,7 @@ export const libraryData: LibraryResponse = {
         is_completed: false,
         latest_score: null,
         best_result: null,
+        is_perfect: false,
       },
     },
     {
@@ -50,6 +51,7 @@ export const libraryData: LibraryResponse = {
         is_completed: true,
         latest_score: 80,
         best_result: 100,
+        is_perfect: true,
       },
     },
     {
@@ -73,6 +75,7 @@ export const libraryData: LibraryResponse = {
         is_completed: false,
         latest_score: null,
         best_result: null,
+        is_perfect: false,
       },
     },
     {
@@ -104,6 +107,7 @@ export const libraryData: LibraryResponse = {
         is_completed: true,
         latest_score: 80,
         best_result: 100,
+        is_perfect: true,
       },
     },
 
@@ -128,6 +132,7 @@ export const libraryData: LibraryResponse = {
         is_completed: true,
         latest_score: 60,
         best_result: 80,
+        is_perfect: true,
       },
     },
     {
@@ -151,6 +156,7 @@ export const libraryData: LibraryResponse = {
         is_completed: true,
         latest_score: 40,
         best_result: 40,
+        is_perfect: false,
       },
     },
   ],

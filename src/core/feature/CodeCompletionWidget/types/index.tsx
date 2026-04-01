@@ -16,9 +16,9 @@ export interface CodeCompletionTask extends BaseTask {
   questions: CodeCompletionQuestion[];
 }
 
-export type CodeComplitionAnswerPayload = string;
+export type CodeCompletionAnswerPayload = string;
 
 export type CodeCompletionAnswer = {
   questionId: number;
-  payload: CodeComplitionAnswerPayload;
+  payload: CodeCompletionAnswerPayload;
 };

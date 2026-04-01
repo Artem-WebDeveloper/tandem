@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import { useCodeCompletionStore } from '@/core/store/codeCompletion.store';
-import type { CodeCompletionTask, CodeComplitionAnswerPayload } from './types';
+import type { CodeCompletionTask, CodeCompletionAnswerPayload } from './types';
 import CodeCompletionQuizBody from './CodeCompletionQuizBody/CodeCompletionQuizBody';
 import CodeCompletionNavigation from './CodeCompletionNavigation/CodeCompletionNavigation';
 import CodeCompletionProgress from './CodeCompletionProgress/CodeCompletionProgress';
@@ -12,7 +12,7 @@ function CodeCompletionWidget({
   onSubmit,
 }: {
   data: CodeCompletionTask;
-  onSubmit?: (quizResults: QuizResults<CodeComplitionAnswerPayload>) => void;
+  onSubmit?: (quizResults: QuizResults<CodeCompletionAnswerPayload>) => void;
 }) {
   const { questions, id } = data;
   const questionsCount = questions.length;

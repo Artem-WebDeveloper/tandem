@@ -36,7 +36,6 @@ export interface LibraryResponse {
 }
 
 export const tooltipProps: Partial<TooltipProps> = {
-  arrow: true,
   placement: 'top-start',
   enterDelay: 200,
   leaveDelay: 150,

@@ -38,7 +38,7 @@ function CodeCompletionQuizBody({
   return (
     <div className={styles.quizBody}>
       <Typography variant="h3">{t('codeCompletion.instruction')}</Typography>
-      <pre
+      <div
         className={styles.code}
         style={{
           backgroundColor: theme.palette.background.default,
@@ -55,7 +55,9 @@ function CodeCompletionQuizBody({
             padding: 0,
             backgroundColor: theme.palette.background.default,
           }}
-        >{`> ${codeParts[0]}`}</SyntaxHighlighter>
+        >
+          {codeParts[0]}
+        </SyntaxHighlighter>
 
         <CodeCompletionAnswerInput currentQuestion={questions[currentQuestionNumber]} />
 
@@ -71,7 +73,7 @@ function CodeCompletionQuizBody({
         >
           {codeParts[1]}
         </SyntaxHighlighter>
-      </pre>
+      </div>
 
       <div className={styles.tip}>
         <TipsAndUpdatesTwoToneIcon />

@@ -8,7 +8,7 @@ import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded';
 
 import styles from './CardQuiz.module.scss';
-import type { LibraryQuiz } from '../types';
+import { tooltipProps, type LibraryQuiz } from '../types';
 import { difficultyLabels, getQuizTypeConfig, sectionConfig } from '@/core/configs/library.config';
 import DifficultyChip from '@/core/components/DifficultyChip/DifficultyChip';
 import HeaderIconStatus from './HeaderIconStatus/HeaderIconStatus';
@@ -162,12 +162,7 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
         </section>
       </main>
       <footer className={styles.cardFooter}>
-        <Tooltip
-          title={t('tooltips.condition')}
-          placement="top-start"
-          enterDelay={450}
-          leaveDelay={150}
-        >
+        <Tooltip title={t('tooltips.condition')} {...tooltipProps}>
           <Typography
             variant="body2"
             sx={{
@@ -177,6 +172,7 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
               textAlign: 'center',
               lineHeight: '1.4',
               userSelect: 'none',
+              cursor: 'help',
             }}
           >
             {bestResult !== null

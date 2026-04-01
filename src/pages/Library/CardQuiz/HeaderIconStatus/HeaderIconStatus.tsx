@@ -5,6 +5,7 @@ import AdjustRoundedIcon from '@mui/icons-material/AdjustRounded';
 import PanoramaFishEyeIcon from '@mui/icons-material/PanoramaFishEye';
 
 import { useTranslation } from 'react-i18next';
+import { tooltipProps } from '../../types';
 
 export default function HeaderIconStatus({
   isPerfect,
@@ -18,39 +19,21 @@ export default function HeaderIconStatus({
 
   if (isPerfect)
     return (
-      <Tooltip
-        title={t('tooltips.passed')}
-        arrow
-        placement="top-start"
-        enterDelay={350}
-        leaveDelay={150}
-      >
-        <CheckCircleOutlineRoundedIcon sx={{ color: theme.palette.success.main }} />
+      <Tooltip title={t('tooltips.passed')} {...tooltipProps}>
+        <CheckCircleOutlineRoundedIcon sx={{ color: theme.palette.success.main, cursor: 'help' }} />
       </Tooltip>
     );
 
   if (bestResult !== null)
     return (
-      <Tooltip
-        arrow
-        title={t('tooltips.notPassed')}
-        placement="top-start"
-        enterDelay={350}
-        leaveDelay={150}
-      >
-        <AdjustRoundedIcon sx={{ color: theme.palette.textLight }} />
+      <Tooltip title={t('tooltips.notPassed')} {...tooltipProps}>
+        <AdjustRoundedIcon sx={{ color: theme.palette.textLight, cursor: 'help' }} />
       </Tooltip>
     );
 
   return (
-    <Tooltip
-      arrow
-      title={t('tooltips.noResults')}
-      placement="top-start"
-      enterDelay={350}
-      leaveDelay={150}
-    >
-      <PanoramaFishEyeIcon sx={{ color: theme.palette.textUltralight }} />
+    <Tooltip title={t('tooltips.noResults')} {...tooltipProps}>
+      <PanoramaFishEyeIcon sx={{ color: theme.palette.textUltralight, cursor: 'help' }} />
     </Tooltip>
   );
 }

@@ -1,3 +1,4 @@
+import type { TooltipProps } from '@mui/material';
 import type { BaseTask, Difficulty, TaskTheme, TaskType } from '@/core/types/quiz';
 
 export interface LibraryQuiz extends BaseTask {
@@ -33,3 +34,10 @@ export interface LibraryResponse {
   total_pages: number;
   results: LibraryQuiz[];
 }
+
+export const tooltipProps: Partial<TooltipProps> = {
+  arrow: true,
+  placement: 'top-start',
+  enterDelay: 200,
+  leaveDelay: 150,
+};

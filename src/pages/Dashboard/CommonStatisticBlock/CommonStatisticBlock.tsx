@@ -18,48 +18,56 @@ export default function CommonStatisticBlock({
   const { t } = useTranslation('dashboard');
 
   return (
-    <ul className={styles.wrapper}>
-      <Link to={`/library`}>
+    <ul className={styles.list}>
+      <li className={styles.listItem}>
+        <Link className={styles.listLink} to={`/library`}>
+          <Tile
+            title={t('dashboard.statistics.availableTask.title')}
+            icon={<StarIcon color="warning" />}
+            color="warning"
+            count={data?.testsCount ?? null}
+            description={t('dashboard.statistics.availableTask.description')}
+            isLoading={isLoading}
+          />
+        </Link>
+      </li>
+
+      <li className={styles.listItem}>
+        <Link className={styles.listLink} to={`/library?page=1&is_perfect=true`}>
+          <Tile
+            title={t('dashboard.statistics.completedTask.title')}
+            icon={<SportsScoreIcon color="success" />}
+            color="success"
+            description={t('dashboard.statistics.completedTask.description')}
+            count={data?.completedTests ?? null}
+            isLoading={isLoading}
+          />
+        </Link>
+      </li>
+
+      <li className={styles.listItem}>
+        <Link className={styles.listLink} to={`/library?page=1&is_perfect=false`}>
+          <Tile
+            title={t('dashboard.statistics.remainingTest.title')}
+            icon={<ScheduleIcon color="info" />}
+            color="info"
+            description={t('dashboard.statistics.remainingTest.description')}
+            count={data?.remainTests ?? null}
+            isLoading={isLoading}
+          />
+        </Link>
+      </li>
+
+      <li className={styles.listItem}>
         <Tile
-          title={t('dashboard.statistics.availableTask.title')}
-          icon={<StarIcon color="warning" />}
-          color="warning"
-          count={data?.testsCount ?? null}
-          description={t('dashboard.statistics.availableTask.description')}
+          title={t('dashboard.statistics.totalAttempts.title')}
+          icon={<ReplayIcon color="error" />}
+          color="error"
+          description={t('dashboard.statistics.totalAttempts.description')}
+          count={data?.totalAttempts ?? null}
           isLoading={isLoading}
         />
-      </Link>
-
-      <Link to={`/library?page=1&is_perfect=true`}>
-        <Tile
-          title={t('dashboard.statistics.completedTask.title')}
-          icon={<SportsScoreIcon color="success" />}
-          color="success"
-          description={t('dashboard.statistics.completedTask.description')}
-          count={data?.completedTests ?? null}
-          isLoading={isLoading}
-        />
-      </Link>
-
-      <Link to={`/library?page=1&is_perfect=false`}>
-        <Tile
-          title={t('dashboard.statistics.remainingTest.title')}
-          icon={<ScheduleIcon color="info" />}
-          color="info"
-          description={t('dashboard.statistics.remainingTest.description')}
-          count={data?.remainTests ?? null}
-          isLoading={isLoading}
-        />
-      </Link>
-
-      <Tile
-        title={t('dashboard.statistics.totalAttempts.title')}
-        icon={<ReplayIcon color="error" />}
-        color="error"
-        description={t('dashboard.statistics.totalAttempts.description')}
-        count={data?.totalAttempts ?? null}
-        isLoading={isLoading}
-      />
+      </li>
     </ul>
   );
 }

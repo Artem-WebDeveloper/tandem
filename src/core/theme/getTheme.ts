@@ -1,6 +1,7 @@
 import type { PaletteMode } from '@mui/material/styles';
 import { createTheme } from '@mui/material';
 import { responsiveFontSizes } from '@mui/material/styles';
+import { alpha } from '@mui/material/styles';
 
 import { lightThemeOptions } from './lightTheme';
 import { darkThemeOptions } from './darkTheme';
@@ -23,6 +24,29 @@ export function getTheme(mode: PaletteMode) {
               backgroundSize: 'cover',
             },
           }),
+        },
+
+        MuiTooltip: {
+          styleOverrides: {
+            tooltip: ({ theme }) => ({
+              backgroundColor:
+                theme.palette.mode === 'light'
+                  ? alpha(theme.palette.primary.main, 0.9)
+                  : alpha(theme.palette.text.primary, 0.9),
+
+              color:
+                theme.palette.mode === 'light'
+                  ? theme.palette.background.default
+                  : theme.palette.background.default,
+            }),
+
+            arrow: ({ theme }) => ({
+              color:
+                theme.palette.mode === 'light'
+                  ? alpha(theme.palette.primary.main, 0.9)
+                  : alpha(theme.palette.text.primary, 0.9),
+            }),
+          },
         },
       },
       breakpoints: {

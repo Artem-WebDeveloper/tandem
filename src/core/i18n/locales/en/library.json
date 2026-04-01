@@ -33,6 +33,12 @@
     },
     "startTest": "Start test"
   },
+  "tooltips": {
+    "condition": "The test is considered passed if the result is 70% or higher",
+    "passed": "This test has been passed with a good result. You successfully answered most of the questions!",
+    "notPassed": "Try taking the test again. With a little more effort, you can achieve a good result!",
+    "noResults": "Complete the test to see your result and improve your progress"
+  },
   "errors": {
     "fetchFailed": "Failed to load {{resource}}, please check your internet connection.",
     "unauthorized": "You should log in",

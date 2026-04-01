@@ -14,7 +14,7 @@ export default function Tile({ title, count, icon, color, description, isLoading
   const theme = useTheme();
 
   return (
-    <li
+    <div
       className={styles.tile}
       style={{
         backgroundColor: theme.palette.background.paper,
@@ -38,6 +38,6 @@ export default function Tile({ title, count, icon, color, description, isLoading
       <p className={styles.description} style={{ color: theme.palette.textLight }}>
         {description}
       </p>
-    </li>
+    </div>
   );
 }

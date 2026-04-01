@@ -1,3 +1,4 @@
+import type { TooltipProps } from '@mui/material';
 import type { BaseTask, Difficulty, TaskTheme, TaskType } from '@/core/types/quiz';
 
 export interface LibraryQuiz extends BaseTask {
@@ -16,6 +17,7 @@ type UserProgress = {
   is_completed: boolean;
   latest_score: null | number;
   best_result: null | number;
+  is_perfect: boolean;
 };
 
 export type LibraryFilters = {
@@ -32,3 +34,9 @@ export interface LibraryResponse {
   total_pages: number;
   results: LibraryQuiz[];
 }
+
+export const tooltipProps: Partial<TooltipProps> = {
+  placement: 'top-start',
+  enterDelay: 200,
+  leaveDelay: 150,
+};

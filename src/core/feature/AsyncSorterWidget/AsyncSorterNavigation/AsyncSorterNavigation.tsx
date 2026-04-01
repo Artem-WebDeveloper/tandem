@@ -11,7 +11,10 @@ function AsyncSorterNavigation({
 }: {
   questions: AsyncSorterQuestion[];
   quizId: number;
-  onSubmit?: (quizResults: QuizResults<AsyncSorterAnswerPayload>) => void;
+  onSubmit?: (
+    quizResults: QuizResults<AsyncSorterAnswerPayload> | null,
+    isLoading: boolean,
+  ) => void;
 }) {
   const currentQuestionNumber = useAsyncSorterStore((state) => state.currentQuestionNumber);
   const currentQuestion = questions[currentQuestionNumber];
@@ -39,8 +42,9 @@ function AsyncSorterNavigation({
           answer: answer.payload,
         }));
 
+        if (onSubmit) onSubmit(null, true);
         const quizResults = await submitQuizAnswers(quizId, answersForApi);
-        if (onSubmit) onSubmit(quizResults);
+        if (onSubmit) onSubmit(quizResults, false);
       }}
     />
   );

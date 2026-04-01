@@ -12,14 +12,18 @@ export default function ResultsNavigation({ onRetry }: { onRetry: () => void }) 
     <div className={styles.navigation}>
       <Button
         variant="outlined"
-        sx={{ flexGrow: '1' }}
+        sx={{ flexGrow: '1', lineHeight: '1.2' }}
         onClick={onRetry}
         startIcon={<Refresh sx={{ fontSize: 18 }} />}
       >
         {t('tryAgain')}
       </Button>
 
-      <Button variant="contained" sx={{ flexGrow: '1' }} onClick={() => navigate(`/library`)}>
+      <Button
+        variant="contained"
+        sx={{ flexGrow: '1', lineHeight: '1.2' }}
+        onClick={() => navigate(`/library`)}
+      >
         {t('backToTests')}
       </Button>
     </div>

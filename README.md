@@ -20,6 +20,13 @@
 - **[GitHub Projects](https://github.com/users/Artem-WebDeveloper/projects/2/views/1)**
   ![Board](./devepment-notes/kanban-board.jpg)
 
+## Meeting Notes
+
+- [Note #1](./meeting-notes/meeting-2026-02-15.md)
+- [Note #2](./meeting-notes/meeting-2026-02-21.md)
+- [Note #3](./meeting-notes/meeting-2026-03-29.md)
+- ...
+
 ## Структура проекта
 
 ```bash

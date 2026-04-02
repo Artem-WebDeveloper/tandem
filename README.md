@@ -2,9 +2,9 @@
 
 **Tandem** — это тренажер для подготовки к собеседованиям и изучения программирования. Приложение помогает пользователям готовиться к техническим собеседованиям с помощью интерактивных виджетов, таких как квизы, задачи на алгоритмы, и многое другое.
 
-Демонстрация состояний загрузки и обработки ошибок (Week #5 Checkpoint) - https://www.youtube.com/watch?v=s66y0jmoXaM
+### Deploy - https://tandem-iota-puce.vercel.app/
 
-Deploy - https://artem-webdeveloper.github.io/tandem/
+Демонстрация состояний загрузки и обработки ошибок (Week #5 Checkpoint) - https://www.youtube.com/watch?v=s66y0jmoXaM
 
 ## Команда
 
@@ -14,6 +14,11 @@ Deploy - https://artem-webdeveloper.github.io/tandem/
 - **[Igel-k](https://github.com/Igel-k)** — Карина
 - **[mightyprinces](https://github.com/mightyprinces)** — Кристина
 - **[raenlin](https://github.com/raenlin)** — Дарья, ментор
+
+## Kanban-Board
+
+- **[GitHub Projects](https://github.com/users/Artem-WebDeveloper/projects/2/views/1)**
+  ![Board](./devepment-notes/kanban-board.jpg)
 
 ## Структура проекта
 

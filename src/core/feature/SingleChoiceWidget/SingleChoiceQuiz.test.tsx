@@ -20,7 +20,7 @@ const mockQuizData: SingleChoiceTaskResponse = {
     en: 'Test Quiz',
     ru: 'Тестовый квиз',
   },
-  section: 'Testing',
+  section: 'Algorithms',
   tags: ['test'],
   difficulty: Difficulty.Easy,
   questions: [

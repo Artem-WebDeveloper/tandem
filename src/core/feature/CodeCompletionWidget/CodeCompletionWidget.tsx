@@ -14,7 +14,7 @@ function CodeCompletionWidget({
   data: CodeCompletionTask;
   onSubmit?: (quizResults: QuizResults<CodeCompletionAnswerPayload>) => void;
 }) {
-  const { questions, id } = data;
+  const { section, questions, id } = data;
   const questionsCount = questions.length;
 
   const resetQuizState = useCodeCompletionStore((state) => state.reset);
@@ -27,7 +27,7 @@ function CodeCompletionWidget({
     <div>
       <CodeCompletionProgress questionsCount={questionsCount} />
 
-      <CodeCompletionQuizBody questions={questions} />
+      <CodeCompletionQuizBody section={section} questions={questions} />
 
       <CodeCompletionNavigation questions={questions} quizId={id} onSubmit={onSubmit} />
     </div>

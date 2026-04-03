@@ -133,7 +133,6 @@ export default function Results<T extends UserAnswerPayload>({
                 });
               } else if (quizTask.type === 'code_ordering') {
                 questionText = (question as CodeOrderingQuestion).text[locale] ?? '';
-                // ((question as CodeOrderingQuestion).lines).map((line) => line.code);
                 answerLinesArray = (quizResult as QuizResult<CodeOrderingAnswerPayload>)
                   .user_answer;
               }

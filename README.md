@@ -6,19 +6,19 @@
 
 Демонстрация состояний загрузки и обработки ошибок (Week #5 Checkpoint) - https://www.youtube.com/watch?v=s66y0jmoXaM
 
-## Команда
+## Команда 🦄
 
-- **[Artem-WebDeveloper](https://github.com/Artem-WebDeveloper)** — Артем
-- **[AlexeyDmt](https://github.com/AlexeyDmt)** — Алексей
-- **[exppx](https://github.com/exppx)** — Глеб
-- **[Igel-k](https://github.com/Igel-k)** — Карина
-- **[mightyprinces](https://github.com/mightyprinces)** — Кристина
-- **[raenlin](https://github.com/raenlin)** — Дарья, ментор
+- **[Артем](https://github.com/Artem-WebDeveloper) — Team Lead** • 👮 Chief Unicorn Officer | [Diary](./development-notes/artem-webdeveloper/)
+- **[Алексей](https://github.com/AlexeyDmt) — Frontend Engineer** • 🔮 Alchemist of Languages & Validation | [Diary](./development-notes/alexeydmt/)
+- **[Глеб](https://github.com/exppx) — Frontend Engineer** • 🧙‍♂️ Performance Optimization Wizard | [Diary](./development-notes/exppx/)
+- **[Карина](https://github.com/Igel-k) — Backend Engineer** • 🐉 The Database Goddess | [Diary](./development-notes/Igel-k/)
+- **[Кристина](https://github.com/mightyprinces) — Frontend Engineer** • 🧚‍♀️ The Fairy of UI | [Diary](./development-notes/mightyprinces/)
+- **[Дарья](https://github.com/raenlin) — Best Mentor** • 🌟 The Guiding Star
 
 ## Kanban-Board
 
 - **[GitHub Projects](https://github.com/users/Artem-WebDeveloper/projects/2/views/1)**
-  ![Board](./devepment-notes/kanban-board.jpg)
+  ![Board](./development-notes/kanban-board.jpg)
 
 ## Meeting Notes
 

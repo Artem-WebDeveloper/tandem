@@ -40,7 +40,9 @@ export default function Practice() {
   const [quizData, setQuizData] = useState<QuizTask | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<AppError | null>(null);
+
   const [quizResults, setQuizResults] = useState<QuizResults<UserAnswerPayload> | null>(null);
+  const [quizResultsLoading, setQuizResultsLoading] = useState(false);
 
   useEffect(() => {
     const fetchPracticeData = async () => {
@@ -70,24 +72,29 @@ export default function Practice() {
     fetchPracticeData();
   }, [id]);
 
+  const handleSubmit = (quizResults: QuizResults<UserAnswerPayload> | null, isLoading: boolean) => {
+    setQuizResults(quizResults);
+    setQuizResultsLoading(isLoading);
+  };
+
   const renderQuiz = () => {
     if (!quizData) return null;
 
     switch (quizData.type) {
       case TaskType.CodeCompletion:
-        return <CodeCompletionWidget data={quizData} onSubmit={setQuizResults} />;
+        return <CodeCompletionWidget data={quizData} onSubmit={handleSubmit} />;
 
       case TaskType.SingleChoice:
-        return <SingleChoiceQuiz data={quizData} onSubmit={setQuizResults} />;
+        return <SingleChoiceQuiz data={quizData} onSubmit={handleSubmit} />;
 
       case TaskType.AsyncSorter:
-        return <AsyncSorterWidget data={quizData} onSubmit={setQuizResults} />;
+        return <AsyncSorterWidget data={quizData} onSubmit={handleSubmit} />;
 
       case TaskType.CodeOrdering:
-        return <CodeOrderingWidget data={quizData} onSubmit={setQuizResults} />;
+        return <CodeOrderingWidget data={quizData} onSubmit={handleSubmit} />;
 
       case TaskType.TrueFalse:
-        return <TrueFalseWidget data={quizData} onSubmit={setQuizResults} />;
+        return <TrueFalseWidget data={quizData} onSubmit={handleSubmit} />;
 
       default:
         return <p>{t('errors.unknownQuizType')}</p>;
@@ -114,8 +121,10 @@ export default function Practice() {
     );
   }
 
-  if (quizResults) {
-    return <Results quizResults={quizResults} onRetry={() => setQuizResults(null)} />;
+  if (quizData && (quizResults || quizResultsLoading)) {
+    return (
+      <Results quizResults={quizResults} quizTask={quizData} onRetry={() => setQuizResults(null)} />
+    );
   }
 
   return (

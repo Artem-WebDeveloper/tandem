@@ -24,7 +24,7 @@ function TrueFalseWidget({
   onSubmit,
 }: {
   data: TrueFalseTask;
-  onSubmit?: (quizResults: QuizResults<TrueFalseAnswerPayload>) => void;
+  onSubmit?: (quizResults: QuizResults<TrueFalseAnswerPayload> | null, isLoading: boolean) => void;
 }) {
   const locale = useLocale();
 
@@ -136,8 +136,9 @@ function TrueFalseWidget({
           }));
           console.log('Submit', payload);
 
+          if (onSubmit) onSubmit(null, true);
           const quizResults = await submitQuizAnswers(id, payload);
-          if (onSubmit) onSubmit(quizResults);
+          if (onSubmit) onSubmit(quizResults, false);
         }}
       />
     </div>

@@ -11,7 +11,10 @@ export default function CodeOrderingNavigation({
 }: {
   questions: CodeOrderingQuestion[];
   quizId: number;
-  onSubmit?: (quizResults: QuizResults<CodeOrderingAnswerPayload>) => void;
+  onSubmit?: (
+    quizResults: QuizResults<CodeOrderingAnswerPayload> | null,
+    isLoading: boolean,
+  ) => void;
 }) {
   const currentQuestionNumber = useCodeOrderingStore((state) => state.currentQuestionNumber);
   const currentQuestion = questions[currentQuestionNumber];
@@ -39,8 +42,9 @@ export default function CodeOrderingNavigation({
           answer: answer.payload,
         }));
 
+        if (onSubmit) onSubmit(null, true);
         const quizResults = await submitQuizAnswers(quizId, answersForApi);
-        if (onSubmit) onSubmit(quizResults);
+        if (onSubmit) onSubmit(quizResults, false);
       }}
     />
   );

@@ -12,7 +12,10 @@ function AsyncSorterWidget({
   onSubmit,
 }: {
   data: AsyncSorterTask;
-  onSubmit?: (quizResults: QuizResults<AsyncSorterAnswerPayload>) => void;
+  onSubmit?: (
+    quizResults: QuizResults<AsyncSorterAnswerPayload> | null,
+    isLoading: boolean,
+  ) => void;
 }) {
   const { questions, id } = data;
   const questionsCount = questions.length;

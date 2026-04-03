@@ -12,7 +12,10 @@ function CodeCompletionWidget({
   onSubmit,
 }: {
   data: CodeCompletionTask;
-  onSubmit?: (quizResults: QuizResults<CodeCompletionAnswerPayload>) => void;
+  onSubmit?: (
+    quizResults: QuizResults<CodeCompletionAnswerPayload> | null,
+    isLoading: boolean,
+  ) => void;
 }) {
   const { section, questions, id } = data;
   const questionsCount = questions.length;

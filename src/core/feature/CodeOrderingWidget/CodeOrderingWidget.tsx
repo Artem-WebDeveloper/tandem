@@ -12,7 +12,10 @@ export default function CodeOrderingWidget({
   onSubmit,
 }: {
   data: CodeOrderingTask;
-  onSubmit?: (quizResult: QuizResults<CodeOrderingAnswerPayload>) => void;
+  onSubmit?: (
+    quizResult: QuizResults<CodeOrderingAnswerPayload> | null,
+    isLoading: boolean,
+  ) => void;
 }) {
   const { questions, id } = data;
   const questionsCount = questions.length;

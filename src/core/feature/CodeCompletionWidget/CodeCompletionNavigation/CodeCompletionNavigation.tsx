@@ -11,7 +11,10 @@ function CodeCompletionNavigation({
 }: {
   questions: CodeCompletionQuestion[];
   quizId: number;
-  onSubmit?: (quizResults: QuizResults<CodeCompletionAnswerPayload>) => void;
+  onSubmit?: (
+    quizResults: QuizResults<CodeCompletionAnswerPayload> | null,
+    isLoading: boolean,
+  ) => void;
 }) {
   const currentQuestionNumber = useCodeCompletionStore((state) => state.currentQuestionNumber);
   const answers = useCodeCompletionStore((state) => state.answers);
@@ -35,8 +38,9 @@ function CodeCompletionNavigation({
           answer: answer.payload,
         }));
 
+        if (onSubmit) onSubmit(null, true);
         const quizResults = await submitQuizAnswers(quizId, answersForApi);
-        if (onSubmit) onSubmit(quizResults);
+        if (onSubmit) onSubmit(quizResults, false);
       }}
     />
   );

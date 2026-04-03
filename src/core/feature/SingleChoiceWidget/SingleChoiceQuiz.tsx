@@ -23,7 +23,10 @@ import { submitQuizAnswers } from '@/core/api/submitQuizAnswers';
 
 interface SingleChoiceQuizProps {
   data: SingleChoiceTaskResponse;
-  onSubmit?: (quizResults: QuizResults<SingleChoiceAnswerPayload>) => void;
+  onSubmit?: (
+    quizResults: QuizResults<SingleChoiceAnswerPayload> | null,
+    isLoading: boolean,
+  ) => void;
 }
 
 export default function SingleChoiceQuiz({ data, onSubmit }: SingleChoiceQuizProps) {
@@ -69,8 +72,9 @@ export default function SingleChoiceQuiz({ data, onSubmit }: SingleChoiceQuizPro
       answer: answer.payload as SingleChoiceAnswerPayload,
     }));
 
+    if (onSubmit) onSubmit(null, true);
     const quizResults = await submitQuizAnswers(data.id, answersForApi);
-    if (onSubmit) onSubmit(quizResults);
+    if (onSubmit) onSubmit(quizResults, false);
   };
 
   return (

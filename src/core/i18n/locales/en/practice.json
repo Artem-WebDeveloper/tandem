@@ -6,7 +6,8 @@
   "navigation": {
     "back": "Back",
     "next": "Next Question",
-    "submit": "Submit"
+    "submit": "Submit",
+    "error": "Could not get results. Try again later"
   },
   "codeCompletion": {
     "instruction": "Fill in the blank based on the hint"

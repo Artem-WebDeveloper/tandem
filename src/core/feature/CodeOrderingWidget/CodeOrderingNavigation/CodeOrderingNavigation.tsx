@@ -1,21 +1,19 @@
+import { useQuizResultsStore } from '@/core/store/quizResults.store';
 import { useCodeOrderingStore } from '@/core/store/codeOrdering.store';
 import QuizNavigation from '@/core/components/QuizNavigation/QuizNavigation';
 import type { CodeOrderingQuestion, CodeOrderingAnswerPayload } from '../types';
 import { submitQuizAnswers } from '@/core/api/submitQuizAnswers';
-import type { QuizAnswer, QuizResults } from '@/core/api/submitQuizAnswers';
+import type { QuizAnswer } from '@/core/api/submitQuizAnswers';
 
 export default function CodeOrderingNavigation({
   questions,
   quizId,
-  onSubmit,
 }: {
   questions: CodeOrderingQuestion[];
   quizId: number;
-  onSubmit?: (
-    quizResults: QuizResults<CodeOrderingAnswerPayload> | null,
-    isLoading: boolean,
-  ) => void;
 }) {
+  const setQuizResults = useQuizResultsStore((state) => state.setQuizResults);
+
   const currentQuestionNumber = useCodeOrderingStore((state) => state.currentQuestionNumber);
   const currentQuestion = questions[currentQuestionNumber];
 
@@ -42,9 +40,8 @@ export default function CodeOrderingNavigation({
           answer: answer.payload,
         }));
 
-        if (onSubmit) onSubmit(null, true);
         const quizResults = await submitQuizAnswers(quizId, answersForApi);
-        if (onSubmit) onSubmit(quizResults, false);
+        setQuizResults(quizResults);
       }}
     />
   );

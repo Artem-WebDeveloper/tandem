@@ -26,6 +26,13 @@
 - **[GitHub Projects](https://github.com/users/Artem-WebDeveloper/projects/2/views/1)**
   ![Board](./development-notes/kanban-board.jpg)
 
+## Code Review
+
+- **[#33 Feature/library](https://github.com/Artem-WebDeveloper/tandem/pull/33)**
+- **[#62 Feat/results](https://github.com/Artem-WebDeveloper/tandem/pull/62)**
+- **[#36 Feat/login page](https://github.com/Artem-WebDeveloper/tandem/pull/36)**
+- **[#46 Feat/api migration](https://github.com/Artem-WebDeveloper/tandem/pull/46)**
+
 ## Meeting Notes
 
 - [Note #1](./meeting-notes/meeting-2026-02-15.md)

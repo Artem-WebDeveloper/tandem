@@ -30,16 +30,13 @@ import type {
   CodeOrderingQuestion,
   CodeOrderingAnswerPayload,
 } from '@/core/feature/CodeOrderingWidget/types';
-import ResultsSkeleton from './ResultsSkeleton/ResultsSkeleton';
 
 export default function Results<T extends UserAnswerPayload>({
   quizResults,
   quizTask,
-  onRetry,
 }: {
-  quizResults: QuizResults<T> | null;
+  quizResults: QuizResults<T>;
   quizTask: QuizTask;
-  onRetry: () => void;
 }) {
   const theme = useTheme();
   const { t } = useTranslation(['results', 'practice']);
@@ -50,10 +47,6 @@ export default function Results<T extends UserAnswerPayload>({
       ? (quizResults.correct_count * 100) / quizResults.total_questions
       : 0,
   );
-
-  if (!quizResults) {
-    return <ResultsSkeleton />;
-  }
 
   return (
     <Layout>
@@ -140,7 +133,6 @@ export default function Results<T extends UserAnswerPayload>({
                 });
               } else if (quizTask.type === 'code_ordering') {
                 questionText = (question as CodeOrderingQuestion).text[locale] ?? '';
-                // ((question as CodeOrderingQuestion).lines).map((line) => line.code);
                 answerLinesArray = (quizResult as QuizResult<CodeOrderingAnswerPayload>)
                   .user_answer;
               }
@@ -392,7 +384,7 @@ export default function Results<T extends UserAnswerPayload>({
               }
             })}
           </Box>
-          <ResultsNavigation onRetry={onRetry} />
+          <ResultsNavigation />
         </div>
       </Container>
     </Layout>

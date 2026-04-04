@@ -1,21 +1,19 @@
+import { useQuizResultsStore } from '@/core/store/quizResults.store';
 import { useCodeCompletionStore } from '@/core/store/codeCompletion.store';
 import QuizNavigation from '@/core/components/QuizNavigation/QuizNavigation';
 import type { CodeCompletionQuestion, CodeCompletionAnswerPayload } from '../types';
 import { submitQuizAnswers } from '@/core/api/submitQuizAnswers';
-import type { QuizAnswer, QuizResults } from '@/core/api/submitQuizAnswers';
+import type { QuizAnswer } from '@/core/api/submitQuizAnswers';
 
 function CodeCompletionNavigation({
   questions,
   quizId,
-  onSubmit,
 }: {
   questions: CodeCompletionQuestion[];
   quizId: number;
-  onSubmit?: (
-    quizResults: QuizResults<CodeCompletionAnswerPayload> | null,
-    isLoading: boolean,
-  ) => void;
 }) {
+  const setQuizResults = useQuizResultsStore((state) => state.setQuizResults);
+
   const currentQuestionNumber = useCodeCompletionStore((state) => state.currentQuestionNumber);
   const answers = useCodeCompletionStore((state) => state.answers);
   const currentAnswer = answers.find(
@@ -38,9 +36,8 @@ function CodeCompletionNavigation({
           answer: answer.payload,
         }));
 
-        if (onSubmit) onSubmit(null, true);
         const quizResults = await submitQuizAnswers(quizId, answersForApi);
-        if (onSubmit) onSubmit(quizResults, false);
+        setQuizResults(quizResults);
       }}
     />
   );

@@ -136,6 +136,18 @@ export default function Login() {
     },
   };
 
+  const inputSx = {
+    '& .MuiInputBase-input:-webkit-autofill, & .MuiInputBase-input:-webkit-autofill:hover, & .MuiInputBase-input:-webkit-autofill:focus, & .MuiInputBase-input:-webkit-autofill:active':
+      {
+        WebkitTextFillColor: `${theme.palette.text.primary} !important`,
+        WebkitBoxShadow: `0 0 0 1000px ${theme.palette.background.paper} inset !important`,
+        boxShadow: `0 0 0 1000px ${theme.palette.background.paper} inset !important`,
+        caretColor: `${theme.palette.text.primary} !important`,
+        borderRadius: 'inherit',
+        transition: 'background-color 99999s ease-in-out 0s',
+      },
+  };
+
   const textButtonStyle = {
     textTransform: 'none',
     color: theme.palette.text.secondary,
@@ -203,6 +215,7 @@ export default function Login() {
             type="text"
             variant="outlined"
             fullWidth
+            sx={inputSx}
             required
             value={username}
             onChange={handleUsernameChange}
@@ -215,6 +228,7 @@ export default function Login() {
             variant="outlined"
             fullWidth
             required
+            sx={inputSx}
             value={password}
             onChange={handlePasswordChange}
             disabled={isLoading}

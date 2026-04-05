@@ -88,7 +88,7 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
       </header>
       <main className={styles.cardBody}>
         <section className={styles.cardDescription}>
-          <Typography variant="body2" sx={{ minHeight: '20px', color: theme.palette.textLight }}>
+          <Typography variant="body2" sx={{ minHeight: '42px', color: theme.palette.textLight }}>
             {description?.[locale] || ''}
           </Typography>
         </section>

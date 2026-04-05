@@ -1,51 +1,111 @@
 # Tandem
 
-**Tandem** — это тренажер для подготовки к собеседованиям и изучения программирования. Приложение помогает пользователям готовиться к техническим собеседованиям с помощью интерактивных виджетов, таких как квизы, задачи на алгоритмы, и многое другое.
+**Tandem | RS Trainer** — это платформа для подготовки к техническим собеседованиям и изучения программирования через интерактивную практику.  
+Мы стремились сделать продукт не только технически качественным, но и действительно удобным, понятным и полезным для обучения.
+В приложении реализованы разные форматы тренажеров, чтобы пользователь мог тренировать не только теорию, но и практическое мышление:
 
-Демонстрация состояний загрузки и обработки ошибок (Week #5 Checkpoint) - https://www.youtube.com/watch?v=s66y0jmoXaM
+- Quiz
+- Code Completion
+- Async Sorter
+- True / False
+- Code Ordering
 
-Deploy - https://artem-webdeveloper.github.io/tandem/
+### Deploy — https://tandem-iota-puce.vercel.app/
 
-## Команда
+### DEMO-video — https://www.youtube.com/watch?v=cu3VCSqAd5A
 
-- **[Artem-WebDeveloper](https://github.com/Artem-WebDeveloper)** — Артем
-- **[AlexeyDmt](https://github.com/AlexeyDmt)** — Алексей
-- **[exppx](https://github.com/exppx)** — Глеб
-- **[Igel-k](https://github.com/Igel-k)** — Карина
-- **[mightyprinces](https://github.com/mightyprinces)** — Кристина
-- **[raenlin](https://github.com/raenlin)** — Дарья, ментор
+## Чем гордимся?
+
+Больше всего мы гордимся тем, что **RS Trainer** ощущается как настоящий продукт. Мы думали не о списке технологий, а о конкретном человеке, который садится готовиться к собеседованию: хочет быстро найти нужную тему, выбрать формат, сосредоточиться и не отвлекаться на неудобный интерфейс. Нам удалось совместить **практическую ценность и удобство**: разные типы заданий, актуальные темы, выбор сложности, `drag-and-drop` механики, таймеры, вставка кода.
+
+Для нас было важно сделать приложение удобным в реальном использовании, поэтому мы реализовали: мультиязычность, светлую и тёмную темы; адаптивный интерфейс; избранное; фильтры с параметрами в `URL`, которыми можно делиться; кликабельную статистику с наглядной визуализацией прогресса и быстрыми переходами, а также современные `skeleton`-состояния загрузки.
+
+Особого внимания заслуживает то, что **RS Trainer** — это полноценное решение со своей **backend**-частью, а не интерфейс поверх готового BaaS-решения: серверная логика, `API`, авторизация с `refresh token flow`, результаты, статистика и работа с прогрессом проектировались и реализовывались внутри команды — отдельное спасибо нашему бэкендеру Карине.
+
+## Команда 🦄
+
+- **[Артем](https://github.com/Artem-WebDeveloper) — Team Lead** • 👮 Chief Unicorn Officer | [Diary](./development-notes/artem-webdeveloper/)
+- **[Алексей](https://github.com/AlexeyDmt) — Frontend Engineer** • 🔮 Alchemist of Languages & Validation | [Diary](./development-notes/alexeydmt/)
+- **[Глеб](https://github.com/exppx) — Frontend Engineer** • 🧙‍♂️ Performance Optimization Wizard | [Diary](./development-notes/exppx/)
+- **[Карина](https://github.com/Igel-k) — Backend Engineer** • 🐉 The Database Goddess | [Diary](./development-notes/Igel-k/)
+- **[Кристина](https://github.com/mightyprinces) — Frontend Engineer** • 🧚‍♀️ The Fairy of UI | [Diary](./development-notes/mightyprinces/)
+- **[Дарья](https://github.com/raenlin) — Best Mentor** • 🌟 The Guiding Star
+
+## Kanban-Board
+
+- **[GitHub Projects](https://github.com/users/Artem-WebDeveloper/projects/2/views/1)**
+  ![Board](./development-notes/kanban-board.jpg)
+
+## Code Review
+
+- **[#33 Feature/library](https://github.com/Artem-WebDeveloper/tandem/pull/33)**
+- **[#62 Feat/results](https://github.com/Artem-WebDeveloper/tandem/pull/62)**
+- **[#36 Feat/login page](https://github.com/Artem-WebDeveloper/tandem/pull/36)**
+- **[#46 Feat/api migration](https://github.com/Artem-WebDeveloper/tandem/pull/46)**
+
+## Meeting Notes
+
+- [Note #1](./meeting-notes/meeting-2026-02-15.md)
+- [Note #2](./meeting-notes/meeting-2026-02-21.md)
+- [Note #3](./meeting-notes/meeting-2026-03-29.md)
 
 ## Структура проекта
 
 ```bash
 src
 │
-├── app
-│   ├── **App.scss** — Стили для главного компонента приложения
-│   ├── **App.tsx** — Главный компонент приложения, в котором определяется структура и Роутинг
+├── app — Главный компонент приложения, в котором определяется структура и Роутинг
 │
 ├── core
-│   ├── assets — Статические ресурсы, такие как изображения или SVG файлы
-│   │
-│   ├── components - Папка для всех компонентов прриложения
-│   │   ├── **Footer** — Компонент Footer, используется на каждой странице, кроме /login
-│   │   └── **Header** — Компонент Header, используется на каждой странице, кроме /login
-│   │   └── **Layout** — Компонент Layout, Обертка для структуры страницы
-│   │
+│   ├── api — API-слой
+│   ├── assets — Статические ресурсы: изображения, иконки и SVG-файлы
+│   ├── components — Папка для всех компонентов приложения
 │   ├── configs — Конфигурации и константы
-│   │
+│   ├── errors — Обработка ошибок
+│   ├── feature — Модули тренажеров: логика и компоненты по типам заданий
+│   ├── i18n — Интернационализация: переводы и настройка локализации
+│   ├── mock — Моки для работы в Mock-mode
 │   ├── store — Zustand хранилище для управления состоянием
-│   │
+│   ├── theme — Настройки UI-темы
+│   ├── types — Общие Types и Interfaces в приложении
 │   └── utils — Утилиты и хелперы
 │
-├── **index.scss** — Основные стили для всего приложения
-├── **main.tsx** — Главный файл, точка входа
+├── pages
+│   ├── Dashboard — Страница с информацией о пользователе и его статистике
+│   ├── Library — Страница с выбором квизов и тренажёров для подготовки
+│   ├── Login — Страница для логина/регистрации пользователя
+│   ├── NotFound — Страница, показываемая при ошибке 404
+│   ├── Practice — Страница для практических заданий
+│   └── Results — Страница с результатами прохождения тестов
 │
-└── pages
-    ├── **Dashboard** — Страница с информацией о пользователе и его статистике
-    ├── **Library** — Страница с выбором квизов и тренажёров для подготовки
-    ├── **Login** — Страница для логина/регистрации пользователя
-    ├── **NotFound** — Страница, показываемая при ошибке 404
-    ├── **Practice** — Страница для практических заданий
-    └── **Results** — Страница с результатами прохождения тестов
+├── setupTests.ts — Настройка тестового окружения
+├── global.scss — Основные стили для всего приложения
+└── main.tsx — Точка входа: инициализация и монтирование приложения
+```
+
+## Tech Stack
+
+| Категория           | Технологии                           |
+| ------------------- | ------------------------------------ |
+| Язык                | TypeScript, React 19                 |
+| UI                  | MUI 7, Emotion, Sass (SCSS)          |
+| Роутинг             | React Router 7                       |
+| HTTP Client         | Axios                                |
+| State Management    | Zustand                              |
+| Локализация         | i18n                                 |
+| Визуализация        | @ant-design/plots                    |
+| Drag & Drop         | @dnd-kit/react, @dnd-kit/helpers     |
+| Работа с кодом в UI | react-syntax-highlighter             |
+| Сборка              | Vite 7                               |
+| Тесты               | Vitest, Testing Library, jsdom       |
+| Качество кода       | ESLint, Prettier, lint-staged, Husky |
+
+## Setup
+
+```bash
+# Установить зависимости:
+npm install
+
+# Запуск в режиме разработки
+npm run dev
 ```

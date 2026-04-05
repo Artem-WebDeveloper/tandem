@@ -1,16 +1,17 @@
 import styles from './Dashboard.module.scss';
 import Layout from '../../core/components/Layout/Layout';
-import CommonStatisticBlock from './CommonStatisticBlock/CommonStatisticBlock';
-import CategoryBlock from './CategoryBlock/CategoryBlock';
-import DifficultyBlock from './DifficultyBlock/DifficultyBlock';
 import { useTranslation } from 'react-i18next';
 import { Typography, useTheme } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { lazy, useEffect, useState } from 'react';
 import { fetchDashboardData } from '@/core/api/dashboardApi/fetchDashboardData';
 import type { DashboardData } from './types';
 import { AppError } from '@/core/errors/errors';
-import DashboardError from './DashboardError/DashboardError';
 import DashboardFiller from './DashboardFiller/DashboardFiller';
+
+const CommonStatisticBlock = lazy(() => import('./CommonStatisticBlock/CommonStatisticBlock'));
+const CategoryBlock = lazy(() => import('./CategoryBlock/CategoryBlock'));
+const DifficultyBlock = lazy(() => import('./DifficultyBlock/DifficultyBlock'));
+const DashboardError = lazy(() => import('./DashboardError/DashboardError'));
 
 export default function Dashboard() {
   const { t } = useTranslation('dashboard');

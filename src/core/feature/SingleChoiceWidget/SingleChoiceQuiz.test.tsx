@@ -8,7 +8,6 @@ import { describe, it, expect } from 'vitest';
 // Симуляция действий пользователя
 import userEvent from '@testing-library/user-event';
 
-import { BrowserRouter } from 'react-router-dom';
 import SingleChoiceQuiz from './SingleChoiceQuiz';
 import type { SingleChoiceTaskResponse } from './types';
 import { TaskType, Difficulty } from '@/core/types/quiz';
@@ -21,7 +20,7 @@ const mockQuizData: SingleChoiceTaskResponse = {
     en: 'Test Quiz',
     ru: 'Тестовый квиз',
   },
-  section: 'Testing',
+  section: 'Algorithms',
   tags: ['test'],
   difficulty: Difficulty.Easy,
   questions: [
@@ -99,11 +98,7 @@ const mockQuizData: SingleChoiceTaskResponse = {
 
 describe('SingleChoiceQuiz', () => {
   function setup() {
-    render(
-      <BrowserRouter>
-        <SingleChoiceQuiz data={mockQuizData} />
-      </BrowserRouter>,
-    );
+    render(<SingleChoiceQuiz data={mockQuizData} />);
   }
 
   // Проверка на рендер без ошибок

@@ -44,7 +44,7 @@ export type TaskType = (typeof TaskType)[keyof typeof TaskType];
 export interface BaseTask {
   id: number;
   type: TaskType;
-  section: string;
+  section: TaskTheme;
   difficulty: Difficulty;
   time_limit: number;
   title: {
@@ -59,6 +59,7 @@ export interface BaseTask {
 export interface UserAnswer {
   questionId: number;
   payload: unknown; // universal field, Single Choice → string ; True/False → boolean
+  // TODO: replace with UserAnswerPayload from src\core\api\submitQuizAnswers.ts
 }
 
 export interface TaskSubmitRequest {

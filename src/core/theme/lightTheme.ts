@@ -9,6 +9,7 @@ export const lightThemeOptions: PaletteOptions = {
 
   secondary: {
     main: '#FACC15',
+    dark: '#e39c0d',
   },
 
   primaryDisabled: '#E2E8F0',

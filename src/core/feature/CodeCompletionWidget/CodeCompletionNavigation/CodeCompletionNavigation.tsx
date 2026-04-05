@@ -1,7 +1,9 @@
+import { useQuizResultsStore } from '@/core/store/quizResults.store';
 import { useCodeCompletionStore } from '@/core/store/codeCompletion.store';
 import QuizNavigation from '@/core/components/QuizNavigation/QuizNavigation';
-import type { CodeCompletionQuestion } from '../types';
+import type { CodeCompletionQuestion, CodeCompletionAnswerPayload } from '../types';
 import { submitQuizAnswers } from '@/core/api/submitQuizAnswers';
+import type { QuizAnswer } from '@/core/api/submitQuizAnswers';
 
 function CodeCompletionNavigation({
   questions,
@@ -10,6 +12,8 @@ function CodeCompletionNavigation({
   questions: CodeCompletionQuestion[];
   quizId: number;
 }) {
+  const setQuizResults = useQuizResultsStore((state) => state.setQuizResults);
+
   const currentQuestionNumber = useCodeCompletionStore((state) => state.currentQuestionNumber);
   const answers = useCodeCompletionStore((state) => state.answers);
   const currentAnswer = answers.find(
@@ -27,12 +31,13 @@ function CodeCompletionNavigation({
       questionsCount={questions.length}
       isAnswerGiven={!!currentAnswer && currentAnswer.payload.length > 0}
       onAnswersSubmit={async () => {
-        const answersForApi = answers.map((answer) => ({
+        const answersForApi: QuizAnswer<CodeCompletionAnswerPayload>[] = answers.map((answer) => ({
           question_id: answer.questionId,
           answer: answer.payload,
         }));
 
-        await submitQuizAnswers(quizId, answersForApi);
+        const quizResults = await submitQuizAnswers(quizId, answersForApi);
+        setQuizResults(quizResults);
       }}
     />
   );

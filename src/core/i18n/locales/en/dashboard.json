@@ -13,11 +13,11 @@
       },
       "completedTask": {
         "title": "Completed tasks",
-        "description": "Number of completed tasks"
+        "description": "Tasks with results above 70%"
       },
       "remainingTest": {
         "title": "Remaining to complete",
-        "description": "The number of tasks that are not yet completed"
+        "description": "Tasks that have not yet reached 70%"
       },
       "totalAttempts": {
         "title": "Total attempts",

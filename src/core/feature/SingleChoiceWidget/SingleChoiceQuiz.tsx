@@ -9,8 +9,9 @@ import {
   FormControl,
 } from '@mui/material';
 
-import type { SingleChoiceTaskResponse } from './types';
+import type { SingleChoiceTaskResponse, SingleChoiceAnswerPayload } from './types';
 import type { UserAnswer } from '@/core/types/quiz';
+import type { QuizAnswer } from '@/core/api/submitQuizAnswers';
 
 import QuizProgressBar from '@/core/components/QuizProgressBar/QuizProgressBar';
 import QuizNavigation from '@/core/components/QuizNavigation/QuizNavigation';
@@ -19,6 +20,7 @@ import styles from './singleChoiceQuiz.module.scss';
 import { useTranslation } from 'react-i18next';
 import { useLocale } from '@/core/i18n/useLocal';
 import { submitQuizAnswers } from '@/core/api/submitQuizAnswers';
+import { useQuizResultsStore } from '@/core/store/quizResults.store';
 
 interface SingleChoiceQuizProps {
   data: SingleChoiceTaskResponse;
@@ -29,6 +31,8 @@ export default function SingleChoiceQuiz({ data }: SingleChoiceQuizProps) {
 
   const { t } = useTranslation('practice');
   const locale = useLocale();
+
+  const setQuizResults = useQuizResultsStore((state) => state.setQuizResults);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState<UserAnswer[]>([]);
@@ -62,12 +66,13 @@ export default function SingleChoiceQuiz({ data }: SingleChoiceQuizProps) {
   };
 
   const handleSubmit = async () => {
-    const answersForApi = userAnswers.map((answer) => ({
+    const answersForApi: QuizAnswer<SingleChoiceAnswerPayload>[] = userAnswers.map((answer) => ({
       question_id: answer.questionId,
-      answer: answer.payload,
+      answer: answer.payload as SingleChoiceAnswerPayload,
     }));
 
-    await submitQuizAnswers(data.id, answersForApi);
+    const quizResults = await submitQuizAnswers(data.id, answersForApi);
+    setQuizResults(quizResults);
   };
 
   return (

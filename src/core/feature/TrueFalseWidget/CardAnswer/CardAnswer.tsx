@@ -55,7 +55,7 @@ function CardAnswer({
       <Box className={styles.cardFront} sx={{ borderColor: theme.palette.textUltralight }}>
         {frontIcon}
         <Typography fontSize="large" color={theme.palette.textLight}>
-          {cardType ? 'True' : 'False'}
+          {cardType ? t('trueFalse.true') : t('trueFalse.false')}
         </Typography>
       </Box>
 

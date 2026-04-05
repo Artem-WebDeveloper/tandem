@@ -19,6 +19,8 @@ export default function LanguageSwitcher() {
     i18n.changeLanguage(newLang);
   };
 
+  const { t } = useTranslation('common');
+
   return (
     <Button
       onClick={toggleLanguage}
@@ -38,6 +40,8 @@ export default function LanguageSwitcher() {
           backgroundColor: theme.palette.backgroundAccent,
         },
       }}
+      aria-label={t('controls.toggleLanguage')}
+      title={t('controls.toggleLanguage')}
     >
       {lang.flag}
     </Button>

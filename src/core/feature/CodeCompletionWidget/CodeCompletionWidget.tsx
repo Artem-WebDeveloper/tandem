@@ -7,7 +7,7 @@ import CodeCompletionNavigation from './CodeCompletionNavigation/CodeCompletionN
 import CodeCompletionProgress from './CodeCompletionProgress/CodeCompletionProgress';
 
 function CodeCompletionWidget({ data }: { data: CodeCompletionTask }) {
-  const { questions, id } = data;
+  const { section, questions, id } = data;
   const questionsCount = questions.length;
 
   const resetQuizState = useCodeCompletionStore((state) => state.reset);
@@ -20,7 +20,7 @@ function CodeCompletionWidget({ data }: { data: CodeCompletionTask }) {
     <div>
       <CodeCompletionProgress questionsCount={questionsCount} />
 
-      <CodeCompletionQuizBody questions={questions} />
+      <CodeCompletionQuizBody section={section} questions={questions} />
 
       <CodeCompletionNavigation questions={questions} quizId={id} />
     </div>

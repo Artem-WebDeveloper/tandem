@@ -1,7 +1,9 @@
 import { useAsyncSorterStore } from '@/core/store/asyncSorter.store';
 import QuizNavigation from '@/core/components/QuizNavigation/QuizNavigation';
-import type { AsyncSorterQuestion } from '../types';
+import type { AsyncSorterQuestion, AsyncSorterAnswerPayload } from '../types';
 import { submitQuizAnswers } from '@/core/api/submitQuizAnswers';
+import type { QuizAnswer } from '@/core/api/submitQuizAnswers';
+import { useQuizResultsStore } from '@/core/store/quizResults.store';
 
 function AsyncSorterNavigation({
   questions,
@@ -10,6 +12,8 @@ function AsyncSorterNavigation({
   questions: AsyncSorterQuestion[];
   quizId: number;
 }) {
+  const setQuizResults = useQuizResultsStore((state) => state.setQuizResults);
+
   const currentQuestionNumber = useAsyncSorterStore((state) => state.currentQuestionNumber);
   const currentQuestion = questions[currentQuestionNumber];
 
@@ -31,12 +35,13 @@ function AsyncSorterNavigation({
         !!currentAnswer && currentAnswer.payload.length === currentQuestion.blocks.length
       }
       onAnswersSubmit={async () => {
-        const answersForApi = answers.map((answer) => ({
+        const answersForApi: QuizAnswer<AsyncSorterAnswerPayload>[] = answers.map((answer) => ({
           question_id: answer.questionId,
           answer: answer.payload,
         }));
 
-        await submitQuizAnswers(quizId, answersForApi);
+        const quizResults = await submitQuizAnswers(quizId, answersForApi);
+        setQuizResults(quizResults);
       }}
     />
   );

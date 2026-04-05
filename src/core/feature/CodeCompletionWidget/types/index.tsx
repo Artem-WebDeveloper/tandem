@@ -15,3 +15,10 @@ export interface CodeCompletionTask extends BaseTask {
   tags: string[];
   questions: CodeCompletionQuestion[];
 }
+
+export type CodeCompletionAnswerPayload = string;
+
+export type CodeCompletionAnswer = {
+  questionId: number;
+  payload: CodeCompletionAnswerPayload;
+};

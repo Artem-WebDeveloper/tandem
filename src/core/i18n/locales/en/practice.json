@@ -6,7 +6,8 @@
   "navigation": {
     "back": "Back",
     "next": "Next Question",
-    "submit": "Submit"
+    "submit": "Submit",
+    "error": "Could not get results. Try again later"
   },
   "codeCompletion": {
     "instruction": "Fill in the blank based on the hint"
@@ -21,7 +22,9 @@
     "cardNotice": "Your answer has been marked incorrect!",
     "correctAnswer": "Statement is",
     "right": "Right!",
-    "wrong": "Wrong!"
+    "wrong": "Wrong!",
+    "true": "True",
+    "false": "False"
   },
   "codeOrdering": {
     "instruction": "Put the lines in the correct order"

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Box, Collapse, Fade, Typography } from '@mui/material';
 import TipsAndUpdatesTwoToneIcon from '@mui/icons-material/TipsAndUpdatesTwoTone';
 
-import type { TrueFalseTask } from './types';
+import type { TrueFalseTask, TrueFalseAnswerPayload } from './types';
 import styles from './TrueFalseWidget.module.scss';
 import QuizProgressBar from '@/core/components/QuizProgressBar/QuizProgressBar';
 import CardAnswer from './CardAnswer/CardAnswer';
@@ -11,6 +11,8 @@ import Timer from './Timer/Timer';
 import { difficultySecondsConfig } from '@/core/configs/trueFalseWidget.config';
 import { useLocale } from '@/core/i18n/useLocal';
 import { submitQuizAnswers } from '@/core/api/submitQuizAnswers';
+import type { QuizAnswer } from '@/core/api/submitQuizAnswers';
+import { useQuizResultsStore } from '@/core/store/quizResults.store';
 
 type Answer = {
   questionId: number;
@@ -20,6 +22,7 @@ type Answer = {
 
 function TrueFalseWidget({ data }: { data: TrueFalseTask }) {
   const locale = useLocale();
+  const setQuizResults = useQuizResultsStore((state) => state.setQuizResults);
 
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [selectedAnswer, setSelectedAnswered] = useState<boolean | null>(null);
@@ -123,13 +126,13 @@ function TrueFalseWidget({ data }: { data: TrueFalseTask }) {
         isBackAllowed={isSavedAnswer}
         onAnswersSubmit={async () => {
           // убираю поле timeout, бэку не пригодится, ответ засчитывается неверным в payload
-          const payload = answers.map((answer) => ({
+          const payload: QuizAnswer<TrueFalseAnswerPayload>[] = answers.map((answer) => ({
             question_id: answer.questionId,
             answer: answer.payload,
           }));
-          console.log('Submit', payload);
 
-          await submitQuizAnswers<boolean>(id, payload);
+          const quizResults = await submitQuizAnswers(id, payload);
+          setQuizResults(quizResults);
         }}
       />
     </div>

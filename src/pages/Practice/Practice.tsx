@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { lazy, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, useTheme } from '@mui/material';
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
@@ -13,13 +13,24 @@ import Layout from '../../core/components/Layout/Layout';
 import QuizSkeleton from './QuizSkeleton/QuizSkeleton';
 import PracticeHeader from './PracticeHeader/PracticeHeader';
 import LinkButton from '../../core/components/LinkButton.tsx/LinkButton';
-import ErrorNotification from '../../core/components/ErrorNotification/ErrorNotification';
-import CodeCompletionWidget from '../../core/feature/CodeCompletionWidget/CodeCompletionWidget';
 import { AppError, AppErrorCode } from '@/core/errors/errors';
-import SingleChoiceQuiz from '../../core/feature/SingleChoiceWidget/SingleChoiceQuiz';
-import AsyncSorterWidget from '@/core/feature/AsyncSorterWidget/AsyncSorterWidget';
-import CodeOrderingWidget from '@/core/feature/CodeOrderingWidget/CodeOrderingWidget';
-import TrueFalseWidget from '@/core/feature/TrueFalseWidget/TrueFalseWidget';
+import { useQuizResultsStore } from '@/core/store/quizResults.store';
+
+const AsyncSorterWidget = lazy(() => import('@/core/feature/AsyncSorterWidget/AsyncSorterWidget'));
+const CodeCompletionWidget = lazy(
+  () => import('@/core/feature/CodeCompletionWidget/CodeCompletionWidget'),
+);
+const CodeOrderingWidget = lazy(
+  () => import('@/core/feature/CodeOrderingWidget/CodeOrderingWidget'),
+);
+const SingleChoiceQuiz = lazy(() => import('@/core/feature/SingleChoiceWidget/SingleChoiceQuiz'));
+const TrueFalseWidget = lazy(() => import('@/core/feature/TrueFalseWidget/TrueFalseWidget'));
+
+const Results = lazy(() => import('@/pages/Results/Results'));
+
+const ErrorNotification = lazy(
+  () => import('@/core/components/ErrorNotification/ErrorNotification'),
+);
 
 export default function Practice() {
   const theme = useTheme();
@@ -29,6 +40,9 @@ export default function Practice() {
   const [quizData, setQuizData] = useState<QuizTask | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<AppError | null>(null);
+
+  const quizResults = useQuizResultsStore((state) => state.quizResults);
+  const resetQuizResults = useQuizResultsStore((state) => state.resetQuizResults);
 
   useEffect(() => {
     const fetchPracticeData = async () => {
@@ -54,8 +68,9 @@ export default function Practice() {
       }
     };
 
+    resetQuizResults();
     fetchPracticeData();
-  }, [id]);
+  }, [id, resetQuizResults]);
 
   const renderQuiz = () => {
     if (!quizData) return null;
@@ -99,6 +114,10 @@ export default function Practice() {
         </Container>
       </Layout>
     );
+  }
+
+  if (quizData && quizResults) {
+    return <Results quizResults={quizResults} quizTask={quizData} />;
   }
 
   return (

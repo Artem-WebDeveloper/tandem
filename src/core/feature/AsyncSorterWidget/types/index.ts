@@ -8,7 +8,13 @@ export interface AsyncSorterQuestion {
 
 export interface AsyncSorterTask extends BaseTask {
   type: typeof TaskType.AsyncSorter;
-  section: string;
   tags: string[];
   questions: AsyncSorterQuestion[];
 }
+
+export type AsyncSorterAnswerPayload = string[];
+
+export type AsyncSorterAnswer = {
+  questionId: number;
+  payload: AsyncSorterAnswerPayload;
+};

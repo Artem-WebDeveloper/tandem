@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
 import { MOCK_CODE_ORDERING_DATA } from '@/core/mock/codeOrderingData';
 
 import CodeOrderingWidget from './CodeOrderingWidget';
@@ -7,11 +6,7 @@ import CodeOrderingQuizBody from './CodeOrderingQuizBody/CodeOrderingQuizBody';
 
 describe('CodeOrderingWidget', () => {
   function setup() {
-    render(
-      <BrowserRouter>
-        <CodeOrderingWidget data={MOCK_CODE_ORDERING_DATA[0]} />
-      </BrowserRouter>,
-    );
+    render(<CodeOrderingWidget data={MOCK_CODE_ORDERING_DATA[0]} />);
   }
   // Проверка на рендер без ошибок
   it('renders without errors', () => {

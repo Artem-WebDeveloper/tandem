@@ -10,9 +10,9 @@
 - True / False
 - Code Ordering
 
-### Deploy - https://tandem-iota-puce.vercel.app/
+### Deploy — https://tandem-iota-puce.vercel.app/
 
-Демонстрация состояний загрузки и обработки ошибок (Week #5 Checkpoint) - https://www.youtube.com/watch?v=s66y0jmoXaM
+### DEMO-video — https://www.youtube.com/watch?v=cu3VCSqAd5A
 
 ## Чем гордимся?
 
@@ -48,7 +48,6 @@
 - [Note #1](./meeting-notes/meeting-2026-02-15.md)
 - [Note #2](./meeting-notes/meeting-2026-02-21.md)
 - [Note #3](./meeting-notes/meeting-2026-03-29.md)
-- ...
 
 ## Структура проекта
 

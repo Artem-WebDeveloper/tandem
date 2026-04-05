@@ -1,4 +1,4 @@
-[Pull Request](https://github.com/Artem-WebDeveloper/tandem/pull/idNumber)
+[Pull Request](https://github.com/Artem-WebDeveloper/tandem/pull/94)
 
 # Оценка компонентов
 
@@ -87,4 +87,4 @@
 - **Validation + AppError** — система валидации и типизированных ошибок
 - **Single Choice Widget** — квиз-компонент
 
-[Pull Request](https://github.com/Artem-WebDeveloper/tandem/pull/idNumber)
+[Pull Request](https://github.com/Artem-WebDeveloper/tandem/pull/94)

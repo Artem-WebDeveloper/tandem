@@ -136,7 +136,7 @@ export default function Login() {
     },
   };
 
-  const loginInputSx = {
+  const inputSx = {
     '& .MuiInputBase-input:-webkit-autofill, & .MuiInputBase-input:-webkit-autofill:hover, & .MuiInputBase-input:-webkit-autofill:focus, & .MuiInputBase-input:-webkit-autofill:active':
       {
         WebkitTextFillColor: `${theme.palette.text.primary} !important`,
@@ -215,7 +215,7 @@ export default function Login() {
             type="text"
             variant="outlined"
             fullWidth
-            sx={loginInputSx}
+            sx={inputSx}
             required
             value={username}
             onChange={handleUsernameChange}
@@ -228,6 +228,7 @@ export default function Login() {
             variant="outlined"
             fullWidth
             required
+            sx={inputSx}
             value={password}
             onChange={handlePasswordChange}
             disabled={isLoading}

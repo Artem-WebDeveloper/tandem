@@ -79,4 +79,4 @@
 - Сложный бэкенд-сервис: Пользователи и их регистрация и авторизация
 - Сложный бэкенд-сервис: Модели квизов и их представления
 
-[Pull Request](https://github.com/Artem-WebDeveloper/tandem/pull/)
+[Pull Request](https://github.com/Artem-WebDeveloper/tandem/pull/98)

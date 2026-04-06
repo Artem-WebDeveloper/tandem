@@ -30,6 +30,7 @@
   },
   "validation": {
     "username": {
+      "required": "Username cannot be blank",
       "tooShort": "Name: Minimum 3 characters",
       "tooLong": "Name: Maximum 15 characters",
       "invalidChars": "Name: Only letters, numbers and _ allowed",

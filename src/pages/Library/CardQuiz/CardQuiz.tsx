@@ -1,25 +1,21 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useTheme, Typography, Button, Chip, IconButton } from '@mui/material';
+import { useTheme, Typography, Button, Chip, IconButton, Tooltip } from '@mui/material';
 
-import PanoramaFishEyeIcon from '@mui/icons-material/PanoramaFishEye';
-import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
-import AdjustRoundedIcon from '@mui/icons-material/AdjustRounded';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded';
 
 import styles from './CardQuiz.module.scss';
-import type { LibraryQuiz } from '../types';
+import { tooltipProps, type LibraryQuiz } from '../types';
 import { difficultyLabels, getQuizTypeConfig, sectionConfig } from '@/core/configs/library.config';
 import DifficultyChip from '@/core/components/DifficultyChip/DifficultyChip';
+import HeaderIconStatus from './HeaderIconStatus/HeaderIconStatus';
 
 import { useTranslation } from 'react-i18next';
 import { useLocale } from '@/core/i18n/useLocal';
 import { updateQuizFavoriteStatus } from '@/core/api/libraryApi/updateQuizFavoriteStatus';
-
-const PASSING_PERCENTAGE = 100;
 
 export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
   const theme = useTheme();
@@ -42,8 +38,7 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
     user_progress: userProgress,
   } = quizData;
 
-  let { best_result: bestResult } = userProgress;
-  bestResult = bestResult !== null ? Math.floor(bestResult) : bestResult;
+  const { best_result: bestResult, is_perfect: isPerfect } = userProgress;
 
   const themeQuiz = sectionConfig[section];
   const accentColorThemeLabel = themeQuiz?.color ?? theme.palette.text.primary;
@@ -59,16 +54,6 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
     }
   };
 
-  const displayHeaderIcon = () => {
-    return bestResult === PASSING_PERCENTAGE ? (
-      <CheckCircleOutlineRoundedIcon sx={{ color: theme.palette.success.main }} />
-    ) : bestResult !== null ? (
-      <AdjustRoundedIcon sx={{ color: theme.palette.textLight }} />
-    ) : (
-      <PanoramaFishEyeIcon sx={{ color: theme.palette.textUltralight }} />
-    );
-  };
-
   return (
     <li
       style={{
@@ -78,7 +63,7 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
       className={styles.card}
     >
       <header className={styles.cardHeading}>
-        {displayHeaderIcon()}
+        <HeaderIconStatus isPerfect={isPerfect} bestResult={bestResult} />
         <h3 className={styles.cardTitle}>{title[locale]}</h3>
 
         <Chip
@@ -103,7 +88,7 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
       </header>
       <main className={styles.cardBody}>
         <section className={styles.cardDescription}>
-          <Typography variant="body2" sx={{ minHeight: '20px', color: theme.palette.textLight }}>
+          <Typography variant="body2" sx={{ minHeight: '42px', color: theme.palette.textLight }}>
             {description?.[locale] || ''}
           </Typography>
         </section>
@@ -177,20 +162,24 @@ export default function CardQuiz({ quizData }: { quizData: LibraryQuiz }) {
         </section>
       </main>
       <footer className={styles.cardFooter}>
-        <Typography
-          variant="body2"
-          sx={{
-            color: theme.palette.textLight,
-            width: '30%',
-            fontSize: '12px',
-            textAlign: 'center',
-            lineHeight: '1.4',
-          }}
-        >
-          {bestResult !== null
-            ? `${t('cards.quizState.completed')} ${bestResult}%`
-            : `${t('cards.quizState.noResults')}`}
-        </Typography>
+        <Tooltip title={t('tooltips.condition')} {...tooltipProps}>
+          <Typography
+            variant="body2"
+            sx={{
+              color: theme.palette.textLight,
+              width: '30%',
+              fontSize: '12px',
+              textAlign: 'center',
+              lineHeight: '1.4',
+              userSelect: 'none',
+              cursor: 'help',
+            }}
+          >
+            {bestResult !== null
+              ? `${t('cards.quizState.completed')} ${Math.floor(bestResult)}%`
+              : `${t('cards.quizState.noResults')}`}
+          </Typography>
+        </Tooltip>
         <Button
           component={Link}
           to={`/practice/${id}`}

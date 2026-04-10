@@ -14,7 +14,7 @@ import QuizSkeleton from './QuizSkeleton/QuizSkeleton';
 import PracticeHeader from './PracticeHeader/PracticeHeader';
 import LinkButton from '../../core/components/LinkButton.tsx/LinkButton';
 import { AppError, AppErrorCode } from '@/core/errors/errors';
-import type { QuizResults, UserAnswerPayload } from '@/core/api/submitQuizAnswers';
+import { useQuizResultsStore } from '@/core/store/quizResults.store';
 
 const AsyncSorterWidget = lazy(() => import('@/core/feature/AsyncSorterWidget/AsyncSorterWidget'));
 const CodeCompletionWidget = lazy(
@@ -40,7 +40,9 @@ export default function Practice() {
   const [quizData, setQuizData] = useState<QuizTask | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<AppError | null>(null);
-  const [quizResults, setQuizResults] = useState<QuizResults<UserAnswerPayload> | null>(null);
+
+  const quizResults = useQuizResultsStore((state) => state.quizResults);
+  const resetQuizResults = useQuizResultsStore((state) => state.resetQuizResults);
 
   useEffect(() => {
     const fetchPracticeData = async () => {
@@ -66,28 +68,28 @@ export default function Practice() {
       }
     };
 
-    setQuizResults(null);
+    resetQuizResults();
     fetchPracticeData();
-  }, [id]);
+  }, [id, resetQuizResults]);
 
   const renderQuiz = () => {
     if (!quizData) return null;
 
     switch (quizData.type) {
       case TaskType.CodeCompletion:
-        return <CodeCompletionWidget data={quizData} onSubmit={setQuizResults} />;
+        return <CodeCompletionWidget data={quizData} />;
 
       case TaskType.SingleChoice:
-        return <SingleChoiceQuiz data={quizData} onSubmit={setQuizResults} />;
+        return <SingleChoiceQuiz data={quizData} />;
 
       case TaskType.AsyncSorter:
-        return <AsyncSorterWidget data={quizData} onSubmit={setQuizResults} />;
+        return <AsyncSorterWidget data={quizData} />;
 
       case TaskType.CodeOrdering:
-        return <CodeOrderingWidget data={quizData} onSubmit={setQuizResults} />;
+        return <CodeOrderingWidget data={quizData} />;
 
       case TaskType.TrueFalse:
-        return <TrueFalseWidget data={quizData} onSubmit={setQuizResults} />;
+        return <TrueFalseWidget data={quizData} />;
 
       default:
         return <p>{t('errors.unknownQuizType')}</p>;
@@ -114,8 +116,8 @@ export default function Practice() {
     );
   }
 
-  if (quizResults) {
-    return <Results quizResults={quizResults} onRetry={() => setQuizResults(null)} />;
+  if (quizData && quizResults) {
+    return <Results quizResults={quizResults} quizTask={quizData} />;
   }
 
   return (

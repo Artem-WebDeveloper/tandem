@@ -1,5 +1,11 @@
-.navigation {
+.container {
   margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.navigation {
   display: flex;
   gap: 16px;
 

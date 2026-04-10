@@ -10,8 +10,6 @@ import ResultsNavigation from './ResultsNavigation/ResultsNavigation';
 import Layout from '../../core/components/Layout/Layout';
 import type { QuizResult, QuizResults, UserAnswerPayload } from '@/core/api/submitQuizAnswers';
 import type { QuizTask } from '@/core/types/quiz';
-import { fetchQuizById } from '@/core/api/fetchQuizById';
-import { useEffect, useState } from 'react';
 import type {
   CodeCompletionQuestion,
   CodeCompletionAnswerPayload,
@@ -35,24 +33,17 @@ import type {
 
 export default function Results<T extends UserAnswerPayload>({
   quizResults,
-  onRetry,
+  quizTask,
 }: {
   quizResults: QuizResults<T>;
-  onRetry: () => void;
+  quizTask: QuizTask;
 }) {
   const theme = useTheme();
   const { t } = useTranslation(['results', 'practice']);
   const locale = useLocale();
 
-  const [quizTask, setQuizTask] = useState<QuizTask | undefined>(undefined);
-  useEffect(() => {
-    fetchQuizById(quizResults.quiz_id).then((quizTask) => {
-      setQuizTask(quizTask);
-    });
-  }, [quizResults.quiz_id]);
-
   const correctAnswersPercentage = Math.round(
-    quizResults.total_questions
+    quizResults?.total_questions
       ? (quizResults.correct_count * 100) / quizResults.total_questions
       : 0,
   );
@@ -77,14 +68,17 @@ export default function Results<T extends UserAnswerPayload>({
             variant="h6"
             className={styles.resultStats}
             style={{
-              // Текст окрашивается в зеленый, если верных ответов больше 80%,
-              // то есть тест считается пройденым. Да это выглядит как магическое число.
-              // Оно, по хорошему должно браться из единой переменной с бэка. Но пока так
-              color: quizResults.correct_count
-                ? quizResults.total_questions / quizResults.correct_count >= 0.8
+              // Текст окрашивается
+              // от 0 до 29% - красный
+              // от 30 - 69% - желтый
+              // от 70% зеленый
+
+              color:
+                correctAnswersPercentage >= 70
                   ? theme.palette.success.main
-                  : undefined
-                : theme.palette.error.main,
+                  : correctAnswersPercentage >= 30
+                    ? theme.palette.secondary.dark
+                    : theme.palette.error.main,
             }}
           >
             {quizResults.correct_count} {t('outOf')} {quizResults.total_questions}
@@ -139,7 +133,6 @@ export default function Results<T extends UserAnswerPayload>({
                 });
               } else if (quizTask.type === 'code_ordering') {
                 questionText = (question as CodeOrderingQuestion).text[locale] ?? '';
-                // ((question as CodeOrderingQuestion).lines).map((line) => line.code);
                 answerLinesArray = (quizResult as QuizResult<CodeOrderingAnswerPayload>)
                   .user_answer;
               }
@@ -392,7 +385,7 @@ export default function Results<T extends UserAnswerPayload>({
               }
             })}
           </Box>
-          <ResultsNavigation onRetry={onRetry} />
+          <ResultsNavigation />
         </div>
       </Container>
     </Layout>

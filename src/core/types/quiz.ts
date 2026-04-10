@@ -44,7 +44,7 @@ export type TaskType = (typeof TaskType)[keyof typeof TaskType];
 export interface BaseTask {
   id: number;
   type: TaskType;
-  section: string;
+  section: TaskTheme;
   difficulty: Difficulty;
   time_limit: number;
   title: {

@@ -1,20 +1,13 @@
 import { useEffect } from 'react';
 
 import { useCodeCompletionStore } from '@/core/store/codeCompletion.store';
-import type { CodeCompletionTask, CodeCompletionAnswerPayload } from './types';
+import type { CodeCompletionTask } from './types';
 import CodeCompletionQuizBody from './CodeCompletionQuizBody/CodeCompletionQuizBody';
 import CodeCompletionNavigation from './CodeCompletionNavigation/CodeCompletionNavigation';
 import CodeCompletionProgress from './CodeCompletionProgress/CodeCompletionProgress';
-import type { QuizResults } from '@/core/api/submitQuizAnswers';
 
-function CodeCompletionWidget({
-  data,
-  onSubmit,
-}: {
-  data: CodeCompletionTask;
-  onSubmit?: (quizResults: QuizResults<CodeCompletionAnswerPayload>) => void;
-}) {
-  const { questions, id } = data;
+function CodeCompletionWidget({ data }: { data: CodeCompletionTask }) {
+  const { section, questions, id } = data;
   const questionsCount = questions.length;
 
   const resetQuizState = useCodeCompletionStore((state) => state.reset);
@@ -27,9 +20,9 @@ function CodeCompletionWidget({
     <div>
       <CodeCompletionProgress questionsCount={questionsCount} />
 
-      <CodeCompletionQuizBody questions={questions} />
+      <CodeCompletionQuizBody section={section} questions={questions} />
 
-      <CodeCompletionNavigation questions={questions} quizId={id} onSubmit={onSubmit} />
+      <CodeCompletionNavigation questions={questions} quizId={id} />
     </div>
   );
 }

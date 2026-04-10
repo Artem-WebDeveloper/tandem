@@ -5,7 +5,7 @@ export const MOCK_TRUE_FALSE_DATA: TrueFalseTask[] = [
     id: 401,
     type: 'true_false',
     difficulty: 2,
-    section: 'Core-js',
+    section: 'Core JS',
     tags: ['promises', 'async', 'functions'],
     time_limit: 8,
     title: {

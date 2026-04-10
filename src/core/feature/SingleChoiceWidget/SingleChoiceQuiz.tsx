@@ -11,7 +11,7 @@ import {
 
 import type { SingleChoiceTaskResponse, SingleChoiceAnswerPayload } from './types';
 import type { UserAnswer } from '@/core/types/quiz';
-import type { QuizAnswer, QuizResults } from '@/core/api/submitQuizAnswers';
+import type { QuizAnswer } from '@/core/api/submitQuizAnswers';
 
 import QuizProgressBar from '@/core/components/QuizProgressBar/QuizProgressBar';
 import QuizNavigation from '@/core/components/QuizNavigation/QuizNavigation';
@@ -20,17 +20,19 @@ import styles from './singleChoiceQuiz.module.scss';
 import { useTranslation } from 'react-i18next';
 import { useLocale } from '@/core/i18n/useLocal';
 import { submitQuizAnswers } from '@/core/api/submitQuizAnswers';
+import { useQuizResultsStore } from '@/core/store/quizResults.store';
 
 interface SingleChoiceQuizProps {
   data: SingleChoiceTaskResponse;
-  onSubmit?: (quizResults: QuizResults<SingleChoiceAnswerPayload>) => void;
 }
 
-export default function SingleChoiceQuiz({ data, onSubmit }: SingleChoiceQuizProps) {
+export default function SingleChoiceQuiz({ data }: SingleChoiceQuizProps) {
   const theme = useTheme();
 
   const { t } = useTranslation('practice');
   const locale = useLocale();
+
+  const setQuizResults = useQuizResultsStore((state) => state.setQuizResults);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState<UserAnswer[]>([]);
@@ -70,7 +72,7 @@ export default function SingleChoiceQuiz({ data, onSubmit }: SingleChoiceQuizPro
     }));
 
     const quizResults = await submitQuizAnswers(data.id, answersForApi);
-    if (onSubmit) onSubmit(quizResults);
+    setQuizResults(quizResults);
   };
 
   return (

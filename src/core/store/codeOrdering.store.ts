@@ -11,39 +11,43 @@ type CodeOrderingState = {
 };
 
 export const useCodeOrderingStore = create<CodeOrderingState>()((set, get) => ({
+  // номер текущего открытого вопроса
   currentQuestionNumber: 0,
+  increaseQuestionNumber: () =>
+    set({
+      currentQuestionNumber: get().currentQuestionNumber + 1,
+    }),
+  decreaseQuestionNumber: () =>
+    set({
+      currentQuestionNumber: get().currentQuestionNumber - 1,
+    }),
+
+  // массив всех ответов пользователя на все вопросы
   answers: [],
-  reset: () => {
-    set({ currentQuestionNumber: 0, answers: [] });
-  },
-  increaseQuestionNumber: () => set({ currentQuestionNumber: get().currentQuestionNumber + 1 }),
-  decreaseQuestionNumber: () => set({ currentQuestionNumber: get().currentQuestionNumber - 1 }),
-  setAnswer: (questionId, answer) => {
+  setAnswer: (questionId, payload) =>
     set((state) => {
-      const index = state.answers.findIndex((a) => a.questionId === questionId);
+      const index = state.answers.findIndex((answer) => answer.questionId === questionId);
+      const newAnswers = [...state.answers];
+      const newAnswer = {
+        questionId: questionId,
+        payload: payload,
+      };
 
       if (index === -1) {
-        return {
-          answers: [
-            ...state.answers,
-            {
-              questionId,
-              payload: [...answer],
-            },
-          ],
-        };
+        newAnswers.push(newAnswer);
+      } else {
+        newAnswers[index] = newAnswer;
       }
 
       return {
-        answers: state.answers.map((_answer, _index) =>
-          _index === index
-            ? {
-                ..._answer,
-                payload: [...answer],
-              }
-            : _answer,
-        ),
+        answers: newAnswers,
       };
-    });
-  },
+    }),
+
+  // общий сброс номератекущего вопроса и всех ответов пользователя
+  reset: () =>
+    set({
+      currentQuestionNumber: 0,
+      answers: [],
+    }),
 }));

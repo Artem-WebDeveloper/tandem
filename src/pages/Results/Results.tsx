@@ -361,9 +361,10 @@ export default function Results<T extends UserAnswerPayload>({
 
                             return (
                               <Box
-                                sx={{ mb: 0.5, p: '4px 12px', wordBreak: 'break-word' }}
                                 className={`${styles.resultElement} ${styles.indentCode}`}
+                                sx={{ mb: 0.5, wordBreak: 'break-word' }}
                                 style={{
+                                  padding: '4px 12px',
                                   backgroundColor: `${isCorrectLinePosition ? theme.palette.success.light : theme.palette.error.light}50`,
                                   borderColor: `${isCorrectLinePosition ? theme.palette.success.main : theme.palette.error.main}50`,
                                 }}

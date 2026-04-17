@@ -361,6 +361,7 @@ export default function Results<T extends UserAnswerPayload>({
 
                             return (
                               <Box
+                                key={lineCodeData?.id}
                                 className={`${styles.resultElement} ${styles.indentCode}`}
                                 sx={{ mb: 0.5, wordBreak: 'break-word' }}
                                 style={{
